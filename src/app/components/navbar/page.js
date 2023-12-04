@@ -1,7 +1,7 @@
 'use client'
 
 import { FaUserCircle } from 'react-icons/fa'
-import { BiCart, BiHome, BiShoppingBag, BiStore } from 'react-icons/bi'
+import { BiCart, BiHome, BiShoppingBag, BiStore, BiUserCircle } from 'react-icons/bi'
 import { usePathname } from "next/navigation"
 
 export default function Navbar() {
@@ -17,6 +17,7 @@ export default function Navbar() {
                 <a href="/" className={`flex sm:flex-row flex-col items-center gap-2 p-[12px] px-6 hover:bg-[#F4F3FA] hover:text-[#5938DD] text-[20px] rounded-full ${pathname === "/" ? activeClass : ""}`}><BiHome/> <span className="sm:text-[14px] text-[9px]">Home</span></a>
                 <a href="/stores" className={`flex sm:flex-row flex-col items-center gap-2 p-[12px] px-6 hover:bg-[#F4F3FA] hover:text-[#5938DD] text-[20px] rounded-full ${pathname === "/stores" ? activeClass : ""}`}><BiStore /> <span className="sm:text-[14px] text-[9px]">Stores</span></a>
                 <a href="/wishlist" className={`flex sm:flex-row flex-col items-center gap-2 p-[12px] px-6 hover:bg-[#F4F3FA] hover:text-[#5938DD] text-[20px] rounded-full ${pathname === "/wishlist" ? activeClass : ""}`}><BiCart /> <span className="sm:text-[14px] text-[9px]">Wishlist</span></a>
+                <a href="/dashboard" className={`sm:hidden flex sm:flex-row flex-col items-center gap-2 p-[12px] px-6 hover:bg-[#F4F3FA] hover:text-[#5938DD] text-[20px] rounded-full ${pathname === "/dashboard" ? activeClass : ""}`}><BiUserCircle /> <span className="sm:text-[14px] text-[9px]">Dashboard</span></a>
             </nav>
 
             <div className="flex justify-end gap-6 sm:w-[20%]">
