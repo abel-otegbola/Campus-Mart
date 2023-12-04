@@ -1,17 +1,21 @@
+import Navbar from './components/navbar/page'
 import './globals.css'
-import { Public_Sans } from 'next/font/google'
+import { Nunito_Sans } from 'next/font/google'
 
-const public_sans = Public_Sans({ subsets: ['latin'] })
+const nunito = Nunito_Sans({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'OAU Marketplace',
-  description: 'Ecommerce marketplace for oau students to connect buyers and sellers.',
+  title: 'Campus Mart',
+  description: 'Ecommerce marketplace for students.',
 }
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={public_sans.className}>{children}</body>
+      <body className={nunito.className + " text-[14px]"}>
+        <Navbar />
+        {children}
+      </body>
     </html>
   )
 }
