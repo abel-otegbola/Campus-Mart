@@ -17,8 +17,8 @@ export default function Signup() {
         <p className="py-4">Create account now</p>
 
         <div className="flex items-center justify-between bg-gray-100 p-2 my-6 rounded text-[12px] w-full">
-          <button className={`flex items-center gap-2 border border-gray-200 p-2 px-4 rounded w-[49%] ${account === "Buyer's account" ? "bg-[#5938DD] text-white" : "bg-white"}`} onClick={() => setAccount("Buyer's account")}><PiUserCircleLight className="text-[18px]"/> Buyer's account</button>
-          <button className={`flex items-center gap-2 border border-gray-200 p-2 px-4 rounded w-[49%] ${account === "Seller's account" ? "bg-[#5938DD] text-white" : "bg-white"}`} onClick={() => setAccount("Seller's account")}><PiStorefrontLight className="text-[18px]" /> Seller's account</button>
+          <button className={`flex items-center gap-2 border border-gray-200 p-2 px-4 rounded w-[49%] ${account === "Buyer's account" ? "bg-[#5938DD] text-white" : "bg-white"}`} onClick={() => setAccount("Buyer's account")}><PiUserCircleLight className="text-[18px]"/> Buyer&apos;s account</button>
+          <button className={`flex items-center gap-2 border border-gray-200 p-2 px-4 rounded w-[49%] ${account === "Seller's account" ? "bg-[#5938DD] text-white" : "bg-white"}`} onClick={() => setAccount("Seller's account")}><PiStorefrontLight className="text-[18px]" /> Seller&apos;s account</button>
         </div>
 
         <InputField label={account === "Buyer's account" ? "Full name" : "Business name"} action={setFullname} type={"text"} />

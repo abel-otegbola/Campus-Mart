@@ -23,7 +23,7 @@ export default function Login() {
 
         <Button text={"Log in"} to={"#"} type={"long"} />
 
-        <p>Don't have an account? <a href="/signup" className="py-2 text-[#5938DD]">Signup</a></p>
+        <p>Don&apos;t have an account? <a href="/signup" className="py-2 text-[#5938DD]">Signup</a></p>
 
       </header>
     </main>
