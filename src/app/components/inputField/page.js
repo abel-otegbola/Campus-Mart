@@ -10,9 +10,9 @@ export default function InputField({ type, label, action,  }) {
 
     return (
         <div className="relative py-4 w-full">
-            <label className={`absolute bg-white p-[2px] px-2 text-[10px] transition-all ${focused ? "text-[#5938DD] -top-2 left-0" : 'left-2 top-[5px]'}`} htmlFor={label}>{label}</label>
+            <label className={`absolute dark:bg-black bg-white p-[2px] px-2 transition-all ${focused ? "text-blue -top-2 left-0 text-[11px]" : 'left-2 top-[5px] text-[10px]'}`} htmlFor={label}>{label}</label>
             <input 
-                className="w-full border border-gray-400 rounded p-[10px] bg-white focus:outline outline-[#5938DD]/[0.3] hover:border-[#5938DD] outline-offset-2" 
+                className="w-full bg-white dark:bg-black border border-gray-400 dark:border-gray-800 rounded p-[10px] bg-white focus:outline outline-blue/[0.3] hover:border-blue outline-offset-1" 
                 id={label} 
                 type={type} 
                 name={label} 

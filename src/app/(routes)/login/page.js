@@ -13,17 +13,17 @@ export default function Login() {
   return (
     <main className="">
       <header className="flex flex-col p-[5%] min-h-[80vh] mx-auto sm:w-[470px] w-full items-center justify-center">
-        <h1 className="md:text-[38px] text-[30px] font-[700] text-[#5938DD]">Welcome</h1>
+        <h1 className="md:text-[38px] text-[30px] font-[700] text-blue">Welcome</h1>
         <p className="py-4">Login to continue</p>
 
         <InputField label={"Email Address"} action={setEmail} type={"email"} />
         <InputField label={"Password"} action={setPassword} type={"password"} />
 
-        <a href="/forgot-password" className="py-2 text-[#5938DD]">Forgot password?</a>
+        <a href="/forgot-password" className="py-2 text-blue">Forgot password?</a>
 
         <Button text={"Log in"} to={"#"} type={"long"} />
 
-        <p>Don&apos;t have an account? <a href="/signup" className="py-2 text-[#5938DD]">Signup</a></p>
+        <p>Don&apos;t have an account? <a href="/signup" className="py-2 text-blue">Signup</a></p>
 
       </header>
     </main>
