@@ -15,7 +15,6 @@ export default function ProductCard({ product }) {
                 {
                     product?.id%2 === 0 ? <PiHeartBold  className="text-[20px] text-red-500" /> : <PiHeart className="text-[20px]" />
                 }
-                
             </div>
 
             <div className="flex items-center gap-2">
@@ -23,7 +22,7 @@ export default function ProductCard({ product }) {
                 {product?.rating}/5 <span className="opacity-[0.6]">(20)</span>
             </div>
             
-            <div className="flex justify-between items-center gap-4 mt-4">
+            <div className="flex justify-between items-center gap-4 mt-4 -ml-1">
                 <h1 className="flex items-center text-[20px] font-bold"><TbCurrencyNaira />{product?.price}</h1>
                 <PiShoppingCartLight className="text-[20px]" />
             </div>

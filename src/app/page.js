@@ -12,7 +12,7 @@ export default function Home() {
 
       </header>
 
-      <section className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 md:px-[8%] p-[3%]">
+      <section className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 sm:gap-4 gap-2 md:px-[8%] sm:p-[3%] p-1">
         {
           data.products.map(product => (
             <ProductCard key={product.id} product={product} />
