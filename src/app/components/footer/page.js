@@ -1,4 +1,3 @@
-import { PiFacebookLogoLight } from "react-icons/pi";
 import Search from "../search/page";
 
 export function Footer() {
