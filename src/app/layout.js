@@ -1,4 +1,4 @@
-import { Footer } from './components/footer/page'
+import Footer from './components/footer/page'
 import Navbar from './components/navbar/page'
 import './globals.css'
 import { Nunito_Sans } from 'next/font/google'

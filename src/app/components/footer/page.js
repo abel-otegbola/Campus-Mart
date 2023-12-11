@@ -1,7 +1,6 @@
-'use client'
 import Search from "../search/page";
 
-export function Footer() {
+export default function Footer() {
     return (
         <footer className="flex flex-wrap justify-between md:p-[8%] p-[3%] py-[100px]">
             <ul className="lg:w-[25%] sm:w-[50%] w-full">
