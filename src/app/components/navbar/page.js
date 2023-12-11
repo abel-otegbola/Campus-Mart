@@ -21,7 +21,10 @@ export default function Navbar() {
 
             <div className="flex justify-end md:w-[20%]">
                 <Search />
-                <a href="/cart" className="hover:bg-blue/[0.07] hover:text-blue text-[20px] rounded-full p-2 text-gray-700 dark:text-gray-200 md:mr-5 ml-2"><PiShoppingCartLight/></a>
+                <a href="/cart" className="relative hover:bg-blue/[0.07] hover:text-blue text-[20px] rounded-full p-2 text-gray-700 dark:text-gray-200 md:mr-5 ml-2">
+                    <PiShoppingCartLight/> 
+                    <span className='flex items-center justify-center absolute top-0 right-0 rounded-full p-1 py-[0px] text-[10px] border-2 border-white dark:border-black bg-blue text-white'>0</span>
+                </a>
                 <p href="/dashboard" className="md:block hidden bg-blue/[0.07] hover:text-blue text-[20px] rounded-full p-2 text-gray-700 dark:text-gray-200 cursor-pointer"><PiUserCircleLight/></p>
             </div>
         </div>
