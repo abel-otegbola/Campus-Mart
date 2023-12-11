@@ -1,4 +1,6 @@
 import Button from "./components/button/page"
+import { data } from "./data/projects"
+import ProductCard from "./components/productCard/page"
 
 export default function Home() {
   return (
@@ -9,6 +11,14 @@ export default function Home() {
         <Button text={"Join the waitlist"} to={"/login"} />
 
       </header>
+
+      <section className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 md:px-[8%] p-[3%]">
+        {
+          data.products.map(product => (
+            <ProductCard key={product.id} product={product} />
+          ))
+        }
+      </section>
     </main>
   )
 }
