@@ -23,7 +23,7 @@ export default function Navbar() {
                 <a href="/wishlist" className={`flex md:flex-row flex-col items-center gap-2 p-[12px] px-6 md:hover:bg-blue/[0.07] hover:text-blue text-[20px] rounded-full ${pathname === "/wishlist" ? activeClass : ""}`}><PiShoppingBagLight /> <span className="sm:text-[14px] text-[9px]">Wishlist</span></a>
                 <p onClick={() => setOpen(!open)} className={`md:hidden flex md:flex-row flex-col items-center gap-2 p-[12px] px-6 md:hover:bg-blue/[0.07] hover:text-blue text-[20px] rounded-full ${pathname === "/dashboard" ? activeClass : ""}`}><PiUserCircleLight /> <span className="sm:text-[14px] text-[9px]">Dashboard</span></p>
 
-                <div className={`sm:absolute fixed text-[12px] sm:w-[250px] w-[75%] sm:top-[120%] sm:right-[8%] top-0 right-0 sm:h-auto h-[88vh] rounded shadow-sm border border-gray-100 dark:border-gray-800 bg-white dark:bg-black transition-all z-2 ${active}`}>
+                <div className={`absolute text-[12px] w-[250px] sm:top-[120%] sm:right-[8%] right-[3%] sm:bottom-auto bottom-[70px] rounded shadow border border-gray-100 dark:border-gray-800 bg-white dark:bg-black transition-all z-20 ${active}`}>
                     <a href="/dashboard" className='flex p-3 px-4 justify-between items-center'>
                         <div className="flex gap-2 items-center">
                             <TbUserCircle className="text-blue text-[20px]" />
