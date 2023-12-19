@@ -2,7 +2,7 @@ import Search from "../search/page";
 
 export default function Footer() {
     return (
-        <footer className="flex flex-wrap justify-between md:p-[8%] p-[3%] py-[100px]">
+        <footer className="flex flex-wrap justify-between border border-transparent border-t-gray-100 dark:border-t-gray-900  md:p-[8%] p-[3%] py-[100px]">
             <ul className="lg:w-[25%] sm:w-[50%] w-full">
                 <h2>Campus mart</h2>
                 <p className="py-4">Discover, Trade, Thrive: Your Campus, Your Marketplace!</p>
