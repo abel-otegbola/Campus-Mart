@@ -3,7 +3,7 @@ import { PiBuildingsLight, PiShoppingBagLight, PiShoppingCartLight, PiStorefront
 import { usePathname } from "next/navigation"
 import Search from '../search/page'
 import { TbChevronRight, TbLogout, TbSettingsCog, TbUserCircle } from 'react-icons/tb'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Navbar() {
     const [open, setOpen] = useState(false)
@@ -12,6 +12,14 @@ export default function Navbar() {
 
     const pathname = usePathname()
     const activeClass = "md:bg-blue/[0.07] text-blue"
+
+    useEffect(() => {
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+        } else {
+        document.documentElement.classList.remove('dark')
+        }
+    }, [])
 
     return (
         <div className="flex sticky top-0 left-0 bg-white dark:bg-black justify-between items-center p-2 md:px-[8%] px-[3%] border border-transparent border-y-gray-100 dark:border-y-gray-900 z-[1]">
