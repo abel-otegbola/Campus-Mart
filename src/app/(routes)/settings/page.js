@@ -29,16 +29,20 @@ export default function Settings() {
             // Whenever the user explicitly chooses to respect the OS preference
             localStorage.removeItem('theme')
             setTheme("system")
+            document.documentElement.classList.remove('dark')
         }
         else {
             localStorage.theme = mode
             setTheme(mode)
+            if(mode === "dark") {
+                docuemnt.documentElement.classList.add("dark")
+            }
         }
     }
 
     useEffect(() => {
         setTheme(!localStorage.theme || localStorage.theme === null ? "system" : localStorage.theme)
-    }, [])
+    }, [theme])
 
     return (
         <div>
