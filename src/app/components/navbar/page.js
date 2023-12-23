@@ -30,16 +30,13 @@ export default function Navbar() {
                 <a href="/" className={`flex md:flex-row flex-col items-center gap-2 p-[12px] px-6 md:hover:bg-blue/[0.07] hover:text-blue text-[20px] rounded-full ${pathname === "/" ? activeClass : ""}`}><PiBuildingsLight/> <span className="sm:text-[14px] text-[9px]">Home</span></a>
                 <a href="/stores" className={`flex md:flex-row flex-col items-center gap-2 p-[12px] px-6 md:hover:bg-blue/[0.07] hover:text-blue text-[20px] rounded-full ${pathname === "/stores" ? activeClass : ""}`}><PiStorefrontLight /> <span className="sm:text-[14px] text-[9px]">Stores</span></a>
                 <a href="/wishlist" className={`flex md:flex-row flex-col items-center gap-2 p-[12px] px-6 md:hover:bg-blue/[0.07] hover:text-blue text-[20px] rounded-full ${pathname === "/wishlist" ? activeClass : ""}`}><PiShoppingBagLight /> <span className="sm:text-[14px] text-[9px]">Wishlist</span></a>
-                <p onClick={() => setOpen(!open)} className={`md:hidden flex md:flex-row flex-col items-center gap-2 p-[12px] px-6 md:hover:bg-blue/[0.07] hover:text-blue text-[20px] rounded-full ${pathname === "/dashboard" ? activeClass : ""}`}><PiUserCircleLight /> <span className="sm:text-[14px] text-[9px]">Dashboard</span></p>
+                <a href="/cart" className={`flex md:flex-row flex-col items-center gap-2 p-[12px] px-6 md:hover:bg-blue/[0.07] hover:text-blue text-[20px] rounded-full ${pathname === "/cart" ? activeClass : ""}`}><PiShoppingCartLight /> <span className="sm:text-[14px] text-[9px]">Cart</span></a>
 
-                <div className={`absolute text-[12px] w-[250px] sm:top-[120%] sm:right-[8%] right-[3%] sm:bottom-auto bottom-[70px] rounded shadow border border-gray-100 dark:border-gray-800 bg-white dark:bg-black transition-all z-20 ${active}`}>
+                <div className={`fixed text-[12px] w-[250px] top-[70px] md:right-[8%] right-[3%] rounded shadow border border-gray-100 dark:border-gray-800 bg-white dark:bg-black transition-all z-20 ${active}`}>
                     <a href="/dashboard" className='flex p-3 px-4 justify-between items-center'>
                         <div className="flex gap-2 items-center">
                             <TbUserCircle className="text-blue text-[20px]" />
-                            <div>
-                                <p className=''>Johnathan Fernando</p>
-                                <p className='text-[10px]'>JohnathanF@gmail.com</p>
-                            </div>
+                            <p className='hover:text-blue'>Dashboard</p>                            
                         </div>
                         <TbChevronRight />
                     </a>
@@ -62,11 +59,11 @@ export default function Navbar() {
 
             <div className="flex justify-end md:w-[20%]">
                 <Search />
-                <a href="/cart" className="relative hover:bg-blue/[0.07] hover:text-blue text-[20px] rounded-full p-2 text-gray-700 dark:text-gray-200 md:mr-5 ml-2">
+                <a href="/cart" className="relative hover:bg-blue/[0.07] hover:text-blue text-[20px] rounded-full p-2 text-gray-700 dark:text-gray-200 mr-3">
                     <PiShoppingCartLight/> 
                     <span className='flex items-center justify-center absolute top-0 right-0 rounded-full p-1 py-0 text-[8px] border-2 border-white dark:border-black bg-green text-white'>0</span>
                 </a>
-                <p onClick={() => setOpen(!open)} className="md:block hidden bg-blue/[0.07] hover:text-blue text-[20px] rounded-full p-2 text-gray-700 dark:text-gray-200 cursor-pointer"><PiUserCircleLight/></p>
+                <p onClick={() => setOpen(!open)} className="bg-blue/[0.07] hover:text-blue text-[20px] rounded-full p-2 text-gray-700 dark:text-gray-200 cursor-pointer"><PiUserCircleLight/></p>
             </div>
 
         </div>
