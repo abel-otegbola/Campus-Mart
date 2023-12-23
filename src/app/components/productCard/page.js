@@ -4,6 +4,26 @@ import { PiHeart, PiHeartBold, PiShoppingCartLight, PiStar } from "react-icons/p
 import { TbCurrencyNaira } from "react-icons/tb";
 
 export default function ProductCard({ product }) {
+    const addToCart = (id) => {
+        let store = { cart: [], wishlist: [] }
+
+        if(store.cart.indexOf(id) !== -1) {
+            store = { 
+                wishlist: store.wishlist, 
+                cart: store.cart.filter(item => item === id) 
+            }
+        }
+        else {
+            store = { 
+                wishlist: store.wishlist, 
+                cart: store.cart.map(item => ( item.indexOf(id) !== -1 ? id : item )) 
+            }
+        }
+        
+
+        console.log(store)
+    }
+
     return (
         <div className="p-2 border border-gray-200 dark:border-gray-900">
             <div className="relative sm:h-[250px] h-[200px]">

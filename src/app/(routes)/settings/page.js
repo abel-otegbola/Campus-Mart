@@ -18,10 +18,10 @@ export default function Settings() {
 
     const links = [
         { id: 0, title: "General", icon: <TbDashboard />, suffix: "" },
-        { id: 1, title: "Profile", icon: <TbUserCircle />, suffix: <span className="p-1 px-2 text-[10px] rounded-full bg-blue/[0.1]">1</span> },
-        { id: 2, title: "Password", icon: <TbLock />, suffix: <span className="p-1 px-2 text-[8px] rounded-full bg-purple-500/[0.1]">Change</span> },
-        { id: 3, title: "Notifications", icon: <TbBell />, suffix: <span className="p-1 px-2 text-[10px] rounded-full bg-red-500/[0.1]">10</span> },
-        { id: 4, title: "Store", icon: <PiStorefront />, suffix: <span className="p-1 px-2 text-[8px] rounded-full bg-green-500/[0.1]">NEW</span> },
+        { id: 1, title: "Profile", icon: <TbUserCircle />, suffix: <span className="p-1 px-2 text-[7px] hover:text-white rounded-full bg-blue/[0.3]">1</span> },
+        { id: 2, title: "Password", icon: <TbLock />, suffix: <span className="p-1 px-2 text-[7px] hover:text-white rounded-full bg-purple-500/[0.3]">Change</span> },
+        { id: 3, title: "Notifications", icon: <TbBell />, suffix: <span className="p-1 px-2 text-[7px] hover:text-white rounded-full bg-red-500/[0.3]">10</span> },
+        { id: 4, title: "Store", icon: <PiStorefront />, suffix: <span className="p-1 px-2 text-[7px] hover:text-white rounded-full bg-green-500/[0.3]">New</span> },
     ]
 
     const handleDarkmode = (mode) => {
@@ -29,24 +29,26 @@ export default function Settings() {
             // Whenever the user explicitly chooses to respect the OS preference
             localStorage.removeItem('theme')
             setTheme("system")
-            document.documentElement.classList.remove('dark')
         }
         else {
             localStorage.theme = mode
             setTheme(mode)
             if(mode === "dark") {
-                docuemnt.documentElement.classList.add("dark")
+                document.documentElement.classList.add("dark")
+            }
+            else {
+                document.documentElement.classList.remove('dark')
             }
         }
     }
 
     useEffect(() => {
         setTheme(!localStorage.theme || localStorage.theme === null ? "system" : localStorage.theme)
-    }, [theme])
+    }, [])
 
     return (
         <div>
-            <div className="sticky top-[53px] left-0 flex gap-2 items-center md:px-[8%] px-[3%] py-4 bg-white dark:bg-black border border-transparent border-y-gray-100 dark:border-y-gray-900 z-[4]">
+            <div className="sticky top-[53px] left-0 text-[12px] flex gap-2 items-center md:px-[8%] px-[3%] py-4 bg-white dark:bg-black border border-transparent border-y-gray-100 dark:border-y-gray-900 z-[4]">
                 <button className="md:hidden block border-none pr-4 mr-2" onClick={() => setOpen(!open)}>
                     {
                         open ? <FaTimes className="text-[16px]" /> :
@@ -60,7 +62,7 @@ export default function Settings() {
                 <a href={"#" + active} className="hover:text-blue">{active.toUpperCase()}</a>
             </div>
             <div className="relative flex md:px-[8%] py-[30px] items-stretch min-h-[100vh]">
-                <div className={`h-full rounded md:sticky md:top-[120px] absolute top-0 left-0 bg-white dark:bg-black md:border-none border border-transparent border-x-gray-100 dark:border-x-gray-900 overflow-hidden transition-all duration-700 z-[3]
+                <div className={`h-full rounded md:sticky md:top-[120px]  md:pr-6 text-[12px] absolute top-0 left-0 bg-white dark:bg-black md:border-none border border-transparent border-x-gray-100 dark:border-x-gray-900 overflow-hidden transition-all duration-700 z-[3]
                                 ${open ? "w-[250px] md:px-0 px-2" : "md:w-[250px] w-0"}`}>
 
                     {
@@ -82,7 +84,7 @@ export default function Settings() {
                     
                 </div>
 
-                <div className="flex-1 md:px-[5%] px-[3%]">
+                <div className="flex-1 md:px-[5%] px-[3%] md:border border-transparent border-l-gray-100 dark:border-l-gray-900">
                     {
                         active === "General" ?
                         <div>

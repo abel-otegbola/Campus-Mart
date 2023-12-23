@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation"
 import Search from '../search/page'
 import { TbChevronRight, TbLogout, TbSettingsCog, TbUserCircle } from 'react-icons/tb'
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 
 export default function Navbar() {
     const [open, setOpen] = useState(false)
@@ -23,7 +24,7 @@ export default function Navbar() {
 
     return (
         <div className="flex sticky top-0 left-0 bg-white dark:bg-black justify-between items-center p-2 md:px-[8%] px-[3%] border border-transparent border-y-gray-100 dark:border-y-gray-900 z-[1]">
-            <a href='/' className="md:w-[20%] text-blue font-bold text-[18px]">Campus Mart</a>
+            <a href='/' className="md:w-[20%] text-blue font-bold text-[18px]"><Image src="/logo.svg" alt="campus-mart logo" width={40} height={30} /></a>
 
             <nav className="flex md:static dark:bg-black bg-white fixed bottom-0 left-0 md:w-auto gap-2 w-full justify-between md:border-none border border-transparent border-y-gray-100 dark:border-y-gray-900 z-10">
                 <a href="/" className={`flex md:flex-row flex-col items-center gap-2 p-[12px] px-6 md:hover:bg-blue/[0.07] hover:text-blue text-[20px] rounded-full ${pathname === "/" ? activeClass : ""}`}><PiBuildingsLight/> <span className="sm:text-[14px] text-[9px]">Home</span></a>
@@ -63,7 +64,7 @@ export default function Navbar() {
                 <Search />
                 <a href="/cart" className="relative hover:bg-blue/[0.07] hover:text-blue text-[20px] rounded-full p-2 text-gray-700 dark:text-gray-200 md:mr-5 ml-2">
                     <PiShoppingCartLight/> 
-                    <span className='flex items-center justify-center absolute top-0 right-0 rounded-full p-1 py-[0px] text-[10px] border-2 border-white dark:border-black bg-blue text-white'>0</span>
+                    <span className='flex items-center justify-center absolute top-0 right-0 rounded-full p-1 py-0 text-[8px] border-2 border-white dark:border-black bg-green text-white'>0</span>
                 </a>
                 <p onClick={() => setOpen(!open)} className="md:block hidden bg-blue/[0.07] hover:text-blue text-[20px] rounded-full p-2 text-gray-700 dark:text-gray-200 cursor-pointer"><PiUserCircleLight/></p>
             </div>
