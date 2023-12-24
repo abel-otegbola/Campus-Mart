@@ -1,5 +1,6 @@
 import Footer from './components/footer/page'
 import Navbar from './components/navbar/page'
+import StoreContextProvider from './context/storeContext'
 import './globals.css'
 import { Nunito_Sans } from 'next/font/google'
 
@@ -14,9 +15,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={nunito.className + " dark:bg-black bg-white dark:text-white text-[14px]"}>
-        <Navbar />
-        {children}
-        <Footer />
+        <StoreContextProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </StoreContextProvider>
       </body>
     </html>
   )
