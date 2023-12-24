@@ -1,4 +1,5 @@
 'use client'
+import Button from "@/app/components/button/page"
 import { storeContext } from "@/app/context/storeContext"
 import { data } from "@/app/data/projects"
 import Image from "next/image"
@@ -15,12 +16,14 @@ export default function Cart() {
 
     return (
         <>
-        <div className="flex justify-center items-center h-[150px]">
-            <h1 className="font-bold text-[25px]">Cart</h1>
-        </div>
+        
         <div className="flex flex-wrap md:px-[8%] px-[3%] py-[30px] items-stretch min-h-[100vh]">
 
-            <div className="md:w-[65%] w-full">
+            <div className="md:w-[65%] w-full md:border border-transparent border-r-gray-200 dark:border-r-gray-900 md:pr-4">
+                <div className="flex justify-between items-center h-[80px] border border-transparent border-b-gray-200 dark:border-b-gray-900 ">
+                    <h1 className="font-bold text-[18px] px-2">Shopping Cart</h1>
+                    <p>{cart.length} Items</p>
+                </div>
                 {
                     data.products.filter(item => cart.indexOf(item.id) !== -1 ).map(product => (
                         <div key={product?.id} className="relative flex p-2 my-2 border border-gray-200 dark:border-gray-900 rounded">
@@ -45,6 +48,43 @@ export default function Cart() {
                         </div>
                     ))
                 }
+            </div>
+
+            <div className="md:w-[35%] rounded w-full md:px-4">
+                <div className="flex items-center h-[80px] border border-transparent border-b-gray-200 dark:border-b-gray-900 ">
+                    <h1 className="font-bold text-[18px] px-2">Order Summary</h1>
+                </div>
+
+                <div className="flex items-center justify-between py-6 px-2">
+                    <p>Items <span className="text-white px-1 py-[1px] rounded bg-green">{cart.length}</span></p>
+                    <p className="flex items-center text-[20px]"><TbCurrencyNaira /> {data.products.filter(item => cart.indexOf(item.id) !== -1 ).reduce((a,v) => a = a + v.price, 0)}</p>
+                </div>
+                
+                <div className="py-6 px-2">
+                    <p className="pb-4">Shipping</p>
+                    <select placeholder="Choose shipping method" className="w-full bg-white dark:bg-black p-3 rounded focus:outline outline-blue/[0.3] outline-offset-1 border border-gray-200 dark:border-gray-900">
+                        <option>Standard Delivery - #100</option>
+                        <option>PRO Delivery - #500</option>
+                    </select>
+                </div>
+
+                <div className="py-6 px-2">
+                    <p className="pb-4">Promo Code</p>
+                    <input placeholder="Enter your code" className="w-full bg-white dark:bg-black p-3 rounded focus:outline outline-blue/[0.3] outline-offset-1 border border-gray-200 dark:border-gray-900"/>
+                    <Button text={"Apply"} to={"#"} type={""} />
+                </div>
+
+                <div className="flex items-center justify-between py-6 px-2 border border-transparent border-t-gray-200 dark:border-t-gray-900 ">
+                    <p className="text-[20px]">Total</p>
+                    <p className="flex items-center text-[20px]">
+                        <TbCurrencyNaira /> 
+                        {
+                        data.products.filter(item => cart.indexOf(item.id) !== -1 ).reduce((a,v) => a = a + v.price, 0) + 100
+                        }
+                    </p>
+                </div>
+
+                <Button text={"Proceed to Checkout"} to={"/checkout"} type={"long"} />
             </div>
             
         </div>
