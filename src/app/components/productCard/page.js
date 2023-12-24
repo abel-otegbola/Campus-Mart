@@ -1,27 +1,27 @@
-
+'use client'
+import { storeContext } from "@/app/context/storeContext";
 import Image from "next/image";
-import { PiHeart, PiHeartBold, PiShoppingCartLight, PiStar } from "react-icons/pi";
+import { useContext } from "react";
+import { PiHeart, PiHeartFill, PiMinusCircleLight, PiShoppingCartLight, PiStar } from "react-icons/pi";
 import { TbCurrencyNaira } from "react-icons/tb";
 
 export default function ProductCard({ product }) {
+    const { cart, setCart, wishlist, setWishlist } = useContext(storeContext)
+
     const addToCart = (id) => {
-        let store = { cart: [], wishlist: [] }
+        setCart([ id, ...cart ])
+    }
 
-        if(store.cart.indexOf(id) !== -1) {
-            store = { 
-                wishlist: store.wishlist, 
-                cart: store.cart.filter(item => item === id) 
-            }
-        }
-        else {
-            store = { 
-                wishlist: store.wishlist, 
-                cart: store.cart.map(item => ( item.indexOf(id) !== -1 ? id : item )) 
-            }
-        }
-        
+    const removeFromCart = (id) => {
+        setCart(cart.filter(item => item !== id))
+    }
 
-        console.log(store)
+    const addToWishlist = (id) => {
+        setWishlist([ id, ...wishlist ])
+    }
+
+    const removeFromWishlist = (id) => {
+        setWishlist(wishlist.filter(item => item !== id))
     }
 
     return (
@@ -30,7 +30,10 @@ export default function ProductCard({ product }) {
                 <Image src={product?.thumbnail} fill sizes="100%" className="rounded bg-fill" />
                 <div className="absolute top-2 right-2 cursor-pointer">
                     {
-                        product?.id%2 === 0 ? <PiHeartBold  className="text-[20px] text-red-500" /> : <PiHeart className="text-[20px] text-gray-400" />
+                        wishlist.indexOf(product?.id) === -1 ? 
+                        <PiHeartFill  className="text-[20px] text-red" onClick={() => addToWishlist(product?.id)} /> 
+                        : 
+                        <PiHeart className="text-[20px] text-gray-700"  onClick={() => removeFromWishlist(product?.id)} />
                     }
                 </div>
             </div>
@@ -44,7 +47,12 @@ export default function ProductCard({ product }) {
                 
                 <div className="flex justify-between items-center gap-4 mt-4 -ml-1">
                     <h1 className="flex items-center text-[20px] font-bold"><TbCurrencyNaira />{product?.price}</h1>
-                    <PiShoppingCartLight className="text-[20px]" />
+                    { 
+                    cart.indexOf(product?.id) === -1 ? 
+                        <PiShoppingCartLight className="text-[20px]" onClick={() => addToCart(product?.id) } />
+                    : 
+                        <PiMinusCircleLight className="text-[20px]" onClick={() => removeFromCart(product?.id) } />
+                    }
                 </div>
             
             </div>
