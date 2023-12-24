@@ -41,7 +41,7 @@ export default function ProductCard({ product }) {
                 <h2 className="py-2">{product?.title}</h2>
 
                 <div className="flex items-center gap-2">
-                    <PiStar className="text-orange-500" />
+                    <PiStar className="text-red" />
                     {product?.rating}/5 <span className="opacity-[0.6]">(20)</span>
                 </div>
                 
