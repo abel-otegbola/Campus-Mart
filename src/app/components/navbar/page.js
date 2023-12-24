@@ -3,11 +3,13 @@ import { PiBuildingsLight, PiShoppingBagLight, PiShoppingCartLight, PiStorefront
 import { usePathname } from "next/navigation"
 import Search from '../search/page'
 import { TbChevronRight, TbLogout, TbSettingsCog, TbUserCircle } from 'react-icons/tb'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Image from 'next/image'
+import { storeContext } from '@/app/context/storeContext'
 
 export default function Navbar() {
     const [open, setOpen] = useState(false)
+    const { cart } = useContext(storeContext)
 
     const active = open ? "block" : "hidden"
 
@@ -61,7 +63,7 @@ export default function Navbar() {
                 <Search />
                 <a href="/cart" className="relative hover:bg-blue/[0.07] hover:text-blue text-[20px] rounded-full p-2 text-gray-700 dark:text-gray-200 mr-4">
                     <PiShoppingCartLight/> 
-                    <span className='flex items-center justify-center absolute top-0 right-0 rounded-full p-1 py-0 text-[8px] border-2 border-white dark:border-black bg-green text-white'>0</span>
+                    <span className='flex items-center justify-center absolute top-0 right-0 rounded-full p-1 py-0 text-[10px] border-2 border-white dark:border-black bg-white dark:bg-black text-green'>{cart.length}</span>
                 </a>
                 <p onClick={() => setOpen(!open)} className="bg-blue/[0.07] hover:text-blue text-[20px] rounded-full p-2 text-gray-700 dark:text-gray-200 cursor-pointer"><PiUserCircleLight/></p>
             </div>
