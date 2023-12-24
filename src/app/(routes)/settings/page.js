@@ -18,10 +18,10 @@ export default function Settings() {
 
     const links = [
         { id: 0, title: "General", icon: <TbDashboard />, suffix: "" },
-        { id: 1, title: "Profile", icon: <TbUserCircle />, suffix: <span className="p-1 px-2 text-[7px] hover:text-white rounded-full bg-blue/[0.3]">1</span> },
-        { id: 2, title: "Password", icon: <TbLock />, suffix: <span className="p-1 px-2 text-[7px] hover:text-white rounded-full bg-purple-500/[0.3]">Change</span> },
-        { id: 3, title: "Notifications", icon: <TbBell />, suffix: <span className="p-1 px-2 text-[7px] hover:text-white rounded-full bg-red-500/[0.3]">10</span> },
-        { id: 4, title: "Store", icon: <PiStorefront />, suffix: <span className="p-1 px-2 text-[7px] hover:text-white rounded-full bg-green-500/[0.3]">New</span> },
+        { id: 1, title: "Profile", icon: <TbUserCircle />, suffix: <span className="p-1 px-2 text-[7px] rounded-full bg-blue/[0.3]">1</span> },
+        { id: 2, title: "Password", icon: <TbLock />, suffix: <span className="p-1 px-2 text-[7px] rounded-full bg-green">Change</span> },
+        { id: 3, title: "Notifications", icon: <TbBell />, suffix: <span className="p-1 px-2 text-[7px] rounded-full bg-red text-white">10</span> },
+        { id: 4, title: "Store", icon: <PiStorefront />, suffix: <span className="p-1 px-2 text-[7px] rounded-full bg-blue text-white">New</span> },
     ]
 
     const handleDarkmode = (mode) => {
@@ -62,7 +62,7 @@ export default function Settings() {
                 <a href={"#" + active} className="hover:text-blue">{active.toUpperCase()}</a>
             </div>
             <div className="relative flex md:px-[8%] py-[30px] items-stretch min-h-[100vh]">
-                <div className={`h-full rounded md:sticky md:top-[120px]  md:pr-6 text-[12px] absolute top-0 left-0 bg-white dark:bg-black md:border-none border border-transparent border-x-gray-100 dark:border-x-gray-900 overflow-hidden transition-all duration-700 z-[3]
+                <div className={`h-full rounded md:sticky md:top-[120px] md:pr-6 text-[12px] absolute top-0 left-0 bg-white dark:bg-black md:border-none border border-transparent border-x-gray-100 dark:border-x-gray-900 overflow-hidden transition-all duration-700 z-[3]
                                 ${open ? "w-[250px] md:px-0 px-2" : "md:w-[250px] w-0"}`}>
 
                     {
@@ -70,7 +70,7 @@ export default function Settings() {
                             <a
                                 key={link.id}
                                 href={"#" + link.title} 
-                                className={`flex py-3 px-4 justify-between rounded-full items-center my-1 border transition-all ${active === link.title ? "border border-blue text-blue" : "hover:bg-blue/[0.1] border-transparent hover:text-blue"}`}
+                                className={`flex py-3 px-4 justify-between rounded items-center my-1 transition-all ${active === link.title ? "bg bg-blue text-white" : "hover:border hover:bg-blue/[0.1] border-transparent hover:text-blue"}`}
                                 onClick={() => setActive(link.title)}
                             >
                                 <div className="flex gap-2 items-center">
