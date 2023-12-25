@@ -25,12 +25,12 @@ export default function ProductCard({ product }) {
     }
 
     return (
-        <div className="p-2 border border-gray-200 dark:border-gray-900">
+        <a href={`/product?title=${product?.title}`} className="p-2 border border-gray-200 dark:border-gray-900">
             <div className="relative sm:h-[250px] h-[200px]">
                 <Image src={product?.thumbnail} fill sizes="100%" className="rounded bg-fill" />
                 <div className="absolute top-2 right-2 cursor-pointer">
                     {
-                        wishlist.indexOf(product?.id) === -1 ? 
+                        wishlist.indexOf(product?.id) !== -1 ? 
                         <PiHeartFill  className="text-[20px] text-red" onClick={() => addToWishlist(product?.id)} /> 
                         : 
                         <PiHeart className="text-[20px] text-gray-700"  onClick={() => removeFromWishlist(product?.id)} />
@@ -56,6 +56,6 @@ export default function ProductCard({ product }) {
                 </div>
             
             </div>
-        </div>
+        </a>
     )
 }

@@ -27,7 +27,7 @@ export default function Cart() {
                 {
                     data.products.filter(item => cart.indexOf(item.id) !== -1 ).map(product => (
                         <div key={product?.id} className="relative flex p-2 my-2 border border-gray-200 dark:border-gray-900 rounded">
-                            <div className="relative h-[150px] w-[150px]">
+                            <div className="relative h-[100px] w-[100px]">
                                 <Image src={product?.thumbnail} fill sizes="100%" className="rounded bg-fill" />
                             </div>
                             <div className="px-6">
@@ -50,13 +50,13 @@ export default function Cart() {
                 }
             </div>
 
-            <div className="md:w-[35%] rounded w-full md:px-4">
+            <div className="md:w-[35%] rounded w-full md:px-4 md:pt-0 pt-8">
                 <div className="flex items-center h-[80px] border border-transparent border-b-gray-200 dark:border-b-gray-900 ">
                     <h1 className="font-bold text-[18px] px-2">Order Summary</h1>
                 </div>
 
                 <div className="flex items-center justify-between py-6 px-2">
-                    <p>Items <span className="text-white px-1 py-[1px] rounded bg-green">{cart.length}</span></p>
+                    <p>Subtotal</p>
                     <p className="flex items-center text-[20px]"><TbCurrencyNaira /> {data.products.filter(item => cart.indexOf(item.id) !== -1 ).reduce((a,v) => a = a + v.price, 0)}</p>
                 </div>
                 
