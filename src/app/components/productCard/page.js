@@ -25,20 +25,22 @@ export default function ProductCard({ product }) {
     }
 
     return (
-        <a href={`/product?title=${product?.title}`} className="p-2 border border-gray-200 dark:border-gray-900">
-            <div className="relative sm:h-[250px] h-[200px]">
-                <Image src={product?.thumbnail} fill sizes="100%" className="rounded bg-fill" />
-                <div className="absolute top-2 right-2 cursor-pointer">
+        <div className="p-2 border border-gray-200 dark:border-gray-900 rounded">
+            <div className="relative sm:h-[170px] h-[150px]">
+                <a href={`/product?title=${product?.title}`}>
+                    <Image src={product?.thumbnail} fill sizes="100%" className="rounded bg-cover" />
+                </a>
+                <div className="absolute top-2 right-2 cursor-pointer z-[2]">
                     {
-                        wishlist.indexOf(product?.id) !== -1 ? 
-                        <PiHeartFill  className="text-[20px] text-red" onClick={() => addToWishlist(product?.id)} /> 
+                        wishlist.indexOf(product?.id) === -1 ? 
+                        <PiHeart  className="text-[20px] text-gray-700" onClick={() => addToWishlist(product?.id)} /> 
                         : 
-                        <PiHeart className="text-[20px] text-gray-700"  onClick={() => removeFromWishlist(product?.id)} />
+                        <PiHeartFill className="text-[20px] text-red"  onClick={() => removeFromWishlist(product?.id)} />
                     }
                 </div>
             </div>
             <div className="px-2">
-                <h2 className="py-2">{product?.title}</h2>
+                <a href={`/product?title=${product?.title}`} className="block py-2">{product?.title}</a>
 
                 <div className="flex items-center gap-2">
                     <PiStar className="text-red" />
@@ -56,6 +58,6 @@ export default function ProductCard({ product }) {
                 </div>
             
             </div>
-        </a>
+        </div>
     )
 }

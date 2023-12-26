@@ -87,6 +87,72 @@ export const data = {
             category: "Sofas",
             thumbnail: "/products/product10.jpg",
             images: [ "/products/product1.jpg", "/products/product2.jpg" ]
+        },
+        {
+            id: 5,
+            title: "Perf one-sit",
+            description: "The serbium one-sit sofa is the best for you. You can never go wrong with any of our products. All have been created by our amazing designers to bring you the best you can get.",
+            details: {
+                dimension: "L-530mm x W-510mm x H-700mm, SH-450mm",
+                base: "With legs",
+                baseMaterial: "Wood, Brass",
+                brand: "Mezzo",
+                color: "White, Peach, Walnut",
+                country: "Portugal",
+                feature: "Medium back",
+                style: "Mid century"
+            },
+            price: 250,
+            discountPercentage: 10,
+            rating: 3.69,
+            stock: 24,
+            category: "Sofas",
+            thumbnail: "/products/product9.jpg",
+            images: [ "/products/product3.jpg", "/products/product4.jpg" ]
+        },
+        {
+            id: 6,
+            title: "Dermin glass",
+            description: "The serbium one-sit sofa is the best for you. You can never go wrong with any of our products. All have been created by our amazing designers to bring you the best you can get.",
+            details: {
+                dimension: "L-530mm x W-510mm x H-700mm, SH-450mm",
+                base: "With legs",
+                baseMaterial: "Wood, Brass",
+                brand: "Mezzo",
+                color: "White, Peach, Walnut",
+                country: "Portugal",
+                feature: "Medium back",
+                style: "Mid century"
+            },
+            price: 420,
+            discountPercentage: 10,
+            rating: 4.69,
+            stock: 24,
+            category: "Sofas",
+            thumbnail: "/products/product2.jpg",
+            images: [ "/products/product5.jpg", "/products/product6.jpg" ]
+        },
+        {
+            id: 7,
+            title: "French wine",
+            description: "The serbium one-sit sofa is the best for you. You can never go wrong with any of our products. All have been created by our amazing designers to bring you the best you can get.",
+            details: {
+                dimension: "L-530mm x W-510mm x H-700mm, SH-450mm",
+                base: "With legs",
+                baseMaterial: "Wood, Brass",
+                brand: "Mezzo",
+                color: "White, Peach, Walnut",
+                country: "Portugal",
+                feature: "Medium back",
+                style: "Mid century"
+            },
+            price: 200,
+            discountPercentage: 10,
+            rating: 4.99,
+            stock: 24,
+            category: "Sofas",
+            thumbnail: "/products/product3.jpg",
+            images: [ "/products/product6.jpg", "/products/product7.jpg" ]
         }
     ]
 }
