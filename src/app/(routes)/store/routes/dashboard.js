@@ -7,7 +7,7 @@ export default function Dashboard({ setActive }) {
                 <div className="flex items-center gap-4">
                     <div className="w-[30px] h-[30px] outline outline-red/[0.2] outline-offset-1 rounded-full bg-gray-400/[0.1]"></div>
                     <div>
-                        <h2 className="text-[20px] font-bold">Oluwanifemi's Store</h2>
+                        <h2 className="text-[20px] font-bold">Oluwanifemi&apos;s Store</h2>
                         <p className="flex items-center gap-2 opacity-[0.6]"><TbBottleFilled className="text-red"/> Scents and Perfumes</p>
                     </div>
                 </div>
