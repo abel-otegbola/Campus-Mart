@@ -25,7 +25,7 @@ export default function Navbar() {
     }, [])
 
     return (
-        <div className="flex sticky top-0 left-0 bg-white dark:bg-black justify-between items-center p-2 md:px-[8%] px-[3%] border border-transparent border-y-gray-100 dark:border-y-gray-900 z-[1]">
+        <div className="flex sticky top-0 left-0 bg-white dark:bg-black justify-between items-center p-2 md:px-[8%] px-[3%] border border-transparent border-y-gray-100 dark:border-y-gray-900 z-[5]">
             <a href='/' className="md:w-[20%] text-blue font-bold text-[18px]"><Image src="/logo.svg" alt="campus-mart logo" width={40} height={30} /></a>
 
             <nav className="flex md:static dark:bg-black bg-white fixed bottom-0 left-0 md:w-auto gap-2 w-full justify-between md:border-none border border-transparent border-y-gray-100 dark:border-y-gray-900 z-10">
@@ -34,7 +34,7 @@ export default function Navbar() {
                 <a href="/wishlist" className={`flex md:flex-row flex-col items-center gap-2 p-[12px] px-6 md:hover:bg-blue/[0.07] hover:text-blue text-[20px] rounded-full ${pathname === "/wishlist" ? activeClass : ""}`}><PiShoppingBagLight /> <span className="sm:text-[14px] text-[9px]">Wishlist</span></a>
                 <a href="/cart" className={`flex md:flex-row flex-col items-center gap-2 p-[12px] px-6 md:hover:bg-blue/[0.07] hover:text-blue text-[20px] rounded-full ${pathname === "/cart" ? activeClass : ""}`}><PiShoppingCartLight /> <span className="sm:text-[14px] text-[9px]">Cart</span></a>
 
-                <div className={`fixed text-[12px] w-[250px] top-[70px] md:right-[8%] right-[3%] rounded shadow border border-gray-100 dark:border-gray-800 bg-white dark:bg-black transition-all z-20 ${active}`}>
+                <div className={`fixed text-[12px] w-[250px] top-[70px] md:right-[8%] right-[3%] rounded shadow border border-gray-100 dark:border-gray-800 bg-white dark:bg-black transition-all z-[6] ${active}`}>
                     <a href="/dashboard" className='flex p-3 px-4 justify-between items-center'>
                         <div className="flex gap-2 items-center">
                             <TbUserCircle className="text-blue text-[20px]" />
