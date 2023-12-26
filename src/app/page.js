@@ -11,9 +11,9 @@ export default function Home() {
   return (
     <main className="">
 
-      <header className="md:flex flex-col md:px-[8%] p-[3%] md:py-[3%] py-[20%] md:items-center items-start justify-between">
+      <header className="md:flex flex-col md:px-[8%] p-[3%] bg-gradient-to-tr from-blue/[0.1] to-white dark:to-black md:py-[3%] py-[20%] md:items-center items-start justify-between">
         <div className="md:w-auto w-full md:text-center">
-          <h1 className="md:text-[44px] text-[30px] font-[700] text-transparent bg-clip-text bg-gradient-to-r from-[#5938DD] via-[#DD3885] to-[#2DCC52]">Campus Mart</h1>
+          <h1 className="md:text-[44px] text-[30px] font-[700] text-transparent bg-clip-text bg-gradient-to-r from-blue via-red to-green">Campus Mart</h1>
           <p className="py-4">Discover, Trade, Thrive: Your Campus, Your Marketplace!</p>
           <form className={`flex items-center px-2 my-4 rounded-full border-gray-400 border dark:border-gray-600 outline-blue/[0.3] outline-offset-2 outline`}>
             <PiMagnifyingGlassLight className="text-[20px]"/>
@@ -27,8 +27,8 @@ export default function Home() {
           </form>
         </div>
         <div className="md:w-auto w-full flex flex-1 justify-center items-center">
-          <Image src="/background.png" className="my-6" width={500} height={400} alt="background" />
-        </div>
+        
+        </div> 
       </header>
 
       <section className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 sm:gap-4 gap-2 md:px-[8%] sm:p-[3%] p-1">
