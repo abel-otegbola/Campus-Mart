@@ -2,8 +2,9 @@
 import { useState } from "react"
 import { FaTimes } from "react-icons/fa"
 import { PiChat } from "react-icons/pi"
-import { TbBadge, TbBox, TbChevronRight, TbDashboard, TbEdit, TbHome, TbMenu2, TbPalette, TbUsers } from "react-icons/tb"
+import { TbBadge, TbBottleFilled, TbBox, TbChevronRight, TbCurrencyNaira, TbDashboard, TbEdit, TbHome, TbMenu2, TbPalette, TbUsers } from "react-icons/tb"
 import Dashboard from "./routes/dashboard"
+import Products from "./routes/products"
 
 export default function Store() {
     const [active, setActive] = useState("Dashboard")
@@ -42,7 +43,7 @@ export default function Store() {
                             <a
                                 key={link.id}
                                 href={"#" + link.title} 
-                                className={`flex py-3 px-4 justify-between rounded items-center my-1 transition-all ${active === link.title ? "bg bg-blue text-white" : "hover:border hover:bg-blue/[0.1] border-transparent hover:text-blue"}`}
+                                className={`flex py-3 px-4 justify-between rounded items-center my-1 transition-all ${active === link.title ? "bg bg-blue text-white" : "hover:bg-blue/[0.1] hover:text-blue"}`}
                                 onClick={() => setActive(link.title)}
                             >
                                 <div className="flex gap-2 items-center">
@@ -57,7 +58,28 @@ export default function Store() {
                 </div>
 
                 <div className="flex-1 md:px-[5%] px-[3%] md:border border-transparent border-l-gray-100 dark:border-l-gray-900">
-                    <Dashboard setActive={setActive}/>
+                    
+                    <div className="flex items-center justify-between pb-6 border border-transparent border-b-gray-100 dark:border-b-gray-900">
+                        <div className="flex items-center gap-4">
+                            <div className="w-[30px] h-[30px] outline outline-red/[0.2] outline-offset-1 rounded-full bg-gray-400/[0.1]"></div>
+                            <div>
+                                <h2 className="text-[20px] font-bold">Oluwanifemi&apos;s Store</h2>
+                                <p className="flex items-center gap-2 opacity-[0.6]"><TbBottleFilled className="text-red"/> Scents and Perfumes</p>
+                            </div>
+                        </div>
+                        <div className="flex flex-col">
+                            <h4 className="text-[12px] text-red">Total Balance</h4>
+                            <p className="flex items-center"><TbCurrencyNaira /> 170,000</p>
+                        </div>
+                    </div>
+
+                    {
+                        active === "Products" ?
+                        <Products setActive={setActive} />
+                        : 
+                        <Dashboard setActive={setActive}/>
+                    }
+                    
                 </div>
             </div>
         </div>

@@ -42,6 +42,13 @@ export default function Navbar() {
                         </div>
                         <TbChevronRight />
                     </a>
+                    <a href="/store" className='flex p-3 px-4 justify-between items-center'>
+                        <div className="flex gap-2 items-center">
+                            <PiStorefrontLight className="text-blue text-[20px]" />
+                            <p className='hover:text-blue'>My Store</p>                            
+                        </div>
+                        <TbChevronRight />
+                    </a>
                     <a href="/settings" className='flex p-3 px-4 justify-between items-center'>
                         <div className="flex gap-2 items-center">
                             <TbSettingsCog className="text-blue text-[20px]" />
