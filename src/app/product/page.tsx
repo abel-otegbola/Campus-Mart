@@ -64,8 +64,8 @@ export default function Product() {
                         <div className="relative flex flex-wrap my-2 rounded">
                             <div className="relative h-full md:w-[40%] w-full">
                                 <Slider images={product?.images?.map((img: string, i: number) => (
-                                    { id: i, src: img }
-                                ))  || [ { id: 0, src: "/bg1.png" } ]} />
+                                    { id: i, src: img, text: "" }
+                                ))  || [ { id: 0, src: "/bg1.png", text: "" } ]} />
                             </div>
                             <div className="md:px-[3%] md:py-0 py-6 md:w-[60%] w-full">
                                 <h2 className="py-2 md:text-[28px] text-[18px] font-medium">{product?.title}</h2>
