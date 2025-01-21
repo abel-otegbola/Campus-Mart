@@ -1,9 +1,10 @@
 'use client'
 import { useEffect, useState } from "react"
+import Button from "../button/button";
 // import Button from "../button/button"
 // import { CaretLeft, CaretRight } from "@phosphor-icons/react"
 
-type ImagesProps = { images: { id: number | string, src: string }[] };
+type ImagesProps = { images: { id: number | string, src: string, text: string }[] };
 
 export default function Slider({ images }: ImagesProps) {
     const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -14,20 +15,20 @@ export default function Slider({ images }: ImagesProps) {
     const [states, setStates] = useState(images.length > 2 ? [
         "left-[100%] w-full",
         "left-[0%] w-full",
-        "left-[-100%] w-full]",
+        "left-[-100%] w-full",
     ] : [
       "left-[0%] w-full",
-      "left-[-100%] w-full]",
+      "left-[-100%] w-full",
     ])
 
     const prevSlide = (): void => {
         setStates(images.length > 2 ? [
             "left-[100%] w-full",
             "left-[0%] w-full",
-            "left-[-100%] w-full]",
+            "left-[-100%] w-full",
         ] : [
           "left-[0%] w-full",
-          "left-[-100%] w-full]",
+          "left-[-100%] w-full",
         ])
         setCurrentIndex(
             (prevIndex) => (prevIndex + 1 + images.length) % images.length
@@ -38,10 +39,10 @@ export default function Slider({ images }: ImagesProps) {
         setStates(images.length > 2 ? [
             "left-[100%] w-full",
             "left-[0%] w-full",
-            "left-[-100%] w-full]",
+            "left-[-100%] w-full",
         ] : [
           "left-[0%] w-full",
-          "left-[-100%] w-full]",
+          "left-[-100%] w-full",
         ])
         
         setCurrentIndex(
@@ -98,9 +99,9 @@ export default function Slider({ images }: ImagesProps) {
     };
 
     return (
-        <div className="relative flex items-center justify-center md:w-[84%] w-full mx-auto mt-4 overflow-hidden">
+        <div className="relative flex items-center justify-center md:w-[84%] w-full mx-auto overflow-hidden">
             <div
-                className="flex gap-[3%] md:h-[200px] h-[200px]"
+                className="flex gap-[3%] md:h-[220px] h-[200px]"
                 onMouseDown={handleDragStart}
                 onMouseMove={handleDragMove}
                 onMouseUp={handleDragEnd}
@@ -113,22 +114,28 @@ export default function Slider({ images }: ImagesProps) {
                 images.length === 1 ?
                   <div
                       key={images[0]?.id}
-                      className={`absolute top-0 md:h-[200px] h-[200px] ${states[0]} duration-700 bg-cover bg-center bg-no-repeat transition-all ease-in-out cursor-pointer`}
+                      className={`absolute top-0 md:h-[220px] h-[200px] ${states[0]} duration-700 bg-cover bg-center bg-no-repeat transition-all ease-in-out cursor-pointer`}
                       style={{
                           backgroundImage: `url("${images[0]?.src}")`,
                       }}
-                  />
+                    >
+                      <p className="md:text-[28px] text-[20px] font-bold md:w-[60%] text-secondary-dark sm:w-[75%] w-[100%]">{images[0]?.text}</p>
+                      <Button className="rounded-[40px]">ORDER NOW</Button>
+                  </div>
                   :
                 images.map((_, offset) => {
                     const slideIndex = getSlideIndex(offset - 1);
                     return (
                         <div
                             key={images[slideIndex]?.id}
-                            className={`absolute top-0 md:h-[200px] h-[200px] ${states[offset]} duration-700 bg-cover bg-center bg-no-repeat transition-all ease-in-out cursor-pointer`}
+                            className={`absolute flex flex-col gap-4 justify-center px-[5%] pb-[3%] top-0 md:h-[220px] h-[200px] ${states[offset]} duration-700 bg-cover bg-slate-200 bg-center bg-no-repeat transition-all ease-in-out cursor-pointer`}
                             style={{
                                 backgroundImage: `url("${images[slideIndex]?.src}")`,
                             }}
-                        />
+                        >
+                            <p className="md:text-[28px] text-[20px] font-bold md:w-[60%] text-secondary-dark sm:w-[75%] w-[100%]">{images[slideIndex]?.text}</p>
+                            <Button className="rounded-[40px]">ORDER NOW</Button>
+                        </div>
                     );
                 })}
             </div>

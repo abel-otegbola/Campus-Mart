@@ -1,11 +1,8 @@
 'use client'
-import { ReactNode, useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import Tab from "../tab/tab"
 import Link from "next/link"
-import { Bell, Gear, Heart, ShoppingCart, SignIn, SignOut, Storefront, User, UserCircle } from "@phosphor-icons/react"
-import LogoIcon from "@/assets/icons/logo"
-import Avatar from "../avatar/avatar"
-import Menu from "../navMenu/navMenu"
+import { Bell, ShoppingCart, User } from "@phosphor-icons/react"
 import { usePathname } from "next/navigation"
 import Search from "../search/search"
 import { storeContext } from "@/context/useStore"
@@ -15,15 +12,13 @@ import { useOutsideClick } from "@/helpers/useClickOutside"
 type navTab =  {
     id: number | string,
     label: string,
-    to: string,
-    icon: ReactNode
+    to: string
 }
 
 function Topbar() {
     const { cart } = useContext(storeContext)
     const [open, setOpen] = useState(false)
     const pathname = usePathname()
-    const { data } = useSession()
 
     useEffect(() => {
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -33,11 +28,13 @@ function Topbar() {
         }
     })
 
+    const noheader = ["login", "register"]
+
     const navTabs: navTab[] = [
-        { id: 0, label: "Shop", to: "/shop", icon: <Storefront/> },
-        { id: 1, label: "Cart", to: "/cart", icon: <ShoppingCart/> },
-        { id: 2, label: "Wishlist", to: "/wishlist", icon: <Heart/> },
-        { id: 3, label: "Account", to: "/dashboard", icon: <UserCircle/> },
+        { id: 0, label: "Categories", to: "/categories" },
+        { id: 1, label: "New Arrivals", to: "/shop" },
+        { id: 2, label: "Deals", to: "/deals" },
+        { id: 3, label: "Delivery", to: "/delivery" },
     ]
     
     const accountPages = ["dashboard", "admin", "agent"]
@@ -46,44 +43,32 @@ function Topbar() {
 
 
     return (
-        <div className={`flex py-3 fixed top-0 left-0 w-full justify-between items-center bg-white dark:bg-black z-[3] ${accountPages.includes(pathname.split("/")[1]) ? "md:px-10 pl-6 pr-[100px] md:py-2 py-5" : "md:px-[8%] px-6"}`}>
-            <div className="md:w-[17%]">
-                <Link href="/" className="w-[70px] h-[30px] rounded flex justify-center items-center font-bold">
-                    <LogoIcon />
+        <div className={`flex py-3 sticky top-0 left-0 w-full justify-between items-center bg-[#f8f8f8] dark:bg-black z-[3]  ${noheader.includes(pathname.split("/")[1]) ? "hidden": ""} ${accountPages.includes(pathname.split("/")[1]) ? "md:px-10 pl-6 pr-[100px] md:py-2 py-5" : "md:px-[10%] px-6"}`}>
+            <div className="md:w-[12%]">
+                <Link href="/" className="w-[70px] h-[30px] text-[#FF9100] rounded flex justify-center items-center text-[16px] font-bold">
+                    CAMPUS <span className="ml-1 text-[#16AF89]"> MART</span>
                 </Link>
             </div>
 
-            <nav className="flex justify-between md:static p-4 bg-white/[0.9] dark:bg-black/[0.9] backdrop-blur-sm fixed bottom-0 left-0 md:w-fit w-full md:border-none border border-gray-500/[0.1] items-center gap-4 z-[10]">
+            <nav className="flex justify-between md:static p-4 bg-[#f8f8f8] dark:bg-black/[0.9] backdrop-blur-sm fixed bottom-0 left-0 md:w-fit w-full md:border-none border border-gray-500/[0.1] items-center gap-0 z-[10]">
                 {
                     navTabs.map((tab: navTab) => (
-                        <Tab key={tab.id} label={tab.label} href={tab.to} icon={tab.icon} />
+                        <Tab key={tab.id} label={tab.label} href={tab.to}/>
                     ))
                 }
             </nav>
 
-            <div className="flex gap-8 items-center">
-                <Search placeholder="Search products" className="md:flex hidden" />
-                <Link href="/inbox">
-                    <Bell weight="light" size={20}/>
+            <div className="flex gap-8 items-center flex-1">
+                <Search placeholder="Search for a product or vendor" className="md:flex hidden flex-1" />
+                <Link href="/login" className="flex gap-1 items-center">
+                    <User weight="light" size={20}/>
+                    <span>Account</span>
                 </Link>
-                <Link href="/cart" className="relative">
+                <Link href="/cart" className="relative flex gap-1 items-center">
                     <ShoppingCart weight="light" size={20}/>
+                    <span>Cart</span>
                     <span className="absolute text-[8px] -top-2 -right-2 px-1 py-0 rounded-full bg-green-600 text-white">{cart.length}</span>
                 </Link>
-                <div ref={closeMenu} className={`relative ${accountPages.includes(pathname.split("/")[1]) ? "md:block hidden" : "block"}`}>
-                    <button onClick={() => setOpen(!open)} className="h-[40px] w-[40px]">
-                        <Avatar user={data?.user || { fullname: "user" }} />
-                    </button>
-                    {
-                        open ?
-                            <Menu close={setOpen} list={[ 
-                                data?.user ? {id: "0", title: "Account", icon: <User />, href: "/dashboard"}: {id: "0", title: "Start selling", icon: <Storefront />, href: "/register"},  
-                                {id: "1", title: "Settings", icon: <Gear />, href: "/settings"},  
-                                data?.user ? {id: "2", title: "Logout", icon: <SignOut />, href: "#"} : {id: "2", title: "Login", icon: <SignIn />, href: "/login"},  
-                            ]} />
-                        : ""
-                    }
-                </div>
             </div>
         </div>
     )

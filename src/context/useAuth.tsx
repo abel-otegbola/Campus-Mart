@@ -6,6 +6,7 @@ import { useRouter } from "nextjs-toploader/app";
 import { UserData } from "@/interface/profile";
 import { SessionProvider, signIn } from "next-auth/react";
 import { register } from "@/actions/register";
+import { signupData } from "@/interface/auth";
 
 type values = {
     user: UserData;
@@ -14,7 +15,7 @@ type values = {
     setPopup: (aug0: values["popup"]) => void;
     setUser: (aug0: unknown) => void;
     login: (email: string, password: string, callbackUrl: string) => void; 
-    signUp: (data: { email: string, password: string, fullname: string, role: string, storename?: string }) => void;
+    signUp: (data: signupData) => void;
     sociallogin: (type: string) => void;
     logOut: () => void;
 }
@@ -45,7 +46,7 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
         }
     }
 
-    const signUp = (data: { email: string, password: string, fullname: string, role: string, storename?: string }) => {
+    const signUp = (data: signupData) => {
         setLoading(true)
         register(data)
         .then(() => {

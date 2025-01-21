@@ -19,26 +19,32 @@ export default function Button({ variant, className, href, size, disabled, onCli
     }
 
     return (
-        <button className={`duration-500 rounded-lg
-            ${variants[variant || "primary"]}
-            ${disabled ? "opacity-[0.25]" : ""}
-            ${size === "full" ? "w-full" : "w-fit"}
-            ${className} 
-        `}
-        {...props}
-        name="Button"
-        role="button"
-        disabled={disabled}
-        onClick={onClick}
-        >
+       <>
             { 
             href ? 
-                <Link href={href} className="flex items-center justify-center md:gap-3 gap-2 py-3 px-6"> 
+                <Link href={href} className={`flex items-center justify-center rounded-lg md:gap-3 gap-2 py-3 px-6
+                    ${variants[variant || "primary"]}
+                    ${disabled ? "opacity-[0.25]" : ""}
+                    ${size === "full" ? "w-full" : "w-fit"}
+                    ${className} `}> 
                     { children }
                 </Link>
-                :
-                <p className="flex items-center justify-center md:gap-3 gap-2 py-3 px-6">{ children }</p>
-            }
-        </button>
+
+                : <button className={`duration-500 flex items-center justify-center rounded-lg md:gap-3 gap-2 py-3 px-6
+                    ${variants[variant || "primary"]}
+                    ${disabled ? "opacity-[0.25]" : ""}
+                    ${size === "full" ? "w-full" : "w-fit"}
+                    ${className} 
+                `}
+                {...props}
+                name="Button"
+                role="button"
+                disabled={disabled}
+                onClick={onClick}
+                >
+                { children }
+                </button>
+        }
+    </>
     )
 }

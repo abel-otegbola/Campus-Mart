@@ -4,7 +4,7 @@ import Button from "@/components/button/button";
 import Input from "@/components/input/input";
 import { AuthContext } from "@/context/useAuth";
 import { loginSchema } from "@/schema/auth";
-import { Envelope, LockKey, Spinner } from "@phosphor-icons/react";
+import { Envelope, FacebookLogo, LockKey, Spinner } from "@phosphor-icons/react";
 import { Formik } from "formik";
 import Link from "next/link";
 import { useContext } from "react";
@@ -20,13 +20,13 @@ export default function Loginpage() {
                     
                     <div className="flex flex-col items-center gap-6 md:p-[5%] p-2">
                         <div>
-                            <h1 className="font-bold text-[32px] text-center">Welcome</h1>
-                            <p className="mt-2 mb-3 text-center">Add your details below to get back into the app</p>
+                            <h1 className="font-bold text-[20px] text-center">
+                                You are welcome to 
+                                <span className="ml-2 font-bold text-primary">CAMPUS</span>
+                                <span className="font-bold text-secondary">MART</span>
+                            </h1>
+                            <p className="mt-2 mb-3 text-center">Log in to your account or <Link href={"/register"} className="text-primary">Sign Up</Link> if you are yet to have one</p>
                         </div>
-
-                        <Button size="full" variant="tetiary" onClick={() => sociallogin("/dashboard")} className="bg-white dark:bg-black border-gray-500/[0.2]"><GoogleIcon width={12} />Login with Google</Button>
-
-                        <p>OR</p>
 
                         <Formik
                             initialValues={{ email: '', password: ''}}
@@ -51,13 +51,33 @@ export default function Loginpage() {
 
                                     <Input name="password" label="" value={values.password} onChange={handleChange} type={"password"} error={touched.password ? errors.password : ""} placeholder="Password" leftIcon={<LockKey size={16}/>}/>
 
-                                    <Button size="full" type="submit" className="">{ isSubmitting || loading ? <Spinner size={16} className="animate-spin" /> : "Login"}</Button>
+                                    <Button size="full" type="submit" className="">{ isSubmitting || loading ? <Spinner size={16} className="animate-spin" /> : "Sign in"}</Button>
 
                                 </form>
                             )}
                         </Formik>
                         
-                        <p className="text-center">Don&apos;t have an account? <Link href={"/register"} className="text-primary">Create account</Link></p>
+                        <div className="grid grid-cols-3 w-full items-center py-6">
+                            <span className="w-full h-[1px] bg-gray-300"></span>
+                            <p className="mx-auto">Or Continue with</p>
+                            <span className="w-full h-[1px] bg-gray-300"></span>
+                        </div>
+
+                        <div className="grid gap-4 grid-cols-2 w-full">
+
+                        <Button size="full" variant="tetiary" onClick={() => sociallogin("/dashboard")} className="bg-white dark:bg-black border-gray-500/[0.2] w-full"><GoogleIcon width={12} />Google</Button>
+                        <Button size="full" variant="tetiary" onClick={() => sociallogin("/dashboard")} className="bg-white dark:bg-black border-gray-500/[0.2] w-full"><FacebookLogo width={12} />Facebook</Button>
+                        
+                        </div>
+                        <div>
+                            <p className="text-center">Having problems signing in?</p>
+                            <p> <Link href={"/contact"} className="text-primary">Contact </Link>our Customer Service Team </p>
+                        </div>
+
+                        <h1 className="font-bold text-[20px] text-center">
+                            <span className="ml-2 font-bold text-primary">CAMPUS</span>
+                            <span className="font-bold text-secondary">MART</span>
+                        </h1>
                     </div>
                 </div>
             </div>
