@@ -22,7 +22,7 @@ export default function Button({ variant, className, href, size, disabled, onCli
        <>
             { 
             href ? 
-                <Link href={href} className={`flex items-center justify-center rounded-lg md:gap-3 gap-2 py-3 px-6
+                <Link href={href} className={`flex items-center justify-center rounded-full md:gap-3 gap-2 py-3 px-6
                     ${variants[variant || "primary"]}
                     ${disabled ? "opacity-[0.25]" : ""}
                     ${size === "full" ? "w-full" : "w-fit"}
@@ -30,7 +30,7 @@ export default function Button({ variant, className, href, size, disabled, onCli
                     { children }
                 </Link>
 
-                : <button className={`duration-500 flex items-center justify-center rounded-lg md:gap-3 gap-2 py-3 px-6
+                : <button className={`duration-500 flex items-center justify-center rounded-full md:gap-3 gap-2 py-3 px-6
                     ${variants[variant || "primary"]}
                     ${disabled ? "opacity-[0.25]" : ""}
                     ${size === "full" ? "w-full" : "w-fit"}

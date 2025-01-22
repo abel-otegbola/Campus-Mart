@@ -16,11 +16,11 @@ export default function Loginpage() {
         <div className="min-h-[400px] flex mt-4 md:mx-[12%] sm:items-center justify-between">
 
             <div className="flex w-full">
-                <div className="sm:w-[550px] mx-auto w-full p-12">
+                <div className="sm:w-[550px] mx-auto w-full sm:p-12 p-6">
                     
-                    <div className="flex flex-col items-center gap-6 md:p-[5%] p-2">
+                    <div className="flex flex-col items-center gap-6 md:p-[5%]">
                         <div>
-                            <h1 className="font-bold text-[20px] text-center">
+                            <h1 className="font-bold md:text-[20px] text-[16px] text-center">
                                 You are welcome to 
                                 <span className="ml-2 font-bold text-primary">CAMPUS</span>
                                 <span className="font-bold text-secondary">MART</span>

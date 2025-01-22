@@ -1,8 +1,8 @@
 'use client'
-import { useContext, useEffect, useState } from "react"
+import { ReactElement, useContext, useEffect, useState } from "react"
 import Tab from "../tab/tab"
 import Link from "next/link"
-import { Bell, ShoppingCart, User } from "@phosphor-icons/react"
+import { Bell, Heart, House, ListMagnifyingGlass, ShoppingCart, User } from "@phosphor-icons/react"
 import { usePathname } from "next/navigation"
 import Search from "../search/search"
 import { storeContext } from "@/context/useStore"
@@ -12,7 +12,8 @@ import { useOutsideClick } from "@/helpers/useClickOutside"
 type navTab =  {
     id: number | string,
     label: string,
-    to: string
+    to: string,
+    icon: ReactElement
 }
 
 function Topbar() {
@@ -31,10 +32,13 @@ function Topbar() {
     const noheader = ["login", "register"]
 
     const navTabs: navTab[] = [
-        { id: 0, label: "Categories", to: "/categories" },
-        { id: 1, label: "New Arrivals", to: "/shop" },
-        { id: 2, label: "Deals", to: "/deals" },
-        { id: 3, label: "Delivery", to: "/delivery" },
+        { id: 4, label: "Home", to: "/", icon: <House /> },
+        { id: 0, label: "Categories", to: "/categories", icon: <ListMagnifyingGlass /> },
+        { id: 1, label: "New Arrivals", to: "/shop", icon: <></> },
+        { id: 2, label: "Deals", to: "/deals", icon: <></> },
+        { id: 3, label: "Delivery", to: "/delivery", icon: <></> },
+        { id: 6, label: "Wishlist", to: "/wishlist", icon: <Heart /> },
+        { id: 7, label: "Account", to: "/dashboard", icon: <User /> },
     ]
     
     const accountPages = ["dashboard", "admin", "agent"]
@@ -45,7 +49,7 @@ function Topbar() {
     return (
         <div className={`flex py-3 sticky top-0 left-0 w-full justify-between items-center bg-[#f8f8f8] dark:bg-black z-[3]  ${noheader.includes(pathname.split("/")[1]) ? "hidden": ""} ${accountPages.includes(pathname.split("/")[1]) ? "md:px-10 pl-6 pr-[100px] md:py-2 py-5" : "md:px-[10%] px-6"}`}>
             <div className="md:w-[12%]">
-                <Link href="/" className="w-[70px] h-[30px] text-[#FF9100] rounded flex justify-center items-center text-[16px] font-bold">
+                <Link href="/" className="w-[70px] h-[30px] text-[#FF9100] ml-6 rounded flex justify-center items-center text-[16px] font-bold">
                     CAMPUS <span className="ml-1 text-[#16AF89]"> MART</span>
                 </Link>
             </div>
@@ -53,7 +57,7 @@ function Topbar() {
             <nav className="flex justify-between md:static p-4 bg-[#f8f8f8] dark:bg-black/[0.9] backdrop-blur-sm fixed bottom-0 left-0 md:w-fit w-full md:border-none border border-gray-500/[0.1] items-center gap-0 z-[10]">
                 {
                     navTabs.map((tab: navTab) => (
-                        <Tab key={tab.id} label={tab.label} href={tab.to}/>
+                        <Tab key={tab.id} label={tab.label} href={tab.to} icon={tab.icon}/>
                     ))
                 }
             </nav>

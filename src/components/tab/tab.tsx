@@ -16,12 +16,14 @@ export default function Tab ({ href, label, icon, ...props }: tabProps) {
     return (
         <Link
             href={href}
-            className={`flex items-center justify-center md:flex-row flex-col md:gap-1 gap-2 h-[32px] p-[8px_16px] hover:text-primary font-light rounded-lg duration-500
+            className={`flex items-center justify-center md:flex-row flex-col md:gap-1 gap-2 h-[32px] p-[8px_16px] hover:text-primary font-bold rounded-lg duration-500
                 ${pathname === href ? "text-primary" : "hover:bg-primary/[0.02]"}
                 ${props.className}
+                ${["New Arrivals", "Deals", "Delivery"].includes(label) ? "md:flex hidden" : "md:hidden flex"}
             `}
         >
-            <span className="md:inline md:text-[14px] text-[12px] font-medium">{pathname === href ? 
+            <span className={`md:text-md md:text-[20px] ${pathname === href ? "text-[24px]": "text-[20px]"}`}>{icon}</span>
+            <span className="md:inline md:text-[12px] text-[9px] ">{pathname === href ? 
                 <>
                     <span className="md:hidden block w-1 h-1 rounded-full bg-primary"></span>
                     <span className="md:block hidden">{label}</span> 

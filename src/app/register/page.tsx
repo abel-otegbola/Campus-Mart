@@ -5,7 +5,7 @@ import Input from "@/components/input/input";
 import Radio from "@/components/radio/radio";
 import { AuthContext } from "@/context/useAuth";
 import { registerSchema } from "@/schema/auth";
-import { ArrowLeft, ArrowRight, Bicycle, Book, BoxArrowUp, Briefcase, Bus, Chair, Coffee, Envelope, FilmStrip, Football, GameController, GraduationCap, Guitar, Heart, House, Image, Laptop, LockKey, MapPin, Palette, PawPrint, Pencil, ShirtFolded, Spinner, Storefront, Ticket, User, UserCircle, Watch } from "@phosphor-icons/react";
+import { ArrowRight, Bicycle, Book, Briefcase, Bus, Chair, Coffee, Envelope, FilmStrip, Football, GameController, GraduationCap, Guitar, Heart, House, Image, Laptop, LockKey, MapPin, Palette, PawPrint, Pencil, ShirtFolded, Spinner, Storefront, Ticket, User, UserCircle, Watch } from "@phosphor-icons/react";
 import { Formik } from "formik";
 import Link from "next/link";
 import { ReactNode, useContext, useState } from "react";
@@ -34,11 +34,11 @@ export default function Registerpage() {
             <div className="flex w-full">
                 <div style={{ backgroundImage: "url('/bg-register.png')" }} className="h-[100vh] w-[40%] md:block hidden bg-cover bg-center">
                 </div>
-                <div className="sm:w-[550px] mx-auto w-full p-12">
+                <div className="sm:w-[550px] mx-auto w-full sm:p-12 p-6">
                     
-                    <div className="flex flex-col gap-6 md:p-[5%] p-2">
+                    <div className="flex flex-col gap-6 md:p-[5%]">
                         <div className="text-center">
-                            <div className="font-bold text-[24px] text-center">
+                            <div className="font-bold md:text-[24px] text-[16px] text-center">
                                 <p>Create Your </p>
                                 <p>
                                     <span className="ml-2 font-bold text-primary">CAMPUS</span>
@@ -81,8 +81,6 @@ export default function Registerpage() {
                             }) => (
 
                                 <form onSubmit={handleSubmit} className="flex flex-col w-full gap-6 ">
-
-                                    
                                     <div className="relative h-[310px] flex gap-[5%] overflow-hidden">
                                         <div className={`w-full flex flex-col gap-5 absolute top-0 left-0 duration-500 ${flow === 0 ? "translate-x-[0]" : "translate-x-[-120%]"}`}>
                                             <Input name="fullname" label="Full Name" value={values.fullname} onChange={handleChange} type="text" error={touched.fullname ? errors.fullname : ""} placeholder="Full name" leftIcon={<UserCircle size={16}/>}/>
