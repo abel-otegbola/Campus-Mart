@@ -36,7 +36,7 @@ export default function Registerpage() {
                 </div>
                 <div className="sm:w-[550px] mx-auto w-full sm:p-12 p-6">
                     
-                    <div className="flex flex-col gap-6 md:p-[5%]">
+                    <div className="flex flex-col justify-center gap-6 md:p-[5%] md:py-[5%] py-[80px]">
                         <div className="text-center">
                             <div className="font-bold md:text-[24px] text-[16px] text-center">
                                 <p>Create Your </p>

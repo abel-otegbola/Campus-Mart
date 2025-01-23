@@ -18,7 +18,7 @@ export default function Loginpage() {
             <div className="flex w-full">
                 <div className="sm:w-[550px] mx-auto w-full sm:p-12 p-6">
                     
-                    <div className="flex flex-col items-center gap-6 md:p-[5%]">
+                    <div className="flex flex-col justify-center items-center gap-6 md:p-[5%] md:py-[5%] py-[80px]">
                         <div>
                             <h1 className="font-bold md:text-[20px] text-[16px] text-center">
                                 You are welcome to 
