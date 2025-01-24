@@ -4,6 +4,7 @@ import { ButtonHTMLAttributes, useEffect, useRef, useState } from "react";
 
 interface RadioProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string;
+    active: string;
     disabled?: boolean;
     label?: string;
     name?: string;
@@ -12,14 +13,14 @@ interface RadioProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     onCheck: (aug0: string | undefined) => void;
 }
 
-export default function Radio({ className, disabled, label, onCheck, name, size, ...props }: RadioProps) {
+export default function Radio({ className, active, disabled, label, onCheck, name, size, ...props }: RadioProps) {
     const [checked, setChecked] = useState(false)
     const [animate, setAnimate] = useState(false)
     const inputRef = useRef<HTMLInputElement>(null)
 
     const handleChecked = () => {
         inputRef.current?.click()
-        if(props.value !== label) {
+        if(active !== label) {
             setAnimate(true)
             setTimeout(() => {
                 onCheck(label)
@@ -30,8 +31,8 @@ export default function Radio({ className, disabled, label, onCheck, name, size,
     }
 
     useEffect(() => {
-        setChecked(props.value !== label ? false : true)
-    }, [props.value, label])
+        setChecked(active !== label ? false : true)
+    }, [active, label])
 
     return (
         <div className="flex items-center w-fit gap-1">
@@ -46,11 +47,12 @@ export default function Radio({ className, disabled, label, onCheck, name, size,
                     ${animate ? "animate-spin-slow" : ""}
                     ${className} 
                 `}
+                tabIndex={1}
                 onClick={() => handleChecked()}
                 style={{ height: size || "20px", width: size || "20px" }}
                 {...props}
             >
-                {animate ? <Spinner size={size || 20} className="animate-spin" /> : checked ? <CheckCircle size={size || 20} /> : ""}
+                {animate ? <Spinner size={size || 20} className="animate-spin" /> : active === label ? <CheckCircle size={size || 20} /> : ""}
             </span>
             <span onClick={() => handleChecked()}>{label}</span>
             </label>

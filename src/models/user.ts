@@ -5,9 +5,11 @@ export interface UserDocument extends UserData {
     _id: string;
     email: string;
     password: string;
-    phone: string;
-    createdAt: Date;
-    updatedAt: Date;
+    fullname: string;
+    role?: string;
+    phone?: string;
+    business_category?: string;
+    business_location?: string;
 }
 
 const UserSchema = new Schema<UserDocument>({
@@ -32,7 +34,11 @@ const UserSchema = new Schema<UserDocument>({
       type: String,
       required: [true, "Role is required"]
     },
-    storename: {
+    business_category: {
+      type: String,
+      required: [false, ""]
+    },
+    business_location: {
       type: String,
       required: [false, ""]
     }

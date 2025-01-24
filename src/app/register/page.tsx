@@ -54,20 +54,24 @@ export default function Registerpage() {
                             onSubmit={( values, { setSubmitting }) => {
                                 if(flow === 2) {
                                 signUp(
-                                    active === "Buyer" ?
-                                    {email: values.email, password: values.password, fullname: values.fullname}
-                                    :
-                                    {email: values.email, password: values.password, fullname: values.fullname, business_category: values.business_category, business_location: values.business_location}
+                                    {email: values.email, password: values.password, fullname: values.fullname, business_category: values.business_category, business_location: values.business_location, role: "Seller"}
                                 );
                                 setSubmitting(false);
                                 }
                                 else if(flow === 1) {
+                                    console.log(flow)
                                     setFlow(2)
                                     setSubmitting(false);
                                 }
                                 else {
-                                    setFlow(1)
-                                    setSubmitting(false);
+                                    if(active === "Yes") {
+                                        setFlow(1)
+                                        setSubmitting(false);
+                                    }
+                                    else {
+                                        signUp({email: values.email, password: values.password, fullname: values.fullname, role: "Buyer"})
+                                        setSubmitting(false);
+                                    }
                                 }
                             }}
                             >
@@ -91,7 +95,7 @@ export default function Registerpage() {
                                                 <div className="flex mt-2 gap-8">
                                                 {
                                                     navTabs.map((tab: navTab) => (
-                                                        <Radio key={tab.id} id={tab.label} name="business_or_buyer" onCheck={(value) => {setActive(value); console.log(tab.label)}} value={tab.label} label={tab.label}/>
+                                                        <Radio key={tab.id} id={tab.label} name="business_or_buyer" onCheck={(value) => setActive(value)} value={tab.label} active={active || ""} label={tab.label}/>
                                                     ))
                                                 }
                                                 </div>
@@ -137,14 +141,14 @@ export default function Registerpage() {
                                     <div className="flex justify-between">
                                         {
                                             flow > 0 ?
-                                            <button onClick={() => setFlow(flow-1)} type="submit" className="px-6 border border-gray-300 rounded-[60px]">
+                                            <span tabIndex={1} onClick={() => setFlow(flow -1)} className="px-6 py-3 border border-gray-300 rounded-[60px] cursor-pointer">
                                                 { isSubmitting || loading ? <Spinner size={16} className="animate-spin" /> : "Back"}
-                                            </button>
+                                            </span>
                                             :
                                             <span></span>
                                         }
-                                        <Button type="submit" className="rounded-[60px]">
-                                            { isSubmitting || loading ? <Spinner size={16} className="animate-spin" /> : "Next"}
+                                        <Button type="submit" className="rounded-[80px]">
+                                            { isSubmitting || loading ? <Spinner size={16} className="animate-spin" /> : active === "No" ? "Submit" : "Next"}
                                             <ArrowRight />
                                         </Button>
                                     </div>

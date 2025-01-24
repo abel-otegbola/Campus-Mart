@@ -16,10 +16,8 @@ export const register = async (values: signupData) => {
         }
         const hashedPassword = await bcryptjs.hash(password, 10);
         const user = new User({
-          fullname,
-          email,
-          role,
-          password: hashedPassword,
+          ...values,
+          password: hashedPassword
         });
         const savedUser = await user.save();
         console.log(savedUser, " saved succesfully")

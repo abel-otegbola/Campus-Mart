@@ -22,18 +22,18 @@ export default function Button({ variant, className, href, size, disabled, onCli
        <>
             { 
             href ? 
-                <Link href={href} className={`flex items-center justify-center md:gap-3 gap-2 py-3 px-6
-                    ${variants[variant || "primary"]}
-                    ${disabled ? "opacity-[0.25]" : ""}
-                    ${size === "full" ? "w-full" : "w-fit"}
+                <Link href={href} className={`flex items-center justify-center md:gap-3 gap-2 py-3 px-6 rounded-lg
+                    ${variants[variant || "primary"]} 
+                    ${disabled ? "opacity-[0.25]" : ""} 
+                    ${size === "full" ? "w-full" : "w-fit"} 
                     ${className} `}> 
                     { children }
                 </Link>
 
-                : <button className={`duration-500 flex items-center justify-center md:gap-3 gap-2 py-3 px-6
-                    ${variants[variant || "primary"]}
-                    ${disabled ? "opacity-[0.25]" : ""}
-                    ${size === "full" ? "w-full" : "w-fit"}
+                : <button className={`duration-500 flex items-center justify-center md:gap-3 gap-2 py-3 px-6 rounded-lg
+                    ${variants[variant || "primary"]} 
+                    ${disabled ? "opacity-[0.25]" : ""} 
+                    ${size === "full" ? "w-full" : "w-fit"} 
                     ${className} 
                 `}
                 {...props}
