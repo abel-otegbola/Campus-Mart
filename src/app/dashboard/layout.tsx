@@ -46,7 +46,7 @@ export default function Layout({
 
     return (
         <>
-            <button className="md:hidden fixed top-[14px] md:right-9 right-7 md:p-2 z-[4]" onClick={() => setOpen(!open)}><Avatar user={data?.user || { fullname: "user" }} /></button>
+            <button className="md:hidden fixed top-[22px] md:right-9 right-7 md:p-2 z-[4]" onClick={() => setOpen(!open)}><Avatar user={data?.user || { fullname: "user" }} /></button>
             <div className="flex relative w-full my-1 min-h-[85vh] border-t border-gray-500/[0.1] overflow-hidden">
                 <div className={`flex flex-col justify-between lg:w-[20%] md:w-[24%] w-[240px] h-[88vh] md:sticky fixed md:top-0 top-[64px] py-4 md:px-8 right-0 bg-white dark:bg-black border border-transparent border-x-gray-500/[0.1] overflow-hidden z-[2] transition-all duration-700 ${open ? "translate-x-[0]": "md:translate-x-[0] translate-x-[130%]"}`}>  
                     <div className="flex flex-col gap-1">
