@@ -4,6 +4,7 @@ import { IProduct } from "@/interface/store";
 import { Heart, ShoppingCartSimple } from "@phosphor-icons/react";
 import Link from "next/link";
 import { useContext } from "react";
+import Button from "../button/button";
 
 export default function ProductCard({ product }: { product: IProduct }) {
     const { wishlist, addToWishlist, removeFromWishlist, cart, addToCart, removeFromCart } = useContext(storeContext)
@@ -23,15 +24,15 @@ export default function ProductCard({ product }: { product: IProduct }) {
                 
                 <p className="text-[10px] opacity-[0.5] uppercase font-bold px-3 py-0 my-2">{product?.category}</p>
                 <a href={`/product?id=${product.id}`} className="block pb-4 px-3 leading-[130%] text-[12px] font-semibold">{product?.title}</a>
-                <div className="flex flex-wrap gap-3 justify-between items-center text-[16px] opacity-[0.7] px-3">
+                <div className="flex flex-col gap-3 text-[16px] opacity-[0.7] px-3">
                     {currencyFormatter(+product?.price)} 
 
-                    <div className="border border-primary rounded-full p-2 cursor-pointer z-[2]">
+                    <div className="z-[2]">
                     {
                         cart.map(item => item.id).indexOf(product.id) === -1 ? 
-                        <button className="text-[12px] text-primary px-3" onClick={() => addToCart({id: product.id, quantity: 1, variation: { color: "black", size: "LG" }})} >Add to Cart</button> 
+                        <Button variant="secondary" className="text-[12px] rounded-full" size="full" onClick={() => addToCart({id: product.id, quantity: 1, variation: { color: "black", size: "LG" }})} >Add to Cart</Button> 
                         : 
-                        <button  className="text-[12px] text-primary px-3"  onClick={() => removeFromCart(product.id)} >Remove</button>
+                        <Button variant="secondary"  className="text-[12px] rounded-full" size="full"  onClick={() => removeFromCart(product.id)} >Remove</Button>
                     }
                     </div>
                 </div>

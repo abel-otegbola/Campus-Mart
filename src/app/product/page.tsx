@@ -10,6 +10,7 @@ import ProductCard from "@/components/cards/productCard"
 import { currencyFormatter } from "@/helpers/currencyFormatter"
 import Slider from "@/components/slider/slider"
 import Link from "next/link"
+import ProductSlider from "@/components/productSlider/productSlider"
 
 export default function Product() {
     const searchParams = useSearchParams()
@@ -62,7 +63,7 @@ export default function Product() {
                     <div key={id}>
                         <div className="relative flex flex-wrap my-2 rounded">
                             <div className="relative h-full md:w-[40%] w-full">
-                                <Slider images={product?.images?.map((img: string, i: number) => (
+                                <ProductSlider images={product?.images?.map((img: string, i: number) => (
                                     { id: i, src: img, text: "" }
                                 ))  || [ { id: 0, src: "/bg1.png", text: "" } ]} />
                             </div>

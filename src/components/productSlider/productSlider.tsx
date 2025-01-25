@@ -6,7 +6,7 @@ import Button from "../button/button";
 
 type ImagesProps = { images: { id: number | string, src: string, text: string }[] };
 
-export default function Slider({ images }: ImagesProps) {
+export default function ProductSlider({ images }: ImagesProps) {
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [dragStartX, setDragStartX] = useState<number | null>(null);
     const [dragEndX, setDragEndX] = useState<number | null>(null);
@@ -101,7 +101,7 @@ export default function Slider({ images }: ImagesProps) {
     return (
         <div className="relative flex items-center justify-center md:w-[84%] w-full mx-auto overflow-hidden">
             <div
-                className="flex gap-[3%] md:h-[220px] h-[200px]"
+                className="flex gap-[3%] min-h-[550px]"
                 onMouseDown={handleDragStart}
                 onMouseMove={handleDragMove}
                 onMouseUp={handleDragEnd}
@@ -114,13 +114,11 @@ export default function Slider({ images }: ImagesProps) {
                 images.length === 1 ?
                   <div
                       key={images[0]?.id}
-                      className={`absolute flex flex-col gap-4 justify-center px-[5%] pb-[3%] top-0 md:h-[220px] h-[200px] ${states[0]} duration-700 bg-cover bg-center bg-no-repeat transition-all ease-in-out cursor-pointer`}
+                      className={`flex flex-col min-h-[500px] absolute gap-4 justify-center px-[5%] pb-[3%] top-0 ${states[0]} duration-700 bg-cover bg-center bg-no-repeat transition-all ease-in-out cursor-pointer`}
                       style={{
                           backgroundImage: `url("${images[0]?.src}")`,
                       }}
                     >
-                      <p className="md:text-[28px] text-[20px] font-bold md:w-[60%] text-secondary-dark sm:w-[75%] w-[100%]">{images[0]?.text}</p>
-                      <Button href="/login" className="rounded-[40px]">ORDER NOW</Button>
                   </div>
                   :
                 images.map((_, offset) => {
@@ -128,26 +126,17 @@ export default function Slider({ images }: ImagesProps) {
                     return (
                         <div
                             key={images[slideIndex]?.id}
-                            className={`absolute flex flex-col gap-4 justify-center px-[5%] pb-[3%] top-0 md:h-[220px] h-[200px] ${states[offset]} duration-700 bg-cover bg-slate-200 md:bg-center bg-left bg-no-repeat transition-all ease-in-out cursor-pointer`}
+                            className={`flex flex-col min-h-[500px] absolute gap-4 justify-center px-[5%] pb-[3%] top-0 ${states[offset]} duration-700 bg-cover bg-slate-200 md:bg-center bg-left bg-no-repeat transition-all ease-in-out cursor-pointer`}
                             style={{
                                 backgroundImage: `url("${images[slideIndex]?.src}")`,
                             }}
                         >
-                            <p className="md:text-[28px] text-[20px] font-bold md:w-[60%] text-secondary-dark sm:w-[75%] w-[100%]">{images[slideIndex]?.text}</p>
-                            <Button href="/login" className="rounded-full">ORDER NOW</Button>
                         </div>
                     );
                 })}
             </div>
 
-            {/* <div className="absolute bottom-0 flex p-2 gap-1 bg-white/[0.9] dark:bg-black/[0.8] backdrop-blur-sm border border-gray-500/[0.05] rounded-full">
-                <Button
-                    variant="tetiary"
-                    onClick={prevSlide}
-                    className="px-0 border-none text-dark/[0.4] dark:text-white/[0.7] bg-transparent hover:bg-transparent"
-                >
-                    <CaretLeft />
-                </Button>
+            <div className="absolute bottom-0 flex p-2 gap-1 bg-white/[0.9] dark:bg-black/[0.8] backdrop-blur-sm rounded-full">
                 <div className="flex justify-center mt-4">
                     {images.map((_, index) => (
                         <div
@@ -160,14 +149,7 @@ export default function Slider({ images }: ImagesProps) {
                         />
                     ))}
                 </div>
-                <Button
-                    variant="tetiary"
-                    onClick={nextSlide}
-                    className="px-0 border-none text-dark/[0.4] dark:text-white/[0.7] bg-transparent hover:bg-transparent"
-                >
-                    <CaretRight />
-                </Button>
-            </div> */}
+            </div>
         </div>
     );
 }

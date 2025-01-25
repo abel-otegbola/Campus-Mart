@@ -8,7 +8,7 @@ export const products = [
       tags: ["smartphone", "Apple", "iOS", "5G"],
       category: "Gadgets",
       stocks: 150,
-      images: ["/iphone5.png", "/macbook.png"],
+      images: ["/iphone5.png", "/iphone5.png"],
       variations: {
         colors: [
           { name: "Titanium Black", img: "/iphone5.png" },
@@ -27,18 +27,18 @@ export const products = [
     },
     {
       id: "1",
-      title: "Casual Men's T-Shirt",
+      title: "Casual Women's T-Shirt",
       price: "4990",
-      slug: "casual-mens-tshirt",
+      slug: "casual-womens-tshirt",
       description: "Comfortable and stylish t-shirt made from 100% organic cotton, available in various colors.",
-      tags: ["clothing", "men", "casual", "t-shirt"],
+      tags: ["clothing", "women", "casual", "t-shirt"],
       category: "Clothing",
       stocks: 300,
-      images: ["/tshirt1.png", "/tshirt2.png"],
+      images: ["/tshirt1.jpg", "/tshirt2.jpg"],
       variations: {
         colors: [
-          { name: "White", img: "/tshirt1.png" },
-          { name: "Black", img: "/tshirt2.png" },
+          { name: "White", img: "/tshirt1.jpg" },
+          { name: "Black", img: "/tshirt2.jpg" },
         ],
         size: [
             { name: "S", img: ""},
@@ -63,9 +63,9 @@ export const products = [
       tags: ["jewelry", "gold", "necklace"],
       category: "Jewelry",
       stocks: 50,
-      images: ["/necklace.png"],
+      images: ["/necklace.jpg"],
       variations: {
-        colors: [{ name: "Gold", img: "/necklace.png" }],
+        colors: [{ name: "Gold", img: "/necklace.jpg" }],
       },
       offers: [{ name: "10% Off", code: "JEWEL10" }],
       rating: 4.9,
@@ -75,18 +75,18 @@ export const products = [
     },
     {
       id: "3",
-      title: "Running Shoes",
-      price: "7990",
-      slug: "running-shoes",
-      description: "High-performance running shoes with breathable mesh and cushioned soles for maximum comfort.",
+      title: "Nike Air Force 1 ’07",
+      price: "20990",
+      slug: "sneakers-shoes",
+      description: "The radiance lives on in the Nike Air Force 1 ’07, the b-ball OG that puts a fresh spin on what you know best: durably stitched overlays, clean finishes and the perfect amount of flash to make you shine.",
       tags: ["shoes", "running", "sports"],
       category: "Footwear",
       stocks: 200,
-      images: ["/shoes1.png", "/shoes2.png"],
+      images: ["/shoes1.jpg", "/shoes2.jpg"],
       variations: {
         colors: [
-          { name: "Blue", img: "/shoes1.png" },
-          { name: "Red", img: "/shoes2.png" },
+          { name: "Blue", img: "/shoes1.jpg" },
+          { name: "Red", img: "/shoes2.jpg" },
         ],
         size: [
             { name: "39", img: ""},
@@ -136,11 +136,11 @@ export const products = [
       tags: ["accessories", "leather", "bag"],
       category: "Accessories",
       stocks: 80,
-      images: ["/handbag.png"],
+      images: ["/handbag1.jpg"],
       variations: {
         colors: [
-          { name: "Brown", img: "/handbag.png" },
-          { name: "Black", img: "/handbag-black.png" },
+          { name: "Brown", img: "/handbag1.jpg" },
+          { name: "Black", img: "/handbag2.jpg" },
         ],
       },
       offers: [{ name: "5% Off", code: "BAG5" }],
@@ -158,11 +158,10 @@ export const products = [
       tags: ["watch", "classic", "accessory"],
       category: "Watches",
       stocks: 150,
-      images: ["/watch.png"],
+      images: ["/wristwatch1.jpg"],
       variations: {
         colors: [
-          { name: "Black", img: "/watch-black.png" },
-          { name: "Brown", img: "/watch-brown.png" },
+          { name: "Black", img: "/wristwatch1.jpg" },
         ],
       },
       offers: [{ name: "10% Off", code: "WATCH10" }],
@@ -202,11 +201,10 @@ export const products = [
       tags: ["fitness", "wearable", "smartwatch"],
       category: "Wearable",
       stocks: 250,
-      images: ["/fitnessband.png"],
+      images: ["/fitnessband1.jpg"],
       variations: {
         colors: [
-          { name: "Black", img: "/fitnessband-black.png" },
-          { name: "Blue", img: "/fitnessband-blue.png" },
+          { name: "Black", img: "/fitnessband1.jpg" },
         ],
       },
       offers: [{ name: "Free Shipping", code: "FREESHIP" }],
@@ -224,11 +222,10 @@ export const products = [
       tags: ["fashion", "accessory", "sunglasses"],
       category: "Accessories",
       stocks: 120,
-      images: ["/sunglasses.png"],
+      images: ["/sunglasses1.jpg"],
       variations: {
         colors: [
-          { name: "Black", img: "/sunglasses-black.png" },
-          { name: "Brown", img: "/sunglasses-brown.png" },
+          { name: "Black", img: "/sunglasses1.jpg" },
         ],
       },
       offers: [{ name: "20% Off", code: "SUN20" }],

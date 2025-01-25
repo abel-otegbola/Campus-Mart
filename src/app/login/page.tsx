@@ -1,10 +1,11 @@
 'use client'
+import FacebookIcon from "@/assets/icons/facebook";
 import GoogleIcon from "@/assets/icons/google";
 import Button from "@/components/button/button";
 import Input from "@/components/input/input";
 import { AuthContext } from "@/context/useAuth";
 import { loginSchema } from "@/schema/auth";
-import { Envelope, FacebookLogo, LockKey, Spinner } from "@phosphor-icons/react";
+import { Envelope, LockKey, Spinner } from "@phosphor-icons/react";
 import { Formik } from "formik";
 import Link from "next/link";
 import { useContext } from "react";
@@ -65,8 +66,8 @@ export default function Loginpage() {
 
                         <div className="grid gap-4 grid-cols-2 w-full">
 
+                        <Button size="full" variant="tetiary" onClick={() => sociallogin("/dashboard")} className="bg-white dark:bg-black border-gray-500/[0.2] w-full"><FacebookIcon width={16} />Facebook</Button>
                         <Button size="full" variant="tetiary" onClick={() => sociallogin("/dashboard")} className="bg-white dark:bg-black border-gray-500/[0.2] w-full"><GoogleIcon width={12} />Google</Button>
-                        <Button size="full" variant="tetiary" onClick={() => sociallogin("/dashboard")} className="bg-white dark:bg-black border-gray-500/[0.2] w-full"><FacebookLogo width={12} />Facebook</Button>
                         
                         </div>
                         <div>

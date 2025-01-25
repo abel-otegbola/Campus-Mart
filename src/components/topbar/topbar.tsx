@@ -20,6 +20,7 @@ function Topbar() {
     const { cart } = useContext(storeContext)
     const [open, setOpen] = useState(false)
     const pathname = usePathname()
+    const { data } = useSession()
 
     useEffect(() => {
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -39,7 +40,7 @@ function Topbar() {
         { id: 4, label: "Home", to: "/", icon: <House /> },
         { id: 5, label: "Categories", to: "/categories", icon: <ListMagnifyingGlass /> },
         { id: 6, label: "Wishlist", to: "/wishlist", icon: <Heart /> },
-        { id: 7, label: "Account", to: "/dashboard", icon: <User /> },
+        { id: 7, label: "Account", to: data?.user ? "/dashboard" : "/login", icon: <User /> },
     ]
     
     const accountPages = ["dashboard", "admin", "agent"]
@@ -50,8 +51,8 @@ function Topbar() {
     return (
         <div className={`flex py-3 sticky top-0 left-0 w-full justify-between items-center bg-[#f8f8f8] dark:bg-black z-[3]  ${noheader.includes(pathname.split("/")[1]) ? "hidden": ""} ${accountPages.includes(pathname.split("/")[1]) ? "md:px-10 pl-6 pr-[100px] md:py-2 py-5" : "md:px-[10%] px-6"}`}>
             <div className="md:w-[12%]">
-                <Link href="/" className="w-[70px] h-[30px] text-[#FF9100] ml-6 rounded flex justify-center items-center text-[16px] font-bold">
-                    CAMPUS <span className="ml-1 text-[#16AF89]"> MART</span>
+                <Link href="/" className="w-[70px] h-[30px] text-[#FF9100] ml-6 rounded flex justify-center items-center md:text-[16px] text-[14px] font-bold">
+                    CAMPUS <span className="text-[#16AF89]"> MART</span>
                 </Link>
             </div>
 
@@ -63,16 +64,16 @@ function Topbar() {
                 }
             </nav>
 
-            <div className="flex gap-8 items-center flex-1">
-                <Search placeholder="Search for a product or vendor" className="md:flex hidden flex-1" />
-                <Link href="/login" className="flex gap-1 items-center font-semibold">
+            <div className="flex gap-8 items-center md:flex-1 md:w-auto w-[70%]">
+                <Search placeholder="Search for a product or vendor" className="md:flex-1 " />
+                <Link href={data?.user ? "/dashboard": "/login"} className="md:flex hidden gap-1 items-center font-semibold">
                     <User weight="light" size={20}/>
                     <span>Account</span>
                 </Link>
                 <Link href="/cart" className="relative flex gap-1 items-center font-semibold">
                     <ShoppingCart weight="light" size={20}/>
                     <span>Cart</span>
-                    <span className="absolute text-[8px] -top-2 -right-2 px-1 py-0 rounded-full bg-green-600 text-white">{cart.length}</span>
+                    <span className="absolute text-[8px] -top-3 -right-3 px-2 py-1 rounded-full bg-green text-white">{cart.length}</span>
                 </Link>
             </div>
         </div>

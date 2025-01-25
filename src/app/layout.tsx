@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-// import Footer from "@/components/footer/footer";
+import Footer from "@/components/footer/footer";
 import Topbar from "@/components/topbar/topbar";
 import NextTopLoader from "nextjs-toploader";
 import StoreContextProvider from "@/context/useStore";
@@ -29,7 +29,7 @@ export default function RootLayout({
           <NextTopLoader />
           <Topbar />
           {children}
-          {/* <Footer /> */}
+          <Footer />
         </StoreContextProvider>
         </AuthProvider>
       </body>
