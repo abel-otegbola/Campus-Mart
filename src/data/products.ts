@@ -1,230 +1,226 @@
-export const gadgets = [
+export const products = [
     {
       id: "0",
       title: "iPhone 15 Pro Max",
-      price: "1199000",
+      price: "699000",
       slug: "iphone-15-pro-max",
       description: "The iPhone 15 Pro Max features a titanium design, the powerful A17 Pro chip, and a cutting-edge camera system.",
       tags: ["smartphone", "Apple", "iOS", "5G"],
-      category: "smartphones",
+      category: "Gadgets",
       stocks: 150,
-      images: [
-        "/iphone5.png",
-        "/macbook.png",
-      ],
+      images: ["/iphone5.png", "/macbook.png"],
       variations: {
         colors: [
           { name: "Titanium Black", img: "/iphone5.png" },
-          { name: "Titanium Blue", img: "iphone5.png" },
+          { name: "Titanium Blue", img: "/iphone5.png" },
         ],
         size: [
           { name: "128GB", img: "" },
           { name: "256GB", img: "" },
         ],
       },
-      offers: [
-        { name: "Free Shipping", code: "FREESHIP" },
-        { name: "10% Off for Students", code: "STUDENT10" },
-      ],
-      createdAt: "2024-11-14T10:00:00Z",
-      updatedAt: "2024-11-14T10:00:00Z",
+      offers: [{ name: "Free Shipping", code: "FREESHIP" }],
       rating: 4.8,
-      store: "DA' REY"
+      store: "DA' REY",
+      createdAt: "12-20-2024",
+      updatedAt: "12-30-2024",
     },
     {
       id: "1",
-      title: "MacBook Pro 16-inch (M2 Max)",
-      price: "3499000",
-      slug: "macbook-pro-16-m2-max",
-      description: "The MacBook Pro 16-inch with the M2 Max chip offers unparalleled performance for creative professionals.",
-      tags: ["laptop", "Apple", "macOS", "Pro"],
-      category: "laptops",
-      stocks: 80,
-      images: [
-        "/macbook.png",
-        "/macbook.png",
-      ],
+      title: "Casual Men's T-Shirt",
+      price: "4990",
+      slug: "casual-mens-tshirt",
+      description: "Comfortable and stylish t-shirt made from 100% organic cotton, available in various colors.",
+      tags: ["clothing", "men", "casual", "t-shirt"],
+      category: "Clothing",
+      stocks: 300,
+      images: ["/tshirt1.png", "/tshirt2.png"],
       variations: {
         colors: [
-          { name: "Space Gray", img: "/macbook.png" },
-          { name: "Silver", img: "/macbook.png" },
+          { name: "White", img: "/tshirt1.png" },
+          { name: "Black", img: "/tshirt2.png" },
         ],
-        size: [
-          { name: "1TB", img: "" },
-          { name: "2TB", img: "" },
+        size: ["S", "M", "L", "XL"],
+      },
+      offers: [{ name: "Buy 2 Get 1 Free", code: "B2G1" }],
+      rating: 4.4,
+      store: "TrendCo",
+      createdAt: "12-20-2024",
+      updatedAt: "12-30-2024",
+    },
+    {
+      id: "2",
+      title: "Elegant Gold Necklace",
+      price: "3990",
+      slug: "elegant-gold-necklace",
+      description: "A beautifully designed gold necklace, perfect for special occasions or gifting.",
+      tags: ["jewelry", "gold", "necklace"],
+      category: "Jewelry",
+      stocks: 50,
+      images: ["/necklace.png"],
+      variations: {
+        colors: [{ name: "Gold", img: "/necklace.png" }],
+      },
+      offers: [{ name: "10% Off", code: "JEWEL10" }],
+      rating: 4.9,
+      store: "Golden Bliss",
+      createdAt: "12-20-2024",
+      updatedAt: "12-30-2024",
+    },
+    {
+      id: "3",
+      title: "Running Shoes",
+      price: "7990",
+      slug: "running-shoes",
+      description: "High-performance running shoes with breathable mesh and cushioned soles for maximum comfort.",
+      tags: ["shoes", "running", "sports"],
+      category: "Footwear",
+      stocks: 200,
+      images: ["/shoes1.png", "/shoes2.png"],
+      variations: {
+        colors: [
+          { name: "Blue", img: "/shoes1.png" },
+          { name: "Red", img: "/shoes2.png" },
+        ],
+        size: ["7", "8", "9", "10", "11"],
+      },
+      offers: [{ name: "15% Off", code: "RUN15" }],
+      rating: 4.6,
+      store: "Sportify",
+      createdAt: "12-20-2024",
+      updatedAt: "12-30-2024",
+    },
+    {
+      id: "4",
+      title: "Wireless Noise-Cancelling Headphones",
+      price: "29990",
+      slug: "noise-cancelling-headphones",
+      description: "High-quality noise-cancelling headphones with exceptional sound clarity and long battery life.",
+      tags: ["audio", "wireless", "Bluetooth"],
+      category: "Audio",
+      stocks: 120,
+      images: ["/headphone1.png"],
+      variations: {
+        colors: [
+          { name: "Black", img: "/headphone1.png" },
+          { name: "White", img: "/headphone2.png" },
         ],
       },
-      offers: [
-        { name: "Free AppleCare for 1 Year", code: "APPLECARE1" },
-        { name: "15% Off for Educators", code: "EDU15" },
-      ],
-      createdAt: "2024-11-14T10:00:00Z",
-      updatedAt: "2024-11-14T10:00:00Z",
-      rating: 4.9,
-      store: "Bri8"
-    },  
-    {
-        id: "2",
-        title: "Wireless Noise-Cancelling Headphones",
-        price: "299990",
-        slug: "wireless-noise-cancelling-headphones",
-        description: "High-quality noise-cancelling headphones with exceptional sound clarity and long battery life.",
-        tags: ["audio", "wireless", "noise-cancelling", "Bluetooth"],
-        category: "Audio",
-        stocks: 120,
-        images: [
-            "/headphone1.png",
-            "/headphone2.png",
-            "/headphone2.png",
-        ],
-        variations: {
-            colors: [
-                { name: "Black", img: "/headphone1.png" },
-                { name: "White", img: "/headphone2.png" }
-            ],
-            size: []
-        },
-        offers: [
-            { name: "10% Off", code: "AUDIO10" }
-        ],
-        createdAt: "2024-01-15",
-        updatedAt: "2024-06-10",
-        rating: 4.5,
-        store: "DA' REY"
+      offers: [{ name: "10% Off", code: "AUDIO10" }],
+      rating: 4.5,
+      store: "DA' REY",
+      createdAt: "12-20-2024",
+      updatedAt: "12-30-2024",
     },
     {
-        id: "3",
-        title: "Smart Fitness Watch",
-        price: "149990",
-        slug: "smart-fitness-watch",
-        description: "Track your health and fitness with this all-in-one smartwatch featuring GPS, heart rate monitoring, and water resistance.",
-        tags: ["wearable", "fitness", "smartwatch"],
-        category: "Wearable",
-        stocks: 250,
-        images: [
-            "/Smartwatch.png",
-            "/Smartwatch-new.png"
+      id: "5",
+      title: "Luxury Leather Handbag",
+      price: "29990",
+      slug: "luxury-leather-handbag",
+      description: "Premium leather handbag with elegant design, suitable for formal and casual occasions.",
+      tags: ["accessories", "leather", "bag"],
+      category: "Accessories",
+      stocks: 80,
+      images: ["/handbag.png"],
+      variations: {
+        colors: [
+          { name: "Brown", img: "/handbag.png" },
+          { name: "Black", img: "/handbag-black.png" },
         ],
-        variations: {
-            colors: [
-                { name: "Black", img: "/Smartwatch.png" },
-                { name: "Blue", img: "/Smartwatch-new.png" }
-            ],
-            size: []
-        },
-        offers: [
-            { name: "Free Shipping", code: "FREESHIP" }
-        ],
-        createdAt: "2023-11-05",
-        updatedAt: "2024-07-21",
-        rating: 4.3,
-        store: "DA' REY"
+      },
+      offers: [{ name: "5% Off", code: "BAG5" }],
+      rating: 4.7,
+      store: "Elegance Co.",
+      createdAt: "12-20-2024",
+      updatedAt: "12-30-2024",
     },
     {
-        id: "4",
-        title: "Portable Bluetooth Speaker",
-        price: "799900",
-        slug: "portable-bluetooth-speaker",
-        description: "Compact and durable Bluetooth speaker with deep bass and long battery life for all your outdoor adventures.",
-        tags: ["audio", "portable", "Bluetooth"],
-        category: "Audio",
-        stocks: 180,
-        images: [
-            "/speaker1.png",
-            "/speaker1.png"
+      id: "6",
+      title: "Classic Wristwatch",
+      price: "7900",
+      slug: "classic-wristwatch",
+      description: "Stylish wristwatch with a leather strap and stainless steel case, perfect for everyday wear.",
+      tags: ["watch", "classic", "accessory"],
+      category: "Watches",
+      stocks: 150,
+      images: ["/watch.png"],
+      variations: {
+        colors: [
+          { name: "Black", img: "/watch-black.png" },
+          { name: "Brown", img: "/watch-brown.png" },
         ],
-        variations: {
-            colors: [
-                { name: "Red", img: "/speaker1.png" },
-                { name: "Blue", img: "/speaker1.png" }
-            ],
-            size: []
-        },
-        offers: [
-            { name: "15% Off", code: "SPEAKER15" }
-        ],
-        createdAt: "2023-09-12",
-        updatedAt: "2024-03-18",
-        rating: 4.7,
-        store: "Bri8"
+      },
+      offers: [{ name: "10% Off", code: "WATCH10" }],
+      rating: 4.3,
+      store: "Timeless",
+      createdAt: "12-20-2024",
+      updatedAt: "12-30-2024",
     },
     {
-        id: "5",
-        title: "4K Action Camera",
-        price: "1999900",
-        slug: "4k-action-camera",
-        description: "Capture stunning 4K videos and photos with this waterproof, rugged action camera ideal for adventure enthusiasts.",
-        tags: ["camera", "4K", "action", "waterproof"],
-        category: "Cameras",
-        stocks: 90,
-        images: [
-            "/camera1.png",
+      id: "7",
+      title: "Portable Bluetooth Speaker",
+      price: "7900",
+      slug: "portable-bluetooth-speaker",
+      description: "Compact and durable Bluetooth speaker with deep bass and long battery life for outdoor adventures.",
+      tags: ["audio", "portable", "Bluetooth"],
+      category: "Audio",
+      stocks: 180,
+      images: ["/speaker1.png"],
+      variations: {
+        colors: [
+          { name: "Red", img: "/speaker1.png" },
+          { name: "Blue", img: "/speaker1.png" },
         ],
-        variations: {
-            colors: [
-                { name: "Black", img: "/camera1.png" }
-            ],
-            size: []
-        },
-        offers: [
-            { name: "10% Off", code: "ACTION10" }
-        ],
-        createdAt: "2024-02-10",
-        updatedAt: "2024-08-05",
-        rating: 4.6,
-        store: "DA' REY"
+      },
+      offers: [{ name: "15% Off", code: "SPEAKER15" }],
+      rating: 4.7,
+      store: "Bri8",
+      createdAt: "12-20-2024",
+      updatedAt: "12-30-2024",
     },
     {
-        id: "6",
-        title: "Wireless Charging Pad",
-        price: "299900",
-        slug: "wireless-charging-pad",
-        description: "Fast wireless charging pad compatible with all Qi-enabled devices for convenient charging.",
-        tags: ["charging", "wireless", "Qi"],
-        category: "Accessories",
-        stocks: 300,
-        images: [
-            "/chargingpad1.png",
+      id: "8",
+      title: "Smart Fitness Band",
+      price: "3490",
+      slug: "smart-fitness-band",
+      description: "Lightweight and feature-rich fitness band with heart rate tracking and step counter.",
+      tags: ["fitness", "wearable", "smartwatch"],
+      category: "Wearable",
+      stocks: 250,
+      images: ["/fitnessband.png"],
+      variations: {
+        colors: [
+          { name: "Black", img: "/fitnessband-black.png" },
+          { name: "Blue", img: "/fitnessband-blue.png" },
         ],
-        variations: {
-            colors: [
-                { name: "Black", img: "/chargingpad1.png" }
-            ],
-            size: []
-        },
-        offers: [
-            { name: "5% Off", code: "CHARGE5" }
-        ],
-        createdAt: "2023-08-22",
-        updatedAt: "2024-06-30",
-        rating: 4.2,
-        store: "Bri8"
+      },
+      offers: [{ name: "Free Shipping", code: "FREESHIP" }],
+      rating: 4.4,
+      store: "DA' REY",
+      createdAt: "12-20-2024",
+      updatedAt: "12-30-2024",
     },
     {
-        id: "7",
-        title: "Smart Home Hub",
-        price: "1299900",
-        slug: "smart-home-hub",
-        description: "Control all your smart home devices from one central hub, compatible with most smart devices and voice assistants.",
-        tags: ["smart home", "automation", "hub"],
-        category: "Smart Home",
-        stocks: 150,
-        images: [
-            "/smarthub1.png",
+      id: "9",
+      title: "Designer Sunglasses",
+      price: "5990",
+      slug: "designer-sunglasses",
+      description: "Trendy and protective sunglasses with polarized lenses for ultimate UV protection.",
+      tags: ["fashion", "accessory", "sunglasses"],
+      category: "Accessories",
+      stocks: 120,
+      images: ["/sunglasses.png"],
+      variations: {
+        colors: [
+          { name: "Black", img: "/sunglasses-black.png" },
+          { name: "Brown", img: "/sunglasses-brown.png" },
         ],
-        variations: {
-            colors: [
-                { name: "White", img: "/smarthub-white.jpg" },
-                { name: "Gray", img: "/smarthub-gray.jpg" }
-            ],
-            size: []
-        },
-        offers: [
-            { name: "20% Off", code: "SMARTHUB20" }
-        ],
-        createdAt: "2024-04-07",
-        updatedAt: "2024-09-15",
-        rating: 4.8,
-        store: "Bri8"
-    }
-];
+      },
+      offers: [{ name: "20% Off", code: "SUN20" }],
+      rating: 4.8,
+      store: "Shady Styles",
+      createdAt: "12-20-2024",
+      updatedAt: "12-30-2024",
+    },
+  ];
+  

@@ -12,9 +12,9 @@ export interface IProduct {
         colors: {
             name: string, img: string
         }[];
-        size: {
+        size?: {
             name: string, img: string
-        }[];
+        }[] | string[];
     };
     offers:{
         name: string, code: string
