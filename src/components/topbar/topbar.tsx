@@ -32,11 +32,12 @@ function Topbar() {
     const noheader = ["login", "register"]
 
     const navTabs: navTab[] = [
-        { id: 4, label: "Home", to: "/", icon: <House /> },
-        { id: 0, label: "Categories", to: "/categories", icon: <ListMagnifyingGlass /> },
+        { id: 0, label: "Categories", to: "/categories", icon: <></> },
         { id: 1, label: "New Arrivals", to: "/shop", icon: <></> },
         { id: 2, label: "Deals", to: "/deals", icon: <></> },
         { id: 3, label: "Delivery", to: "/delivery", icon: <></> },
+        { id: 4, label: "Home", to: "/", icon: <House /> },
+        { id: 5, label: "Categories", to: "/categories", icon: <ListMagnifyingGlass /> },
         { id: 6, label: "Wishlist", to: "/wishlist", icon: <Heart /> },
         { id: 7, label: "Account", to: "/dashboard", icon: <User /> },
     ]
@@ -57,18 +58,18 @@ function Topbar() {
             <nav className="flex justify-between md:static p-4 bg-[#f8f8f8] dark:bg-black/[0.9] backdrop-blur-sm fixed bottom-0 left-0 md:w-fit w-full md:border-none border border-gray-500/[0.1] items-center gap-0 z-[10]">
                 {
                     navTabs.map((tab: navTab) => (
-                        <Tab key={tab.id} label={tab.label} href={tab.to} icon={tab.icon}/>
+                        <Tab key={tab.id} label={tab.label} href={tab.to} icon={tab.icon} id={tab.id.toString()}/>
                     ))
                 }
             </nav>
 
             <div className="flex gap-8 items-center flex-1">
                 <Search placeholder="Search for a product or vendor" className="md:flex hidden flex-1" />
-                <Link href="/login" className="flex gap-1 items-center">
+                <Link href="/login" className="flex gap-1 items-center font-semibold">
                     <User weight="light" size={20}/>
                     <span>Account</span>
                 </Link>
-                <Link href="/cart" className="relative flex gap-1 items-center">
+                <Link href="/cart" className="relative flex gap-1 items-center font-semibold">
                     <ShoppingCart weight="light" size={20}/>
                     <span>Cart</span>
                     <span className="absolute text-[8px] -top-2 -right-2 px-1 py-0 rounded-full bg-green-600 text-white">{cart.length}</span>

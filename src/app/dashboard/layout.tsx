@@ -1,6 +1,6 @@
 'use client'
 import { ReactElement, useState } from "react";
-import { TbDashboard, TbListDetails, TbLogout, TbPackage, TbSettings, TbStar, TbUser, TbUsers } from "react-icons/tb";
+import { TbBell, TbDashboard, TbListDetails, TbLogout, TbPackage, TbSettings, TbStar, TbUser, TbUsers } from "react-icons/tb";
 import { Icon } from "@phosphor-icons/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -30,10 +30,13 @@ export default function Layout({
     ]
 
     const storeLinks: Link[] = [
-        ...generalLinks,
-        { id: 4, label: "Products", icon: <TbPackage />, link: "/dashboard/products" },
+        { id: 0, label: "Dashboard", icon: <TbDashboard />, link: "/dashboard" },
+        { id: 4, label: "Business Profile", icon: <TbUser />, link: "/dashboard/profile" },
+        { id: 4, label: "Inventory", icon: <TbPackage />, link: "/dashboard/inventory" },
+        { id: 1, label: "Orders", icon: <TbListDetails />, link: "/dashboard/orders" },
         { id: 5, label: "Customers", icon: <TbUsers />, link: "/dashboard/customers" },
-        { id: 6, label: "Reviews", icon: <TbStar />, link: "/dashboard/review" },
+        { id: 6, label: "Notifications", icon: <TbBell />, link: "/dashboard/notifications" },
+        { id: 6, label: "Settings", icon: <TbSettings />, link: "/dashboard/settings" },
     ]
 
     // if(!data?.user) {
@@ -50,7 +53,7 @@ export default function Layout({
                         {
                         (data?.user?.role === "Seller" ? storeLinks : generalLinks).map(link => {
                                 return (
-                                <Link key={link.id} href={ link.link} className={`flex items-center justify-between my-[3px] px-4 py-1 md:rounded ${pathname === link.link ? "bg-primary text-white" : " hover:bg-primary/[0.1] hover:text-primary"}`}>
+                                <Link key={link.id} href={ link.link} className={`flex items-center justify-between my-[3px] px-4 py-1 md:rounded ${pathname === link.link ? "bg-primary/[0.1] text-primary" : " hover:bg-primary/[0.1] hover:text-primary"}`}>
                                     <span className="w-[30px] text-lg opacity-[0.6]">{link.icon}</span>
                                     <span className="flex-1 py-2 break-normal">{link.label}</span>
                                 </Link>

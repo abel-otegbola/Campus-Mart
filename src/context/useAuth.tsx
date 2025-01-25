@@ -49,10 +49,15 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
     const signUp = (data: signupData) => {
         setLoading(true)
         register(data)
-        .then(() => {
+        .then((response) => {
             setLoading(false)
-            setPopup({ type: "success", msg: "Signup Successful, Please login to continue" })
-            router.push("/login")
+            if(response?.error) {
+                setPopup({ type: "error", msg: response?.error })
+            }
+            else {
+                setPopup({ type: "success", msg: "Signup Successful, Please login to continue" })
+                router.push("/login")
+            }
         })
         .catch((error: { message: string }) => {
             setPopup({ type: "error", msg: formatError(error.message) })

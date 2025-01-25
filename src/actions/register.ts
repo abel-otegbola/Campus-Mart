@@ -20,9 +20,11 @@ export const register = async (values: signupData) => {
           password: hashedPassword
         });
         const savedUser = await user.save();
-        console.log(savedUser, " saved succesfully")
     }
     catch(e){
-        console.log(e);
+        console.log(e)
+        return {
+            error: "Signup unsucccessful"
+        }
     }
 }

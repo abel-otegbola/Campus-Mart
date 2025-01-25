@@ -1,13 +1,15 @@
 'use client'
 import Button from "@/components/button/button";
 import Dropdown from "@/components/dropdown/dropdown";
+import ImageToBase64 from "@/components/imageConverter/imageConverter";
 import Input from "@/components/input/input";
 import Radio from "@/components/radio/radio";
 import { AuthContext } from "@/context/useAuth";
 import { registerSchema } from "@/schema/auth";
-import { ArrowRight, Bicycle, Book, Briefcase, Bus, Chair, Coffee, Envelope, FilmStrip, Football, GameController, GraduationCap, Guitar, Heart, House, Image, Laptop, LockKey, MapPin, Palette, PawPrint, Pencil, ShirtFolded, Spinner, Storefront, Ticket, User, UserCircle, Watch } from "@phosphor-icons/react";
+import { ArrowRight, Bicycle, Book, Briefcase, Bus, Chair, Coffee, Envelope, FilmStrip, Football, GameController, GraduationCap, Guitar, Heart, House, ImageBroken, Laptop, LockKey, MapPin, Palette, PawPrint, Pencil, ShirtFolded, Spinner, Storefront, Ticket, Trash, User, UserCircle, Watch } from "@phosphor-icons/react";
 import { Formik } from "formik";
 import Link from "next/link";
+import Image from "next/image";
 import { ReactNode, useContext, useState } from "react";
 import { TbPerfume } from "react-icons/tb";
 
@@ -49,19 +51,14 @@ export default function Registerpage() {
                         </div>
 
                         <Formik
-                            initialValues={{ fullname: '', email: '', password: '', business_category: '', business_location: ''}}
+                            initialValues={{ fullname: '', email: '', password: '', business_category: '', business_location: '', img: ''}}
                             validationSchema={registerSchema}
                             onSubmit={( values, { setSubmitting }) => {
-                                if(flow === 2) {
+                                if(flow === 1) {
                                 signUp(
-                                    {email: values.email, password: values.password, fullname: values.fullname, business_category: values.business_category, business_location: values.business_location, role: "Seller"}
+                                    {email: values.email, password: values.password, fullname: values.fullname, business_category: values.business_category, business_location: values.business_location, role: "Seller", img: values.img}
                                 );
                                 setSubmitting(false);
-                                }
-                                else if(flow === 1) {
-                                    console.log(flow)
-                                    setFlow(2)
-                                    setSubmitting(false);
                                 }
                                 else {
                                     if(active === "Yes") {
@@ -79,6 +76,7 @@ export default function Registerpage() {
                                 values,
                                 errors,
                                 touched,
+                                setFieldValue,
                                 handleChange,
                                 handleSubmit,
                                 isSubmitting,
@@ -129,11 +127,24 @@ export default function Registerpage() {
                                             } label="Business Category" value={values.business_category} onChange={handleChange} error={touched.business_category ? errors.business_category : ""} placeholder="Choose your business category" />
                                             <Input name="business_location" label="Business Location" value={values.business_location} onChange={handleChange} type="text" error={touched.business_location ? errors.business_location : ""} placeholder="Enter business location" leftIcon={<MapPin size={16}/>}/>
                                             <p className="-mb-4">Upload Profile Picture</p>
-                                            <label htmlFor="add_img" className="flex flex-col justify-center items-center h-[100px] w-[100%] border border-dashed border-gray-300 rounded-lg">
-                                                <Image weight="fill" alt="add new image" size={32} />
-                                                <p className="text-[10px]">Drop your image here, or <label htmlFor="add_img" className="text-primary">Browse files</label></p>
-                                                <input type="file" className="hidden" id="add_img" />
-                                            </label>
+                                            <div className="flex gap-6 items-center h-[100px] w-[100%] border border-dashed border-gray-300 rounded-lg">
+                                                { 
+                                                   values.img === "" ? 
+                                                   ""
+                                                   :
+                                                    <div className="flex">
+                                                        <div className="flex items-center p-4 cursor-pointer" tabIndex={1} onClick={(e) => {setFieldValue("img", ""); e.stopPropagation()}}><Trash size={16} className="text-red-500" /></div>
+                                                        <Image src={values.img} alt="preview" width={98} height={98} className=""/>
+                                                    </div>
+                                                   
+                                                    
+                                                }
+                                                <label htmlFor="add_img" className="flex flex-col justify-center items-center gap-2 flex-1">
+                                                    <ImageBroken weight="fill" alt="add new image" size={32} />
+                                                    <p className="text-[10px]">Drop your image here, or <label htmlFor="add_img" className="text-primary">Browse files</label></p>
+                                                </label>
+                                                <ImageToBase64 id="add_img" setImg={(img) => setFieldValue("img", img)} />
+                                            </div>
                                         </div>
                                     </div>
 
@@ -148,7 +159,7 @@ export default function Registerpage() {
                                             <span></span>
                                         }
                                         <Button type="submit" className="rounded-[80px]">
-                                            { isSubmitting || loading ? <Spinner size={16} className="animate-spin" /> : active === "No" ? "Submit" : "Next"}
+                                            { isSubmitting || loading ? <Spinner size={16} className="animate-spin" /> : active === "No" ? "Submit" : flow === 1 ? "Finish" : "Next"}
                                             <ArrowRight />
                                         </Button>
                                     </div>

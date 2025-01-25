@@ -11,8 +11,6 @@ export default function Home() {
 
       <Slider images={[
         { id: "0", src: "/bg4.png", text: "Get Your Order Delivered Personally to Your Department" },
-        { id: "1", src: "/bg4.png", text: "Get Your Order Delivered Personally to Your Department"  },
-        { id: "2", src: "/bg4.png", text: "Get Your Order Delivered Personally to Your Department"  },
       ]} />
 
       <section className="md:px-[8%] px-4 py-[20px]">

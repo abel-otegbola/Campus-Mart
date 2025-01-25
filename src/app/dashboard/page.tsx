@@ -1,12 +1,11 @@
 'use client'
 
-import { PiMoney, PiWatchLight } from "react-icons/pi";
-import { FiCalendar, FiShoppingBag } from "react-icons/fi";
+import { PiWatchLight } from "react-icons/pi";
+// import { FiCalendar, FiShoppingBag } from "react-icons/fi";
 import Avatar from "@/components/avatar/avatar";
-import { currencyFormatter } from "@/helpers/currencyFormatter";
-import Button from "@/components/button/button";
+// import { currencyFormatter } from "@/helpers/currencyFormatter";
+// import Button from "@/components/button/button";
 import { useSession } from "next-auth/react";
-
 
 function DashboardHome() {
     const { data } = useSession()
@@ -24,7 +23,7 @@ function DashboardHome() {
                         
                     </div>
 
-                    <div className="flex sm:flex-nowrap flex-wrap py-8 gap-8">
+                    {/* <div className="flex sm:flex-nowrap flex-wrap py-8 gap-8">
                         <div className="flex flex-col gap-8 p-5 sm:w-[50%] w-full bg-red-600 text-tetiary backdrop-blur-sm bg-cover rounded-[15px]">
                             <h1 className="text-xl">Balance</h1>
                             <p className="p-1 px-6 rounded-full bg-white/[0.1] w-fit">{currencyFormatter(10000)}</p>
@@ -63,7 +62,7 @@ function DashboardHome() {
                             </div>
                             <Button size="full" variant="secondary" href="/shop" className="bg-black/[0.4] rounded-full">Redeem code</Button>
                         </div>
-                    </div>
+                    </div> */}
 
                     
                 </div>

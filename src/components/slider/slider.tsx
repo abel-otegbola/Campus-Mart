@@ -114,7 +114,7 @@ export default function Slider({ images }: ImagesProps) {
                 images.length === 1 ?
                   <div
                       key={images[0]?.id}
-                      className={`absolute top-0 md:h-[220px] h-[200px] ${states[0]} duration-700 bg-cover bg-center bg-no-repeat transition-all ease-in-out cursor-pointer`}
+                      className={`absolute flex flex-col gap-4 justify-center px-[5%] pb-[3%] top-0 md:h-[220px] h-[200px] ${states[0]} duration-700 bg-cover bg-center bg-no-repeat transition-all ease-in-out cursor-pointer`}
                       style={{
                           backgroundImage: `url("${images[0]?.src}")`,
                       }}
@@ -134,7 +134,7 @@ export default function Slider({ images }: ImagesProps) {
                             }}
                         >
                             <p className="md:text-[28px] text-[20px] font-bold md:w-[60%] text-secondary-dark sm:w-[75%] w-[100%]">{images[slideIndex]?.text}</p>
-                            <Button className="rounded-[40px]">ORDER NOW</Button>
+                            <Button className="rounded-full">ORDER NOW</Button>
                         </div>
                     );
                 })}
