@@ -14,7 +14,7 @@ export interface IProduct {
         }[];
         size?: {
             name: string, img: string
-        }[] | string[];
+        }[];
     };
     offers:{
         name: string, code: string

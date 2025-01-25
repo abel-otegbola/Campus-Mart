@@ -7,7 +7,6 @@ import { useSearchParams } from "next/navigation"
 import { ICart, IProduct } from "@/interface/store"
 import Skeleton from "@/components/skeleton/skeleton"
 import ProductCard from "@/components/cards/productCard"
-import { gadgets } from "@/data/products"
 import { currencyFormatter } from "@/helpers/currencyFormatter"
 import Slider from "@/components/slider/slider"
 import Link from "next/link"
@@ -30,9 +29,9 @@ export default function Product() {
 
     useEffect(() => {
         setLoading(true)
-        setProduct(gadgets.filter(item => item.id === id)[0])
+        setProduct(products.filter(item => item.id === id)[0])
         setLoading(false)
-    }, [id])
+    }, [id, products])
 
 
     // const changeColor = (id: number | string | null, color: string) => {
@@ -110,7 +109,7 @@ export default function Product() {
                                         <p>Size</p>
                                         <div className="grid grid-cols-5 items-center gap-4 mt-4">
                                             {
-                                                product?.variations.size?.map((item: { name: string, img: string }, i: number) => (
+                                                product?.variations.size?.map((item, i) => (
                                                     <button 
                                                         key={i} 
                                                         className={`p-[1px] w-full px-2 rounded ${size === item.name ? "bg-primary" : "border border-gray-500/[0.4]"}`} 
