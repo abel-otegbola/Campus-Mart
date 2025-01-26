@@ -20,31 +20,6 @@ type navTab =  {
     icon: ReactNode
 }
 
-export const categories = [
-    { id: 0, title: "Gadgets", icon: <Watch /> },
-    { id: 1, title: "Books", icon: <Book /> },
-    { id: 2, title: "Clothing", icon: <ShirtFolded /> },
-    { id: 3, title: "Stationery", icon: <Pencil /> },
-    { id: 4, title: "Electronics", icon: <Laptop /> },
-    { id: 5, title: "Furniture", icon: <Chair /> },
-    { id: 6, title: "Sports Equipment", icon: <Football /> },
-    { id: 7, title: "Music Instruments", icon: <Guitar /> },
-    { id: 8, title: "Bicycles", icon: <Bicycle /> },
-    { id: 9, title: "Food & Beverages", icon: <Coffee /> },
-    { id: 10, title: "Tutoring Services", icon: <GraduationCap /> },
-    { id: 11, title: "Accommodation", icon: <House /> },
-    { id: 12, title: "Event Tickets", icon: <Ticket /> },
-    { id: 13, title: "Health & Wellness", icon: <Heart /> },
-    { id: 14, title: "Part-time Jobs", icon: <Briefcase /> },
-    { id: 15, title: "Art & Craft Supplies", icon: <Palette /> },
-    { id: 16, title: "Travel Accessories", icon: <Bus /> },
-    { id: 17, title: "Gaming", icon: <GameController /> },
-    { id: 18, title: "Movies & Entertainment", icon: <FilmStrip /> },
-    { id: 19, title: "Pet Supplies", icon: <PawPrint /> },
-    { id: 20, title: "Perfumes and Scents", icon: <TbPerfume /> }
-] 
-
-
 export default function Registerpage() {
     const { signUp, loading } = useContext(AuthContext)
     const [active, setActive] = useState<string | undefined>("No")
@@ -54,6 +29,30 @@ export default function Registerpage() {
         { id: 1, label: "Yes", to: "#", icon: <User/> },
         { id: 2, label: "No", to: "#", icon: <Storefront/> },
     ]
+     const categories = [
+        { id: 0, title: "Gadgets", icon: <Watch /> },
+        { id: 1, title: "Books", icon: <Book /> },
+        { id: 2, title: "Clothing", icon: <ShirtFolded /> },
+        { id: 3, title: "Stationery", icon: <Pencil /> },
+        { id: 4, title: "Electronics", icon: <Laptop /> },
+        { id: 5, title: "Furniture", icon: <Chair /> },
+        { id: 6, title: "Sports Equipment", icon: <Football /> },
+        { id: 7, title: "Music Instruments", icon: <Guitar /> },
+        { id: 8, title: "Bicycles", icon: <Bicycle /> },
+        { id: 9, title: "Food & Beverages", icon: <Coffee /> },
+        { id: 10, title: "Tutoring Services", icon: <GraduationCap /> },
+        { id: 11, title: "Accommodation", icon: <House /> },
+        { id: 12, title: "Event Tickets", icon: <Ticket /> },
+        { id: 13, title: "Health & Wellness", icon: <Heart /> },
+        { id: 14, title: "Part-time Jobs", icon: <Briefcase /> },
+        { id: 15, title: "Art & Craft Supplies", icon: <Palette /> },
+        { id: 16, title: "Travel Accessories", icon: <Bus /> },
+        { id: 17, title: "Gaming", icon: <GameController /> },
+        { id: 18, title: "Movies & Entertainment", icon: <FilmStrip /> },
+        { id: 19, title: "Pet Supplies", icon: <PawPrint /> },
+        { id: 20, title: "Perfumes and Scents", icon: <TbPerfume /> }
+    ] 
+
 
     return (
         <div className="min-h-[400px] flex sm:items-center justify-between">

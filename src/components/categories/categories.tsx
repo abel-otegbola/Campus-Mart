@@ -1,10 +1,34 @@
 'use client'
-import { categories } from "@/app/register/page";
-import { X } from "@phosphor-icons/react";
+import { Bicycle, Book, Briefcase, Bus, Chair, Coffee, FilmStrip, Football, GameController, GraduationCap, Guitar, Heart, House, Laptop, Palette, PawPrint, Pencil, ShirtFolded, Ticket, Watch, X } from "@phosphor-icons/react";
 import Link from "next/link";
-import { useState } from "react"
+import { TbPerfume } from "react-icons/tb";
 
 export default function Categories({ open, setOpen }: {open: boolean, setOpen: (aug0: boolean) => void}) {
+
+    const categories = [
+        { id: 0, title: "Gadgets", icon: <Watch /> },
+        { id: 1, title: "Books", icon: <Book /> },
+        { id: 2, title: "Clothing", icon: <ShirtFolded /> },
+        { id: 3, title: "Stationery", icon: <Pencil /> },
+        { id: 4, title: "Electronics", icon: <Laptop /> },
+        { id: 5, title: "Furniture", icon: <Chair /> },
+        { id: 6, title: "Sports Equipment", icon: <Football /> },
+        { id: 7, title: "Music Instruments", icon: <Guitar /> },
+        { id: 8, title: "Bicycles", icon: <Bicycle /> },
+        { id: 9, title: "Food & Beverages", icon: <Coffee /> },
+        { id: 10, title: "Tutoring Services", icon: <GraduationCap /> },
+        { id: 11, title: "Accommodation", icon: <House /> },
+        { id: 12, title: "Event Tickets", icon: <Ticket /> },
+        { id: 13, title: "Health & Wellness", icon: <Heart /> },
+        { id: 14, title: "Part-time Jobs", icon: <Briefcase /> },
+        { id: 15, title: "Art & Craft Supplies", icon: <Palette /> },
+        { id: 16, title: "Travel Accessories", icon: <Bus /> },
+        { id: 17, title: "Gaming", icon: <GameController /> },
+        { id: 18, title: "Movies & Entertainment", icon: <FilmStrip /> },
+        { id: 19, title: "Pet Supplies", icon: <PawPrint /> },
+        { id: 20, title: "Perfumes and Scents", icon: <TbPerfume /> }
+    ] 
+
 
     return (
         <div className={`fixed top-[0px] left-0 transition-all duration-700 bg-dark/[0.8] h-screen z-[2000] ${open ? "w-[100%]" : "w-[0%]"}`}>
