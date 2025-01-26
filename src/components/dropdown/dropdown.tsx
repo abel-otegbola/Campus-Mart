@@ -36,7 +36,7 @@ export default function Dropdown({ className, disabled, label, name, options, va
     }
 
     return (
-        <div ref={optionsRef} className="relative flex flex-col gap-1">
+        <div ref={optionsRef} className={`relative flex flex-col gap-1 ${className}`}>
             { label ? <label htmlFor={name} className="text-[12px]">{label}</label> : "" }
 
             <div className={`flex items-center relative rounded-lg bg-white dark:bg-dark w-full p-1 px-4 border duration-500 z-[10] 
@@ -47,7 +47,7 @@ export default function Dropdown({ className, disabled, label, name, options, va
                 <span className="text-[16px]">{ active.icon || <SortAscending /> }</span>
                 <input
                     ref={inputRef}
-                    className={` p-2 flex-1 outline-none bg-transparent cursor-pointer
+                    className={` p-2 w-[96%] outline-none bg-transparent cursor-pointer
                         ${className} 
                         ${disabled ? "opacity-[0.25]" : ""}
                     `}

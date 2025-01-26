@@ -33,7 +33,7 @@ function Shop()  {
 
     return (
         <main>
-            <div className="flex flex-col items-center md:px-[8%] px-6 mt-2 py-12 bg-slate-100 dark:bg-dark">
+            <div className="flex flex-col items-center md:px-[8%] px-6 py-12 bg-slate-100 dark:bg-dark">
                 <h2 className="font-bold text-[28px] uppercase">Shop</h2>
                 <p>Find and buy gadgets</p>
             </div>

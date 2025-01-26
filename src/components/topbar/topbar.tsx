@@ -2,7 +2,7 @@
 import { ReactElement, useContext, useEffect, useState } from "react"
 import Tab from "../tab/tab"
 import Link from "next/link"
-import { Bell, Heart, House, ListMagnifyingGlass, ShoppingCart, User } from "@phosphor-icons/react"
+import { Bell, Heart, House, ListMagnifyingGlass, MagnifyingGlass, ShoppingCart, User, X } from "@phosphor-icons/react"
 import { usePathname } from "next/navigation"
 import Search from "../search/search"
 import { storeContext } from "@/context/useStore"
@@ -21,7 +21,8 @@ function Topbar() {
     const { cart } = useContext(storeContext)
     const pathname = usePathname()
     const { data } = useSession()
-    const [open, setOpen] = useState(true)
+    const [open, setOpen] = useState(false)
+    const [openSearch, setOpenSearch] = useState(true)
 
     useEffect(() => {
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -46,9 +47,9 @@ function Topbar() {
 
     return (
         <>
-        <div className={`flex py-3 sticky top-0 left-0 w-full justify-between items-center bg-[#f8f8f8] dark:bg-black z-[3]  ${noheader.includes(pathname.split("/")[1]) ? "hidden": ""} ${accountPages.includes(pathname.split("/")[1]) ? "md:px-10 pl-6 pr-[100px] md:py-2 py-5" : "md:px-[10%] px-6"}`}>
+        <div className={`flex md:py-3 py-5 sticky top-0 left-0 w-full justify-between items-center bg-[#f8f8f8] dark:bg-black z-[3]  ${noheader.includes(pathname.split("/")[1]) ? "hidden": ""} ${accountPages.includes(pathname.split("/")[1]) ? "md:px-10 pl-6 pr-[100px] md:py-2 py-5" : "md:px-[10%] px-6"}`}>
             <div className="md:w-[12%] w-[150px]">
-                <Link href="/" className="w-[70px] h-[30px] text-[#FF9100] ml-6 rounded flex justify-center items-center md:text-[16px] text-[14px] font-bold">
+                <Link href="/" className="w-[70px] h-[30px] text-[#FF9100] md:ml-6 ml-3 rounded flex justify-center items-center md:text-[16px] text-[14px] font-bold">
                     CAMPUS <span className="text-[#16AF89]"> MART</span>
                 </Link>
             </div>
@@ -71,8 +72,12 @@ function Topbar() {
                 }
             </nav>
 
-            <div className="flex md:gap-8 gap-3 items-center md:flex-1 md:w-auto w-[70%]">
-                <Search placeholder="Search for a product or vendor" className="md:flex-1 " />
+            <div className="flex md:gap-8 gap-3 items-center justify-end md:flex-1 lg:w-auto w-[70%]">
+                <div className={`flex items-center gap-2 lg:static absolute top-0 left-0 h-full bg-[#f8f8f8] dark:bg-black mx-[2%] z-[11] ${openSearch ? "w-[96%]": "lg:w-[96%] w-[0%] overflow-hidden"}`}>
+                    <Search placeholder="Search for a product or vendor" className="lg:flex-1 lg:rounded-full rounded-[0px]" />
+                    <button className="p-2 lg:hidden text-[16px]" onClick={() => setOpenSearch(false)}><X /></button>
+                </div>
+                <button className="p-2 lg:hidden text-[16px]" onClick={() => setOpenSearch(!openSearch)}>{ openSearch ? <X /> :<MagnifyingGlass /> }</button>
                 <Link href={data?.user ? "/dashboard": "/login"} className="md:flex hidden gap-1 items-center font-semibold">
                     <User weight="light" size={20}/>
                     <span>Account</span>
