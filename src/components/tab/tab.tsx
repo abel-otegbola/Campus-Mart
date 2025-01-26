@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LinkHTMLAttributes, ReactNode } from "react";
+import { LinkHTMLAttributes, ReactNode, useState } from "react";
 
 interface tabProps extends LinkHTMLAttributes<HTMLLinkElement> {
     id: string;

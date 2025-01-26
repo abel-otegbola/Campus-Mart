@@ -20,6 +20,31 @@ type navTab =  {
     icon: ReactNode
 }
 
+export const categories = [
+    { id: 0, title: "Gadgets", icon: <Watch /> },
+    { id: 1, title: "Books", icon: <Book /> },
+    { id: 2, title: "Clothing", icon: <ShirtFolded /> },
+    { id: 3, title: "Stationery", icon: <Pencil /> },
+    { id: 4, title: "Electronics", icon: <Laptop /> },
+    { id: 5, title: "Furniture", icon: <Chair /> },
+    { id: 6, title: "Sports Equipment", icon: <Football /> },
+    { id: 7, title: "Music Instruments", icon: <Guitar /> },
+    { id: 8, title: "Bicycles", icon: <Bicycle /> },
+    { id: 9, title: "Food & Beverages", icon: <Coffee /> },
+    { id: 10, title: "Tutoring Services", icon: <GraduationCap /> },
+    { id: 11, title: "Accommodation", icon: <House /> },
+    { id: 12, title: "Event Tickets", icon: <Ticket /> },
+    { id: 13, title: "Health & Wellness", icon: <Heart /> },
+    { id: 14, title: "Part-time Jobs", icon: <Briefcase /> },
+    { id: 15, title: "Art & Craft Supplies", icon: <Palette /> },
+    { id: 16, title: "Travel Accessories", icon: <Bus /> },
+    { id: 17, title: "Gaming", icon: <GameController /> },
+    { id: 18, title: "Movies & Entertainment", icon: <FilmStrip /> },
+    { id: 19, title: "Pet Supplies", icon: <PawPrint /> },
+    { id: 20, title: "Perfumes and Scents", icon: <TbPerfume /> }
+] 
+
+
 export default function Registerpage() {
     const { signUp, loading } = useContext(AuthContext)
     const [active, setActive] = useState<string | undefined>("No")
@@ -100,31 +125,7 @@ export default function Registerpage() {
                                             </div>
                                         </div>
                                         <div className={`w-full flex flex-col gap-5 absolute top-0 left-0 duration-500 ${flow === 1 ? "translate-x-[0]" : flow === 0 ? "translate-x-[120%]" : "translate-x-[-120%]"}`}>
-                                            <Dropdown name="business_category"  options={
-                                                [
-                                                    { id: 0, title: "Gadgets", icon: <Watch /> },
-                                                    { id: 1, title: "Books", icon: <Book /> },
-                                                    { id: 2, title: "Clothing", icon: <ShirtFolded /> },
-                                                    { id: 3, title: "Stationery", icon: <Pencil /> },
-                                                    { id: 4, title: "Electronics", icon: <Laptop /> },
-                                                    { id: 5, title: "Furniture", icon: <Chair /> },
-                                                    { id: 6, title: "Sports Equipment", icon: <Football /> },
-                                                    { id: 7, title: "Music Instruments", icon: <Guitar /> },
-                                                    { id: 8, title: "Bicycles", icon: <Bicycle /> },
-                                                    { id: 9, title: "Food & Beverages", icon: <Coffee /> },
-                                                    { id: 10, title: "Tutoring Services", icon: <GraduationCap /> },
-                                                    { id: 11, title: "Accommodation", icon: <House /> },
-                                                    { id: 12, title: "Event Tickets", icon: <Ticket /> },
-                                                    { id: 13, title: "Health & Wellness", icon: <Heart /> },
-                                                    { id: 14, title: "Part-time Jobs", icon: <Briefcase /> },
-                                                    { id: 15, title: "Art & Craft Supplies", icon: <Palette /> },
-                                                    { id: 16, title: "Travel Accessories", icon: <Bus /> },
-                                                    { id: 17, title: "Gaming", icon: <GameController /> },
-                                                    { id: 18, title: "Movies & Entertainment", icon: <FilmStrip /> },
-                                                    { id: 19, title: "Pet Supplies", icon: <PawPrint /> },
-                                                    { id: 20, title: "Perfumes and Scents", icon: <TbPerfume /> }
-                                                  ]                                                  
-                                            } label="Business Category" value={values.business_category} onChange={handleChange} error={touched.business_category ? errors.business_category : ""} placeholder="Choose your business category" />
+                                            <Dropdown name="business_category"  options={categories} label="Business Category" value={values.business_category} onChange={handleChange} error={touched.business_category ? errors.business_category : ""} placeholder="Choose your business category" />
                                             <Input name="business_location" label="Business Location" value={values.business_location} onChange={handleChange} type="text" error={touched.business_location ? errors.business_location : ""} placeholder="Enter business location" leftIcon={<MapPin size={16}/>}/>
                                             <p className="-mb-4">Upload Profile Picture</p>
                                             <div className="flex gap-6 items-center h-[100px] w-[100%] border border-dashed border-gray-300 rounded-lg">

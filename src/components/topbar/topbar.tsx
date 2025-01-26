@@ -8,6 +8,7 @@ import Search from "../search/search"
 import { storeContext } from "@/context/useStore"
 import { useSession } from "next-auth/react"
 import { useOutsideClick } from "@/helpers/useClickOutside"
+import Categories from "../categories/categories"
 
 type navTab =  {
     id: number | string,
@@ -18,9 +19,9 @@ type navTab =  {
 
 function Topbar() {
     const { cart } = useContext(storeContext)
-    const [open, setOpen] = useState(false)
     const pathname = usePathname()
     const { data } = useSession()
+    const [open, setOpen] = useState(true)
 
     useEffect(() => {
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -33,22 +34,18 @@ function Topbar() {
     const noheader = ["login", "register"]
 
     const navTabs: navTab[] = [
-        { id: 0, label: "Categories", to: "/categories", icon: <></> },
         { id: 1, label: "New Arrivals", to: "/shop", icon: <></> },
         { id: 2, label: "Deals", to: "/deals", icon: <></> },
         { id: 3, label: "Delivery", to: "/delivery", icon: <></> },
         { id: 4, label: "Home", to: "/", icon: <House /> },
-        { id: 5, label: "Categories", to: "/categories", icon: <ListMagnifyingGlass /> },
         { id: 6, label: "Wishlist", to: "/wishlist", icon: <Heart /> },
         { id: 7, label: "Account", to: data?.user ? "/dashboard" : "/login", icon: <User /> },
     ]
     
     const accountPages = ["dashboard", "admin", "agent"]
 
-    const closeMenu = useOutsideClick(setOpen, false)
-
-
     return (
+        <>
         <div className={`flex py-3 sticky top-0 left-0 w-full justify-between items-center bg-[#f8f8f8] dark:bg-black z-[3]  ${noheader.includes(pathname.split("/")[1]) ? "hidden": ""} ${accountPages.includes(pathname.split("/")[1]) ? "md:px-10 pl-6 pr-[100px] md:py-2 py-5" : "md:px-[10%] px-6"}`}>
             <div className="md:w-[12%] w-[150px]">
                 <Link href="/" className="w-[70px] h-[30px] text-[#FF9100] ml-6 rounded flex justify-center items-center md:text-[16px] text-[14px] font-bold">
@@ -57,6 +54,16 @@ function Topbar() {
             </div>
 
             <nav className="flex justify-between md:static p-4 bg-[#f8f8f8] dark:bg-black/[0.9] backdrop-blur-sm fixed bottom-0 left-0 md:w-fit w-full md:border-none border border-gray-500/[0.1] items-center gap-0 z-[10]">
+                <button className="flex items-center justify-center md:flex-row flex-col md:gap-1 gap-2 h-[32px] p-[8px_16px] hover:text-primary font-bold rounded-lg duration-500" onClick={() => setOpen(!open)}>
+                    <span className={`md:text-md md:text-[20px] ${open ? "text-[24px]": "text-[20px]"}`}><ListMagnifyingGlass /></span>
+                    <span className="md:inline md:text-[12px] text-[9px] ">{open ? 
+                    <>
+                        <span className="md:hidden block w-1 h-1 rounded-full bg-primary"></span>
+                        <span className="md:block hidden">{"Categories"}</span> 
+                    </>
+                    : "Categories"}
+            </span>
+                </button>
                 {
                     navTabs.map((tab: navTab) => (
                         <Tab key={tab.id} label={tab.label} href={tab.to} icon={tab.icon} id={tab.id.toString()}/>
@@ -76,7 +83,16 @@ function Topbar() {
                     <span className="absolute text-[8px] -top-3 -right-3 px-2 py-1 rounded-full bg-green text-white">{cart.length}</span>
                 </Link>
             </div>
+            
+            
         </div>
+        {
+                open ? 
+                <Categories open={open} setOpen={setOpen} />
+                :
+                ""
+            }
+        </>
     )
 }
 

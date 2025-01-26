@@ -36,7 +36,7 @@ export default function Dropdown({ className, disabled, label, name, options, va
     }
 
     return (
-        <div ref={optionsRef} className="relative flex flex-col w-full gap-1">
+        <div ref={optionsRef} className="relative flex flex-col gap-1">
             { label ? <label htmlFor={name} className="text-[12px]">{label}</label> : "" }
 
             <div className={`flex items-center relative rounded-lg bg-white dark:bg-dark w-full p-1 px-4 border duration-500 z-[10] 
@@ -47,7 +47,7 @@ export default function Dropdown({ className, disabled, label, name, options, va
                 <span className="text-[16px]">{ active.icon || <SortAscending /> }</span>
                 <input
                     ref={inputRef}
-                    className={` p-2 w-full outline-none bg-transparent cursor-pointer
+                    className={` p-2 flex-1 outline-none bg-transparent cursor-pointer
                         ${className} 
                         ${disabled ? "opacity-[0.25]" : ""}
                     `}
@@ -61,10 +61,10 @@ export default function Dropdown({ className, disabled, label, name, options, va
                 />
 
                 { error && !focus ? <p className="absolute right-2 px-2 text-[12px] bg-white dark:bg-dark backdrop-blur-sm">{error}</p> : "" }
-                <span className={`${!focus ? "rotate-0" : "rotate-180" } duration-500`}><CaretDown /></span>
+                <span className={`${!focus ? "rotate-0" : "rotate-180" } duration-500 absolute right-2`}><CaretDown /></span>
             </div>
 
-            <div className={`rounded-[8px] absolute top-[76px] left-0 w-full max-h-[200px] overflow-y-auto z-[1000] bg-white dark:bg-dark dark:text-gray shadow-md duration-700 overflow-y-auto border border-gray/[0.2] ${focus ? "block" : "hidden"}`}>
+            <div className={`rounded-[8px] absolute top-[110%] left-0 w-full max-h-[200px] overflow-y-auto z-[1000] bg-white dark:bg-dark dark:text-gray shadow-md duration-700 overflow-y-auto border border-gray-500/[0.2] ${focus ? "block" : "hidden"}`}>
               {
                 (useSearch ? options?.filter(item => item.title.indexOf(search) !== -1) : options)?.map((option: option) => (
                   <div tabIndex={1} key={option.id} 
