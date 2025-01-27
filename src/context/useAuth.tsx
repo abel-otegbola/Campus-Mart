@@ -4,9 +4,10 @@ import { createContext, ReactNode, useEffect, useState } from 'react';
 import { Toaster, toast } from "react-hot-toast";
 import { useRouter } from "nextjs-toploader/app";
 import { UserData } from "@/interface/profile";
-import { SessionProvider, signIn } from "next-auth/react";
+import { SessionProvider, signIn, signOut } from "next-auth/react";
 import { register } from "@/actions/register";
 import { signupData } from "@/interface/auth";
+import { fetchUserData, updateUserData } from "@/actions/useProfile";
 
 type values = {
     user: UserData;
@@ -18,6 +19,8 @@ type values = {
     signUp: (data: signupData) => void;
     sociallogin: (type: string) => void;
     logOut: () => void;
+    getUserData: (email: string) => void;
+    updateUser: (email: string, data: UserData) => void;
 }
 
 export const AuthContext = createContext({} as values);
@@ -80,12 +83,32 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
     }
 
     const logOut = () => {
-        // signOut()
-        // .then(() => {
-        //     setPopup({ type: "success", msg:  "Logout Successful" })
-        //   }).catch((error: { message: string }) => {
-        //     setPopup({ type: "error", msg: formatError(error.message) })
-        //   });
+        signOut()
+        router.push("/login")
+    }
+
+    const getUserData = async (email: string) => {
+        await fetchUserData(email)
+        .then(response => {
+            setUser(response)
+        })
+        .catch(error => {
+            setPopup({ type: "error", msg: formatError(error as string) })
+        })
+    }
+
+    const updateUser = async (email: string, data: UserData) => {
+        setLoading(true)
+        await updateUserData(email, data)
+        .then(response => {
+            setUser(response)
+            setPopup({ type: "success", msg: "Updated Successfully" })
+            setLoading(false)
+        })
+        .catch(error => {
+            setPopup({ type: "error", msg: formatError(error as string) })
+            setLoading(false)
+        })
     }
 
     useEffect(() => {
@@ -98,7 +121,7 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
       }, [popup]);
 
     return (
-        <AuthContext.Provider value={{ user, popup, loading, setPopup, setUser, login, signUp, sociallogin, logOut }}>
+        <AuthContext.Provider value={{ user, popup, loading, setPopup, setUser, login, signUp, sociallogin, logOut, getUserData, updateUser }}>
             <Toaster containerClassName="p-8" />
             <SessionProvider>
                 {children}

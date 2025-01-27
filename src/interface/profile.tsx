@@ -8,6 +8,8 @@ export interface UserData {
     cover?: string,
     address?: string,
     role?: string,
+    business_category?: string,
+    business_location?: string
 }
 
 export interface ISignupData { email: string, password: string }

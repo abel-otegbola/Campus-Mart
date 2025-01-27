@@ -39,7 +39,7 @@ export default function Dropdown({ className, disabled, label, name, options, va
         <div ref={optionsRef} className={`relative flex flex-col gap-1 ${className}`}>
             { label ? <label htmlFor={name} className="text-[12px]">{label}</label> : "" }
 
-            <div className={`flex items-center relative rounded-lg bg-white dark:bg-dark w-full p-1 px-4 border duration-500 z-[10] 
+            <div className={`flex items-center relative rounded-lg bg-transparent dark:bg-dark w-full p-1 px-4 border duration-500 z-[1] 
                 ${error && !focus ? "border-red text-red" : "border-black/[0.2]  dark:text-gray dark:border-gray/[0.2]"}
                 ${focus ? "border-primary shadow-input-active" : " "}
                 ${ className }
