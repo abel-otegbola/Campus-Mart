@@ -83,6 +83,7 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
     }
 
     const logOut = () => {
+        setUser(null)
         signOut()
         router.push("/login")
     }

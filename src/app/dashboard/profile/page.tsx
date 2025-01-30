@@ -3,11 +3,13 @@
 import { AuthContext } from "@/context/useAuth";
 import Button from "../../../components/button/button";
 import Input from "@/components/input/input";
-import { Bicycle, Book, Briefcase, Bus, Chair, Coffee, Envelope, FilmStrip, Football, GameController, GraduationCap, Guitar, Heart, House, Laptop, MapPin, Palette, PawPrint, Pencil, ShirtFolded, Spinner, Ticket, User, Watch } from "@phosphor-icons/react";
+import { Bicycle, Book, Briefcase, Bus, Chair, Coffee, Envelope, FilmStrip, Football, GameController, GraduationCap, Guitar, Heart, House, ImageBroken, Laptop, MapPin, Palette, PawPrint, Pencil, ShirtFolded, Spinner, Ticket, Trash, User, Watch } from "@phosphor-icons/react";
 import { useSession } from "next-auth/react";
 import { useContext, useEffect, useState } from "react";
 import Dropdown from "@/components/dropdown/dropdown";
 import { TbPerfume } from "react-icons/tb";
+import ImageToBase64 from "@/components/imageConverter/imageConverter";
+import Image from "next/image";
 
 export default function Profile() {
     const { data } = useSession()
@@ -59,32 +61,44 @@ export default function Profile() {
                 <p>Manage and update your profile details</p>
             </div>
             <div className="">
-                        <div className="py-2 mb-1">
-                            <div className="flex gap-2 items-center">
-                                <div className="h-[60px] w-[60px] rounded-full bg-slate-200 dark:bg-slate-200/[0.04]"></div>
-                            </div>
+                <div className="flex gap-6 items-center h-[100px] w-[100%] rounded-lg">
+                    { 
+                        userData?.img === "" ? 
+                        <label htmlFor="add_img" className="flex flex-col justify-center items-center gap-2 flex-1">
+                            <ImageBroken weight="fill" alt="add new image" size={32} />
+                            <p className="text-[10px]">Drop your image here, or <label htmlFor="add_img" className="text-primary">Browse files</label></p>
+                        </label>
+                        :
+                        <div className="flex">
+                            <div className="flex items-center p-4 cursor-pointer" tabIndex={1} onClick={(e) => setUserData({...data, img: "" })}><Trash size={16} className="text-red-500" /></div>
+                            <Image src={userData?.img || "/profile.png"} alt="preview" width={88} height={88} className="max-h-[88px] w-auto border border-gray-500/[0.2] rounded"/>
                         </div>
-                        <div className="py-2 mb-1">
-                            <Input defaultValue={userData?.fullname || ""} label="Full name" leftIcon={<User />} onChange={(e) => setUserData({ ...userData, fullname: e.target.value })} />
-                        </div>
-                        <div className="py-2 mb-4">
-                            <Input defaultValue={userData?.email || ""} label="Email:" leftIcon={<Envelope />} onChange={(e) => setUserData({ ...userData, email: e.target.value })} />
-                        </div>
-                        {
-                            userData?.role === "Seller" ?
-                                <>
-                                    <div className="py-2 mb-4">
-                                        <Dropdown value={userData?.business_category || ""} placeholder={userData?.business_category || ""} options={categories} label="Business Category:" onChange={(value) => setUserData({ ...userData, business_category: value })}/>
-                                    </div>
-                                    <div className="py-2 mb-4">
-                                        <Input defaultValue={userData?.business_location || ""} label="Business Location:" leftIcon={<MapPin />}/>
-                                    </div>
-                                </>
-                            :
-                            ""
-                        }
-                        <Button onClick={() => handleUpdate()}>{ loading ? <Spinner size={16} className="animate-spin" /> : "Save changes" }</Button>
+                    }
+                    <ImageToBase64 id="add_img" fullname={data?.user?.email || "/user"} img={userData?.img || ""} setImg={(img) => setUserData({...data, img })} />
+                    
                 </div>
+
+                <div className="py-2 mb-1">
+                    <Input defaultValue={userData?.fullname || ""} label="Full name" leftIcon={<User />} onChange={(e) => setUserData({ ...userData, fullname: e.target.value })} />
+                </div>
+                <div className="py-2 mb-4">
+                    <Input disabled={true} defaultValue={userData?.email || ""} label="Email:" leftIcon={<Envelope />} onChange={(e) => setUserData({ ...userData, email: e.target.value })} />
+                </div>
+                {
+                    data?.user?.role === "Seller" ?
+                        <>
+                            <div className="py-2 mb-4">
+                                <Dropdown value={userData?.business_category || ""} placeholder={userData?.business_category || ""} options={categories} label="Business Category:" onChange={(value) => setUserData({ ...userData, business_category: value })}/>
+                            </div>
+                            <div className="py-2 mb-4">
+                                <Input defaultValue={userData?.business_location || ""} label="Business Location:" leftIcon={<MapPin />}/>
+                            </div>
+                        </>
+                    :
+                    ""
+                }
+                <Button onClick={() => handleUpdate()}>{ loading ? <Spinner size={16} className="animate-spin" /> : "Save changes" }</Button>
+            </div>
         </div>
     )
 }

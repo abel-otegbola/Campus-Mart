@@ -9,7 +9,8 @@ export interface UserData {
     address?: string,
     role?: string,
     business_category?: string,
-    business_location?: string
+    business_location?: string,
+    img?: string;
 }
 
 export interface ISignupData { email: string, password: string }

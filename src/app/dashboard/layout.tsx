@@ -1,8 +1,8 @@
 'use client'
-import { ReactElement, useContext, useEffect, useState } from "react";
+import { ReactElement, useLayoutEffect, useState } from "react";
 import { TbBell, TbDashboard, TbListDetails, TbLogout, TbPackage, TbSettings, TbStar, TbUser, TbUsers } from "react-icons/tb";
 import { Icon } from "@phosphor-icons/react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import Avatar from "@/components/avatar/avatar";
 import { signOut, useSession } from "next-auth/react";
@@ -20,7 +20,13 @@ export default function Layout({
     const { data } = useSession()
     const [open, setOpen] = useState(false)
     const pathname = usePathname();
-    // const router = useRouter()
+    const router = useRouter()
+
+    useLayoutEffect(() => {
+        if(!data?.user) {
+            router.push("/login")
+        }
+    })
 
     const generalLinks: Link[] = [
         { id: 0, label: "Dashboard", icon: <TbDashboard />, link: "/dashboard" },
@@ -39,10 +45,9 @@ export default function Layout({
         { id: 6, label: "Settings", icon: <TbSettings />, link: "/dashboard/settings" },
     ]
 
-    // if(!data?.user) {
-    //     router.push("/login")
-    //     return <></>
-    // }
+    if(!data?.user) {
+        return <></>
+    }
 
     return (
         <>

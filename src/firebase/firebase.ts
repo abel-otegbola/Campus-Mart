@@ -5,13 +5,13 @@ import { getFirestore } from "firebase/firestore";
 
 // Web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBBUgc-i4x0CiKCfHZ5V_csas2LY6EQ0-U",
-    authDomain: "bri8-hub.firebaseapp.com",
-    projectId: "bri8-hub",
-    storageBucket: "bri8-hub.firebasestorage.app",
-    messagingSenderId: "698830098324",
-    appId: "1:698830098324:web:d71e81713160de0a858981",
-    measurementId: "G-89045LDJVH"
+    apiKey: "AIzaSyB3ZDdcogeiR-RwL0gr1yRXL0aP0iQuWz8",
+    authDomain: "pulse-47625.firebaseapp.com",
+    databaseURL: "https://pulse-47625-default-rtdb.firebaseio.com",
+    projectId: "pulse-47625",
+    storageBucket: "pulse-47625.appspot.com",
+    messagingSenderId: "264181530274",
+    appId: "1:264181530274:web:f02a78fa3ee44144c3a1fb"
 };
 
 // Initialize Firebase

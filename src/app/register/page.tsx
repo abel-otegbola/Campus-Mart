@@ -130,20 +130,18 @@ export default function Registerpage() {
                                             <div className="flex gap-6 items-center h-[100px] w-[100%] border border-dashed border-gray-300 rounded-lg">
                                                 { 
                                                    values.img === "" ? 
-                                                   ""
+                                                   <label htmlFor="add_img" className="flex flex-col justify-center items-center gap-2 flex-1">
+                                                        <ImageBroken weight="fill" alt="add new image" size={32} />
+                                                        <p className="text-[10px]">Drop your image here, or <label htmlFor="add_img" className="text-primary">Browse files</label></p>
+                                                    </label>
                                                    :
                                                     <div className="flex">
                                                         <div className="flex items-center p-4 cursor-pointer" tabIndex={1} onClick={(e) => {setFieldValue("img", ""); e.stopPropagation()}}><Trash size={16} className="text-red-500" /></div>
-                                                        <Image src={values.img} alt="preview" width={98} height={98} className=""/>
+                                                        <Image src={values.img} alt="preview" width={88} height={88} className="max-h-[88px] w-auto border border-gray-500/[0.2] rounded"/>
                                                     </div>
-                                                   
-                                                    
                                                 }
-                                                <label htmlFor="add_img" className="flex flex-col justify-center items-center gap-2 flex-1">
-                                                    <ImageBroken weight="fill" alt="add new image" size={32} />
-                                                    <p className="text-[10px]">Drop your image here, or <label htmlFor="add_img" className="text-primary">Browse files</label></p>
-                                                </label>
-                                                <ImageToBase64 id="add_img" setImg={(img) => setFieldValue("img", img)} />
+                                                <ImageToBase64 id="add_img" fullname={values?.email} img={values?.img} setImg={(img) => setFieldValue("img", img)} />
+                                                
                                             </div>
                                         </div>
                                     </div>

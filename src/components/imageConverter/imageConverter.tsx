@@ -1,11 +1,19 @@
-import React, { ChangeEvent } from "react";
+import { handleUploadPhotoURL, storage } from "@/firebase/storage";
+import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import Button from "../button/button";
 
-const ImageToBase64 = ({ id, setImg }: { id: string, setImg: (aug0: string) => void;}) => {
+const ImageToBase64 = ({ id, img, fullname, setImg }: { id: string, img: string, fullname: string, setImg: (aug0: string) => void;}) => {
+  const [uploadStatus, setUploadStatus] = useState({ status: "preview", percent: 0 })
+  const [image, setImage] = useState<File>()
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
+
+      setImage(file)
+      setUploadStatus({status: "preview", percent: 0 })
 
       reader.onload = () => {
         if (typeof reader.result === "string") {
@@ -21,14 +29,82 @@ const ImageToBase64 = ({ id, setImg }: { id: string, setImg: (aug0: string) => v
     }
   };
 
+  const uploadImg = (file: File) => {
+    handleUploadPhotoURL(fullname)
+    .then(result => {
+        const uploadTask = uploadBytesResumable(result, file);
+        uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+            const percent = Math.round(
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+
+            // update progress
+            setUploadStatus({status: "uploading", percent: percent});
+        },
+        (err) => console.log(err),
+        () => {
+            // download url
+            getDownloadURL(uploadTask.snapshot.ref)
+            .then((url) => {
+                setUploadStatus({status: "finished", percent: 100});  
+                setImg(url)       
+                setUploadStatus({status: "uploaded", percent: 100})
+            });
+        })
+    })
+  } 
+
+  const deleteImg = () => {
+    const desertRef = ref(storage, `photoURL/${fullname}`);
+    // Delete the file
+    deleteObject(desertRef).then(() => {
+        // setImg({ id, name: "", type: "", url: "" })
+        setImg("")
+        setUploadStatus({ status: "preview", percent: 0 })
+    })
+    .catch((error) => {
+        console.log(error)
+    });
+  }
+
   return (
-      <input
-        id={id}
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        className="hidden"
-      />
+      <>
+        <input
+          id={id}
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          className="hidden"
+        />
+        {
+          image ?
+          <div>
+            { 
+              uploadStatus.status === "preview" && img !== "" ?
+              <>
+                <button className="p-[2px] px-4 text-[10px] rounded border border-gray-500/[0.2]" onClick={(e) => {e.preventDefault(); uploadImg(image)}}>Upload</button>
+              </>
+              : 
+              (uploadStatus.status === "uploaded" || uploadStatus.status === "finished") && img !== "" ?
+                <button className="p-[2px] px-4 text-[10px] rounded border border-red-500/[0.6]"onClick={(e) => {e.preventDefault(); deleteImg(); }}>Delete</button>
+              :
+              uploadStatus.status === "uploading" ?
+              <div className="flex flex-col justify-center items-center bg-white/[0.8] dark:bg-black/[0.7] backdrop-blur-sm p-4 w-full h-full">
+                  <p className="mb-2">{uploadStatus?.status} : {uploadStatus?.percent}%</p>
+                  <p className="w-full min-h-[10px] rounded-lg bg-slate-200">
+                      <p className={`min-h-[10px] rounded-lg bg-green`} style={{ width: `${uploadStatus?.percent}%` }}></p>
+                  </p>
+              </div>
+              :
+              ""
+            }
+          </div>
+          :
+          ""
+        }
+      </>
   );
 };
 

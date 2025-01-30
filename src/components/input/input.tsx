@@ -36,6 +36,7 @@ export default function Input({ className, disabled, label, name, value, type, o
                     `}
                     name={name}
                     id={name}
+                    disabled={disabled}
                     type={type === "password" && show ? "text" : type}
                     value={value}
                     placeholder={placeholder}
