@@ -25,13 +25,9 @@ export default function Layout({
     const router = useRouter()
 
     useEffect(() => {
-        if(!data?.user) {
-            router.push("/login")
-        }
-        else {
-            getUserData(data?.user?.email || "")
-        }
-    })
+        getUserData(data?.user?.email || "")
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data])
 
     const generalLinks: Link[] = [
         { id: 0, label: "Dashboard", icon: <TbDashboard />, link: "/dashboard" },

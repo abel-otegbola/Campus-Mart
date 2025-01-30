@@ -39,11 +39,6 @@ export default function Profile() {
         { id: 19, title: "Pet Supplies", icon: <PawPrint /> },
         { id: 20, title: "Perfumes and Scents", icon: <TbPerfume /> }
     ] 
-    
-    useEffect(() => {
-        getUserData(data?.user?.email || "")
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [data])
 
     useEffect(() => {
         setUserData(user)
