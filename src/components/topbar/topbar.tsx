@@ -8,7 +8,7 @@ import Search from "../search/search"
 import { storeContext } from "@/context/useStore"
 import { useSession } from "next-auth/react"
 import Categories from "../categories/categories"
-import { TbSettings } from "react-icons/tb"
+import { TbHome, TbSettings } from "react-icons/tb"
 
 type navTab =  {
     id: number | string,
@@ -38,10 +38,10 @@ function Topbar() {
         { id: 1, label: "New Arrivals", to: "/shop", icon: <></> },
         { id: 2, label: "Deals", to: "/deals", icon: <></> },
         { id: 3, label: "Delivery", to: "/delivery", icon: <></> },
-        { id: 4, label: "Home", to: "/", icon: <House /> },
-        { id: 6, label: "Wishlist", to: "/wishlist", icon: <Heart /> },
-        { id: 7, label: "Settings", to: "/settings", icon: <TbSettings /> },
-        { id: 8, label: "Account", to: data?.user ? "/dashboard" : "/login", icon: <User /> },
+        { id: 4, label: "Wishlist", to: "/wishlist", icon: <Heart /> },
+        { id: 5, label: "Home", to: "/", icon: <TbHome /> },
+        { id: 6, label: "Settings", to: "/settings", icon: <TbSettings /> },
+        { id: 7, label: "Account", to: data?.user ? "/dashboard" : "/login", icon: <User /> },
     ]
     
     const accountPages = ["dashboard", "admin", "agent"]
@@ -55,7 +55,7 @@ function Topbar() {
                 </Link>
             </div>
 
-            <nav className="flex justify-between md:static p-4 bg-[#f8f8f8] dark:bg-black/[0.9] backdrop-blur-sm fixed bottom-0 left-0 md:w-fit w-full md:border-none border border-gray-500/[0.1] items-center gap-0 z-[10]">
+            <nav className="grid md:grid-cols-4 grid-cols-5 md:static py-4 bg-[#f8f8f8] dark:bg-black/[0.9] backdrop-blur-sm fixed bottom-0 left-0 md:w-fit w-full md:border-none border border-gray-500/[0.1] items-center gap-0 z-[10]">
                 <button className="flex items-center justify-center md:flex-row flex-col md:gap-1 gap-2 h-[32px] p-[8px_16px] hover:text-primary font-bold rounded-lg duration-500" onClick={() => setOpen(!open)}>
                     <span className={`md:hidden md:text-md md:text-[20px] ${open ? "text-[24px]": "text-[20px]"}`}><ListMagnifyingGlass /></span>
                     <span className="md:inline md:text-[12px] text-[9px] ">{open ? 

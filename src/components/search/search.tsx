@@ -19,7 +19,7 @@ export default function Search({ value, onChange, className, disabled, placehold
     return (
         <form action={`/search`} className={`relative flex flex-col w-full gap-1`}>
 
-            <div className={`flex items-center gap-1 relative rounded-full bg-transparent dark:bg-dark dark:text-gray w-full p-1 px-4 border duration-500 
+          <div className={`flex items-center gap-1 relative rounded-full bg-transparent dark:bg-dark dark:text-gray w-full p-1 px-4 border duration-500 
                 ${focus ? "border-primary shadow-input-active" : "border-black/[0.06] "}
                 ${className}
             `}>

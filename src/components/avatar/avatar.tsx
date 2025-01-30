@@ -5,7 +5,7 @@ export default function Avatar({ user }: { user: UserData }) {
 
     if(user?.img) {
         return (
-            <Image src={user?.img || ""} alt="user" width={32} height={32} className="rounded-full" />
+            <div style={{backgroundImage: `url(${user?.img || "/profile.png"})`}} className="w-[40px] h-[40px] bg-cover bg-center rounded-full" ></div>
         )
     }
     else {

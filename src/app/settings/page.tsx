@@ -49,11 +49,12 @@ function Settings() {
 
     return (
         <>
-        <div className="md:flex items-start md:px-[7.5%] px-6">
+        <div className="flex flex-col items-center md:px-[8%] px-6 py-12 bg-slate-100 dark:bg-dark">
+            <h2 className="font-bold text-[28px] uppercase">Settings</h2>
+        </div>
+        <div className="md:flex items-start min-h-[80vh] md:px-[7.5%] px-6">
             
             <div className="md:m-2 flex-1 pt-[60px]">
-                <h2 className="flex items-center gap-3 text-[32px] font-bold pb-3">Settings</h2>
-
                 <div className=" mb-6">
                     <div className="mb-4 pb-2 border-b border-gray-500/[0.2]">
                         <h3 id="appearance" className="py-2 text-[20px] font-semibold">Appearance</h3>
@@ -73,24 +74,6 @@ function Settings() {
                                 )
                             })
                         }
-                    </div>
-                </div>
-
-                <div className="">
-                    <div className="mb-4 pb-2 border-b border-gray-500/[0.2]">
-                        <h3 id="appearance" className="py-2 text-[20px] font-semibold">Preferences</h3>
-                        <p className="">Select the font-size for your app</p>
-                    </div>
-
-                    <div className="flex gap-6">
-                        <select className="w-[200px] p-4 rounded border border-gray-600/[0.2]" aria-label={"Font size changed to "+ fontSize} onChange={(e) => setFontSize(e.target.value)} defaultValue={fontSize}>
-                        {
-                            ["10px", "12px", "14px", "16px", "18px", "20px"].map((item, i) => (
-                                <option key={i} className="bg-black text-white">{item}</option>
-                            ))
-                        }
-                        </select>
-                        <p style={{ fontSize: fontSize }} className="p-3 px-4 w-fit">A cat inside a bag</p>
                     </div>
                 </div>
                 
