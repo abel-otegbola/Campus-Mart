@@ -1,11 +1,12 @@
 'use client'
-import { ReactElement, useLayoutEffect, useState } from "react";
+import { ReactElement, useContext, useEffect, useLayoutEffect, useState } from "react";
 import { TbBell, TbDashboard, TbListDetails, TbLogout, TbPackage, TbSettings, TbStar, TbUser, TbUsers } from "react-icons/tb";
 import { Icon } from "@phosphor-icons/react";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import Avatar from "@/components/avatar/avatar";
 import { signOut, useSession } from "next-auth/react";
+import { AuthContext } from "@/context/useAuth";
 
 
 export interface Link {
@@ -18,13 +19,17 @@ export default function Layout({
     children: React.ReactNode;
   }>) {
     const { data } = useSession()
+    const { getUserData, user } = useContext(AuthContext)
     const [open, setOpen] = useState(false)
     const pathname = usePathname();
     const router = useRouter()
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if(!data?.user) {
             router.push("/login")
+        }
+        else {
+            getUserData(data?.user?.email || "")
         }
     })
 
@@ -51,12 +56,12 @@ export default function Layout({
 
     return (
         <>
-            <button className="md:hidden fixed top-[18px] md:right-9 right-4 md:p-2 z-[3]" onClick={() => setOpen(!open)}><Avatar user={data?.user || { fullname: "user" }} /></button>
+            <button className="md:hidden fixed top-[18px] md:right-9 right-4 md:p-2 z-[3]" onClick={() => setOpen(!open)}><Avatar user={data?.user || user?.img || { fullname: "user" }} /></button>
             <div className="flex relative w-full min-h-[85vh] border-t border-gray-500/[0.1] overflow-hidden">
                 <div className={`flex flex-col justify-between lg:w-[20%] md:w-[24%] w-[240px] h-[80vh] md:sticky fixed md:top-0 top-[64px] py-4 md:px-8 right-0 bg-white dark:bg-black border border-transparent border-x-gray-500/[0.1] overflow-hidden z-[2] transition-all duration-700 ${open ? "translate-x-[0]": "md:translate-x-[0] translate-x-[130%]"}`}>  
                     <div className="flex flex-col gap-1">
                         {
-                        (data?.user?.role === "Seller" ? storeLinks : generalLinks).map(link => {
+                        (data?.user?.role === "Seller" || user?.role === "Seller"  ? storeLinks : generalLinks).map(link => {
                                 return (
                                 <Link key={link.id} href={ link.link} className={`flex items-center justify-between my-[3px] px-4 py-1 md:rounded ${pathname === link.link ? "bg-primary/[0.1] text-primary" : " hover:bg-primary/[0.1] hover:text-primary"}`}>
                                     <span className="w-[30px] text-lg opacity-[0.6]">{link.icon}</span>

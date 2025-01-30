@@ -6,18 +6,21 @@ import Avatar from "@/components/avatar/avatar";
 // import { currencyFormatter } from "@/helpers/currencyFormatter";
 // import Button from "@/components/button/button";
 import { useSession } from "next-auth/react";
+import { useContext } from "react";
+import { AuthContext } from "@/context/useAuth";
 
 function DashboardHome() {
     const { data } = useSession()
+    const { user } = useContext(AuthContext)
 
     return (
         <>
         
                 <div className="w-full">
                     <div className="flex items-center gap-4 border border-transparent border-b-gray-500/[0.1] p-2 pb-4">
-                        <Avatar user={data?.user || { fullname: "User" }} />
+                        <Avatar user={data?.user || user || { fullname: "User" }} />
                         <div className="">
-                            <h1 className="text-[20px] font-semibold capitalize">Welcome back, <span className="Capitalize">{data?.user?.fullname?.split(" ")[0]}</span></h1>
+                            <h1 className="text-[20px] font-semibold capitalize">Welcome back, <span className="Capitalize">{data?.user?.fullname?.split(" ")[0] || user?.fullname?.split(" ")[0]}</span></h1>
                             <p className="leading-[180%] flex items-center text-[12px] opacity-[0.7] gap-2"> <PiWatchLight className="text-red-500 text-[14px]" />View your orders, products and discounts</p>
                         </div>
                         

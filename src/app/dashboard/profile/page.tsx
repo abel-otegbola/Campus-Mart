@@ -85,7 +85,7 @@ export default function Profile() {
                     <Input disabled={true} defaultValue={userData?.email || ""} label="Email:" leftIcon={<Envelope />} onChange={(e) => setUserData({ ...userData, email: e.target.value })} />
                 </div>
                 {
-                    data?.user?.role === "Seller" ?
+                    data?.user?.role === "Seller" || userData?.role === "Seller" ?
                         <>
                             <div className="py-2 mb-4">
                                 <Dropdown value={userData?.business_category || ""} placeholder={userData?.business_category || ""} options={categories} label="Business Category:" onChange={(value) => setUserData({ ...userData, business_category: value })}/>

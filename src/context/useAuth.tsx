@@ -70,14 +70,13 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
     
     const sociallogin = async (callbackUrl: string) => {
         setLoading(true)
-        const res = await signIn("Google", {redirect: false });
-        if(res?.ok) {
-            setPopup({ type: "success", msg: "Login Successful" })
+        try {
+            await signIn("google", { callbackUrl: "/dashboard" });
             setLoading(false)
-            router.push(callbackUrl ? callbackUrl : "/dashboard")
-        }
-        if(res?.error) {
-            setPopup({ type: "error", msg: formatError(res.error as string) })
+        } catch (error) {
+            console.error("Sign in failed:", error);
+
+            setPopup({ type: "error", msg: "Sign-in failed, please try again." })
             setLoading(false)
         }
     }
