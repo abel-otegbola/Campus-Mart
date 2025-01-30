@@ -11,7 +11,7 @@ export default function WishlistPage() {
     return (    
         <div className="flex flex-col gap-6">
 
-            <div className="flex flex-col items-center md:px-[8%] px-6 mt-2 py-12 bg-slate-100 dark:bg-dark">
+            <div className="flex flex-col items-center md:px-[8%] px-6 py-12 bg-slate-100 dark:bg-dark">
                 <h2 className="font-bold text-[28px] uppercase">My wishlist</h2>
                 <p>Manage your wishlist ({wishlist.length} items)</p>
             </div>

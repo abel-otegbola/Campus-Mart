@@ -13,7 +13,7 @@ export default function SearchPage() {
 
     return (
         <div className="min-h-[80vh]">
-            <div className="flex flex-col items-center justify-center md:px-[8%] px-6 mt-2 py-12 bg-slate-100 dark:bg-dark">
+            <div className="flex flex-col items-center justify-center md:px-[8%] px-6 py-12 bg-slate-100 dark:bg-dark">
                 <h2 className="font-bold text-[28px] uppercase">Search</h2>
                 <p className="mb-6">Search results for: ({query})</p>
                 <SearchComponent className="md:w-[40%] mx-auto" placeholder="" />

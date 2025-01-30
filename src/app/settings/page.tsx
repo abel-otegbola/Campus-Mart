@@ -54,7 +54,7 @@ function Settings() {
             <div className="md:m-2 flex-1 pt-[60px]">
                 <h2 className="flex items-center gap-3 text-[32px] font-bold pb-3">Settings</h2>
 
-                <div className="p-8 rounded-lg border border-gray-500/[0.2] bg-gray-100/[0.08] mb-6">
+                <div className=" mb-6">
                     <div className="mb-4 pb-2 border-b border-gray-500/[0.2]">
                         <h3 id="appearance" className="py-2 text-[20px] font-semibold">Appearance</h3>
                         <p className="">Select or customize your ui theme</p>
@@ -76,7 +76,7 @@ function Settings() {
                     </div>
                 </div>
 
-                <div className="p-8 rounded-lg border border-gray-500/[0.2] bg-gray-100/[0.08]">
+                <div className="">
                     <div className="mb-4 pb-2 border-b border-gray-500/[0.2]">
                         <h3 id="appearance" className="py-2 text-[20px] font-semibold">Preferences</h3>
                         <p className="">Select the font-size for your app</p>

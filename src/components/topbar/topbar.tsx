@@ -8,6 +8,7 @@ import Search from "../search/search"
 import { storeContext } from "@/context/useStore"
 import { useSession } from "next-auth/react"
 import Categories from "../categories/categories"
+import { TbSettings } from "react-icons/tb"
 
 type navTab =  {
     id: number | string,
@@ -39,7 +40,8 @@ function Topbar() {
         { id: 3, label: "Delivery", to: "/delivery", icon: <></> },
         { id: 4, label: "Home", to: "/", icon: <House /> },
         { id: 6, label: "Wishlist", to: "/wishlist", icon: <Heart /> },
-        { id: 7, label: "Account", to: data?.user ? "/dashboard" : "/login", icon: <User /> },
+        { id: 7, label: "Settings", to: "/settings", icon: <TbSettings /> },
+        { id: 8, label: "Account", to: data?.user ? "/dashboard" : "/login", icon: <User /> },
     ]
     
     const accountPages = ["dashboard", "admin", "agent"]
