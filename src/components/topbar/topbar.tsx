@@ -39,7 +39,7 @@ function Topbar() {
         { id: 2, label: "Deals", to: "/deals", icon: <></> },
         { id: 3, label: "Delivery", to: "/delivery", icon: <></> },
         { id: 4, label: "Wishlist", to: "/wishlist", icon: <Heart /> },
-        { id: 5, label: "Home", to: "/", icon: <TbHome /> },
+        { id: 5, label: "Home", to: "/shop", icon: <TbHome /> },
         { id: 6, label: "Settings", to: "/settings", icon: <TbSettings /> },
         { id: 7, label: "Account", to: data?.user ? "/dashboard" : "/login", icon: <User /> },
     ]

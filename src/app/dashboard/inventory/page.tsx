@@ -4,6 +4,7 @@ import Skeleton from "@/components/skeleton/skeleton";
 import Link from "next/link";
 import { IProduct } from "@/interface/store";
 import { currencyFormatter } from "@/helpers/currencyFormatter";
+import Button from "@/components/button/button";
 
 export default function Userproducts() {
     const [storeProducts,] = useState<IProduct[]>([])
@@ -30,9 +31,10 @@ export default function Userproducts() {
     return (
         
         <>
-            <div className="items-center h-[80px]">
+            <div className="pb-6 flex flex-col gap-2">
                 <h2 className="font-bold text-[28px] uppercase">products</h2>
-                <p>Manage your products</p>
+                <p className="mb-2">Manage your products</p>
+                <Button size="small" variant="secondary" href="/dashboard/inventory/new">New product</Button>
             </div>
             <div className="w-full overflow-x-auto md:p-8 p-4 min-h-[400px] rounded-lg border border-gray-500/[0.1] bg-gray-100/[0.08]">
                 <table className="table-auto text-left md:text-[12px] text-[10px] w-full">

@@ -52,7 +52,7 @@ export default function Loginpage() {
 
                                     <Input name="password" label="" value={values.password} onChange={handleChange} type={"password"} error={touched.password ? errors.password : ""} placeholder="Password" leftIcon={<LockKey size={16}/>}/>
 
-                                    <Button size="full" type="submit" className="">{ isSubmitting || loading ? <Spinner size={16} className="animate-spin" /> : "Sign in"}</Button>
+                                    <Button type="submit" className="w-full">{ isSubmitting || loading ? <Spinner size={16} className="animate-spin" /> : "Sign in"}</Button>
 
                                 </form>
                             )}
@@ -66,8 +66,8 @@ export default function Loginpage() {
 
                         <div className="grid gap-4 grid-cols-2 w-full">
 
-                        <Button size="full" variant="tetiary" onClick={() => sociallogin("/dashboard")} className="bg-white dark:bg-black border-gray-500/[0.2] w-full"><FacebookIcon width={16} />Facebook</Button>
-                        <Button size="full" variant="tetiary" onClick={() => sociallogin("/dashboard")} className="bg-white dark:bg-black border-gray-500/[0.2] w-full"><GoogleIcon width={12} />Google</Button>
+                        <Button variant="tetiary" onClick={() => sociallogin("/dashboard")} className="w-full bg-white dark:bg-black border-gray-500/[0.2] w-full"><FacebookIcon width={16} />Facebook</Button>
+                        <Button variant="tetiary" onClick={() => sociallogin("/dashboard")} className="w-full bg-white dark:bg-black border-gray-500/[0.2] w-full"><GoogleIcon width={12} />Google</Button>
                         
                         </div>
                         <div>

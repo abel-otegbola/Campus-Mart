@@ -23,8 +23,8 @@ export default function Tab ({ href, label, icon, id, ...props }: tabProps) {
                 ${+id < 4 ? "md:flex hidden" : "md:hidden flex"}
             `}
         >
-            <span className={`md:text-md md:text-[20px] ${pathname === href ? "text-[24px]": "text-[20px]"}`}>{icon}</span>
-            <span className="md:inline md:text-[12px] text-[9px] ">{pathname === href ? 
+            <span className={`md:text-md md:text-[20px] ${pathname.includes(href) ? "text-[24px]": "text-[20px]"}`}>{icon}</span>
+            <span className="md:inline md:text-[12px] text-[9px] ">{pathname.includes(href) ? 
                 <>
                     <span className="md:hidden block w-1 h-1 rounded-full bg-primary"></span>
                     <span className="md:block hidden">{label}</span> 

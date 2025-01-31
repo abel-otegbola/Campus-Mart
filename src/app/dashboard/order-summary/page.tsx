@@ -61,7 +61,7 @@ export default function OrderSummary() {
                     </div>
                 </div>
             
-                <Button size="full" disabled={order.paymentStatus === "cancelled"} onClick={() => cancelOrder()}><TbTrash /><span>Cancel Order</span></Button>
+                <Button className="w-full" disabled={order.paymentStatus === "cancelled"} onClick={() => cancelOrder()}><TbTrash /><span>Cancel Order</span></Button>
 
             </div>
 

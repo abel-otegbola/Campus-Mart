@@ -48,7 +48,7 @@ function DashboardHome() {
                                     </div>
                                 </div>
                             </div>
-                            <Button size="full" variant="secondary" href="/shop" className="bg-black/[0.4] rounded-full">Shop products</Button>
+                            <Button variant="secondary" href="/shop" className="w-full bg-black/[0.4] rounded-full">Shop products</Button>
                         </div>
                         <div className="flex flex-col gap-8 p-5 sm:w-[50%] w-full bg-tetiary text-black bg-cover rounded-[15px]">
                             <h1 className="text-xl">Discount code</h1>
@@ -67,7 +67,7 @@ function DashboardHome() {
                                     </div>
                                 </div>
                             </div>
-                            <Button size="full" variant="secondary" href="/shop" className="bg-black/[0.4] rounded-full">Redeem code</Button>
+                            <Button variant="secondary" href="/shop" className="w-full bg-black/[0.4] rounded-full">Redeem code</Button>
                         </div>
                     </div> */}
 
