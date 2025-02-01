@@ -3,42 +3,51 @@
 import { AuthContext } from "@/context/useAuth";
 import Button from "../../../components/button/button";
 import Input from "@/components/input/input";
-import { Bicycle, Book, Briefcase, Bus, Chair, Coffee, Envelope, FilmStrip, Football, GameController, GraduationCap, Guitar, Heart, House, ImageBroken, Laptop, MapPin, Palette, PawPrint, Pencil, ShirtFolded, Spinner, Ticket, Trash, User, Watch } from "@phosphor-icons/react";
+import { Bag, Bed, BeerBottle, Bicycle, Book, BookOpen, Briefcase, Bus, Car, Chair, Code, Coffee, Envelope, File, FilmStrip, Football, GameController, GraduationCap, Guitar, Heart, House, ImageBroken, Laptop, MapPin, Palette, PawPrint, Pencil, ShirtFolded, Spinner, Ticket, Trash, User, Watch } from "@phosphor-icons/react";
 import { useSession } from "next-auth/react";
 import { useContext, useEffect, useState } from "react";
 import Dropdown from "@/components/dropdown/dropdown";
 import { TbPerfume } from "react-icons/tb";
 import ImageToBase64 from "@/components/imageConverter/imageConverter";
 import Image from "next/image";
+import { PiDiamond } from "react-icons/pi";
 
 export default function Profile() {
     const { data } = useSession()
     const { getUserData, user, updateUser, loading } = useContext(AuthContext)
     const [userData, setUserData] = useState(user)
-
+    
     const categories = [
-        { id: 0, title: "Gadgets", icon: <Watch /> },
-        { id: 1, title: "Books", icon: <Book /> },
-        { id: 2, title: "Clothing", icon: <ShirtFolded /> },
-        { id: 3, title: "Stationery", icon: <Pencil /> },
-        { id: 4, title: "Electronics", icon: <Laptop /> },
-        { id: 5, title: "Furniture", icon: <Chair /> },
-        { id: 6, title: "Sports Equipment", icon: <Football /> },
-        { id: 7, title: "Music Instruments", icon: <Guitar /> },
-        { id: 8, title: "Bicycles", icon: <Bicycle /> },
-        { id: 9, title: "Food & Beverages", icon: <Coffee /> },
-        { id: 10, title: "Tutoring Services", icon: <GraduationCap /> },
-        { id: 11, title: "Accommodation", icon: <House /> },
+        { id: 1, title: "Accommodation", icon: <House /> },
+        { id: 2, title: "Art & Craft Supplies", icon: <Palette /> },
+        { id: 3, title: "Bags & Backpacks", icon: <Bag /> },
+        { id: 4, title: "Bicycles", icon: <Bicycle /> },
+        { id: 5, title: "Books", icon: <Book /> },
+        { id: 6, title: "Bedding & Home Essentials", icon: <Bed /> },
+        { id: 7, title: "Bike & Car Accessories", icon: <Car /> },
+        { id: 8, title: "Clothing", icon: <ShirtFolded /> },
+        { id: 9, title: "Cosmetics & Skincare", icon: <BeerBottle /> },
+        { id: 10, title: "Food & Beverages", icon: <Coffee /> },
+        { id: 11, title: "Electronics", icon: <Laptop /> },
         { id: 12, title: "Event Tickets", icon: <Ticket /> },
-        { id: 13, title: "Health & Wellness", icon: <Heart /> },
-        { id: 14, title: "Part-time Jobs", icon: <Briefcase /> },
-        { id: 15, title: "Art & Craft Supplies", icon: <Palette /> },
-        { id: 16, title: "Travel Accessories", icon: <Bus /> },
-        { id: 17, title: "Gaming", icon: <GameController /> },
-        { id: 18, title: "Movies & Entertainment", icon: <FilmStrip /> },
-        { id: 19, title: "Pet Supplies", icon: <PawPrint /> },
-        { id: 20, title: "Perfumes and Scents", icon: <TbPerfume /> }
-    ] 
+        { id: 13, title: "Gaming", icon: <GameController /> },
+        { id: 14, title: "Gadgets", icon: <Watch /> },
+        { id: 15, title: "Health & Wellness", icon: <Heart /> },
+        { id: 16, title: "Jewellery and Accessories", icon: <PiDiamond /> },
+        { id: 17, title: "Part-time Jobs", icon: <Briefcase /> },
+        { id: 18, title: "Pet Supplies", icon: <PawPrint /> },
+        { id: 19, title: "Perfumes and Scents", icon: <TbPerfume /> },
+        { id: 20, title: "Sports Equipment", icon: <Football /> },
+        { id: 21, title: "Second-hand Textbooks", icon: <BookOpen /> },
+        { id: 22, title: "Rending Services (CAC, SCRUM registration)", icon: <File /> },
+        { id: 23, title: "Music Instruments", icon: <Guitar /> },
+        { id: 24, title: "Movies & Entertainment", icon: <FilmStrip /> },
+        { id: 25, title: "Software & Digital Tools", icon: <Code /> },
+        { id: 26, title: "Stationery", icon: <Pencil /> },
+        { id: 27, title: "Tutoring Services", icon: <GraduationCap /> },
+        { id: 28, title: "Travel Accessories", icon: <Bus /> },
+        { id: 29, title: "Furniture", icon: <Chair /> },
+    ];
 
     useEffect(() => {
         setUserData(user)
