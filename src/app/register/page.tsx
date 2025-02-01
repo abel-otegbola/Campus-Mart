@@ -125,7 +125,7 @@ export default function Registerpage() {
                                         </div>
                                         <div className={`w-full flex flex-col gap-5 absolute top-0 left-0 duration-500 ${flow === 1 ? "translate-x-[0]" : flow === 0 ? "translate-x-[120%]" : "translate-x-[-120%]"}`}>
                                             <Dropdown name="business_category"  options={categories} label="Business Category" value={values.business_category} onChange={handleChange} error={touched.business_category ? errors.business_category : ""} placeholder="Choose your business category" />
-                                            <Input name="business_location" label="Business Location" value={values.business_location} onChange={handleChange} type="text" error={touched.business_location ? errors.business_location : ""} placeholder="Enter business location" leftIcon={<MapPin size={16}/>}/>
+                                            <Input name="business_location" label="Business Location (Institution)" value={values.business_location} onChange={handleChange} type="text" error={touched.business_location ? errors.business_location : ""} placeholder="Enter business location" leftIcon={<MapPin size={16}/>}/>
                                             <p className="-mb-4">Upload Profile Picture</p>
                                             <div className="flex gap-6 items-center h-[100px] w-[100%] border border-dashed border-gray-300 rounded-lg">
                                                 { 

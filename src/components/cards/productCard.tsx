@@ -30,9 +30,9 @@ export default function ProductCard({ product }: { product: IProduct }) {
                     <div className="z-[2]">
                     {
                         cart.map(item => item.id).indexOf(product.id) === -1 ? 
-                        <Button variant="secondary" className="text-[12px] rounded-full" size="full" onClick={() => addToCart({id: product.id, quantity: 1, variation: { color: "black", size: "LG" }})} >Add to Cart</Button> 
+                        <Button variant="secondary" className="text-[12px] rounded-full w-full" onClick={() => addToCart({id: product.id, quantity: 1, variation: { color: "black", size: "LG" }})} >Add to Cart</Button> 
                         : 
-                        <Button variant="secondary"  className="text-[12px] rounded-full" size="full"  onClick={() => removeFromCart(product.id)} >Remove</Button>
+                        <Button variant="secondary"  className="text-[12px] rounded-full w-full"  onClick={() => removeFromCart(product.id)} >Remove</Button>
                     }
                     </div>
                 </div>

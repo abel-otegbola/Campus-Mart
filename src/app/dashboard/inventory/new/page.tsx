@@ -4,14 +4,16 @@ import { IProduct } from "@/interface/store";
 import Button from "@/components/button/button";
 import Input from "@/components/input/input";
 import Textarea from "@/components/textarea/textarea";
-import { ImageBroken, Trash, X } from "@phosphor-icons/react";
+import { Cube, HardDrive, ImageBroken, Palette, Trash, X } from "@phosphor-icons/react";
 import { v7 } from "uuid";
 import ImageToBase64 from "@/components/imageConverter/imageConverter";
 import Image from "next/image";
+import Dropdown from "@/components/dropdown/dropdown";
 
 export default function Userproducts() {
     const [data, setData] = useState<IProduct>({ id: v7() } as IProduct)
     const [tag, setTag] = useState("")
+    const [variations, setVariations] = useState<string[]>([])
 
     const addTag = () => {
         if(data.tags) {
@@ -30,15 +32,19 @@ export default function Userproducts() {
             if(index === i) return img 
             else return element
         }) }
-
         setData(newData)
     }
     
     const deleteImage = (img: string) => {
         const newData = { ...data, images: data?.images.filter(item => item !== img) }
-
         setData(newData)
     }
+
+    const variationsList = [
+        { id: 0, title: "Color", icon: <Palette /> },
+        { id: 1, title: "Size", icon: <Cube /> },
+        { id: 2, title: "RAM", icon: <HardDrive /> },
+    ]
 
     return (
         
@@ -84,26 +90,40 @@ export default function Userproducts() {
                             {
                                 data?.images?.map((image: string, i: number) => (
                                     <div  key={i} className="relative flex flex-col gap-2 w-[100%] border border-dashed border-gray-300 rounded-lg p-2">
-                                                { 
-                                                   image === "" ? 
-                                                   <label htmlFor={i.toString()} className="flex flex-col justify-center items-center gap-2 flex-1">
-                                                        <ImageBroken weight="fill" alt="add new image" size={32} />
-                                                        <p className="text-[10px]">Drop your image here, or <label htmlFor={i.toString( )} className="text-primary">Browse files</label></p>
-                                                    </label>
-                                                   :
-                                                    <div className="flex">
-                                                        <div className="absolute top-2 left-2 p-2 bg-black/[0.9] rounded cursor-pointer" tabIndex={1} onClick={(e) => deleteImage(image)}><Trash size={16} className="text-red-500" /></div>
-                                                        <Image src={image} alt="preview" width={88} height={88} className="max-h-auto w-full border border-gray-500/[0.2] rounded"/>
-                                                    </div>
-                                                }
-                                                <ImageToBase64 id={i.toString()} img={image} fullname={data?.title + i.toString()} setImg={(img) => changeImage(i, img)} />
-                                                
+                                        { 
+                                            image === "" ? 
+                                            <label htmlFor={i.toString()} className="flex flex-col justify-center items-center gap-2 flex-1">
+                                                <ImageBroken weight="fill" alt="add new image" size={32} />
+                                                <p className="text-[10px]">Drop your image here, or <label htmlFor={i.toString( )} className="text-primary">Browse files</label></p>
+                                                <div className="absolute top-2 left-2 p-2 bg-black/[0.9] rounded cursor-pointer" tabIndex={1} onClick={(e) => deleteImage(image)}><Trash size={16} className="text-red-500" /></div>
+                                            </label>
+                                            :
+                                            <div className="flex">
+                                                <Image src={image} alt="preview" width={88} height={88} className="max-h-auto w-full border border-gray-500/[0.2] rounded"/>
                                             </div>
+                                        }
+                                        <ImageToBase64 id={i.toString()} img={image} fullname={data?.title + i.toString()} setImg={(img) => changeImage(i, img)} />
+                                        
+                                    </div>
                                 ) )
                             }
                                 
                             </div>
                             <Button size="small" variant="secondary" onClick={() =>  setData({ ...data, images: data?.images ? [...data?.images, "" ] : [""]})}>New Image</Button>
+                        </div>
+
+                        <div className="flex flex-col gap-2 p-4 bg-gray-500/[0.09]">
+                            <label htmlFor="images"> Variations</label>
+                            <Dropdown placeholder="Add variation" label="Choose variation" options={variationsList.filter(item => !variations.includes(item.title))} value={"Color"} onChange={(value) =>  setVariations(!variations.includes(value) || value === "" ? [ value, ...variations ]: variations)}></Dropdown>
+                            {
+                                variations?.map(variation => (
+                                    <div className="relative p-2 mb-2 border border-gray-500/[0.1]" key={variation}>
+                                        {variation}
+                                        <div className="absolute top-[6px] right-[6px] p-1 bg-black/[0.9] rounded cursor-pointer" tabIndex={1} onClick={(e) => setVariations(variations.filter(item => item !== variation))}><Trash size={16} className="text-red-500" /></div>
+
+                                    </div>
+                                ))
+                            }
                         </div>
                         
                         <div className="flex flex-col gap-2 py-4">

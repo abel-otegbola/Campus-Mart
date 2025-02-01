@@ -39,8 +39,8 @@ export default function Dropdown({ className, disabled, label, name, options, va
         <div ref={optionsRef} className={`relative flex flex-col gap-1 ${className}`}>
             { label ? <label htmlFor={name} className="text-[12px]">{label}</label> : "" }
 
-            <div className={`flex items-center relative rounded-lg bg-transparent dark:bg-dark w-full p-1 px-4 border duration-500 z-[1] 
-                ${error && !focus ? "border-red text-red" : "border-black/[0.2]  dark:text-gray dark:border-gray/[0.2]"}
+            <div className={`flex items-center relative rounded-lg bg-transparent dark:bg-black w-full p-1 px-4 border duration-500 z-[1] 
+                ${error && !focus ? "border-red text-red" : "border-black/[0.2]  dark:text-gray dark:border-gray-500/[0.2]"}
                 ${focus ? "border-primary shadow-input-active" : " "}
                 ${ className }
             `}>
@@ -64,12 +64,12 @@ export default function Dropdown({ className, disabled, label, name, options, va
                 <span className={`${!focus ? "rotate-0" : "rotate-180" } duration-500 absolute right-2`}><CaretDown /></span>
             </div>
 
-            <div className={`rounded-[8px] absolute top-[110%] left-0 w-full max-h-[200px] overflow-y-auto z-[1000] bg-white dark:bg-dark dark:text-gray shadow-md duration-700 overflow-y-auto border border-gray-500/[0.2] ${focus ? "block" : "hidden"}`}>
+            <div className={`rounded-[8px] absolute top-[110%] left-0 w-full max-h-[200px] overflow-y-auto z-[1000] bg-white dark:bg-black dark:text-gray shadow-md duration-700 overflow-y-auto border border-gray-500/[0.2] ${focus ? "block" : "hidden"}`}>
               {
                 (useSearch ? options?.filter(item => item.title.indexOf(search) !== -1) : options)?.map((option: option) => (
                   <div tabIndex={1} key={option.id} 
                     onClick={() => {setActive(option); handleChange(option.title); onChange(option.title); setFocus(false); setSearch(option.title); setUseSearch(false)}} 
-                    className={`p-4 flex w-full items-center cursor-pointer gap-2 mb-[2px] hover:text-primary bg-white dark:bg-dark ${option.title === value ? "text-primary" : ""}`}
+                    className={`p-4 flex w-full items-center cursor-pointer gap-2 mb-[2px] hover:text-primary bg-white dark:bg-dark/[0.2] hover:dark:bg-dark/[0.5] ${option.title === value ? "text-primary" : ""}`}
                   >
                     <span className="">{option.icon}</span>
                     {option.title}
