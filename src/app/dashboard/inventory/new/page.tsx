@@ -1,19 +1,23 @@
 'use client'
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IProduct } from "@/interface/store";
 import Button from "@/components/button/button";
 import Input from "@/components/input/input";
 import Textarea from "@/components/textarea/textarea";
-import { Cube, HardDrive, ImageBroken, Palette, Trash, X } from "@phosphor-icons/react";
+import { Cube, HardDrive, ImageBroken, Palette, Spinner, Trash, X } from "@phosphor-icons/react";
 import { v7 } from "uuid";
 import ImageToBase64 from "@/components/imageConverter/imageConverter";
 import Image from "next/image";
-import Dropdown from "@/components/dropdown/dropdown";
+import { storeContext } from "@/context/useStore";
+import { AuthContext } from "@/context/useAuth";
+// import Dropdown from "@/components/dropdown/dropdown";
 
 export default function Userproducts() {
     const [data, setData] = useState<IProduct>({ id: v7() } as IProduct)
     const [tag, setTag] = useState("")
-    const [variations, setVariations] = useState<string[]>([])
+    const { addProduct, loading } = useContext(storeContext)
+    const { user } = useContext(AuthContext)
+    // const [variations, setVariations] = useState<string[]>([])
 
     const addTag = () => {
         if(data.tags) {
@@ -40,11 +44,11 @@ export default function Userproducts() {
         setData(newData)
     }
 
-    const variationsList = [
-        { id: 0, title: "Color", icon: <Palette /> },
-        { id: 1, title: "Size", icon: <Cube /> },
-        { id: 2, title: "RAM", icon: <HardDrive /> },
-    ]
+    // const variationsList = [
+    //     { id: 0, title: "Color", icon: <Palette /> },
+    //     { id: 1, title: "Size", icon: <Cube /> },
+    //     { id: 2, title: "RAM", icon: <HardDrive /> },
+    // ]
 
     return (
         
@@ -56,28 +60,30 @@ export default function Userproducts() {
             </div>
             <Button size="small" variant="secondary">Save</Button>
         </div>
-            <div className="w-full overflow-x-auto md:p-8 p-4 min-h-[400px] rounded-lg border border-gray-500/[0.1] bg-gray-100/[0.04]">
+            <div className="w-full overflow-x-auto min-h-[400px]">
                 <div className="grid md:grid-cols-2 grid-cols-1 gap-8">
                     <div className="flex flex-col gap-4">
                         <Input id="title" label="Title" onChange={(e) => setData({ ...data, title: e.target.value })} placeholder="Enter product title" />
                         <Input id="category" label="Category" onChange={(e) => setData({ ...data, category: e.target.value })} placeholder="Enter product category" />
                         <Input id="price" label="Price" onChange={(e) => setData({ ...data, price: e.target.value })} placeholder="Enter product price" />
                         <Textarea id="descriptions" label="Description" onChange={(e) => setData({ ...data, title: e.target.value })} placeholder="Enter product descriptions" />
-                        <div className="flex flex-col gap-2 bg-tetiary/[0.2] dark:bg-tetiary/[0.09] rounded">
+                        <div className="flex flex-col gap-2 mb-4">
                             <label htmlFor="tags">Tags</label>
-                            <div className="flex items-start bg-tertiary dark:bg-black p-2 rounded">
-                                <div className="flex flex-wrap max-w-[280px] gap-2">
+                            <div className="flex flex-wrap items-start gap-2 border border-gray-500/[0.2] dark:bg-black p-2 rounded">
+                                <div className="flex flex-wrap gap-2">
                                 {
                                     data?.tags?.map(tag => (
-                                        <div key={tag} className="flex gap-2 text-[12px] px-2 py-1 border border-gray-500/[0.2] rounded w-fit">
+                                        <div key={tag} className="flex gap-2 px-2 py-1 bg-white dark:bg-black text-[10px] border border-gray-500/[0.2] rounded w-fit">
                                             <span>{tag}</span>
-                                            <button className="text-red" onClick={() => setData({ ...data, tags: data.tags.filter(item => item !== tag) })}><X size={12} /></button>
+                                            <button className="text-red" onClick={() => setData({ ...data, tags: data.tags.filter(item => item !== tag) })}><X size={10} /></button>
                                         </div>
                                     ))
                                 }
                                 </div>
-                                <Input id="tags" value={tag} className="border-none w-[140px] py-1" onKeyDown={(e) => { e.key === "Enter" ? addTag() : "" }} onChange={(e) => setTag(e.target.value)} placeholder="Enter product tags" />
-                                <Button size="small" variant="secondary" className="py-[12px]" onClick={() => addTag()}>Add</Button>
+                                <div className="flex items-center gap-2 min-w-[20%] max-w-[40%] justify-between flex-1">
+                                    <Input id="tags" value={tag} className="border-none rounded-[4px] bg-transparent px-0 py-[2px]" onKeyDown={(e) => { e.key === "Enter" ? addTag() : "" }} onChange={(e) => setTag(e.target.value)} placeholder="Enter product tags" />
+                                    <Button size="small" variant="secondary" className="py-[12px]" onClick={() => addTag()}>Add</Button>
+                                </div>
                             </div>
                             
                         </div>
@@ -112,19 +118,21 @@ export default function Userproducts() {
                             <Button size="small" variant="secondary" onClick={() =>  setData({ ...data, images: data?.images ? [...data?.images, "" ] : [""]})}>New Image</Button>
                         </div>
 
-                        <div className="flex flex-col gap-2 p-4 bg-gray-500/[0.09]">
+                        {/* <div className="flex flex-col gap-2 p-4 bg-gray-500/[0.09]">
                             <label htmlFor="images"> Variations</label>
                             <Dropdown placeholder="Add variation" label="Choose variation" options={variationsList.filter(item => !variations.includes(item.title))} value={"Color"} onChange={(value) =>  setVariations(!variations.includes(value) || value === "" ? [ value, ...variations ]: variations)}></Dropdown>
                             {
                                 variations?.map(variation => (
-                                    <div className="relative p-2 mb-2 border border-gray-500/[0.1]" key={variation}>
-                                        {variation}
+                                    <div className="relative p-2 mb-2 bg-white dark:bg-black border border-gray-500/[0.1]" key={variation}>
+                                        {
+                                            variation === "Color" ?
+                                            
+                                        }
                                         <div className="absolute top-[6px] right-[6px] p-1 bg-black/[0.9] rounded cursor-pointer" tabIndex={1} onClick={(e) => setVariations(variations.filter(item => item !== variation))}><Trash size={16} className="text-red-500" /></div>
-
                                     </div>
                                 ))
                             }
-                        </div>
+                        </div> */}
                         
                         <div className="flex flex-col gap-2 py-4">
                             <label htmlFor="stock">Stock</label>
@@ -134,7 +142,7 @@ export default function Userproducts() {
                 </div>
 
                 <div className="border-t border-gray-500/[0.2] py-4">
-                    <Button variant="secondary">Save</Button>
+                    <Button variant="secondary" onClick={() => addProduct({...data, store: user?.fullname || ""})}>{ loading ? <Spinner size={16} className="animate-spin" /> : "Save" }</Button>
                 </div>
             </div>
         </>

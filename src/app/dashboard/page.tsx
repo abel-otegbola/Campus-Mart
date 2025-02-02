@@ -20,8 +20,8 @@ function DashboardHome() {
     return (
         <>
         
-                <div className="w-full">
-                    <div className="flex items-center gap-4 border border-transparent border-b-gray-500/[0.1] p-2 pb-4">
+                <div className="w-full rounded border border-gray-500/[0.1] min-h-[70vh] pb-4">
+                    <div className="flex items-center gap-4 border border-transparent border-b-gray-500/[0.1] p-4">
                         <Avatar user={ user || data?.user || { fullname: "User" }} />
                         <div className="">
                             <h1 className="text-[20px] font-semibold capitalize">Welcome back, <span className="Capitalize">{data?.user?.fullname?.split(" ")[0] || user?.fullname?.split(" ")[0]}</span></h1>

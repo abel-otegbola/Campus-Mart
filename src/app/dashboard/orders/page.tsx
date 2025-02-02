@@ -59,7 +59,7 @@ export default function UserOrders() {
                 <h2 className="font-bold text-[28px] uppercase">Orders</h2>
                 <p>Manage your orders</p>
             </div>
-            <div className="w-full overflow-x-auto md:p-8 p-4 min-h-[400px] rounded-lg border border-gray-500/[0.1] bg-gray-100/[0.08]">
+            <div className="w-full overflow-x-auto min-h-[400px] rounded-lg border border-gray-500/[0.1] bg-gray-100/[0.08]">
                 <table className="table-auto text-left md:text-[12px] text-[10px] w-full">
                     <thead>
                         <tr className="font-bold uppercase border border-transparent border-b-gray-400/[0.2]">

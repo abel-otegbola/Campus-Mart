@@ -36,14 +36,14 @@ export default function Userproducts() {
                 <p className="mb-2">Manage your products</p>
                 <Button size="small" variant="secondary" href="/dashboard/inventory/new">New product</Button>
             </div>
-            <div className="w-full overflow-x-auto md:p-8 p-4 min-h-[400px] rounded-lg border border-gray-500/[0.1] bg-gray-100/[0.08]">
+            <div className="w-full overflow-x-auto min-h-[400px] rounded-lg border border-gray-500/[0.1] bg-gray-100/[0.08]">
                 <table className="table-auto text-left md:text-[12px] text-[10px] w-full">
                     <thead>
                         <tr className="font-bold uppercase border border-transparent border-b-gray-400/[0.2]">
                             <th className="p-2">Id</th>
                             <th className="p-2">Product</th>
                             <th className="p-2">Price</th>
-                            <th className="p-2">Ctaegory</th>
+                            <th className="p-2">Category</th>
                         </tr>
                     </thead>
                     <tbody className="">

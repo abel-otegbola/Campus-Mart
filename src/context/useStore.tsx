@@ -1,9 +1,10 @@
 'use client'
-import { getAllProducts } from "@/actions/useProducts";
+import { createProduct, getAllProducts } from "@/actions/useProducts";
 import { useLocalStorage } from "@/customHooks/useLocaStorage";
 import { products as productsList } from "@/data/products";
 import { ICart, IProduct } from "@/interface/store";
-import { createContext, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 interface IStoreContext {
     products: IProduct[];
@@ -16,6 +17,7 @@ interface IStoreContext {
     wishlist: string[];
     addToWishlist: (aug0: string) => void;
     removeFromWishlist: (id: string) => void;
+    loading: boolean;
 }
 
 export const storeContext = createContext<IStoreContext>({} as IStoreContext)
@@ -24,13 +26,32 @@ export default function StoreContextProvider({ children }: {children: React.Reac
     const [cart, setCart] = useLocalStorage("cart", [])
     const [wishlist, setWishlist] = useLocalStorage("wishlist", [])
     const [products, setProducts] = useLocalStorage("products", productsList)
+    const [popup, setPopup] = useState({ type: "", msg: "" });
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         getAllProducts()
     }, [])
 
     const addProduct = (data: IProduct) => {
-        setProducts({...products, data})
+        setLoading(true)
+        if(data.title === "" || data.category === "" || data.price === "" || data.description === "") {
+            setPopup({ type: "error", msg: "Fill all product details" })
+            setLoading(false)
+            return false
+        }
+        else {
+            createProduct({...data, })
+            .then(response => {
+                setLoading(false)
+                if(response?.error) {
+                    setPopup({ type: "error", msg: response?.error })
+                }
+                else {
+                    setPopup({ type: "success", msg: "Product added Successfully" })
+                }
+            })
+        }
     }
 
     const removeProduct = (id: string) => {
@@ -81,10 +102,22 @@ export default function StoreContextProvider({ children }: {children: React.Reac
         wishlist,
         addToWishlist,
         removeFromWishlist,
+        loading,
     }
+
+    
+    useEffect(() => {
+        if (popup?.type === "success") {
+            toast.success(popup.msg)
+        }
+        if (popup?.type === "error") {
+            toast.error(popup.msg);
+        }
+    }, [popup]);
 
     return (
         <storeContext.Provider value={data} >
+            <Toaster containerClassName="p-8" />
             {children}
         </storeContext.Provider>
     )

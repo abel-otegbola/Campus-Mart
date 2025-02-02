@@ -14,8 +14,8 @@ export interface buttonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export default function Button({ variant, className, href, size, disabled, onClick, children, ...props }: buttonProps) {
     const variants = {
         primary: "hover:bg-primary/[0.8] bg-primary text-white border border-primary",
-        secondary: "hover:bg-gray-500/[0.2] border border-primary text-primary",
-        tetiary: "bg-gray-500/[0.09] hover:bg-gray-500/[0.2] border border-gray-500/[0.09] "
+        secondary: "hover:bg-primary/[0.2] border border-primary text-primary",
+        tetiary: "bg-gray-500/[0.09] hover:bg-primary/[0.5] border border-gray-500/[0.09] "
     }
 
     return (

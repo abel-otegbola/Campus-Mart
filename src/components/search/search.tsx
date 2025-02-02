@@ -37,7 +37,7 @@ export default function Search({ value, onChange, className, disabled, placehold
                     onChange={(e) => onChange ? onChange(e.target.value): ""}
                 />
                 <Dropdown className="w-[120px] border-secondary/[0.1]" placeholder="products" value={"products"} onChange={(value) => onChange && onChange(value)} options={[{ id: 0, title: "vendors", icon: <User /> }, { id: 1, title: "products", icon: <BoxArrowUp /> }]} />
-                <button type="submit" className="opacity-[0.5] pl-2" onClick={(e) => e.preventDefault()}><MagnifyingGlass size={16} /></button>
+                <button type="submit" className="opacity-[0.5] pl-2"><MagnifyingGlass size={16} /></button>
             </div>
         </form>
     )
