@@ -82,8 +82,8 @@ export default function UserOrders() {
                                         <Link href={`/dashboard/order?id=${order?.id}`}>
                                         <ol className="">
                                         {
-                                            products.filter((item: IProduct) => order?.data.cart.map((item: ICart) => item.id).indexOf(item.id) !== -1 ).map((product: IProduct) => (
-                                                    <li key={product.id} className="flex gap-2 my-1"><Image alt={product.title} src={product?.images[0]} className="w-[30px] bg-gray-600 rounded" />{product?.title}</li>
+                                            products.filter((item: IProduct) => order?.data.cart.map((item: ICart) => item.id).indexOf(item._id) !== -1 ).map((product: IProduct) => (
+                                                    <li key={product._id} className="flex gap-2 my-1"><Image alt={product.title} src={product?.images[0]} className="w-[30px] bg-gray-600 rounded" />{product?.title}</li>
                                             ))
                                         }
                                         </ol>
