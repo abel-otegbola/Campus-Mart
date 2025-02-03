@@ -78,12 +78,12 @@ export default function OrderSummary() {
                         </thead>
                         <tbody className="">
                             {
-                                products.filter((item: IProduct) => order.cart.map((item: ICart) => item.id).indexOf(item.id) !== -1 )
+                                products.filter((item: IProduct) => order.cart.map((item: ICart) => item.id).indexOf(item._id) !== -1 )
                                 .map((product: IProduct) => (
-                                    <tr key={product.id} className="border border-gray-500/[0.2] border-x-transparent">
+                                    <tr key={product._id} className="border border-gray-500/[0.2] border-x-transparent">
                                         <td  className="py-2 gap-2"><Image src={product?.images[0]} alt={product.title} className="w-[30px] bg-gray-600 rounded" /> {product?.title}.</td>
                                         <td  className="py-2"><PiCurrencyNgn className="inline" /> {product?.price}.00</td>
-                                        <td className="py-2">{order.cart.filter((item: ICart) => item.id === product?.id).map((item: ICart) => item.quantity)}</td>
+                                        <td className="py-2">{order.cart.filter((item: ICart) => item.id === product?._id).map((item: ICart) => item.quantity)}</td>
                                     </tr>
                                 ))
                             }
