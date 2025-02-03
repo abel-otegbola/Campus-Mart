@@ -2,7 +2,7 @@
 import { ReactElement, useContext, useEffect, useState } from "react";
 import { TbBell, TbDashboard, TbListDetails, TbLogout, TbPackage, TbSettings, TbUser, TbUsers } from "react-icons/tb";
 import { Icon } from "@phosphor-icons/react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Avatar from "@/components/avatar/avatar";
 import { signOut, useSession } from "next-auth/react";
@@ -23,7 +23,6 @@ export default function Layout({
     const { getUserData, user } = useContext(AuthContext)
     const [open, setOpen] = useState(false)
     const pathname = usePathname();
-    const router = useRouter()
 
     useEffect(() => {
         getUserData(data?.user?.email || "")
