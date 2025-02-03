@@ -63,7 +63,7 @@ export default function Layout({
                             {
                             (data?.user?.role === "Seller" || user?.role === "Seller"  ? storeLinks : generalLinks).map(link => {
                                     return (
-                                    <Link key={link.id} href={ link.link} className={`flex items-center justify-between my-[3px] px-4 py-1 md:rounded ${pathname === link.link ? "bg-primary/[0.1] text-primary" : " hover:bg-primary/[0.1] hover:text-primary"}`}>
+                                    <Link key={link.id} onClick={() => setOpen(false)} href={ link.link} className={`flex items-center justify-between my-[3px] px-4 py-1 md:rounded ${pathname === link.link ? "bg-primary/[0.1] text-primary" : " hover:bg-primary/[0.1] hover:text-primary"}`}>
                                         <span className="w-[30px] text-lg opacity-[0.6]">{link.icon}</span>
                                         <span className="flex-1 py-2 break-normal">{link.label}</span>
                                     </Link>
