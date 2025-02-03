@@ -1,32 +1,6 @@
 export const products = [
     {
-      id: "0",
-      title: "iPhone 15 Pro Max",
-      price: "699000",
-      slug: "iphone-15-pro-max",
-      description: "The iPhone 15 Pro Max features a titanium design, the powerful A17 Pro chip, and a cutting-edge camera system.",
-      tags: ["smartphone", "Apple", "iOS", "5G"],
-      category: "Gadgets",
-      stocks: 150,
-      images: ["/iphone5.png", "/iphone5.png"],
-      variations: {
-        colors: [
-          { name: "Titanium Black", img: "/iphone5.png" },
-          { name: "Titanium Blue", img: "/iphone5.png" },
-        ],
-        size: [
-          { name: "128GB", img: "" },
-          { name: "256GB", img: "" },
-        ],
-      },
-      offers: [{ name: "Free Shipping", code: "FREESHIP" }],
-      rating: 4.8,
-      store: "DA' REY",
-      createdAt: "12-20-2024",
-      updatedAt: "12-30-2024",
-    },
-    {
-      id: "1",
+      _id: "1",
       title: "Casual Women's T-Shirt",
       price: "4990",
       slug: "casual-womens-tshirt",
@@ -55,7 +29,7 @@ export const products = [
       updatedAt: "12-30-2024",
     },
     {
-      id: "2",
+      _id: "2",
       title: "Elegant Gold Necklace",
       price: "3990",
       slug: "elegant-gold-necklace",
@@ -74,7 +48,7 @@ export const products = [
       updatedAt: "12-30-2024",
     },
     {
-      id: "3",
+      _id: "3",
       title: "Nike Air Force 1 ’07",
       price: "20990",
       slug: "sneakers-shoes",
@@ -106,7 +80,7 @@ export const products = [
       updatedAt: "12-30-2024",
     },
     {
-      id: "4",
+      _id: "4",
       title: "Wireless Noise-Cancelling Headphones",
       price: "29990",
       slug: "noise-cancelling-headphones",
@@ -128,7 +102,7 @@ export const products = [
       updatedAt: "12-30-2024",
     },
     {
-      id: "5",
+      _id: "5",
       title: "Luxury Leather Handbag",
       price: "29990",
       slug: "luxury-leather-handbag",
@@ -150,7 +124,7 @@ export const products = [
       updatedAt: "12-30-2024",
     },
     {
-      id: "6",
+      _id: "6",
       title: "Classic Wristwatch",
       price: "7900",
       slug: "classic-wristwatch",
@@ -171,7 +145,7 @@ export const products = [
       updatedAt: "12-30-2024",
     },
     {
-      id: "7",
+      _id: "7",
       title: "Portable Bluetooth Speaker",
       price: "7900",
       slug: "portable-bluetooth-speaker",
@@ -193,7 +167,7 @@ export const products = [
       updatedAt: "12-30-2024",
     },
     {
-      id: "8",
+      _id: "8",
       title: "Smart Fitness Band",
       price: "3490",
       slug: "smart-fitness-band",
@@ -214,7 +188,7 @@ export const products = [
       updatedAt: "12-30-2024",
     },
     {
-      id: "9",
+      _id: "9",
       title: "Designer Sunglasses",
       price: "5990",
       slug: "designer-sunglasses",

@@ -1,23 +1,38 @@
 'use client'
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { IProduct } from "@/interface/store";
 import Button from "@/components/button/button";
 import Input from "@/components/input/input";
 import Textarea from "@/components/textarea/textarea";
 import { ImageBroken, Spinner, Trash, X } from "@phosphor-icons/react";
-import { v7 } from "uuid";
 import ImageToBase64 from "@/components/imageConverter/imageConverter";
 import Image from "next/image";
 import { storeContext } from "@/context/useStore";
-import { AuthContext } from "@/context/useAuth";
-// import Dropdown from "@/components/dropdown/dropdown";
+import { useSearchParams } from "next/navigation";
+import { getSingleProduct } from "@/actions/useProducts";
 
 export default function Userproducts() {
     const [data, setData] = useState<IProduct>({} as IProduct)
     const [tag, setTag] = useState("")
-    const { addProduct, loading } = useContext(storeContext)
-    const { user } = useContext(AuthContext)
-    // const [variations, setVariations] = useState<string[]>([])
+    const { updateProduct, loading } = useContext(storeContext)
+    const searchParams = useSearchParams()
+    const id = searchParams.get("id") || "0"
+
+    useEffect(() => {
+        if(id !== "0") {
+            getSingleProduct(id)
+            .then((response) => {
+                if(response?.error) {                   
+                }
+                else {
+                    setData(response)
+                    console.log(response, id)
+                }
+            })
+            .catch((error: { message: string }) => {
+            });
+        }
+    }, [id])
 
     const addTag = () => {
         if(data.tags) {
@@ -44,12 +59,6 @@ export default function Userproducts() {
         setData(newData)
     }
 
-    // const variationsList = [
-    //     { id: 0, title: "Color", icon: <Palette /> },
-    //     { id: 1, title: "Size", icon: <Cube /> },
-    //     { id: 2, title: "RAM", icon: <HardDrive /> },
-    // ]
-
     return (
         
         <>
@@ -63,10 +72,10 @@ export default function Userproducts() {
             <div className="w-full overflow-x-auto min-h-[400px]">
                 <div className="grid md:grid-cols-2 grid-cols-1 gap-8">
                     <div className="flex flex-col gap-4">
-                        <Input id="title" label="Title" onChange={(e) => setData({ ...data, title: e.target.value })} placeholder="Enter product title" />
-                        <Input id="category" label="Category" onChange={(e) => setData({ ...data, category: e.target.value })} placeholder="Enter product category" />
-                        <Input id="price" label="Price" onChange={(e) => setData({ ...data, price: e.target.value })} placeholder="Enter product price" />
-                        <Textarea id="descriptions" label="Description" onChange={(e) => setData({ ...data, description: e.target.value })} placeholder="Enter product descriptions" />
+                        <Input id="title" label="Title" value={data?.title} onChange={(e) => setData({ ...data, title: e.target.value })} placeholder="Enter product title" />
+                        <Input id="category" label="Category" value={data?.category} onChange={(e) => setData({ ...data, category: e.target.value })} placeholder="Enter product category" />
+                        <Input id="price" label="Price" value={data?.price} onChange={(e) => setData({ ...data, price: e.target.value })} placeholder="Enter product price" />
+                        <Textarea id="descriptions" label="Description" value={data?.description} onChange={(e) => setData({ ...data, description: e.target.value })} placeholder="Enter product descriptions" />
                         <div className="flex flex-col gap-2 mb-4">
                             <label htmlFor="tags">Tags</label>
                             <div className="flex flex-wrap items-start gap-2 border border-gray-500/[0.2] dark:bg-black p-2 rounded">
@@ -96,12 +105,12 @@ export default function Userproducts() {
                             {
                                 data?.images?.map((image: string, i: number) => (
                                     <div  key={i} className="relative flex flex-col gap-2 w-[100%] border border-dashed border-gray-300 rounded-lg p-2">
+                                        <div className="absolute top-2 left-2 p-2 bg-black/[0.9] rounded cursor-pointer" tabIndex={1} onClick={(e) => deleteImage(image)}><Trash size={16} className="text-red-500" /></div>
                                         { 
                                             image === "" ? 
                                             <label htmlFor={i.toString()} className="flex flex-col justify-center items-center gap-2 flex-1">
                                                 <ImageBroken weight="fill" alt="add new image" size={32} />
                                                 <p className="text-[10px]">Drop your image here, or <label htmlFor={i.toString( )} className="text-primary">Browse files</label></p>
-                                                <div className="absolute top-2 left-2 p-2 bg-black/[0.9] rounded cursor-pointer" tabIndex={1} onClick={(e) => deleteImage(image)}><Trash size={16} className="text-red-500" /></div>
                                             </label>
                                             :
                                             <div className="flex">
@@ -117,32 +126,16 @@ export default function Userproducts() {
                             </div>
                             <Button size="small" variant="secondary" onClick={() =>  setData({ ...data, images: data?.images ? [...data?.images, "" ] : [""]})}>New Image</Button>
                         </div>
-
-                        {/* <div className="flex flex-col gap-2 p-4 bg-gray-500/[0.09]">
-                            <label htmlFor="images"> Variations</label>
-                            <Dropdown placeholder="Add variation" label="Choose variation" options={variationsList.filter(item => !variations.includes(item.title))} value={"Color"} onChange={(value) =>  setVariations(!variations.includes(value) || value === "" ? [ value, ...variations ]: variations)}></Dropdown>
-                            {
-                                variations?.map(variation => (
-                                    <div className="relative p-2 mb-2 bg-white dark:bg-black border border-gray-500/[0.1]" key={variation}>
-                                        {
-                                            variation === "Color" ?
-                                            
-                                        }
-                                        <div className="absolute top-[6px] right-[6px] p-1 bg-black/[0.9] rounded cursor-pointer" tabIndex={1} onClick={(e) => setVariations(variations.filter(item => item !== variation))}><Trash size={16} className="text-red-500" /></div>
-                                    </div>
-                                ))
-                            }
-                        </div> */}
                         
                         <div className="flex flex-col gap-2 py-4">
                             <label htmlFor="stock">Stock</label>
-                            <Input id="stock" type="number" onChange={(e) => setData({ ...data, stocks: +e.target.value })} placeholder="Number of product available" />
+                            <Input id="stock" type="number" value={data?.stocks} onChange={(e) => setData({ ...data, stocks: +e.target.value })} placeholder="Number of product available" />
                         </div>
                     </div>
                 </div>
 
                 <div className="border-t border-gray-500/[0.2] py-4">
-                    <Button variant="secondary" onClick={() => addProduct({...data, store: user?.business_name || ""})}>{ loading ? <Spinner size={16} className="animate-spin" /> : "Save" }</Button>
+                    <Button variant="secondary" onClick={() => updateProduct(data)}>{ loading ? <Spinner size={16} className="animate-spin" /> : "Save" }</Button>
                 </div>
             </div>
         </>

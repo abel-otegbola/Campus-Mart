@@ -3,7 +3,7 @@
 import { AuthContext } from "@/context/useAuth";
 import Button from "../../../components/button/button";
 import Input from "@/components/input/input";
-import { Bag, Bed, BeerBottle, Bicycle, Book, BookOpen, Briefcase, Bus, Car, Chair, Code, Coffee, Envelope, File, FilmStrip, Football, GameController, GraduationCap, Guitar, Heart, House, ImageBroken, Laptop, MapPin, Palette, PawPrint, Pencil, ShirtFolded, Spinner, Ticket, Trash, User, Watch } from "@phosphor-icons/react";
+import { Bag, Bed, BeerBottle, Bicycle, Book, BookOpen, Briefcase, Bus, Car, Chair, Code, Coffee, Envelope, File, FilmStrip, Football, GameController, GraduationCap, Guitar, Heart, House, ImageBroken, Laptop, MapPin, Palette, PawPrint, Pencil, ShirtFolded, Spinner, Ticket, Trash, User, UserFocus, Watch } from "@phosphor-icons/react";
 import { useSession } from "next-auth/react";
 import { useContext, useEffect, useState } from "react";
 import Dropdown from "@/components/dropdown/dropdown";
@@ -91,6 +91,9 @@ export default function Profile() {
                 {
                     data?.user?.role === "Seller" || userData?.role === "Seller" ?
                         <>
+                            <div className="py-2 mb-1">
+                                <Input disabled={true} defaultValue={userData?.business_name || ""} label="Business name" leftIcon={<UserFocus />} onChange={(e) => setUserData({ ...userData, business_name: e.target.value })} />
+                            </div>
                             <div className="py-2 mb-4">
                                 <Dropdown value={userData?.business_category || ""} placeholder={userData?.business_category || ""} options={categories} label="Business Category:" onChange={(value) => setUserData({ ...userData, business_category: value })}/>
                             </div>

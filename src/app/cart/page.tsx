@@ -30,16 +30,16 @@ export default function CartPage() {
                         <Button href="/" className="bg-primary border-none">SHOP PRODUCTS</Button>
                     </div>
                     :
-                    products.filter((item: IProduct) => cart.map((item: ICart) => item.id).indexOf(item.id) !== -1 ).map((product: IProduct) => (
-                        <div key={product?.id} className="relative bg-white dark:bg-black flex items-center gap-2 p-2 rounded border border-gray-500/[0.1] dark:border-slate-100/[0.05]">
-                            <a href={`/product?id=${product?.id}`}>
+                    products.filter((item: IProduct) => cart.map((item: ICart) => item.id).indexOf(item._id) !== -1 ).map((product: IProduct) => (
+                        <div key={product?._id} className="relative bg-white dark:bg-black flex items-center gap-2 p-2 rounded border border-gray-500/[0.1] dark:border-slate-100/[0.05]">
+                            <a href={`/product?id=${product?._id}`}>
                                 <Image src={product?.images[0]} alt={product?.title} width={200} height={300} className="rounded bg-gray-100/[0.8] h-full" />
                             </a>
                             <div className="p-4 w-full flex flex-col justify-between">
-                                <a href={`/product?id=${product?.id}`} className="mr-8 uppercase text-[12px] leading-[140%] font-bold">{product?.title}</a>
+                                <a href={`/product?id=${product?._id}`} className="mr-8 uppercase text-[12px] leading-[140%] font-bold">{product?.title}</a>
                                 <div className="flex opacity-[0.6] text-[10px] items-center gap-4 leading-[120%] py-2">
-                                    <p>SIZE: {cart.filter((item: ICart) => item.id === product?.id).map((item: ICart) => item?.variation.size)}</p>
-                                    <p>COLOR: {cart.filter((item: ICart) => item.id === product?.id).map((item: ICart) => item?.variation.color)}</p>
+                                    <p>SIZE: {cart.filter((item: ICart) => item.id === product?._id).map((item: ICart) => item?.variation.size)}</p>
+                                    <p>COLOR: {cart.filter((item: ICart) => item.id === product?._id).map((item: ICart) => item?.variation.color)}</p>
                                 </div>
                                 
                                 <div className="flex items-center mt-2 w-full">
@@ -49,11 +49,11 @@ export default function CartPage() {
                             </div>
                             
                             <div className="flex flex-col justify-center gap-2 rounded h-full items-center animate-zoom-in text-[8px]">
-                                <button className="p-[8px] rounded"  onClick={() => changeQuantity(product.id, "ADD")}><Plus /></button>
-                                <input className="p-[4px] py-0 text-center rounded bg-transparent w-[40px] text-[10px] py-2 text-center border border-gray-500/[0.2]" type="number" value={cart.filter((item: ICart) => item.id === product?.id).map((item: ICart) => item.quantity).toString()} onChange={(e) => changeQuantity(product.id, +e.target.value)} />
-                                <button className="p-[8px] rounded" onClick={() => changeQuantity(product.id, "MINUS")}><Minus /></button>
+                                <button className="p-[8px] rounded"  onClick={() => changeQuantity(product._id, "ADD")}><Plus /></button>
+                                <input className="p-[4px] py-0 text-center rounded bg-transparent w-[40px] text-[10px] py-2 text-center border border-gray-500/[0.2]" type="number" value={cart.filter((item: ICart) => item.id === product?._id).map((item: ICart) => item.quantity).toString()} onChange={(e) => changeQuantity(product._id, +e.target.value)} />
+                                <button className="p-[8px] rounded" onClick={() => changeQuantity(product._id, "MINUS")}><Minus /></button>
                             </div>
-                            <button className="bg-gray-500/[0.1] flex items-center rounded gap-2 text-[10px] text-red cursor-pointer text-red-500 p-2" onClick={() => removeFromCart(product?.id) }><Trash className="text-[16px]"/></button>
+                            <button className="bg-gray-500/[0.1] flex items-center rounded gap-2 text-[10px] text-red cursor-pointer text-red-500 p-2" onClick={() => removeFromCart(product?._id) }><Trash className="text-[16px]"/></button>
                         </div>
                     ))
                 }

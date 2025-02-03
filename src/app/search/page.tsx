@@ -27,7 +27,7 @@ export default function SearchPage() {
                     products.filter((item: IProduct) => (item.title.toUpperCase().indexOf(query) !== -1 || item.description.toUpperCase().indexOf(query) !== -1))
                     .map((product: IProduct) => {
                         return (
-                            <ProductCard key={product.id} product={product} />
+                            <ProductCard key={product._id} product={product} />
                         )
                     })
                 }

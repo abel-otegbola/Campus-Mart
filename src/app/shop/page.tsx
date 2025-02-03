@@ -68,7 +68,7 @@ function Shop()  {
                             <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-2 md:gap-8 gap-4">
                                 {
                                     data.map((product: IProduct) => (
-                                        <div key={product.id}>
+                                        <div key={product._id}>
                                             <ProductCard  product={product} />
                                         </div>
                                     ))

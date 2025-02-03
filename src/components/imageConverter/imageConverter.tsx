@@ -135,9 +135,9 @@ const ImageToBase64 = ({ id, img, fullname, setImg }: { id: string, img: string,
               uploadStatus.status === "uploading" ?
               <div className="flex flex-col justify-center items-center bg-white/[0.8] dark:bg-black/[0.7] backdrop-blur-sm p-4 w-full h-full">
                   <p className="mb-2">{uploadStatus?.status} : {uploadStatus?.percent}%</p>
-                  <p className="w-full min-h-[10px] rounded-lg bg-slate-200">
+                  <div className="w-full min-h-[10px] rounded-lg bg-slate-200">
                       <p className={`min-h-[10px] rounded-lg bg-green`} style={{ width: `${uploadStatus?.percent}%` }}></p>
-                  </p>
+                  </div>
               </div>
               :
               ""

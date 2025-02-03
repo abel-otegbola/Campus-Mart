@@ -29,8 +29,8 @@ export default function WishlistPage() {
                     :
                     <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4">
                         {
-                            products.filter((item: IProduct) => wishlist.map((item: string) => item).indexOf(item.id) !== -1 ).map((product: IProduct) => (
-                                <ProductCard key={product.id} product={product} />
+                            products.filter((item: IProduct) => wishlist.map((item: string) => item).indexOf(item._id) !== -1 ).map((product: IProduct) => (
+                                <ProductCard key={product._id} product={product} />
                             ))
                         }
                     </div>

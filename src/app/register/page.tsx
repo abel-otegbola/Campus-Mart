@@ -6,12 +6,12 @@ import Input from "@/components/input/input";
 import Radio from "@/components/radio/radio";
 import { AuthContext } from "@/context/useAuth";
 import { registerSchema } from "@/schema/auth";
-import { ArrowRight, Bag, Bed, BeerBottle, Bicycle, Book, BookOpen, Briefcase, Bus, Car, Chair, Code, Coffee, Envelope, File, FilmStrip, Football, GameController, GraduationCap, Guitar, Heart, House, ImageBroken, Laptop, LockKey, MapPin, Palette, PawPrint, Pencil, ShirtFolded, Spinner, Storefront, Ticket, Trash, User, UserCircle, Watch } from "@phosphor-icons/react";
+import { ArrowRight, Bag, Bed, BeerBottle, Bicycle, Book, BookOpen, Briefcase, Bus, Car, Chair, Code, Coffee, Envelope, File, FilmStrip, Football, GameController, GraduationCap, Guitar, Heart, House, ImageBroken, Laptop, LockKey, MapPin, Palette, PawPrint, Pencil, ShirtFolded, Spinner, Storefront, Ticket, Trash, User, UserCircle, UserFocus, Watch } from "@phosphor-icons/react";
 import { Formik } from "formik";
 import Link from "next/link";
 import Image from "next/image";
 import { ReactNode, useContext, useState } from "react";
-import { TbBottle, TbPerfume } from "react-icons/tb";
+import { TbPerfume } from "react-icons/tb";
 import { PiDiamond } from "react-icons/pi";
 
 type navTab =  {
@@ -85,12 +85,12 @@ export default function Registerpage() {
                         </div>
 
                         <Formik
-                            initialValues={{ fullname: '', email: '', password: '', business_category: '', business_location: '', img: ''}}
+                            initialValues={{ fullname: '', email: '', password: '', business_name: '', business_category: '', business_location: '', img: ''}}
                             validationSchema={registerSchema}
                             onSubmit={( values, { setSubmitting }) => {
                                 if(flow === 1) {
                                 signUp(
-                                    {email: values.email, password: values.password, fullname: values.fullname, business_category: values.business_category, business_location: values.business_location, role: "Seller", img: values.img}
+                                    {email: values.email, password: values.password, fullname: values.fullname, business_name: values.business_name, business_category: values.business_category, business_location: values.business_location, role: "Seller", img: values.img}
                                 );
                                 setSubmitting(false);
                                 }
@@ -134,8 +134,11 @@ export default function Registerpage() {
                                             </div>
                                         </div>
                                         <div className={`w-full flex flex-col gap-5 absolute top-0 left-0 duration-500 ${flow === 1 ? "translate-x-[0]" : flow === 0 ? "translate-x-[120%]" : "translate-x-[-120%]"}`}>
-                                            <Dropdown name="business_category"  options={categories} label="Business Category" value={values.business_category} onChange={handleChange} error={touched.business_category ? errors.business_category : ""} placeholder="Choose your business category" />
-                                            <Input name="business_location" label="Business Location (Institution)" value={values.business_location} onChange={handleChange} type="text" error={touched.business_location ? errors.business_location : ""} placeholder="Enter business location" leftIcon={<MapPin size={16}/>}/>
+                                            <Input name="business_name" label="Business Name" value={values.business_name} onChange={handleChange} type={"text"} error={touched.business_name ? errors.business_name : ""} placeholder="Enter your business name" leftIcon={<UserFocus size={16}/>}/>
+                                            <div className="grid grid-cols-2 gap-2">
+                                                <Dropdown name="business_category"  options={categories} label="Business Category" value={values.business_category} onChange={handleChange} error={touched.business_category ? errors.business_category : ""} placeholder="Choose your business category" />
+                                                <Input name="business_location" label="Business Location (Institution)" value={values.business_location} onChange={handleChange} type="text" error={touched.business_location ? errors.business_location : ""} placeholder="Enter business location" leftIcon={<MapPin size={16}/>}/>
+                                            </div>
                                             <p className="-mb-4">Upload Profile Picture</p>
                                             <div className="flex gap-6 items-center h-[100px] w-[100%] border border-dashed border-gray-300 rounded-lg">
                                                 { 

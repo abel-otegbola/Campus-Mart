@@ -1,14 +1,16 @@
 'use client'
-import { createProduct, getAllProducts } from "@/actions/useProducts";
+import { createProduct, getAllProducts, updateSingleProduct } from "@/actions/useProducts";
 import { useLocalStorage } from "@/customHooks/useLocaStorage";
 import { products as productsList } from "@/data/products";
 import { ICart, IProduct } from "@/interface/store";
+import { useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 interface IStoreContext {
     products: IProduct[];
     addProduct: (aug0: IProduct) => void;
+    updateProduct: (aug0: IProduct) => void;
     removeProduct: (id: string) => void;
     cart: ICart[];
     addToCart: (aug0: ICart) => void;
@@ -25,12 +27,22 @@ export const storeContext = createContext<IStoreContext>({} as IStoreContext)
 export default function StoreContextProvider({ children }: {children: React.ReactNode}) {
     const [cart, setCart] = useLocalStorage("cart", [])
     const [wishlist, setWishlist] = useLocalStorage("wishlist", [])
-    const [products, setProducts] = useLocalStorage("products", productsList)
+    const [products, setProducts] = useLocalStorage("products", [] as IProduct[])
     const [popup, setPopup] = useState({ type: "", msg: "" });
     const [loading, setLoading] = useState(false);
+    const router = useRouter()
 
     useEffect(() => {
         getAllProducts()
+        .then(response => {
+            setLoading(false)
+            if(!response) {
+                setPopup({ type: "error", msg: "Products not found" })
+            }
+            else {
+                setProducts([...response, ...productsList])
+            }
+        })
     }, [])
 
     const addProduct = (data: IProduct) => {
@@ -49,13 +61,28 @@ export default function StoreContextProvider({ children }: {children: React.Reac
                 }
                 else {
                     setPopup({ type: "success", msg: "Product added Successfully" })
+                    router.push("/dashboard/inventory")
                 }
             })
         }
     }
 
+    const updateProduct = (data: IProduct) => {
+        setLoading(true)
+        updateSingleProduct({...data, })
+        .then(response => {
+            setLoading(false)
+            if(response?.error) {
+                setPopup({ type: "error", msg: response?.error })
+            }
+            else {
+                setPopup({ type: "success", msg: "Product updated Successfully" })
+            }
+        })
+    }
+
     const removeProduct = (id: string) => {
-        setProducts(products.filter((item: IProduct) => item.id !== id))
+        setProducts(products.filter((item: IProduct) => item._id !== id))
     }
 
     const addToCart = (data: ICart) => {
@@ -94,6 +121,7 @@ export default function StoreContextProvider({ children }: {children: React.Reac
     const data = {
         products,
         addProduct,
+        updateProduct,
         removeProduct,
         cart,
         addToCart,

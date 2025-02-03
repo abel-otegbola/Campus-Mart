@@ -1,32 +1,37 @@
 'use client'
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Skeleton from "@/components/skeleton/skeleton";
 import Link from "next/link";
 import { IProduct } from "@/interface/store";
 import { currencyFormatter } from "@/helpers/currencyFormatter";
 import Button from "@/components/button/button";
+import { getAllBusinessProducts } from "@/actions/useProducts";
+import { AuthContext } from "@/context/useAuth";
 
 export default function Userproducts() {
-    const [storeProducts,] = useState<IProduct[]>([])
-    const [loading,] = useState(false)
+    const [ products, setproducts] = useState<IProduct[]>([])
+    const [loading, setLoading] = useState(false)
+    const { user } = useContext(AuthContext)
 
-    // useEffect(() => {
-    //     loadproducts()
-    // }, [])
-
-    // const loadproducts = () => {
-    //     setLoading(true)
-    //     const projectsRef = ref(database, 'products/');
-    //     let arr: product[] = []
-    //     onValue(projectsRef, (snapshot) => {
-    //         const data: any = snapshot.val();
-    //         Object.keys(data).map((key: any) => {
-    //             arr.push({id: key, data: data[key]})
-    //         })
-    //         setproducts(arr)
-    //         setLoading(false)
-    //     });
-    // }
+    useEffect(() => {
+        if(user?.business_name) {
+            setLoading(true)
+            getAllBusinessProducts(user?.business_name)
+            .then((response) => {
+                setLoading(false)
+                if(response?.error) {
+                    setLoading(false)                    
+                }
+                else {
+                    setproducts(response)
+                    setLoading(false)
+                }
+            })
+            .catch((error: { message: string }) => {
+                setLoading(false)
+            });
+        }
+    }, [user?.business_name])
 
     return (
         
@@ -46,18 +51,28 @@ export default function Userproducts() {
                             <th className="p-2">Category</th>
                         </tr>
                     </thead>
-                    <tbody className="">
+                    <tbody className=""> 
                         {
-                            loading ? <Skeleton type="paragraph" /> :
-                            storeProducts
+                             loading ?
+                            <tr className="p-2">
+                                <td className="p-2"><Skeleton type="text" /></td>
+                                <td className="p-2"><Skeleton type="text" /></td>
+                                <td className="p-2"><Skeleton type="text" /></td>
+                                <td className="p-2"><Skeleton type="text" /></td>
+                            </tr>
+                             :
+                            products
                             .map((product: IProduct, i: number) => (
-                                <tr key={product?.id} className={`border border-gray-500/[0.2] border-x-transparent py-4 text-[12px] ${i%2 === 0 ? "bg-slate-100 dark:bg-gray-200/[0.05]" : ""}`}>
-                                    <td className="p-2"><Link href={`/dashboard/product?id=${product?.id}`}>{product?.id}</Link></td>
-                                    <td>{product?.title}</td>
+                                <tr key={product?._id} className={`border border-gray-500/[0.2] border-x-transparent py-4 text-[12px] ${i%2 === 0 ? "bg-slate-100 dark:bg-gray-200/[0.05]" : ""}`}>
+                                    <td className="p-2"><Link href={`/dashboard/product?id=${product?._id}`}>{product?._id}</Link></td>
+                                    <td className="p-2">{product?.title}</td>
                                     <td className="p-2">
                                         {currencyFormatter(product?.price)}
                                     </td>
-                                    <td>{product?.category}</td>
+                                    <td className="p-2">{product?.category}</td>
+                                    <td className="p-2">
+                                        <Button size="small" variant="secondary" href={`/dashboard/inventory/edit?id=${product?._id}`}>Edit</Button>
+                                    </td>
                                 </tr>
                             ))
                         }

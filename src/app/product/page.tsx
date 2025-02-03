@@ -8,7 +8,6 @@ import { ICart, IProduct } from "@/interface/store"
 import Skeleton from "@/components/skeleton/skeleton"
 import ProductCard from "@/components/cards/productCard"
 import { currencyFormatter } from "@/helpers/currencyFormatter"
-import Slider from "@/components/slider/slider"
 import Link from "next/link"
 import ProductSlider from "@/components/productSlider/productSlider"
 
@@ -30,7 +29,7 @@ export default function Product() {
 
     useEffect(() => {
         setLoading(true)
-        setProduct(products.filter(item => item.id === id)[0])
+        setProduct(products.filter(item => item._id === id)[0])
         setLoading(false)
     }, [id, products])
 
@@ -90,7 +89,7 @@ export default function Product() {
                                 
 
                                 <div className="mt-4 flex flex-wrap gap-4 justify-between items-center py-4 border border-transparent border-y-gray-500/[0.09]">
-                                    <div className="">
+                                    {/* <div className="">
                                         <p>Colors</p>
                                         <div className="flex items-center gap-4 mt-4">
                                             {
@@ -105,8 +104,8 @@ export default function Product() {
                                                 ))
                                             }
                                         </div>
-                                    </div>
-                                    <div className="">
+                                    </div> */}
+                                    {/* <div className="">
                                         <p>Size</p>
                                         <div className="grid grid-cols-5 items-center gap-4 mt-4">
                                             {
@@ -120,7 +119,7 @@ export default function Product() {
                                                 ))
                                             }
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
 
                                 
@@ -173,8 +172,8 @@ export default function Product() {
                         <h2 className="border border-transparent border-b-gray-200 dark:border-b-gray-100/[0.1] mt-20 text-primary text-semibold uppercase">Related Products</h2>
                         <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 sm:gap-4 gap-2 py-[40px] ">
                             {
-                                products.filter((item: IProduct) => (item.category === product?.category) && item.id !== id).slice(0,5).map((product: IProduct) => (
-                                <ProductCard key={product.id} product={product} />
+                                products.filter((item: IProduct) => (item.category === product?.category) && item._id !== id).slice(0,5).map((product: IProduct) => (
+                                <ProductCard key={product._id} product={product} />
                             ))
                             }
                         </div>

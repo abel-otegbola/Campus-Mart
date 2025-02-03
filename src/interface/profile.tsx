@@ -8,6 +8,7 @@ export interface UserData {
     cover?: string,
     address?: string,
     role?: string,
+    business_name?: string,
     business_category?: string,
     business_location?: string,
     img?: string;
