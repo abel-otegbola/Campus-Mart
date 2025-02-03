@@ -68,7 +68,7 @@ export default function Registerpage() {
         <div className="min-h-[400px] flex sm:items-center justify-between">
 
             <div className="flex w-full">
-                <div style={{ backgroundImage: "url('/bg-register.png')" }} className="h-[100vh] w-[40%] md:block hidden bg-cover bg-center">
+                <div style={{ backgroundImage: "url('/bg-register.webp')" }} className="h-[100vh] w-[40%] md:block hidden bg-cover bg-center">
                 </div>
                 <div className="sm:w-[550px] mx-auto w-full sm:p-12 p-6">
                     

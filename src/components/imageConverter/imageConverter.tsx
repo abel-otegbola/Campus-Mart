@@ -1,35 +1,77 @@
 import { handleUploadPhotoURL, storage } from "@/firebase/storage";
 import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import React, { ChangeEvent, useEffect, useState } from "react";
-import Button from "../button/button";
+import Compressor from "compressorjs";
 
 const ImageToBase64 = ({ id, img, fullname, setImg }: { id: string, img: string, fullname: string, setImg: (aug0: string) => void;}) => {
   const [uploadStatus, setUploadStatus] = useState({ status: "preview", percent: 0 })
-  const [image, setImage] = useState<File>()
+  const [image, setImage] = useState<File | Blob>()
+  const [compressedImageUrl, setCompressedImageUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    const compressImage = async () => {
+      try {
+        const compressedBlob: Blob | MediaSource = await new Promise((resolve, reject) => {
+          if(image) { new Compressor(image, {
+            quality: 0.6, // Adjust the desired image quality (0.0 - 1.0)
+            maxWidth: 400, // Adjust the maximum width of the compressed image
+            maxHeight: 400, // Adjust the maximum height of the compressed image
+            mimeType: "image/webp", // Specify the output image format
+            success(result) {
+              resolve(result);
+            },
+            error(error) {
+              reject(error);
+            },
+          })
+        } 
+        });
+
+        setImg(URL.createObjectURL(compressedBlob));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    compressImage();
+  }, [image]);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-
-      setImage(file)
-      setUploadStatus({status: "preview", percent: 0 })
-
-      reader.onload = () => {
-        if (typeof reader.result === "string") {
-          setImg(reader.result); // Save the base64 string
+      const compressImage = async () => {
+        try {
+          const compressedBlob: Blob = await new Promise((resolve, reject) => {
+            new Compressor(file, {
+              quality: 0.6, // Adjust the desired image quality (0.0 - 1.0)
+              maxWidth: 400, // Adjust the maximum width of the compressed image
+              maxHeight: 400, // Adjust the maximum height of the compressed image
+              mimeType: "image/webp", // Specify the output image format
+              success(result) {
+                resolve(result);
+              },
+              error(error) {
+                reject(error);
+              },
+            })
+          });
+  
+          setUploadStatus({status: "preview", percent: 0 })
+          setImg(URL.createObjectURL(compressedBlob));
+          setImage(new File([compressedBlob], fullname, {
+            type: "image/webp",
+            lastModified: new Date().getTime()
+        }))
+        } catch (error) {
+          console.error(error);
         }
       };
-
-      reader.onerror = (error) => {
-        console.error("Error converting file to Base64:", error);
-      };
-
-      reader.readAsDataURL(file);
+  
+      compressImage();
     }
   };
 
-  const uploadImg = (file: File) => {
+  const uploadImg = (file: File | Blob) => {
     handleUploadPhotoURL(fullname)
     .then(result => {
         const uploadTask = uploadBytesResumable(result, file);
