@@ -1,6 +1,6 @@
 'use client'
-import { ReactElement, useContext, useEffect, useLayoutEffect, useState } from "react";
-import { TbBell, TbDashboard, TbListDetails, TbLogout, TbPackage, TbSettings, TbStar, TbUser, TbUsers } from "react-icons/tb";
+import { ReactElement, useContext, useEffect, useState } from "react";
+import { TbBell, TbDashboard, TbListDetails, TbLogout, TbPackage, TbSettings, TbUser, TbUsers } from "react-icons/tb";
 import { Icon } from "@phosphor-icons/react";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
