@@ -54,9 +54,9 @@ export default function Layout({
 
     return (
         <>
-            <div className="flex w-full min-h-[85vh] border-t border-gray-500/[0.1] overflow-hidden">
+            <div className="flex w-full min-h-[85vh] border-t border-gray-500/[0.1]">
                 <div ref={modalRef} className="md:sticky top-0 left-0 h-screen bg-gray md:w-[260px] w-0">
-                    <button className="md:hidden fixed top-[18px] md:right-9 right-4 md:p-2 z-[10]" onClick={() => setOpen(!open)}><Avatar user={ user || data?.user || { fullname: "user" }} /></button>
+                    <button className="md:hidden fixed top-[16px] md:right-9 right-4 md:p-2 z-[10]" onClick={() => setOpen(!open)}><Avatar user={ user || data?.user || { fullname: "user" }} /></button>
                     <div className={`flex flex-col justify-between md:w-full w-[240px] md:h-[86vh] h-[100vh] md:sticky fixed md:top-0 top-0 py-4 md:px-8 right-0 bg-white dark:bg-black border border-transparent border-x-gray-500/[0.1] overflow-hidden z-[5] transition-all duration-700 ${open ? "translate-x-[0]": "md:translate-x-[0] translate-x-[130%]"}`}>  
                         <div className="flex flex-col gap-1">
                             {
@@ -78,7 +78,7 @@ export default function Layout({
                     </div>
                 </div>
 
-                <div className="flex-1 md:p-8 md:py-8 p-4 mb-12 flex-1 bg-slate">
+                <div className="w-full flex-1 md:p-8 md:py-8 p-4 mb-12 flex-1 bg-slate">
                 {
                     children
                 }

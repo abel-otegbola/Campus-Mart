@@ -1,29 +1,29 @@
 'use client'
-import { getAllProducts } from "@/actions/useProducts";
-import ProductCard from "@/components/cards/productCard";
+import { fetchUserDataByStorename, searchAllStore } from "@/actions/useProfile";
+import VendorCard from "@/components/cards/vendorCard";
 import Skeleton from "@/components/skeleton/skeleton";
-import { IProduct } from "@/interface/store";
+import { UserData } from "@/interface/profile";
 import { useSearchParams } from "next/navigation";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function SearchPage() {
+export default function VendorsPage() {
     const searchParams = useSearchParams()
     const query = searchParams.get("search")?.toUpperCase() || ""
     const [loading, setLoading] = useState(true)
-    const [products, setProducts] = useState([] as IProduct[])
-    const [search, setSearch] = useState([] as IProduct[])
+    const [vendors, setVendors] = useState([] as UserData[])
+    const [search, setSearch] = useState([] as UserData[])
 
     useEffect(() => {
         if(query !== "") {
             setLoading(true)
-            getAllProducts()
+            searchAllStore()
             .then((response) => {
                 setLoading(false)
                 if(response?.error) {
                     setLoading(false)                    
                 }
                 else {
-                    setProducts(response)
+                    setVendors(response)
                     setLoading(false)
                 }
             })
@@ -34,13 +34,13 @@ export default function SearchPage() {
     }, [query])
 
     useEffect(() => {
-        setSearch(products.filter(item => item && (item?.title.toUpperCase().indexOf(query.toUpperCase()) !== -1 || item?.description.toUpperCase().indexOf(query.toUpperCase()) !== -1 || item?.category.toUpperCase().indexOf(query.toUpperCase()) !== -1)))
-    }, [products, query])
+        setSearch(vendors.filter(item => item?.business_name && item.business_name.toUpperCase().indexOf(query.toUpperCase()) !== -1))
+    }, [vendors, query])
 
     return (
         <div className="min-h-[80vh]">
             <div className="flex flex-col items-center justify-center md:px-[8%] px-6 py-12 bg-slate-100 dark:bg-dark">
-                <h2 className="font-bold text-[28px] uppercase">Search</h2>
+                <h2 className="font-bold text-[28px] uppercase">Vendors</h2>
                 <p className="">Search results for: ({query})</p>
             </div>
 
@@ -53,11 +53,11 @@ export default function SearchPage() {
                     </div>
                     :
                     search?.length < 1 ?
-                    <div className="flex justify-center">No product found</div>
+                    <div className="flex justify-center">No vendor found</div>
                     :
-                    search?.map((product: IProduct) => {
+                    search?.map((vendor: UserData) => {
                         return (
-                            <ProductCard key={product._id} product={product} />
+                            <VendorCard key={vendor.id} vendor={vendor} />
                         )
                     })
                 }

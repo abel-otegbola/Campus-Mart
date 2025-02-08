@@ -1,7 +1,6 @@
 'use client'
 import { createProduct, getAllProducts, updateSingleProduct } from "@/actions/useProducts";
 import { useLocalStorage } from "@/customHooks/useLocaStorage";
-import { products as productsList } from "@/data/products";
 import { ICart, IProduct } from "@/interface/store";
 import { useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react";
@@ -37,10 +36,9 @@ export default function StoreContextProvider({ children }: {children: React.Reac
         .then(response => {
             setLoading(false)
             if(!response) {
-                setPopup({ type: "error", msg: "Products not found" })
             }
             else {
-                setProducts([...response, ...productsList])
+                setProducts(response)
             }
         })
     }, [])

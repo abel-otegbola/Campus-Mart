@@ -12,39 +12,22 @@ export default function Slider({ images }: ImagesProps) {
     const [dragEndX, setDragEndX] = useState<number | null>(null);
 
     // Slider transition classes for three states
-    const [states, setStates] = useState(images.length > 2 ? [
+    const states = images.length > 2 ? [
         "left-[100%] w-full",
         "left-[0%] w-full",
         "left-[-100%] w-full",
     ] : [
       "left-[0%] w-full",
       "left-[-100%] w-full",
-    ])
+    ]
 
     const prevSlide = (): void => {
-        setStates(images.length > 2 ? [
-            "left-[100%] w-full",
-            "left-[0%] w-full",
-            "left-[-100%] w-full",
-        ] : [
-          "left-[0%] w-full",
-          "left-[-100%] w-full",
-        ])
         setCurrentIndex(
             (prevIndex) => (prevIndex - 1 + images.length) % images.length
         );
     };
 
-    const nextSlide = (): void => {
-        setStates(images.length > 2 ? [
-            "left-[100%] w-full",
-            "left-[0%] w-full",
-            "left-[-100%] w-full",
-        ] : [
-          "left-[0%] w-full",
-          "left-[-100%] w-full",
-        ])
-        
+    const nextSlide = (): void => {        
         setCurrentIndex(
             (prevIndex) => (prevIndex + 1 + images.length) % images.length
         );
@@ -120,7 +103,7 @@ export default function Slider({ images }: ImagesProps) {
                       }}
                     >
                       <p className="md:text-[28px] text-[20px] font-bold md:w-[60%] text-secondary-dark sm:w-[75%] w-[100%]">{images[0]?.text}</p>
-                      <Button href="/login" className="rounded-[40px]">ORDER NOW</Button>
+                      <Button href="/shop" className="rounded-[40px]">ORDER NOW</Button>
                   </div>
                   :
                 images.map((_, offset) => {
@@ -134,7 +117,7 @@ export default function Slider({ images }: ImagesProps) {
                             }}
                         >
                             <p className="md:text-[28px] text-[20px] font-bold md:w-[60%] text-secondary-dark sm:w-[75%] w-[100%]">{images[slideIndex]?.text}</p>
-                            <Button href="/login" className="rounded-full">ORDER NOW</Button>
+                            <Button href="/shop" className="rounded-full">ORDER NOW</Button>
                         </div>
                     );
                 })}

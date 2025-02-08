@@ -6,7 +6,7 @@ import { IProduct } from "@/interface/store";
 import Skeleton from "@/components/skeleton/skeleton";
 import ProductCard from "@/components/cards/productCard";
 import Link from "next/link";
-import { Envelope, FacebookLogo, InstagramLogo, MapPin, Phone, User, WhatsappLogo, XLogo } from "@phosphor-icons/react";
+import { Envelope, FacebookLogo, InstagramLogo, MapPin, User, WhatsappLogo, XLogo } from "@phosphor-icons/react";
 import { fetchUserDataByStorename } from "@/actions/useProfile";
 import { UserData } from "@/interface/profile";
 import { getAllBusinessProducts } from "@/actions/useProducts";

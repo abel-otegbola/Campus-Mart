@@ -7,13 +7,13 @@ export default function Skeleton({ type }: SkeletonProps) {
         <div className="flex flex-col gap-2 w-full min-h-[20px]">
             {
                 type === "text" ?
-                <span className="animate-pulse w-full h-[20px] bg-gray-500/[0.3] p-2"></span>
+                <span className="animate-pulse w-full h-[20px] bg-gray-500/[0.3] p-2 rounded-lg"></span>
                 : 
                 type === "paragraph" ?
                 <>
-                    <span className="animate-pulse w-full h-[20px] bg-gray-500/[0.3] p-2"></span>
-                    <span className="animate-pulse w-full h-[20px] bg-gray-500/[0.3] p-2"></span>
-                    <span className="animate-pulse w-[75%] h-[20px] bg-gray-500/[0.3] p-2"></span>
+                    <span className="animate-pulse w-full h-[20px] bg-gray-500/[0.3] p-2 rounded-lg"></span>
+                    <span className="animate-pulse w-full h-[20px] bg-gray-500/[0.3] p-2 rounded-lg"></span>
+                    <span className="animate-pulse w-[75%] h-[20px] bg-gray-500/[0.3] p-2 rounded-lg"></span>
                 </> 
                 :
                 type === "circle" ?

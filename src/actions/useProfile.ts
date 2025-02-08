@@ -18,6 +18,18 @@ export const fetchUserDataByStorename = async (business_name: string) => {
     try {
         await connectDB();
         const findResult = await User.findOne({ business_name })
+        console.log(findResult)
+        return JSON.parse(JSON.stringify(findResult))
+    }
+    catch(e){
+        console.log(e);
+    }
+}
+
+export const searchAllStore = async () => {
+    try {
+        await connectDB();
+        const findResult = await User.find({ role: "Seller" })
         return JSON.parse(JSON.stringify(findResult))
     }
     catch(e){

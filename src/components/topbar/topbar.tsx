@@ -23,6 +23,7 @@ function Topbar() {
     const { data } = useSession()
     const [open, setOpen] = useState(false)
     const [openSearch, setOpenSearch] = useState(false)
+    const [searchType, setSearchType] = useState("products")
 
     useEffect(() => {
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -55,7 +56,7 @@ function Topbar() {
                 </Link>
             </div>
 
-            <nav className="grid md:grid-cols-4 grid-cols-5 md:static py-4 bg-[#f8f8f8] dark:bg-black/[0.9] backdrop-blur-sm fixed bottom-0 left-0 md:w-fit w-full md:border-none border border-gray-500/[0.1] items-center gap-0 z-[10]">
+            <nav className="md:flex grid md:grid-cols-4 grid-cols-5 md:static py-4 bg-[#f8f8f8] dark:bg-black/[0.9] backdrop-blur-sm fixed bottom-0 left-0 md:w-fit w-full md:border-none border border-gray-500/[0.1] items-center gap-0 z-[4]">
                 <button className="flex items-center justify-center md:flex-row flex-col md:gap-1 gap-2 h-[32px] p-[8px_16px] hover:text-primary font-bold rounded-lg duration-500" onClick={() => setOpen(!open)}>
                     <span className={`md:hidden md:text-md md:text-[20px] ${open ? "text-[24px]": "text-[20px]"}`}><TbListSearch /></span>
                     <span className="md:inline md:text-[12px] text-[9px] ">{open ? 
@@ -75,8 +76,8 @@ function Topbar() {
 
             <div className="flex md:gap-8 gap-3 items-center justify-end md:flex-1 lg:w-auto w-[70%]">
                 <div className={`flex items-center gap-2 lg:static absolute top-0 left-0 h-full bg-[#f8f8f8] dark:bg-black mx-[2%] z-[5] ${openSearch ? "w-[96%]": "lg:w-[96%] w-[0%] overflow-hidden"}`}>
-                    <Search placeholder="Search for a product or vendor" className="lg:flex-1 lg:rounded-full rounded-[0px]" />
-                    <button className="p-4 lg:hidden text-[16px] bg-primary z-[12]" onClick={() => setOpenSearch(false)}><X /></button>
+                    <Search placeholder="Search for a product or vendor" searchType={searchType} onChange={(value) => setSearchType(value)} className="lg:flex-1 lg:rounded-full rounded-[0px]" />
+                    <button className="p-4 lg:hidden rounded-full text-[16px] bg-primary z-[12]" onClick={() => setOpenSearch(false)}><X /></button>
                 </div>
                 <button className="p-2 lg:hidden text-[16px]" onClick={() => setOpenSearch(!openSearch)}>{ openSearch ? <X /> :<MagnifyingGlass /> }</button>
                 <Link href={data?.user ? "/dashboard": "/login"} className="md:flex hidden gap-1 items-center font-semibold">

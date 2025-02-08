@@ -36,13 +36,13 @@ export default function Userproducts() {
     return (
         
         <>
-            <div className="pb-6 flex flex-col gap-2">
+            <div className="w-full pb-6 flex flex-col gap-2">
                 <h2 className="font-bold text-[28px] uppercase">products</h2>
                 <p className="mb-2">Manage your products</p>
                 <Button size="small" variant="secondary" href="/dashboard/inventory/new">New product</Button>
             </div>
             <div className="w-full overflow-x-auto min-h-[400px] rounded-lg border border-gray-500/[0.1] bg-gray-100/[0.08]">
-                <table className="table-auto text-left md:text-[12px] text-[10px] w-full">
+                <table className="table-auto text-left md:text-[12px] text-[10px] w-full min-w-[430px]">
                     <thead>
                         <tr className="font-bold uppercase border border-transparent border-b-gray-400/[0.2]">
                             <th className="p-2">Id</th>
@@ -64,8 +64,8 @@ export default function Userproducts() {
                             products
                             .map((product: IProduct, i: number) => (
                                 <tr key={product?._id} className={`border border-gray-500/[0.2] border-x-transparent py-4 text-[12px] ${i%2 === 0 ? "bg-slate-100 dark:bg-gray-200/[0.05]" : ""}`}>
-                                    <td className="p-2"><Link href={`/dashboard/product?id=${product?._id}`}>{product?._id}</Link></td>
-                                    <td className="p-2">{product?.title}</td>
+                                    <td className="p-2 max-w-[50px] truncate"><Link href={`dashboard/inventory/edit?id=${product?._id}`} className="">{product?._id}</Link></td>
+                                    <td className="p-2"><Link href={`dashboard/inventory/edit?id=${product?._id}`} className="">{product?.title}</Link></td>
                                     <td className="p-2">
                                         {currencyFormatter(product?.price)}
                                     </td>
