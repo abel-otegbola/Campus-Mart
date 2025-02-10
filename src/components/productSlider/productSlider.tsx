@@ -12,39 +12,24 @@ export default function ProductSlider({ images }: ImagesProps) {
     const [dragEndX, setDragEndX] = useState<number | null>(null);
 
     // Slider transition classes for three states
-    const [states, setStates] = useState(images.length > 2 ? [
-        "left-[100%] w-full",
-        "left-[0%] w-full",
-        "left-[-100%] w-full",
+    const states = images.length > 2 ? [
+        "left-[100%]",
+        "left-[0%]",
+        "left-[-100%]",
+        "left-[-100%]",
+        "left-[-100%]",
     ] : [
-      "left-[0%] w-full",
-      "left-[-100%] w-full",
-    ])
+      "left-[0%]",
+      "left-[-100%]",
+    ]
 
     const prevSlide = (): void => {
-        setStates(images.length > 2 ? [
-            "left-[100%] w-full",
-            "left-[0%] w-full",
-            "left-[-100%] w-full",
-        ] : [
-          "left-[0%] w-full",
-          "left-[-100%] w-full",
-        ])
         setCurrentIndex(
             (prevIndex) => (prevIndex - 1 + images.length) % images.length
         );
     };
 
     const nextSlide = (): void => {
-        setStates(images.length > 2 ? [
-            "left-[100%] w-full",
-            "left-[0%] w-full",
-            "left-[-100%] w-full",
-        ] : [
-          "left-[0%] w-full",
-          "left-[-100%] w-full",
-        ])
-        
         setCurrentIndex(
             (prevIndex) => (prevIndex + 1 + images.length) % images.length
         );
@@ -99,7 +84,7 @@ export default function ProductSlider({ images }: ImagesProps) {
     };
 
     return (
-        <div className="relative flex items-center justify-center md:w-[84%] w-full mx-auto overflow-hidden">
+        <div className="relative flex items-center justify-center md:w-[84%] mx-auto overflow-hidden">
             <div
                 className="flex gap-[3%] min-h-[550px]"
                 onMouseDown={handleDragStart}
@@ -126,7 +111,7 @@ export default function ProductSlider({ images }: ImagesProps) {
                     return (
                         <div
                             key={images[slideIndex]?.id}
-                            className={`flex flex-col min-h-[500px] absolute gap-4 justify-center px-[5%] pb-[3%] top-0 ${states[offset]} duration-700 bg-cover bg-slate-200 md:bg-center bg-left bg-no-repeat transition-all ease-in-out cursor-pointer`}
+                            className={`flex flex-col min-h-[500px] absolute gap-4 justify-center px-[5%] pb-[3%] top-0 w-full ${states[offset]} duration-700 bg-cover bg-slate-200 md:bg-center bg-left bg-no-repeat transition-all ease-in-out cursor-pointer`}
                             style={{
                                 backgroundImage: `url("${images[slideIndex]?.src}")`,
                             }}
@@ -136,12 +121,12 @@ export default function ProductSlider({ images }: ImagesProps) {
                 })}
             </div>
 
-            <div className="absolute bottom-0 flex p-2 gap-1 bg-white/[0.9] dark:bg-black/[0.8] backdrop-blur-sm rounded-full">
+            <div className="absolute bottom-0 flex p-2 gap-1">
                 <div className="flex justify-center mt-4">
                     {images.map((_, index) => (
                         <div
                             key={index}
-                            className={`h-2 w-2 mx-1 ${
+                            className={`h-2 w-2 mx-1 rounded-full ${
                                 index === currentIndex
                                     ? "bg-primary"
                                     : "bg-gray-300"
