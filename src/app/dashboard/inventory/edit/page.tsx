@@ -105,7 +105,7 @@ export default function Userproducts() {
                             {
                                 data?.images?.map((image: string, i: number) => (
                                     <div  key={i} className="relative flex flex-col gap-2 w-[100%] border border-dashed border-gray-300 rounded-lg p-2">
-                                        <div className="absolute top-2 left-2 p-2 bg-black/[0.9] rounded cursor-pointer" tabIndex={1} onClick={(e) => deleteImage(image)}><Trash size={16} className="text-red-500" /></div>
+                                        <div className="absolute top-2 right-2 p-2 bg-black/[0.9] rounded cursor-pointer" tabIndex={1} onClick={(e) => deleteImage(image)}><X size={16} className="text-red-500" /></div>
                                         { 
                                             image === "" ? 
                                             <label htmlFor={i.toString()} className="flex flex-col justify-center items-center gap-2 flex-1">
@@ -114,7 +114,7 @@ export default function Userproducts() {
                                             </label>
                                             :
                                             <div className="flex">
-                                                <Image src={image} alt="preview" width={88} height={88} className="max-h-auto w-full border border-gray-500/[0.2] rounded"/>
+                                                <Image src={image} alt="preview" width={88} height={88} className="max-h-[92px] w-auto border border-gray-500/[0.2] rounded"/>
                                             </div>
                                         }
                                         <ImageToBase64 id={i.toString()} img={image} fullname={data?.title + i.toString()} setImg={(img) => changeImage(i, img)} />

@@ -38,7 +38,7 @@ function Shop()  {
     }, [])
 
     useEffect(() => {
-        setSearch(products.filter(item => item && (item?.title.toUpperCase().indexOf(query.toUpperCase()) !== -1 || item?.description.toUpperCase().indexOf(query.toUpperCase()) !== -1 || item?.category.toUpperCase().indexOf(query.toUpperCase()) !== -1)))
+        setSearch(products?.filter(item => item && (item?.title.toUpperCase().indexOf(query.toUpperCase()) !== -1 || item?.description.toUpperCase().indexOf(query.toUpperCase()) !== -1 || item?.category.toUpperCase().indexOf(query.toUpperCase()) !== -1)))
     }, [products, query])
 
     const setSearchParams = (search: string) => {
@@ -71,7 +71,7 @@ function Shop()  {
 
                     <section className=" md:px-0 px-4">
 
-                            <div className="w-full grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">
+                            <div className="w-full grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 gap-4">
                                 {   
                                     loading ?
                                         [0, 1, 2, 3, 4].map(index => (

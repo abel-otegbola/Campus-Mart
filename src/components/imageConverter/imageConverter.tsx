@@ -13,9 +13,9 @@ const ImageToBase64 = ({ id, img, fullname, setImg }: { id: string, img: string,
       try {
         const compressedBlob: Blob | MediaSource = await new Promise((resolve, reject) => {
           if(image) { new Compressor(image, {
-            quality: 0.6, // Adjust the desired image quality (0.0 - 1.0)
-            maxWidth: 400, // Adjust the maximum width of the compressed image
-            maxHeight: 400, // Adjust the maximum height of the compressed image
+            quality: 0.8, // Adjust the desired image quality (0.0 - 1.0)
+            maxWidth: 1000, // Adjust the maximum width of the compressed image
+            maxHeight: 1000, // Adjust the maximum height of the compressed image
             mimeType: "image/webp", // Specify the output image format
             success(result) {
               resolve(result);
@@ -43,9 +43,9 @@ const ImageToBase64 = ({ id, img, fullname, setImg }: { id: string, img: string,
         try {
           const compressedBlob: Blob = await new Promise((resolve, reject) => {
             new Compressor(file, {
-              quality: 0.6, // Adjust the desired image quality (0.0 - 1.0)
-              maxWidth: 400, // Adjust the maximum width of the compressed image
-              maxHeight: 400, // Adjust the maximum height of the compressed image
+              quality: 0.8, // Adjust the desired image quality (0.0 - 1.0)
+              maxWidth: 1000, // Adjust the maximum width of the compressed image
+              maxHeight: 1000, // Adjust the maximum height of the compressed image
               mimeType: "image/webp", // Specify the output image format
               success(result) {
                 resolve(result);
@@ -58,10 +58,12 @@ const ImageToBase64 = ({ id, img, fullname, setImg }: { id: string, img: string,
   
           setUploadStatus({status: "preview", percent: 0 })
           setImg(URL.createObjectURL(compressedBlob));
-          setImage(new File([compressedBlob], fullname, {
+          const newImg = new File([compressedBlob], fullname, {
             type: "image/webp",
             lastModified: new Date().getTime()
-        }))
+          })
+          setImage(newImg)
+          uploadImg(newImg)
         } catch (error) {
           console.error(error);
         }

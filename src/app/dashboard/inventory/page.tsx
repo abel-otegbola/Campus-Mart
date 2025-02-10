@@ -65,7 +65,7 @@ export default function Userproducts() {
                             .map((product: IProduct, i: number) => (
                                 <tr key={product?._id} className={`border border-gray-500/[0.2] border-x-transparent py-4 text-[12px] ${i%2 === 0 ? "bg-slate-100 dark:bg-gray-200/[0.05]" : ""}`}>
                                     <td className="p-2 max-w-[50px] truncate"><Link href={`dashboard/inventory/edit?id=${product?._id}`} className="">{product?._id}</Link></td>
-                                    <td className="p-2"><Link href={`dashboard/inventory/edit?id=${product?._id}`} className="">{product?.title}</Link></td>
+                                    <td className="p-2"><Link href={`/dashboard/inventory/edit?id=${product?._id}`} className="">{product?.title}</Link></td>
                                     <td className="p-2">
                                         {currencyFormatter(product?.price)}
                                     </td>
