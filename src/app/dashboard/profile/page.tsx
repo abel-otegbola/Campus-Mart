@@ -67,32 +67,18 @@ export default function Profile() {
             <div className="">
                 {
                     data?.user?.role === "Seller" || userData?.role === "Seller" ?
-                    <div className="relative flex items-center justify-center h-[150px] bg-cover bg-center" style={{ backgroundImage: `url("${userData?.cover || "/profile.png"}")` }}>
-                        { 
-                        !userData?.cover || userData?.cover === "" ? 
-                        <label htmlFor="add_cover" className="abolute w-full h-full rounded-full bg-black/[0.7] flex flex-col justify-center items-center gap-2 flex-1">
-                            <p className="text-[10px]"><label htmlFor="add_cover" className="text-primary">Browse files</label></p>
+                    <div className="relative flex items-center justify-center h-[150px] bg-cover bg-center" style={{ backgroundImage: `url("${userData?.cover}")` }}>
+                        <label htmlFor="add_cover" className="absolute w-full h-full opacity-[0] hover:opacity-[1] bg-black/[0.8] flex flex-col justify-center items-center gap-2 flex-1">
+                            <Button size="small" variant="secondary"><label htmlFor="add_cover" className="text-primary">Change cover image</label></Button>
                         </label>
-                        :
-                        <div className="absolute flex items-center top-0 left-0 w-full h-full rounded-full opacity-[0] hover:opacity-[1] hover:bg-black/[0.9]">
-                            <div className="p-4 cursor-pointer" tabIndex={1} onClick={(e) => setUserData({...data, cover: "" })}><Trash size={16} className="text-red-500" /></div>
-                        </div>
-                        }
-                    <ImageToBase64 id="add_cover" fullname={(data?.user?.email || "/user") + "-cover"} img={userData?.cover || ""} setImg={(img) => setUserData({...data, cover: img })} />
+                        <ImageToBase64 id="add_cover" fullname={data?.user?.email + "-cover"} img={userData?.cover || ""} setImg={(img) => setUserData({...data, cover: img })} />
                     </div>
                     : ""
                 }
-                <div className="relative flex gap-6 items-center h-[88px] w-[88px] rounded-full -mt-12 ml-4 z-[2] bg-cover bg-center" style={{ backgroundImage: `url("${userData?.img || "/profile.png"}")` }}>
-                    { 
-                        userData?.img === "" ? 
-                        <label htmlFor="add_img" className="abolute w-full h-full rounded-full bg-black/[0.7] flex flex-col justify-center items-center gap-2 flex-1">
-                            <p className="text-[10px]"><label htmlFor="add_img" className="text-primary">Browse files</label></p>
-                        </label>
-                        :
-                        <div className="flex items-center justify-center absolute top-0 left-0 w-full h-full rounded-full opacity-[0] hover:opacity-[1] hover:bg-black/[0.9]">
-                            <div className="absolute flex items-center p-4 cursor-pointer" tabIndex={1} onClick={(e) => setUserData({...data, img: "" })}><Trash size={16} className="text-red-500" /></div>
-                        </div>
-                    }
+                <div className="relative flex gap-6 items-center h-[88px] w-[88px] rounded-full -mt-12 ml-4 z-[2] bg-cover bg-center" style={{ backgroundImage: `url("${userData?.img}")` }}>
+                    <label htmlFor="add_img" className="absolute w-full h-full rounded-full bg-black/[0.7] opacity-[0] hover:opacity-[1] flex flex-col justify-center items-center gap-2 flex-1">
+                        <Button size="small" variant="secondary" className="text-[10px]"><label htmlFor="add_img" className="text-primary">Change</label></Button>
+                    </label>
                     <ImageToBase64 id="add_img" fullname={data?.user?.email || "/user"} img={userData?.img || ""} setImg={(img) => setUserData({...data, img })} />
                     
                 </div>

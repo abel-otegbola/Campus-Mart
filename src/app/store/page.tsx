@@ -64,7 +64,7 @@ function StorePage()  {
 
     return (
         <main>
-            <div className="flex flex-col items-center md:px-[8%] px-6 py-12 bg-slate-100 dark:bg-dark">
+            <div className="flex flex-col items-center md:px-[8%] px-6 py-12 bg-slate-100 dark:bg-dark bg-center bg-cover" style={{ backgroundImage: `url("${userData?.cover}")` }}>
                 <Avatar user={ userData || { fullname: "user" }} />
                 <h2 className="font-bold text-[28px] uppercase">{search}</h2>
                 <p>{userData?.business_category}</p>
