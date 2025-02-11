@@ -111,7 +111,7 @@ export default function ProductSlider({ images }: ImagesProps) {
                     return (
                         <div
                             key={images[slideIndex]?.id}
-                            className={`flex flex-col min-h-[500px] absolute gap-4 justify-center px-[5%] pb-[3%] top-0 w-full ${states[offset]} duration-700 bg-cover bg-slate-200 md:bg-center bg-left bg-no-repeat transition-all ease-in-out cursor-pointer`}
+                            className={`flex flex-col min-h-[500px] absolute gap-4 justify-center px-[5%] pb-[3%] top-0 w-full ${states[offset]} duration-700 bg-cover bg-slate-200 bg-center bg-no-repeat transition-all ease-in-out cursor-pointer`}
                             style={{
                                 backgroundImage: `url("${images[slideIndex]?.src}")`,
                             }}
