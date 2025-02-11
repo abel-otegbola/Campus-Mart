@@ -127,19 +127,18 @@ export default function Product() {
 
                                 <div className="mt-6 flex items-center gap-4 md:py-4">
                                     
-                                    <div className="text-[14px] sm:px-0 py-4 bg-white dark:bg-black w-full sm:z-0 z-[20]">
+                                    <div className="text-[14px] sm:px-0 py-4 bg-white dark:bg-black w-full">
                                     {
                                         cart.map((item: ICart) => item.id).indexOf(id || "") === -1 ? 
                                         <Button className="w-full" onClick={() => addToCart({id: id ||  "0", quantity: 1, variation: { color: "black", size: "LG" }}) }>Add to Cart</Button> 
                                         : 
                                         <div className="flex flex-wrap gap-6">
-                                            <Button variant="tetiary" onClick={() => removeFromCart(id || "")}>Remove from Cart</Button>
                                             <div className="flex items-center gap-1 animate-zoom-in border border-gray-500/[0.1] rounded-lg">
                                                 <button className="h-[40px] p-[12px]" onClick={() => changeQuantity(id || "", "MINUS")}><FaMinus /></button>
                                                 <input className="p-[4px] py-0 text-center rounded bg-transparent w-[40px] text-[10px] py-2 text-center border border-gray-500/[0.2]" type="number" value={cart.filter((item: ICart) => item.id === id).map((item: ICart) => item.quantity).toString()} onChange={(e) => changeQuantity(id, +e.target.value)} />
                                                 <button className="h-[40px] p-[12px]" onClick={() => changeQuantity(id || "", "ADD")}><FaPlus /></button>
                                             </div> 
-                                            <Button href="/checkout">Proceed to Checkout</Button>
+                                            <Button size="small" variant="secondary" className="flex-1 w-full" onClick={() => removeFromCart(id || "")}>Remove from Cart</Button>
                                         </div>
                                         
                                     }
