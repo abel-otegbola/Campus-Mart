@@ -61,3 +61,16 @@ export const getSingleOrder = async (_id: string) => {
         
     }
 }
+
+export const deleteOrder = async (_id: string) => {
+    try {
+        await connectDB();
+        const findResult = await Orders.deleteOne({ _id })
+        return JSON.parse(JSON.stringify(findResult))
+    }
+    catch(e){
+        return {
+            error: "Order deletion unsucccessful"
+        }
+    }
+}

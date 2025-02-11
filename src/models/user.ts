@@ -51,6 +51,10 @@ const UserSchema = new Schema<UserDocument>({
     img: {
       type: String,
       required: [false, ""]
+    },
+    cover: {
+      type: String,
+      required: [false, ""]
     }
   },
   {
