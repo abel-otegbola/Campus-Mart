@@ -6,6 +6,7 @@ import Topbar from "@/components/topbar/topbar";
 import NextTopLoader from "nextjs-toploader";
 import StoreContextProvider from "@/context/useStore";
 import AuthProvider from "@/context/useAuth";
+import OrderContextProvider from "@/context/useOrders";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -26,10 +27,12 @@ export default function RootLayout({
       >
         <AuthProvider>
         <StoreContextProvider>
+        <OrderContextProvider>
           <NextTopLoader />
           <Topbar />
           {children}
           <Footer />
+          </OrderContextProvider>
         </StoreContextProvider>
         </AuthProvider>
       </body>

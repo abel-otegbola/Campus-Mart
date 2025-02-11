@@ -99,7 +99,7 @@ export default function ProductSlider({ images }: ImagesProps) {
                 images.length === 1 ?
                   <div
                       key={images[0]?.id}
-                      className={`flex flex-col min-h-[500px] absolute gap-4 justify-center px-[5%] pb-[3%] top-0 ${states[0]} duration-700 bg-cover bg-center bg-no-repeat transition-all ease-in-out cursor-pointer`}
+                      className={`flex flex-col min-h-[500px] absolute gap-4 justify-center px-[5%] pb-[3%] top-0 w-full ${states[0]} duration-700 bg-cover bg-center bg-no-repeat transition-all ease-in-out cursor-pointer`}
                       style={{
                           backgroundImage: `url("${images[0]?.src}")`,
                       }}

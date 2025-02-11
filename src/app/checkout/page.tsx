@@ -1,17 +1,30 @@
 'use client'
+import { createOrder } from "@/actions/useOrders";
 import Button from "@/components/button/button";
 import Input from "@/components/input/input";
 import TotalPrice from "@/components/totalPrice/totalPrice";
+import { AuthContext } from "@/context/useAuth";
+import { OrderContext } from "@/context/useOrders";
 import { storeContext } from "@/context/useStore";
 import { currencyFormatter } from "@/helpers/currencyFormatter";
+import { ICart, IProduct } from "@/interface/store";
 import { checkoutSchema } from "@/schema/checkout";
 import { Envelope, Globe, MapPin, Phone, User } from "@phosphor-icons/react";
 import { Formik } from "formik";
-import { useContext } from "react";
+import { useSession } from "next-auth/react";
+import { useContext, useEffect } from "react";
 import { LoaderIcon } from "react-hot-toast";
 
 export default function CheckoutPage() {
-    const { cart } = useContext(storeContext)
+    const { cart, products } = useContext(storeContext)
+    const { loading, addOrder } = useContext(OrderContext)
+    const { data } = useSession()
+    const { getUserData, user } = useContext(AuthContext)
+    
+    useEffect(() => {
+        getUserData(data?.user?.email || "")
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data])
     
     return (
         <div className="flex flex-col gap-6">
@@ -24,10 +37,14 @@ export default function CheckoutPage() {
             <div className="flex flex-wrap items-start gap-6 md:px-[8%] px-6 py-4">
                 <div className="lg:w-[60%] w-full flex flex-col gap-2">
                     <Formik
-                        initialValues={{ fullname: '', email: '', country: '', address: '', phone: 0 }}
+                        initialValues={{ fullname: user?.fullname || '', email: user?.email || '', country: '', address: '', phone: '' }}
                         validationSchema={checkoutSchema}
                         onSubmit={( values, { setSubmitting }) => {
-                            
+                            addOrder({ ...values, cart, paymentStatus: "pending", user: { displayName: user?.fullname || "", email: user?.email || "", photo: user?.img || "" }, amount: 
+                                products?.filter((item: IProduct) => cart.map((item: ICart) => item.id).indexOf(item._id) !== -1 )
+                                    .map((product: IProduct) => {return {price: +product?.price * cart.filter((item: ICart) => item.id === product?._id)[0]?.quantity}})
+                                    .reduce((a: number,v: { price: number }) => a = a + v.price, 0) - 1000
+                                })
                             setSubmitting(false);
                         }}
                         >
@@ -40,13 +57,13 @@ export default function CheckoutPage() {
                             isSubmitting,
                         }) => (
                             <form onSubmit={handleSubmit} className="flex flex-col w-full gap-6">
-                                <Input name="fullname" label="" value={values.fullname} onChange={handleChange} type="text" error={touched.fullname ? errors.fullname : ""} placeholder="Full name" leftIcon={<User size={16}/>}/>
-                                <Input name="email" label="" value={values.email} onChange={handleChange} type="email" error={touched.email ? errors.email : ""} placeholder="Email" leftIcon={<Envelope size={16}/>}/>
+                                <Input name="fullname" label="" value={values.fullname || user?.fullname || ""} onChange={handleChange} type="text" error={touched.fullname ? errors.fullname : ""} placeholder="Full name" leftIcon={<User size={16}/>}/>
+                                <Input name="email" label="" value={values.email || user?.email || ""} onChange={handleChange} type="email" error={touched.email ? errors.email : ""} placeholder="Email" leftIcon={<Envelope size={16}/>}/>
                                 <Input name="country" label="" value={values.country} onChange={handleChange} type="text" error={touched.country ? errors.country : ""} placeholder="Country" leftIcon={<Globe size={16}/>}/>
                                 <Input name="address" label="" value={values.address} onChange={handleChange} type="text" error={touched.address ? errors.address : ""} placeholder="Address" leftIcon={<MapPin size={16}/>}/>
                                 <Input name="phone" label="" value={values.phone} onChange={handleChange} type="text" error={touched.phone ? errors.phone : ""} placeholder="Phone number" leftIcon={<Phone size={16}/>}/>
 
-                                <Button className="w-full" disabled={isSubmitting} >{ isSubmitting ? <LoaderIcon/> : "Place order" }</Button>
+                                <Button className="w-full" disabled={isSubmitting} >{ isSubmitting || loading ? <LoaderIcon/> : "Place order" }</Button>
                             </form>
                         )}
                         </Formik>

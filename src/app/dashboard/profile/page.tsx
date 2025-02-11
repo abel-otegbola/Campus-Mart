@@ -98,7 +98,7 @@ export default function Profile() {
                                 <Dropdown value={userData?.business_category || ""} placeholder={userData?.business_category || ""} options={categories} label="Business Category:" onChange={(value) => setUserData({ ...userData, business_category: value })}/>
                             </div>
                             <div className="py-2 mb-4">
-                                <Input defaultValue={userData?.business_location || ""} label="Business Location:" leftIcon={<MapPin />}/>
+                                <Input defaultValue={userData?.business_location || ""} onChange={(e) => setUserData({ ...userData, business_location: e.target.value })} label="Business Location:" leftIcon={<MapPin />}/>
                             </div>
                         </>
                     :

@@ -6,7 +6,6 @@ import Compressor from "compressorjs";
 const ImageToBase64 = ({ id, img, fullname, setImg }: { id: string, img: string, fullname: string, setImg: (aug0: string) => void;}) => {
   const [uploadStatus, setUploadStatus] = useState({ status: "preview", percent: 0 })
   const [image, setImage] = useState<File | Blob>()
-  const [compressedImageUrl, setCompressedImageUrl] = useState<string | null>(null);
 
   useEffect(() => {
     const compressImage = async () => {
@@ -135,7 +134,7 @@ const ImageToBase64 = ({ id, img, fullname, setImg }: { id: string, img: string,
                 <button className="p-[2px] px-4 text-[10px] rounded border border-red-500/[0.6]"onClick={(e) => {e.preventDefault(); deleteImg(); }}>Delete</button>
               :
               uploadStatus.status === "uploading" ?
-              <div className="flex flex-col justify-center items-center bg-white/[0.8] dark:bg-black/[0.7] backdrop-blur-sm p-4 w-full h-full">
+              <div className="absolute top-0 left-0 bg-black/[0.8] backdrop-blur-sm flex flex-col justify-center items-center bg-white/[0.8] dark:bg-black/[0.7] backdrop-blur-sm p-4 w-full h-full">
                   <p className="mb-2">{uploadStatus?.status} : {uploadStatus?.percent}%</p>
                   <div className="w-full min-h-[10px] rounded-lg bg-slate-200">
                       <p className={`min-h-[10px] rounded-lg bg-green`} style={{ width: `${uploadStatus?.percent}%` }}></p>

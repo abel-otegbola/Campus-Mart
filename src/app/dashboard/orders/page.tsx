@@ -1,56 +1,41 @@
 'use client'
 import { useContext, useEffect, useState } from "react";
-import { storeContext } from "@/context/useStore";
 import { AuthContext } from "@/context/useAuth";
 import Skeleton from "@/components/skeleton/skeleton";
 import Link from "next/link";
 import Image from "next/image";
-import { ICart, IProduct } from "@/interface/store";
 import { currencyFormatter } from "@/helpers/currencyFormatter";
-
-export interface order {
-    id: string,
-    data: { 
-        fullname: string,
-        country: string, 
-        address: string, 
-        phone: string, 
-        user: { displayName: string, email: string, photo: string }, 
-        amount: string,
-        paymentStatus: string,
-        cart: ICart[],
-        date: string,
-    }
-
-}
+import { getAllBusinessOrders } from "@/actions/useOrders";
+import { IOrder } from "@/interface/orders";
+import { storeContext } from "@/context/useStore";
 
 export default function UserOrders() {
-    const [orders,] = useState<order[]>([])
-    const [loading,] = useState(false)
+    const [orders, setOrders] = useState<IOrder[]>([])
+    const [loading, setLoading] = useState(false)
+    const { user } = useContext(AuthContext)
     const { products } = useContext(storeContext)
-    const { user } = useContext(AuthContext);
-
-    // useEffect(() => {
-    //     loadOrders()
-    // }, [])
 
     useEffect(() => {
-        console.log(orders)
-    }, [orders])
+        if(user?.fullname) {
+            setLoading(true)
+            getAllBusinessOrders(user?.fullname)
+            .then((response) => {
+                setLoading(false)
+                if(response?.error) {
+                    setLoading(false)                    
+                }
+                else {
+                    setOrders(response)
+                    setLoading(false)
+                }
+            })
+            .catch((error: { message: string }) => {
+                setLoading(false)
+            });
+        }
+    }, [user?.fullname])
 
-    // const loadOrders = () => {
-    //     setLoading(true)
-    //     const projectsRef = ref(database, 'orders/');
-    //     let arr: order[] = []
-    //     onValue(projectsRef, (snapshot) => {
-    //         const data: any = snapshot.val();
-    //         Object.keys(data).map((key: any) => {
-    //             arr.push({id: key, data: data[key]})
-    //         })
-    //         setOrders(arr)
-    //         setLoading(false)
-    //     });
-    // }
+
 
     return (
         
@@ -60,40 +45,47 @@ export default function UserOrders() {
                 <p>Manage your orders</p>
             </div>
             <div className="w-full overflow-x-auto min-h-[400px] rounded-lg border border-gray-500/[0.1] bg-gray-100/[0.08]">
-                <table className="table-auto text-left md:text-[12px] text-[10px] w-full">
+                <table className="table-auto text-left md:text-[12px] text-[10px] w-full min-w-[600px]">
                     <thead>
                         <tr className="font-bold uppercase border border-transparent border-b-gray-400/[0.2]">
                             <th className="p-2">Id</th>
                             <th className="p-2">Date</th>
-                            <th className="p-2">Product</th>
+                            <th className="p-2">Products</th>
                             <th className="p-2">Total</th>
                             <th className="p-2">Status</th>
                         </tr>
                     </thead>
                     <tbody className="">
                         {
-                            loading ? <Skeleton type="paragraph" /> :
-                            orders.filter((item: order) => item?.data.user.email === user.email)
-                            .map((order: order, i: number) => (
-                                <tr key={order?.id} className={`border border-gray-500/[0.2] border-x-transparent py-4 text-[12px] ${i%2 === 0 ? "bg-slate-100 dark:bg-gray-200/[0.05]" : ""}`}>
-                                    <td className="p-2"><Link href={`/dashboard/order?id=${order?.id}`}>{order?.id}</Link></td>
-                                    <td>{order?.data.date}</td>
+                            loading ? 
+                            <tr className="p-2">
+                                <td className="p-2"><Skeleton type="text" /></td>
+                                <td className="p-2"><Skeleton type="text" /></td>
+                                <td className="p-2"><Skeleton type="text" /></td>
+                                <td className="p-2"><Skeleton type="text" /></td>
+                                <td className="p-2"><Skeleton type="text" /></td>
+                            </tr> :
+                            orders?.filter((item: IOrder) => item?.user?.email === user?.email)
+                            .map((order: IOrder, i: number) => (
+                                <tr key={order?._id} className={`border border-gray-500/[0.2] border-x-transparent py-4 text-[12px] ${i%2 === 0 ? "bg-slate-100 dark:bg-gray-200/[0.05]" : ""}`}>
+                                    <td className="p-2 max-w-[100px] truncate"><Link href={`/dashboard/order?id=${order?._id}`}>{order?._id}</Link></td>
+                                    <td>{order?.updatedAt}</td>
                                     <td className="p-2 text-[10px]">
-                                        <Link href={`/dashboard/order?id=${order?.id}`}>
+                                        <Link href={`/dashboard/order?id=${order?._id}`}>
                                         <ol className="">
                                         {
-                                            products.filter((item: IProduct) => order?.data.cart.map((item: ICart) => item.id).indexOf(item._id) !== -1 ).map((product: IProduct) => (
-                                                    <li key={product._id} className="flex gap-2 my-1"><Image alt={product.title} src={product?.images[0]} className="w-[30px] bg-gray-600 rounded" />{product?.title}</li>
+                                            order?.cart.map(item => products.filter(product => product._id === item?.id)[0]).map(order => (
+                                                <li key={order?._id} className="flex gap-2 my-1"><Image alt={order?.images[0]} width={30} height={40} src={order?.images[0]} className="w-[30px] bg-gray-600 rounded" />{order?.title}</li>
                                             ))
                                         }
                                         </ol>
                                         </Link>
                                     </td>
                                     <td className="p-2">
-                                        {currencyFormatter(order?.data.amount)}
+                                        {currencyFormatter(order?.amount)}
                                     </td>
-                                    <td className={`${order.data.paymentStatus === "Shipped" ? "text-emerald-600" : order?.data.paymentStatus === "Paid" ? "text-orange-600" : "text-red-600"} p-2 text-[11px]`}>
-                                        <Link href={`/dashboard/order?id=${order?.id}`}>{order?.data.paymentStatus}</Link>
+                                    <td className={`${order.paymentStatus === "completed" ? "text-emerald-600" : order?.paymentStatus === "cancelled" ? "text-red-500" : "text-orange-400"} p-2 text-[11px]`}>
+                                        <Link href={`/dashboard/order?id=${order?._id}`}>{order?.paymentStatus}</Link>
                                     </td>
                                 </tr>
                             ))

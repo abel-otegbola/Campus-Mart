@@ -140,7 +140,7 @@ export default function Registerpage() {
                                                 <Input name="business_location" label="Business Location (Institution)" value={values.business_location} onChange={handleChange} type="text" error={touched.business_location ? errors.business_location : ""} placeholder="Enter business location" leftIcon={<MapPin size={16}/>}/>
                                             </div>
                                             <p className="-mb-4">Upload Profile Picture</p>
-                                            <div className="flex gap-6 items-center h-[100px] w-[100%] border border-dashed border-gray-300 rounded-lg">
+                                            <div className="relative flex gap-6 items-center h-[100px] w-[100%] border border-dashed border-gray-300 rounded-lg">
                                                 { 
                                                    values.img === "" ? 
                                                    <label htmlFor="add_img" className="flex flex-col justify-center items-center gap-2 flex-1">
