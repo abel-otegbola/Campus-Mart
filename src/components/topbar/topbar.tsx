@@ -9,6 +9,7 @@ import { storeContext } from "@/context/useStore"
 import { useSession } from "next-auth/react"
 import Categories from "../categories/categories"
 import { TbHeart, TbHome, TbListSearch, TbSettings, TbUser } from "react-icons/tb"
+import ThemeSelector from "../themeSelector/themeSelector"
 
 type navTab =  {
     id: number | string,
@@ -41,7 +42,7 @@ function Topbar() {
         { id: 3, label: "Delivery", to: "/delivery", icon: <></> },
         { id: 4, label: "Wishlist", to: "/wishlist", icon: <TbHeart /> },
         { id: 5, label: "Home", to: "/shop", icon: <TbHome /> },
-        { id: 6, label: "Settings", to: "/settings", icon: <TbSettings /> },
+        { id: 6, label: "Cart", to: "/cart", icon: <ShoppingCart /> },
         { id: 7, label: "Account", to: data?.user ? "/dashboard" : "/login", icon: <TbUser /> },
     ]
     
@@ -84,11 +85,12 @@ function Topbar() {
                     <User weight="light" size={20}/>
                     <span>Account</span>
                 </Link>
-                <Link href="/cart" className="relative flex gap-1 items-center font-semibold">
+                <Link href="/cart" className="md:flex hidden relative gap-1 items-center font-semibold">
                     <ShoppingCart weight="light" size={20}/>
                     <span>Cart</span>
                     <span className="absolute text-[8px] -top-3 -right-3 px-2 py-1 rounded-full bg-green text-white">{cart.length}</span>
                 </Link>
+                <ThemeSelector />
             </div>
             
             

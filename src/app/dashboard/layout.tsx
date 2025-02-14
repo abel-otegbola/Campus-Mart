@@ -43,7 +43,7 @@ export default function Layout({
         { id: 3, label: "Orders", icon: <TbListDetails />, link: "/dashboard/orders" },
         { id: 4, label: "Customers", icon: <TbUsers />, link: "/dashboard/customers" },
         { id: 5, label: "Notifications", icon: <TbBell />, link: "/dashboard/notifications" },
-        { id: 6, label: "Settings", icon: <TbSettings />, link: "/dashboard/settings" },
+        { id: 6, label: "Settings", icon: <TbSettings />, link: "/settings" },
     ]
 
     const modalRef = useOutsideClick(setOpen, false)

@@ -1,5 +1,5 @@
 'use client'
-import { createProduct, getAllProducts, updateSingleProduct } from "@/actions/useProducts";
+import { createProduct, deleteProduct, getAllBusinessProducts, getAllProducts, updateSingleProduct } from "@/actions/useProducts";
 import { useLocalStorage } from "@/customHooks/useLocaStorage";
 import { ICart, IProduct } from "@/interface/store";
 import { useRouter } from "next/navigation";
@@ -10,7 +10,7 @@ interface IStoreContext {
     products: IProduct[];
     addProduct: (aug0: IProduct) => void;
     updateProduct: (aug0: IProduct) => void;
-    removeProduct: (id: string) => void;
+    removeProduct: (id: string, store: string) => void;
     cart: ICart[];
     addToCart: (aug0: ICart) => void;
     removeFromCart: (id: string) => void;
@@ -41,6 +41,7 @@ export default function StoreContextProvider({ children }: {children: React.Reac
                 setProducts(response)
             }
         })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const addProduct = (data: IProduct) => {
@@ -79,8 +80,18 @@ export default function StoreContextProvider({ children }: {children: React.Reac
         })
     }
 
-    const removeProduct = (id: string) => {
-        setProducts(products.filter((item: IProduct) => item._id !== id))
+    const removeProduct = (id: string, store: string) => {
+        deleteProduct(id)
+        .then(response => {
+            setLoading(false)
+            if(response?.error) {
+                setPopup({ type: "error", msg: response?.error })
+            }
+            else {
+                setPopup({ type: "success", msg: "Product deleted successfully" })
+                getAllBusinessProducts(store)
+            }
+        })
     }
 
     const addToCart = (data: ICart) => {

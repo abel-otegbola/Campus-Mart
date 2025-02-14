@@ -64,10 +64,10 @@ export default function Userproducts() {
         <>
         <div className="flex justify-between items-center gpa-6 flex-wrap pb-8">
             <div className="items-center">
-                <h2 className="font-bold text-[28px] uppercase">New Product</h2>
-                <p>Create a new product</p>
+                <h2 className="font-bold text-[28px] uppercase">Edit Product</h2>
+                <p>Update the product information</p>
             </div>
-            <Button size="small" variant="secondary">Save</Button>
+            <Button size="small" variant="secondary"  onClick={() => updateProduct(data)}>{ loading ? <Spinner size={16} className="animate-spin" /> : "Save" }</Button>
         </div>
             <div className="w-full overflow-x-auto min-h-[400px]">
                 <div className="grid md:grid-cols-2 grid-cols-1 gap-8">

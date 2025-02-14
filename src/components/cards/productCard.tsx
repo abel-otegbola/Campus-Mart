@@ -22,7 +22,7 @@ export default function ProductCard({ product }: { product: IProduct }) {
                     }
                 </div>
                 
-                <p className="text-[10px] opacity-[0.5] uppercase font-bold px-3 py-0 my-2">{product?.category}</p>
+                <p className="text-[10px] opacity-[0.5] uppercase font-bold px-3 py-0 my-2">{product?.store}</p>
                 <a href={`/product?id=${product._id}`} className="block pb-4 px-3 leading-[130%] text-[12px] font-semibold">{product?.title}</a>
                 <div className="flex flex-col gap-3 text-[16px] opacity-[0.7] px-3">
                     {currencyFormatter(+product?.price)} 

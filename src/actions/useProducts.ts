@@ -61,3 +61,16 @@ export const getSingleProduct = async (_id: string) => {
         
     }
 }
+
+export const deleteProduct = async (_id: string) => {
+    try {
+        await connectDB();
+        const findResult = await Products.deleteOne({ _id })
+        return JSON.parse(JSON.stringify(findResult))
+    }
+    catch(e){
+        return {
+            error: "Product deletion unsucccessful"
+        }
+    }
+}

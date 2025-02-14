@@ -24,6 +24,7 @@ export default function UserOrders() {
             getOrders(user?.fullname)
             setLoading(false)
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user?.fullname])
 
 

@@ -5,7 +5,6 @@ import Button from "@/components/button/button";
 import Input from "@/components/input/input";
 import Textarea from "@/components/textarea/textarea";
 import { ImageBroken, Spinner, Trash, X } from "@phosphor-icons/react";
-import { v7 } from "uuid";
 import ImageToBase64 from "@/components/imageConverter/imageConverter";
 import Image from "next/image";
 import { storeContext } from "@/context/useStore";
@@ -58,7 +57,7 @@ export default function Userproducts() {
                 <h2 className="font-bold text-[28px] uppercase">New Product</h2>
                 <p>Create a new product</p>
             </div>
-            <Button size="small" variant="secondary">Save</Button>
+            <Button size="small" variant="secondary" onClick={() => addProduct({...data, store: user?.business_name || ""})}>{ loading ? <Spinner size={16} className="animate-spin" /> : "Save" }</Button>
         </div>
             <div className="w-full overflow-x-auto min-h-[400px]">
                 <div className="grid md:grid-cols-2 grid-cols-1 gap-8">

@@ -7,11 +7,14 @@ import { currencyFormatter } from "@/helpers/currencyFormatter";
 import Button from "@/components/button/button";
 import { getAllBusinessProducts } from "@/actions/useProducts";
 import { AuthContext } from "@/context/useAuth";
+import { LoaderIcon } from "react-hot-toast";
+import { storeContext } from "@/context/useStore";
 
 export default function Userproducts() {
     const [ products, setproducts] = useState<IProduct[]>([])
     const [loading, setLoading] = useState(false)
     const { user } = useContext(AuthContext)
+    const { removeProduct, loading: isDeleting } = useContext(storeContext)
 
     useEffect(() => {
         if(user?.business_name) {
@@ -72,6 +75,7 @@ export default function Userproducts() {
                                     <td className="p-2">{product?.category}</td>
                                     <td className="p-2">
                                         <Button size="small" variant="secondary" href={`/dashboard/inventory/edit?id=${product?._id}`}>Edit</Button>
+                                        <Button size="small" variant="secondary" className="border-red-500 text-red-500" onClick={() => removeProduct(product?._id || "", user?.fullname || "")}>{isDeleting ? <LoaderIcon /> : "Delete"}</Button>
                                     </td>
                                 </tr>
                             ))
