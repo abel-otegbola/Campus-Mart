@@ -64,12 +64,8 @@ function StorePage()  {
 
     return (
         <main>
-            <div className="flex flex-col items-center md:px-[8%] px-6 py-12 bg-slate-100 dark:bg-dark bg-center bg-cover" style={{ backgroundImage: `url("${userData?.cover}")` }}>
-                <Avatar user={ userData || { fullname: "user" }} />
-                <h2 className="font-bold text-[28px] uppercase">{search}</h2>
-                <p>{userData?.business_category}</p>
-            </div>
-            <div className={`relative dark:text-white md:px-[8%] mt-8 mb-8 md:flex gap-10`}>
+            
+            <div className={`relative dark:text-white md:px-[9%] mb-8 md:flex gap-10`}>
                 <div className="md:w-[30%] sticky top-[90px] left-0 h-full w-full bg-white dark:bg-black md:block hidden rounded text-[12px]">
                     
                     <div className="w-full p-4 border border-gray-500/[0.1] rounded-[10px]">
@@ -89,6 +85,14 @@ function StorePage()  {
                 </div>
 
                 <div className="md:w-[70%] w-full">
+                    <div className="flex flex-col items-center md:px-[8%] px-6 min-h-[200px] rounded bg-slate-100 dark:bg-dark bg-center bg-cover" style={{ backgroundImage: `url("${userData?.cover}")` }}>
+                        
+                    </div>
+                    <div className="px-6 mb-8 -mt-6">
+                        <Avatar user={ userData || { fullname: "user" }} />
+                        <h2 className="font-bold text-[20px] mt-4">{search}</h2>
+                        <p>{userData?.business_category}</p>
+                    </div>
 
                     <section className=" md:px-0 px-4">
 

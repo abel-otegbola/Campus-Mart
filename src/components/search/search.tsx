@@ -16,9 +16,10 @@ interface dropdownProps {
 
 export default function Search({ value, onChange, searchType, className, disabled, placeholder }: dropdownProps) {
     const [focus, setFocus] = useState(false)
+    const [open, setOpen] = useState(false)
 
     return (
-        <form action={searchType !== "vendors" ? `/search` : '/vendors'} className={`relative flex flex-col w-full gap-1`}>
+        <form action={searchType !== "Vendors" ? `/search` : '/vendors'} className={`relative flex flex-col w-full gap-1`}>
 
           <div className={`flex items-center gap-1 relative rounded-full bg-transparent dark:bg-dark dark:text-gray w-full p-1 px-4 border duration-500 
                 ${focus ? "border-primary shadow-input-active" : "border-black/[0.06] "}
@@ -35,9 +36,19 @@ export default function Search({ value, onChange, searchType, className, disable
                     placeholder={placeholder}
                     onFocus={() => setFocus(true)}
                     onBlur={() => setFocus(false)}
-                    onChange={(e) => onChange ? onChange(e.target.value): ""}
                 />
-                <Dropdown className="w-[120px] border-secondary/[0.1]" placeholder="" value={searchType || ""} onChange={(value) => onChange && onChange(value)} options={[{ id: 0, title: "vendors", icon: <User /> }, { id: 1, title: "products", icon: <BoxArrowUp /> }]} />
+                <button className="" onClick={(e) => {e.preventDefault(); setOpen(!open)}}> <span className="mr-2 opacity-[0.7]">|</span> <span className="opacity-[0.7] text-[10px]">{searchType || "Search by:"}</span></button>
+                <div className={`flex-col absolute bg-white dark:bg-black rounded shadow-md py-1 top-[100%] right-0 w-[120px] overflow-hidden duration-500 ${open ? "flex" : "hidden"}`}>
+                    
+                    {
+                        [{ id: 0, title: "Vendors", icon: <User /> }, { id: 1, title: "Products", icon: <BoxArrowUp /> }].map(option => (
+                            <button onClick={(e) => {onChange && onChange(option.title); e.preventDefault(); setOpen(false)}} key={option.id} className="p-3 flex items-center hover:bg-gray-500/[0.09] gap-2">
+                                {option.icon}
+                                {option.title}
+                            </button>
+                        ))
+                    }
+                </div>
                 <button type="submit" className="opacity-[0.5] pl-2"><MagnifyingGlass size={16} /></button>
             </div>
         </form>

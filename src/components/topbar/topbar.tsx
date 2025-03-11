@@ -76,11 +76,11 @@ function Topbar() {
             </nav>
 
             <div className="flex md:gap-8 gap-3 items-center justify-end md:flex-1 lg:w-auto w-[70%]">
-                <div className={`flex items-center gap-2 lg:static absolute top-0 left-0 h-full bg-[#f8f8f8] dark:bg-black mx-[2%] z-[5] ${openSearch ? "w-[96%]": "lg:w-[96%] w-[0%] overflow-hidden"}`}>
+                {/* <div className={`flex items-center gap-2 lg:static top-0 left-0 h-full bg-[#f8f8f8] dark:bg-black mx-[2%] z-[5] ${openSearch ? "w-[96%]": "lg:w-[96%] w-[0%] overflow-hidden"}`}> */}
                     <Search placeholder="Search for a product or vendor" searchType={searchType} onChange={(value) => setSearchType(value)} className="lg:flex-1 lg:rounded-full rounded-[0px]" />
-                    <button className="p-4 lg:hidden rounded-full text-[16px] bg-primary z-[12]" onClick={() => setOpenSearch(false)}><X /></button>
-                </div>
-                <button className="p-2 lg:hidden text-[16px]" onClick={() => setOpenSearch(!openSearch)}>{ openSearch ? <X /> :<MagnifyingGlass /> }</button>
+                    {/* <button className="p-4 lg:hidden rounded-full text-[16px] bg-primary z-[12]" onClick={() => setOpenSearch(false)}><X /></button> */}
+                {/* </div> */}
+                {/* <button className="p-2 lg:hidden text-[16px]" onClick={() => setOpenSearch(!openSearch)}>{ openSearch ? <X /> :<MagnifyingGlass /> }</button> */}
                 <Link href={data?.user ? "/dashboard": "/login"} className="md:flex hidden gap-1 items-center font-semibold">
                     <User weight="light" size={20}/>
                     <span>Account</span>
