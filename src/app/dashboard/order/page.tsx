@@ -83,7 +83,7 @@ export default function OrderSummary() {
                         </div>
                         <div className="pb-4 flex items-center justify-between gap-2 mb-4">
                             <h3 className="font-semibold">Shipping Address: </h3>
-                            <p>{order?.shipping_address.address}</p>
+                            <p>{order?.shipping_address?.address}</p>
                         </div>
                     </div>
             
@@ -104,12 +104,12 @@ export default function OrderSummary() {
                             </thead>
                             <tbody className="">
                                 {
-                                    products.filter((item: IProduct) => order?.order_items.map(item => item.product_id).indexOf(item._id) !== -1 )
+                                    products.filter((item: IProduct) => order?.order_items?.map(item => item.product_id).indexOf(item._id) !== -1 )
                                     .map((product: IProduct) => (
                                         <tr key={product._id} className="border border-gray-500/[0.2] border-x-transparent">
                                             <td  className="py-2 gap-2"><Image src={product?.images[0]} width={30} height={40} alt={product.title} className="w-[30px] bg-gray-600 rounded" /> {product?.title}.</td>
                                             <td  className="py-2"><PiCurrencyNgn className="inline" /> {product?.price}.00</td>
-                                            <td className="py-2">{order?.order_items.filter(item => item.product_id === product?._id).map(item => item.quantity)}</td>
+                                            <td className="py-2">{order?.order_items?.filter(item => item.product_id === product?._id).map(item => item.quantity)}</td>
                                         </tr>
                                     ))
                                 }

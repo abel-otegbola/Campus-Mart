@@ -40,10 +40,10 @@ export const getAllOrders = async () => {
     }
 }
 
-export const getAllUserOrders = async (fullname: string) => {
+export const getAllUserOrders = async (email: string) => {
     try {
         await connectDB();
-        const findResult = await Orders.find({ fullname })
+        const findResult = await Orders.find({ customer_email: email })
         return JSON.parse(JSON.stringify(findResult))
     }
     catch(e){
@@ -54,7 +54,9 @@ export const getAllUserOrders = async (fullname: string) => {
 export const getAllBusinessOrders = async (store: string) => {
     try {
         await connectDB();
-        const findResult = await Orders.find({ store })
+        const findResult = await Orders.find({
+            'order_items.seller': store,
+        })
         return JSON.parse(JSON.stringify(findResult))
     }
     catch(e){

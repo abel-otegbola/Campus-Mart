@@ -18,18 +18,18 @@ export default function UserOrders() {
     const { removeOrder, loading: isDeleting, getBusinessOrders, getUserOrders, orders } = useContext(OrderContext)
 
     useEffect(() => {
-        if(user?.role === "seller") {
+        if(user?.role === "Seller") {
             setLoading(true)
             getBusinessOrders(user?.business_name || "")
             setLoading(false)
         }
-        else if (user?.role === "buyer") {
+        else if (user?.role === "Buyer") {
             setLoading(true)
-            getUserOrders(user?.fullname || "")
+            getUserOrders(user?.email || "")
             setLoading(false)
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user?.fullname])
+    }, [user])
 
 
 
@@ -61,8 +61,42 @@ export default function UserOrders() {
                                 <td className="p-2"><Skeleton type="text" /></td>
                                 <td className="p-2"><Skeleton type="text" /></td>
                             </tr> :
-                            orders?.filter((item: IOrder) => item?.customer_email === user?.email)
-                            .map((order: IOrder, i: number) => (
+                            user?.role === "Seller" ?
+
+                            orders.flatMap(order => {
+                                return order.order_items
+                                  .filter(item => item.seller === user?.business_name)
+                                  .map(item => ({
+                                    ...item,
+                                    _id: order._id,
+                                    customer_email: order.customer_email,
+                                    shipping_address: order.shipping_address,
+                                    updatedAt: order.updatedAt,
+                                  }));
+                            }).map((order, i) => (
+                                    <tr key={order?._id} className={`border border-gray-500/[0.2] border-x-transparent py-4 text-[12px] ${i%2 === 0 ? "bg-slate-100 dark:bg-gray-200/[0.05]" : ""}`}>
+                                    
+                                        <td className="p-2 max-w-[100px] truncate"><Link href={`/dashboard/order?id=${order?._id}`}>{order?._id}</Link></td>
+                                        <td>{new Date(order?.updatedAt || "").toLocaleDateString("GB")}</td>
+                                        <td className="p-2 text-[10px]">
+                                            <Link href={`/dashboard/order?id=${order?._id}`}>
+                                            <ol className="">{order?.product_title}</ol>
+                                            </Link>
+                                        </td>
+                                        <td className="p-2">
+                                            {currencyFormatter(order?.total_price)}
+                                        </td>
+                                        <td className={`${order.shipping_status === "completed" ? "text-emerald-600" : order?.shipping_status === "cancelled" ? "text-red-500" : "text-orange-400"} p-2 text-[11px]`}>
+                                            <Link href={`/dashboard/order?id=${order?._id}`}>{order?.shipping_status}</Link>
+                                        </td>
+                                        <td>
+                                            <Button size="small" variant="secondary" onClick={() => removeOrder(order?._id || "", user?.fullname || "")}>{isDeleting ? <LoaderIcon /> : "Delete"}</Button>
+                                        </td>
+                                    </tr>
+                            ))
+
+                            :
+                            orders?.map((order: IOrder, i: number) => (
                                 <tr key={order?._id} className={`border border-gray-500/[0.2] border-x-transparent py-4 text-[12px] ${i%2 === 0 ? "bg-slate-100 dark:bg-gray-200/[0.05]" : ""}`}>
                                     
                                     <td className="p-2 max-w-[100px] truncate"><Link href={`/dashboard/order?id=${order?._id}`}>{order?._id}</Link></td>

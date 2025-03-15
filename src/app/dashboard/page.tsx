@@ -38,8 +38,8 @@ function DashboardHome() {
     return (
         <>
         
-                <div className="w-full rounded border border-gray-500/[0.1] min-h-[70vh] pb-4">
-                    <div className="flex gap-6 flex-wrap justify-between items-center border border-transparent border-b-gray-500/[0.1] p-4">
+                <div className="flex flex-col gap-4 w-full rounded md:border border-gray-500/[0.1] min-h-[70vh] pb-4 md:bg-slate-100/[0.2] md:dark:bg-dark/[0.3]">
+                    <div className="flex gap-6 flex-wrap justify-between items-center border border-transparent border-b-gray-500/[0.1] md:p-4 py-4">
                         <div className="flex items-center gap-4">
                             <Avatar user={ user || data?.user || { fullname: "User" }} />
                             <div className="">
@@ -51,14 +51,14 @@ function DashboardHome() {
                         <Button size="small" variant="secondary" href="/dashboard/inventory/new">Add new product</Button>
                     </div>
                     
-                    <div className="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-3 grid-cols-2 p-4 gap-4 bg-slate-100/[0.2] dark:bg-dark/[0.8]">
+                    <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 px-4 md:gap-4 gap-2">
                         <BalanceCard title="Total Balance" amount={0.00} color={"rgb(100, 200, 100)"} />
                         <BalanceCard title="Cleared" amount={0.00} color={"rgb(100, 125, 200)"} />
                         <BalanceCard title="Pending" amount={0.00} color={"rgb(200, 100, 113)"} />
                         <BalanceCard title="Withdrawn" amount={0.00} color={"rgb(167, 100, 200)"} />
                     </div>
 
-                    <div className="grid md:grid-cols-2 px-4 pb-4 gap-4 bg-slate-100/[0.2] dark:bg-dark/[0.8]">
+                    <div className="grid xl:grid-cols-2 md:grid-cols-1 sm:grid-cols-2 md:px-4 pb-4 md:gap-4 gap-2">
                         <div className="flex flex-col gap-2 p-4 border border-gray-500/[0.2] rounded bg-white dark:bg-black">
                             <div className="w-full pb-2 flex flex-col gap-2 border-b border-gray-500/[0.1]">
                                 <h2 className="font-medium text-[16px]">Overview</h2>

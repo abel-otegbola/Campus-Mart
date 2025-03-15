@@ -2,14 +2,13 @@
 import { createOrder, deleteOrder, getAllBusinessOrders, getAllOrders, getAllUserOrders, updateSingleOrder } from "@/actions/useOrders";
 import { IOrder } from "@/interface/orders";
 import { useRouter } from "next/navigation";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { storeContext } from "./useStore";
 
 interface IOrderContext {
     orders: IOrder[];
-    getUserOrders: (fullname: string) => void;
-    getBusinessOrders: (fullname: string) => void;
+    getUserOrders: (email: string) => void;
+    getBusinessOrders: (business_name: string) => void;
     addOrder: (aug0: IOrder) => void;
     updateOrder: (aug0: IOrder) => void;
     removeOrder: (id: string, fullname: string) => void;
@@ -23,7 +22,6 @@ export default function OrderContextProvider({ children }: {children: React.Reac
     const [popup, setPopup] = useState({ type: "", msg: "" });
     const [loading, setLoading] = useState(false);
     const router = useRouter()
-    const {products} = useContext(storeContext)
 
     const getUserOrders = (fullname: string) => {
         setLoading(true)
@@ -45,14 +43,14 @@ export default function OrderContextProvider({ children }: {children: React.Reac
     
     const getBusinessOrders = (business_name: string) => {
         setLoading(true)
-        const sellerProducts = products.filter(item => item.store !== business_name).map(product => product._id)
-        getAllOrders()
+        getAllBusinessOrders(business_name)
         .then((response) => {
             setLoading(false)
             if(response?.error) {
                 setLoading(false)                    
             }
             else {
+                console.log(response)
                 setOrders(response)
                 setLoading(false)
             }
