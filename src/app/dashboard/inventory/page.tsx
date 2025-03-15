@@ -9,6 +9,7 @@ import { getAllBusinessProducts } from "@/actions/useProducts";
 import { AuthContext } from "@/context/useAuth";
 import { LoaderIcon } from "react-hot-toast";
 import { storeContext } from "@/context/useStore";
+import InventoryCard from "@/components/cards/inventoryCard";
 
 export default function Userproducts() {
     const [ products, setproducts] = useState<IProduct[]>([])
@@ -44,45 +45,13 @@ export default function Userproducts() {
                 <p className="mb-2">Manage your products</p>
                 <Button size="small" variant="secondary" href="/dashboard/inventory/new">New product</Button>
             </div>
-            <div className="w-full overflow-x-auto min-h-[400px] rounded-lg border border-gray-500/[0.1] bg-gray-100/[0.08]">
-                <table className="table-auto text-left md:text-[12px] text-[10px] w-full min-w-[430px]">
-                    <thead>
-                        <tr className="font-bold uppercase border border-transparent border-b-gray-400/[0.2]">
-                            <th className="p-2">Id</th>
-                            <th className="p-2">Product</th>
-                            <th className="p-2">Price</th>
-                            <th className="p-2">Category</th>
-                        </tr>
-                    </thead>
-                    <tbody className=""> 
-                        {
-                             loading ?
-                            <tr className="p-2">
-                                <td className="p-2"><Skeleton type="text" /></td>
-                                <td className="p-2"><Skeleton type="text" /></td>
-                                <td className="p-2"><Skeleton type="text" /></td>
-                                <td className="p-2"><Skeleton type="text" /></td>
-                            </tr>
-                             :
-                            products
-                            .map((product: IProduct, i: number) => (
-                                <tr key={product?._id} className={`border border-gray-500/[0.2] border-x-transparent py-4 text-[12px] ${i%2 === 0 ? "bg-slate-100 dark:bg-gray-200/[0.05]" : ""}`}>
-                                    <td className="p-2 max-w-[50px] truncate"><Link href={`dashboard/inventory/edit?id=${product?._id}`} className="">{product?._id}</Link></td>
-                                    <td className="p-2"><Link href={`/dashboard/inventory/edit?id=${product?._id}`} className="">{product?.title}</Link></td>
-                                    <td className="p-2">
-                                        {currencyFormatter(product?.price)}
-                                    </td>
-                                    <td className="p-2">{product?.category}</td>
-                                    <td className="p-2">
-                                        <Button size="small" variant="secondary" href={`/dashboard/inventory/edit?id=${product?._id}`}>Edit</Button>
-                                        <Button size="small" variant="secondary" className="border-red-500 text-red-500" onClick={() => removeProduct(product?._id || "", user?.fullname || "")}>{isDeleting ? <LoaderIcon /> : "Delete"}</Button>
-                                    </td>
-                                </tr>
-                            ))
-                        }
-                        
-                    </tbody>
-                </table>
+            <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 w-full overflow-x-auto min-h-[400px]">
+                {
+                    products
+                    .map((product: IProduct, i: number) => (
+                        <InventoryCard key={product?._id} product={product} />
+                    ))
+                }
             </div>
         </>
     )

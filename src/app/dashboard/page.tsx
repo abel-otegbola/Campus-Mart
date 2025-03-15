@@ -6,71 +6,72 @@ import Avatar from "@/components/avatar/avatar";
 // import { currencyFormatter } from "@/helpers/currencyFormatter";
 // import Button from "@/components/button/button";
 import { useSession } from "next-auth/react";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@/context/useAuth";
+import Button from "@/components/button/button";
+import { currencyFormatter } from "@/helpers/currencyFormatter";
+import SubmissionChart from "@/components/charts/overviewChart";
+import BalanceCard from "@/components/cards/balanceCard";
+import DataTable from "@/components/tables/dataTable";
+import { OrderContext } from "@/context/useOrders";
 
 function DashboardHome() {
     const { data } = useSession()
     const { user } = useContext(AuthContext)
+    const [ loading, setLoading] = useState(false)
+    const { loading: isLoading, getBusinessOrders, orders } = useContext(OrderContext)
 
     useEffect(() => {
-        console.log(user)
-    }, [user])
+        if(user?.role === "seller") {
+            setLoading(true)
+            getBusinessOrders(user?.business_name || "")
+            setLoading(false)
+        }
+        else if (user?.role === "buyer") {
+            setLoading(true)
+            getBusinessOrders(user?.fullname || "")
+            setLoading(false)
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [user?.fullname])
 
     return (
         <>
         
                 <div className="w-full rounded border border-gray-500/[0.1] min-h-[70vh] pb-4">
-                    <div className="flex items-center gap-4 border border-transparent border-b-gray-500/[0.1] p-4">
-                        <Avatar user={ user || data?.user || { fullname: "User" }} />
-                        <div className="">
-                            <h1 className="text-[20px] font-semibold capitalize">Welcome back, <span className="Capitalize">{data?.user?.fullname?.split(" ")[0] || user?.fullname?.split(" ")[0]}</span></h1>
-                            <p className="leading-[180%] flex items-center text-[12px] opacity-[0.7] gap-2"> <PiWatchLight className="text-red-500 text-[14px]" />View your orders, products and discounts</p>
+                    <div className="flex gap-6 flex-wrap justify-between items-center border border-transparent border-b-gray-500/[0.1] p-4">
+                        <div className="flex items-center gap-4">
+                            <Avatar user={ user || data?.user || { fullname: "User" }} />
+                            <div className="">
+                                <h1 className="text-[20px] font-semibold capitalize">Welcome back, <span className="Capitalize">{data?.user?.fullname?.split(" ")[0] || user?.fullname?.split(" ")[0]}</span></h1>
+                                <p className="leading-[180%] flex items-center text-[12px] opacity-[0.7] gap-2"> <PiWatchLight className="text-red-500 text-[14px]" />View your orders, products and discounts</p>
+                            </div>
                         </div>
                         
+                        <Button size="small" variant="secondary" href="/dashboard/inventory/new">Add new product</Button>
+                    </div>
+                    
+                    <div className="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-3 grid-cols-2 p-4 gap-4 bg-slate-100/[0.2] dark:bg-dark/[0.8]">
+                        <BalanceCard title="Total Balance" amount={0.00} color={"rgb(100, 200, 100)"} />
+                        <BalanceCard title="Cleared" amount={0.00} color={"rgb(100, 125, 200)"} />
+                        <BalanceCard title="Pending" amount={0.00} color={"rgb(200, 100, 113)"} />
+                        <BalanceCard title="Withdrawn" amount={0.00} color={"rgb(167, 100, 200)"} />
                     </div>
 
-                    {/* <div className="flex sm:flex-nowrap flex-wrap py-8 gap-8">
-                        <div className="flex flex-col gap-8 p-5 sm:w-[50%] w-full bg-red-600 text-tetiary backdrop-blur-sm bg-cover rounded-[15px]">
-                            <h1 className="text-xl">Balance</h1>
-                            <p className="p-1 px-6 rounded-full bg-white/[0.1] w-fit">{currencyFormatter(10000)}</p>
-                            <div className="flex items-center gap-4 justify-between text-[10px] mt-8">
-                                <div className="flex items-center gap-2">
-                                    <FiShoppingBag size={16}/>
-                                    <div>
-                                        <p>{currencyFormatter(20000)}</p>
-                                    </div>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <PiMoney size={16}/>
-                                    <div>
-                                        <p>{currencyFormatter(30000)}</p>
-                                    </div>
-                                </div>
+                    <div className="grid md:grid-cols-2 px-4 pb-4 gap-4 bg-slate-100/[0.2] dark:bg-dark/[0.8]">
+                        <div className="flex flex-col gap-2 p-4 border border-gray-500/[0.2] rounded bg-white dark:bg-black">
+                            <div className="w-full pb-2 flex flex-col gap-2 border-b border-gray-500/[0.1]">
+                                <h2 className="font-medium text-[16px]">Overview</h2>
                             </div>
-                            <Button variant="secondary" href="/shop" className="w-full bg-black/[0.4] rounded-full">Shop products</Button>
+                            <SubmissionChart submissions={[ ["3", "5", "2", "6", "2", "3"], ["1", "2", "4", "3", "5", "6"] ]} />
                         </div>
-                        <div className="flex flex-col gap-8 p-5 sm:w-[50%] w-full bg-tetiary text-black bg-cover rounded-[15px]">
-                            <h1 className="text-xl">Discount code</h1>
-                            <p className="p-1 px-6 rounded-full bg-white/[0.1] w-fit">NEWBYE-1</p>
-                            <div className="flex items-center gap-4 justify-between text-[10px] mt-8">
-                                <div className="flex items-center gap-2">
-                                    <FiCalendar size={16}/>
-                                    <div>
-                                        <p>20 Feb</p>
-                                    </div>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                    <PiMoney size={16}/>
-                                    <div>
-                                        <p>{currencyFormatter(1000)}</p>
-                                    </div>
-                                </div>
+                        <div className="flex flex-col gap-2 p-4 border border-gray-500/[0.2] rounded bg-white dark:bg-black">
+                            <div className="w-full pb-2 flex flex-col gap-2 border-b border-gray-500/[0.1]">
+                                <h2 className="font-medium text-[16px]">Recent Orders</h2>
                             </div>
-                            <Button variant="secondary" href="/shop" className="w-full bg-black/[0.4] rounded-full">Redeem code</Button>
+                            <DataTable headers={["Date", "Products", "Amount", "Status"]} data={orders} isLoading={isLoading || loading} />
                         </div>
-                    </div> */}
-
+                    </div>
                     
                 </div>
         </>

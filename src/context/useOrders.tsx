@@ -1,13 +1,15 @@
 'use client'
-import { createOrder, deleteOrder, getAllBusinessOrders, updateSingleOrder } from "@/actions/useOrders";
+import { createOrder, deleteOrder, getAllBusinessOrders, getAllOrders, getAllUserOrders, updateSingleOrder } from "@/actions/useOrders";
 import { IOrder } from "@/interface/orders";
 import { useRouter } from "next/navigation";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { storeContext } from "./useStore";
 
 interface IOrderContext {
     orders: IOrder[];
-    getOrders: (fullname: string) => void;
+    getUserOrders: (fullname: string) => void;
+    getBusinessOrders: (fullname: string) => void;
     addOrder: (aug0: IOrder) => void;
     updateOrder: (aug0: IOrder) => void;
     removeOrder: (id: string, fullname: string) => void;
@@ -21,10 +23,30 @@ export default function OrderContextProvider({ children }: {children: React.Reac
     const [popup, setPopup] = useState({ type: "", msg: "" });
     const [loading, setLoading] = useState(false);
     const router = useRouter()
+    const {products} = useContext(storeContext)
 
-    const getOrders = (fullname: string) => {
+    const getUserOrders = (fullname: string) => {
         setLoading(true)
-        getAllBusinessOrders(fullname)
+        getAllUserOrders(fullname)
+        .then((response) => {
+            setLoading(false)
+            if(response?.error) {
+                setLoading(false)                    
+            }
+            else {
+                setOrders(response)
+                setLoading(false)
+            }
+        })
+        .catch((error: { message: string }) => {
+            setLoading(false)
+        });
+    }
+    
+    const getBusinessOrders = (business_name: string) => {
+        setLoading(true)
+        const sellerProducts = products.filter(item => item.store !== business_name).map(product => product._id)
+        getAllOrders()
         .then((response) => {
             setLoading(false)
             if(response?.error) {
@@ -79,14 +101,15 @@ export default function OrderContextProvider({ children }: {children: React.Reac
             }
             else {
                 setPopup({ type: "success", msg: "Order deleted Successfully" })
-                getOrders(fullname)
+                getBusinessOrders(fullname)
             }
         })
     }
 
     const data = {
         orders,
-        getOrders,
+        getUserOrders,
+        getBusinessOrders,
         addOrder,
         updateOrder,
         removeOrder,

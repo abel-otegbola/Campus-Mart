@@ -11,18 +11,19 @@ import { ICart, IProduct } from "@/interface/store"
 import { currencyFormatter } from "@/helpers/currencyFormatter"
 import { getSingleOrder } from "@/actions/useOrders"
 import { OrderContext } from "@/context/useOrders"
+import { IOrder } from "@/interface/orders"
 
 export default function OrderSummary() {
     const searchParams = useSearchParams()
     const { products } = useContext(storeContext)
     const { updateOrder } = useContext(OrderContext)
     const [loading, setLoading] = useState(false)
-    const [order, setOrder] = useState({fullname: "", country: "", address: "", phone: "", cart: [], user: { displayName: "", email: "", photo: "" }, date: "", paymentStatus: "", amount: 0})
+    const [order, setOrder] = useState({} as IOrder)
 
     const id = searchParams.get("id")
 
     const cancelOrder = () => {
-        updateOrder({ ...order, paymentStatus: "cancelled" })
+        updateOrder({ ...order, order_status: "cancelled" })
         setLoading(true)
     }
     
@@ -74,7 +75,7 @@ export default function OrderSummary() {
                         </h2>
                         <h2 className="flex items-center justify-between gap-1 py-2 pb-4">
                             <span className="font-semibold">Status:</span> 
-                            <p className="text-orange-600">{loading ? "" : order.paymentStatus}</p>
+                            <p className="text-orange-600">{loading ? "" : order?.order_status}</p>
                         </h2>
                         <div className="pb-4 flex items-center justify-between gap-2">
                             <h3 className="font-semibold">Delivery: </h3>
@@ -82,11 +83,11 @@ export default function OrderSummary() {
                         </div>
                         <div className="pb-4 flex items-center justify-between gap-2 mb-4">
                             <h3 className="font-semibold">Shipping Address: </h3>
-                            <p>{order.address}</p>
+                            <p>{order?.shipping_address.address}</p>
                         </div>
                     </div>
             
-                    <Button className="w-full border-red-400/[0.5] text-red-500 hover:bg-red-500 hover:text-white" variant="tetiary" disabled={order.paymentStatus === "cancelled"} onClick={() => cancelOrder()}><TbTrash /><span>Cancel Order</span></Button>
+                    <Button className="w-full border-red-400/[0.5] text-red-500 hover:bg-red-500 hover:text-white" variant="tetiary" disabled={order.order_status === "cancelled"} onClick={() => cancelOrder()}><TbTrash /><span>Cancel Order</span></Button>
 
                 </div>
 
@@ -103,12 +104,12 @@ export default function OrderSummary() {
                             </thead>
                             <tbody className="">
                                 {
-                                    products.filter((item: IProduct) => order.cart.map((item: ICart) => item.id).indexOf(item._id) !== -1 )
+                                    products.filter((item: IProduct) => order?.order_items.map(item => item.product_id).indexOf(item._id) !== -1 )
                                     .map((product: IProduct) => (
                                         <tr key={product._id} className="border border-gray-500/[0.2] border-x-transparent">
                                             <td  className="py-2 gap-2"><Image src={product?.images[0]} width={30} height={40} alt={product.title} className="w-[30px] bg-gray-600 rounded" /> {product?.title}.</td>
                                             <td  className="py-2"><PiCurrencyNgn className="inline" /> {product?.price}.00</td>
-                                            <td className="py-2">{order.cart.filter((item: ICart) => item.id === product?._id).map((item: ICart) => item.quantity)}</td>
+                                            <td className="py-2">{order?.order_items.filter(item => item.product_id === product?._id).map(item => item.quantity)}</td>
                                         </tr>
                                     ))
                                 }

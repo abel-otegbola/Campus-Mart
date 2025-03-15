@@ -65,17 +65,17 @@ export default function Profile() {
                 <p>Manage and update your profile details</p>
             </div>
             <div className="">
-                {
+                {/* {
                     data?.user?.role === "Seller" || userData?.role === "Seller" ?
                     <div className="relative flex items-center justify-center h-[150px]  border border-gray-500/[0.1] bg-slate-100 dark:bg-dark bg-cover bg-center" style={{ backgroundImage: `url("${userData?.cover}")` }}>
                         <label htmlFor="add_cover" className="absolute w-full h-full opacity-[0] hover:opacity-[1] bg-black/[0.8] flex flex-col justify-center items-center gap-2 flex-1">
                             <Button size="small" variant="secondary"><label htmlFor="add_cover" className="text-primary">Change cover image</label></Button>
                         </label>
-                        <ImageToBase64 id="add_cover" fullname={data?.user?.email + "-cover"} img={userData?.cover || ""} setImg={(cover) => setUserData({...data, cover })} />
+                        <ImageToBase64 id="add_cover" fullname={data?.user?.email + "-cover"} img={userData?.cover || ""} setImg={(img) => setUserData({...data, cover: img })} />
                     </div>
                     : ""
-                }
-                <div className="relative flex gap-6 items-center h-[88px] w-[88px] rounded-full -mt-12 ml-4 z-[2] border border-gray-500/[0.1] bg-slate-100 dark:bg-dark bg-cover bg-center" style={{ backgroundImage: `url("${userData?.img}")` }}>
+                } */}
+                <div className={`relative flex gap-6 items-center h-[88px] w-[88px] rounded-full ${data?.user?.role === "Seller" || userData?.role === "Seller" ? "-mt-12 ml-4" : ""} z-[2] border border-gray-500/[0.1] bg-slate-100 dark:bg-dark bg-cover bg-center`} style={{ backgroundImage: `url("${userData?.img}")` }}>
                     <label htmlFor="add_img" className="absolute w-full h-full rounded-full bg-black/[0.7] opacity-[0] hover:opacity-[1] flex flex-col justify-center items-center gap-2 flex-1">
                         <Button size="small" variant="secondary" className="text-[10px]"><label htmlFor="add_img" className="text-primary">Change</label></Button>
                     </label>

@@ -1,41 +1,39 @@
 import { IOrder } from "@/interface/orders";
-import { IProduct } from "@/interface/store";
 import mongoose, { model, Schema } from "mongoose";
 
 const OrdersSchema = new Schema<IOrder>({
-    user: {
-      type: { displayName: String, email: String, photo: String  },
-      required: [true, "Price is required"]
-    },
-    fullname: {
+    customer_email: {
       type: String,
       required: [true, "Description is required"]
     },
-    country: {
-      type: String,
-      required: [false, "tags are required"]
-    },
-    address: {
-      type: String,
-      required: [true, "Category is required"]
-    },
-    phone: {
-      type: String,
-      required: false
+    shipping_address: {
+      type: { address: String, zip:String, country: String },
+      required: [false, "shipping address is required"]
     },
     amount: {
       type: Number,
-      required: [true, "images are required"]
+      required: [true, "price is required"]
     },
-    cart: { 
+    order_items: { 
       type: [{
-      id: String, quantity: Number, variation: { color: String, size: String }
+      seller: String,
+      product_id: String,
+      product_title: String,
+      quantity: Number,
+      price: Number,
+      total_price: Number,
+      shipping_status: String,
+      shipping_tracking_number: String,
     }],
       required: false
     },
-    paymentStatus: {
+    order_status: {
       type: String,
       required: false
+    },
+    shipping_charges: {
+      type: Number,
+      required: [true, "Category is required"]
     },
   },
   {

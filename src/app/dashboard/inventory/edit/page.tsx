@@ -10,6 +10,8 @@ import Image from "next/image";
 import { storeContext } from "@/context/useStore";
 import { useSearchParams } from "next/navigation";
 import { getSingleProduct } from "@/actions/useProducts";
+import { TbCameraPlus } from "react-icons/tb";
+import TextEditor from "@/components/editor/editor";
 
 export default function Userproducts() {
     const [data, setData] = useState<IProduct>({} as IProduct)
@@ -72,10 +74,40 @@ export default function Userproducts() {
             <div className="w-full overflow-x-auto min-h-[400px]">
                 <div className="grid md:grid-cols-2 grid-cols-1 gap-8">
                     <div className="flex flex-col gap-4">
+                        <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-4 grid-cols-3 gap-2 min-h-[150px] gap-2 w-full overflow-x-auto bg-gray-500/[0.09] rounded p-2">
+                        {
+                            data?.images?.map((image: string, i: number) => (
+                                <div  key={i} className="relative flex flex-col gap-2 w-[100%] border border-dashed border-gray-300 rounded-lg p-2">
+                                    <div className="absolute top-2 right-2 p-2 bg-black/[0.9] rounded cursor-pointer" tabIndex={1} onClick={(e) => deleteImage(image)}><X size={16} className="text-red-500" /></div>
+                                    { 
+                                        image === "" ? 
+                                        <label htmlFor={i.toString()} className="flex flex-col justify-center items-center gap-2 flex-1">
+                                            <TbCameraPlus size={16}/>
+                                            <label htmlFor={i.toString()} className="text-[10px]">Click to pick a photo</label>
+                                            <div className="absolute top-2 left-2 p-2 bg-black/[0.9] rounded cursor-pointer" tabIndex={1} onClick={(e) => deleteImage(image)}><Trash size={16} className="text-red-500" /></div>
+                                        </label>
+                                        :
+                                        <div className="flex">
+                                            <Image src={image} alt="preview" width={88} height={88} className="max-h-auto w-full border border-gray-500/[0.2] rounded"/>
+                                        </div>
+                                    }
+                                    <ImageToBase64 id={i.toString()} img={image} fullname={data?.title + i.toString()} setImg={(img) => changeImage(i, img)} />
+                                    
+                                </div>
+                            ) )
+                        }
+                            <div className="relative flex flex-col justify-center items-center gap-1 w-[100%] border border-dashed border-gray-300 rounded-lg bg-slate-300 dark:bg-black p-2">
+                                <TbCameraPlus size={16}/>
+                                <Button size="small" variant="tetiary" className="bg-transparent border-transparent" onClick={() =>  setData({ ...data, images: data?.images ? [...data?.images, "" ] : [""]})}>Add photos</Button>  
+                            </div>
+                        </div>
                         <Input id="title" label="Title" value={data?.title} onChange={(e) => setData({ ...data, title: e.target.value })} placeholder="Enter product title" />
                         <Input id="category" label="Category" value={data?.category} onChange={(e) => setData({ ...data, category: e.target.value })} placeholder="Enter product category" />
-                        <Input id="price" label="Price" value={data?.price} onChange={(e) => setData({ ...data, price: e.target.value })} placeholder="Enter product price" />
-                        <Textarea id="descriptions" label="Description" value={data?.description} onChange={(e) => setData({ ...data, description: e.target.value })} placeholder="Enter product descriptions" />
+                        <Input id="price" label="Price" value={data?.price} onChange={(e) => setData({ ...data, price: e.target.value })} placeholder="Enter product price" /> 
+                        <div className="flex flex-col gap-1 mb-12">
+                            <p>Product descriptions:</p>
+                            <TextEditor text={data?.description} setText={(value) => setData({ ...data, description: value })} />
+                        </div>
                         <div className="flex flex-col gap-2 mb-4">
                             <label htmlFor="tags">Tags</label>
                             <div className="flex flex-wrap items-start gap-2 border border-gray-500/[0.2] dark:bg-black p-2 rounded">
@@ -98,35 +130,7 @@ export default function Userproducts() {
                         </div>
                     </div>
                     
-                    <div className="flex gap-4 flex-col">
-                        <div className="flex flex-col gap-2 py-4">
-                            <label htmlFor="images"> Images</label>
-                            <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-4 grid-cols-3 gap-2 h-[150px] gap-2 w-full overflow-x-auto bg-gray-500/[0.09] rounded p-2">
-                            {
-                                data?.images?.map((image: string, i: number) => (
-                                    <div  key={i} className="relative flex flex-col gap-2 w-[100%] border border-dashed border-gray-300 rounded-lg p-2">
-                                        <div className="absolute top-2 right-2 p-2 bg-black/[0.9] rounded cursor-pointer" tabIndex={1} onClick={(e) => deleteImage(image)}><X size={16} className="text-red-500" /></div>
-                                        { 
-                                            image === "" ? 
-                                            <label htmlFor={i.toString()} className="flex flex-col justify-center items-center gap-2 flex-1">
-                                                <ImageBroken weight="fill" alt="add new image" size={32} />
-                                                <p className="text-[10px]">Drop your image here, or <label htmlFor={i.toString( )} className="text-primary">Browse files</label></p>
-                                            </label>
-                                            :
-                                            <div className="flex">
-                                                <Image src={image} alt="preview" width={88} height={88} className="max-h-[92px] w-auto border border-gray-500/[0.2] rounded"/>
-                                            </div>
-                                        }
-                                        <ImageToBase64 id={i.toString()} img={image} fullname={data?.title + i.toString()} setImg={(img) => changeImage(i, img)} />
-                                        
-                                    </div>
-                                ) )
-                            }
-                                
-                            </div>
-                            <Button size="small" variant="secondary" onClick={() =>  setData({ ...data, images: data?.images ? [...data?.images, "" ] : [""]})}>New Image</Button>
-                        </div>
-                        
+                    <div className="flex gap-4 flex-col">                        
                         <div className="flex flex-col gap-2 py-4">
                             <label htmlFor="stock">Stock</label>
                             <Input id="stock" type="number" value={data?.stocks} onChange={(e) => setData({ ...data, stocks: +e.target.value })} placeholder="Number of product available" />
