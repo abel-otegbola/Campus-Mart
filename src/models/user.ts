@@ -55,6 +55,10 @@ const UserSchema = new Schema<UserDocument>({
     cover: {
       type: String,
       required: [false, ""]
+    },
+    socialLinks: {
+      type: { whatsapp: String, instagram: String, x: String, facebook: String },
+      required: [false, ""]
     }
   },
   {

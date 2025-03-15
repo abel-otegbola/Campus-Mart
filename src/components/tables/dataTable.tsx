@@ -7,7 +7,14 @@ import { storeContext } from "@/context/useStore";
 import { useContext } from "react";
 import Image from "next/image";
 
-export default function DataTable({ headers, data, isLoading }: { headers: string[], data: IOrder[], isLoading: boolean }) {
+interface sellerOrder extends IOrder {
+    id?: string,
+    customer_email: string,
+    shipping_address: { address: string; zip: string; country: string },
+    updatedAt?: string,
+}
+
+export default function DataTable({ headers, data, isLoading }: { headers: string[], data: sellerOrder[], isLoading: boolean }) {
     const { products } = useContext(storeContext)
 
     return (

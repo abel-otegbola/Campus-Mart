@@ -3,14 +3,14 @@
 import { AuthContext } from "@/context/useAuth";
 import Button from "../../../components/button/button";
 import Input from "@/components/input/input";
-import { Bag, Bed, BeerBottle, Bicycle, Book, BookOpen, Briefcase, Bus, Car, Chair, Code, Coffee, Envelope, File, FilmStrip, Football, GameController, GraduationCap, Guitar, Heart, House, ImageBroken, Laptop, MapPin, Palette, PawPrint, Pencil, ShirtFolded, Spinner, Ticket, Trash, User, UserFocus, Watch } from "@phosphor-icons/react";
+import { Bag, Bed, BeerBottle, Bicycle, Book, BookOpen, Briefcase, Bus, Car, Chair, Code, Coffee, Envelope, FacebookLogo, File, FilmStrip, Football, GameController, GraduationCap, Guitar, Heart, House, ImageBroken, InstagramLogo, Laptop, MapPin, Palette, PawPrint, Pencil, ShirtFolded, Spinner, Ticket, Trash, User, UserFocus, Watch, WhatsappLogo, XLogo } from "@phosphor-icons/react";
 import { useSession } from "next-auth/react";
 import { useContext, useEffect, useState } from "react";
 import Dropdown from "@/components/dropdown/dropdown";
 import { TbPerfume } from "react-icons/tb";
 import ImageToBase64 from "@/components/imageConverter/imageConverter";
 import Image from "next/image";
-import { PiDiamond } from "react-icons/pi";
+import { PiDiamond, PiWhatsappLogo } from "react-icons/pi";
 
 export default function Profile() {
     const { data } = useSession()
@@ -50,12 +50,12 @@ export default function Profile() {
     ];
 
     useEffect(() => {
+        console.log(user)
         setUserData(user)
     }, [user])
 
     const handleUpdate = () => {
-        updateUser(data?.user?.email || userData?.email || "", userData)
-        getUserData(data?.user?.email || "")
+        updateUser(data?.user?.email || "", userData)
     }
 
     return (
@@ -64,48 +64,84 @@ export default function Profile() {
                 <h2 className="font-bold text-[28px] uppercase">Profile</h2>
                 <p>Manage and update your profile details</p>
             </div>
-            <div className="">
-                {/* {
-                    data?.user?.role === "Seller" || userData?.role === "Seller" ?
-                    <div className="relative flex items-center justify-center h-[150px]  border border-gray-500/[0.1] bg-slate-100 dark:bg-dark bg-cover bg-center" style={{ backgroundImage: `url("${userData?.cover}")` }}>
-                        <label htmlFor="add_cover" className="absolute w-full h-full opacity-[0] hover:opacity-[1] bg-black/[0.8] flex flex-col justify-center items-center gap-2 flex-1">
-                            <Button size="small" variant="secondary"><label htmlFor="add_cover" className="text-primary">Change cover image</label></Button>
+            <div className="flex md:flex-nowrap flex-wrap gap-4">
+                <div className="md:w-[60%]">
+                    {
+                        data?.user?.role === "Seller" ?
+                        <div className="relative flex items-center justify-center h-[150px]  border border-gray-500/[0.1] bg-slate-100 dark:bg-dark bg-cover bg-center" style={{ backgroundImage: `url("${userData?.cover}")` }}>
+                            <label htmlFor="add_cover" className="absolute w-full h-full opacity-[0] hover:opacity-[1] bg-black/[0.8] flex flex-col justify-center items-center gap-2 flex-1">
+                                <Button size="small" variant="secondary"><label htmlFor="add_cover" className="text-primary">Change cover image</label></Button>
+                            </label>
+                            <ImageToBase64 id="add_cover" fullname={data?.user?.email + "-cover"} img={userData?.cover || ""} setImg={(img) => setUserData({...data, cover: img })} />
+                        </div>
+                        : ""
+                    }
+                    <div className={`relative flex gap-6 items-center h-[88px] w-[88px] rounded-full ${data?.user?.role === "Seller" ? "-mt-12 ml-4" : ""} z-[2] border border-gray-500/[0.1] bg-slate-100 dark:bg-dark bg-cover bg-center`} style={{ backgroundImage: `url("${userData?.img}")` }}>
+                        <label htmlFor="add_img" className="absolute w-full h-full rounded-full bg-black/[0.7] opacity-[0] hover:opacity-[1] flex flex-col justify-center items-center gap-2 flex-1">
+                            <Button size="small" variant="secondary" className="text-[10px]"><label htmlFor="add_img" className="text-primary">Change</label></Button>
                         </label>
-                        <ImageToBase64 id="add_cover" fullname={data?.user?.email + "-cover"} img={userData?.cover || ""} setImg={(img) => setUserData({...data, cover: img })} />
+                        <ImageToBase64 id="add_img" fullname={data?.user?.email || "/user"} img={userData?.img || ""} setImg={(img) => setUserData({...data, img })} />
+                        
                     </div>
-                    : ""
-                } */}
-                <div className={`relative flex gap-6 items-center h-[88px] w-[88px] rounded-full ${data?.user?.role === "Seller" || userData?.role === "Seller" ? "-mt-12 ml-4" : ""} z-[2] border border-gray-500/[0.1] bg-slate-100 dark:bg-dark bg-cover bg-center`} style={{ backgroundImage: `url("${userData?.img}")` }}>
-                    <label htmlFor="add_img" className="absolute w-full h-full rounded-full bg-black/[0.7] opacity-[0] hover:opacity-[1] flex flex-col justify-center items-center gap-2 flex-1">
-                        <Button size="small" variant="secondary" className="text-[10px]"><label htmlFor="add_img" className="text-primary">Change</label></Button>
-                    </label>
-                    <ImageToBase64 id="add_img" fullname={data?.user?.email || "/user"} img={userData?.img || ""} setImg={(img) => setUserData({...data, img })} />
-                    
+
+                    <div className="py-2 mb-1">
+                        <Input defaultValue={userData?.fullname || ""} label="Full name" leftIcon={<User />} onChange={(e) => setUserData({ ...userData, fullname: e.target.value })} />
+                    </div>
+                    <div className="py-2 mb-4">
+                        <Input disabled={true} defaultValue={userData?.email || ""} label="Email (Contact support to change your email address):" leftIcon={<Envelope />} onChange={(e) => setUserData({ ...userData, email: e.target.value })} />
+                    </div>
+                    {
+                        data?.user?.role === "Seller" ?
+                            <>
+                                <div className="py-2 mb-1">
+                                    <Input disabled={true} defaultValue={userData?.business_name || ""} label="Business name (Contact support to change your business name):" leftIcon={<UserFocus />} onChange={(e) => setUserData({ ...userData, business_name: e.target.value })} />
+                                </div>
+                                <div className="py-2 mb-4">
+                                    <Dropdown value={userData?.business_category || ""} placeholder={userData?.business_category || ""} options={categories} label="Business Category:" onChange={(value) => setUserData({ ...userData, business_category: value })}/>
+                                </div>
+                                <div className="py-2 mb-4">
+                                    <Input defaultValue={userData?.business_location || ""} onChange={(e) => setUserData({ ...userData, business_location: e.target.value })} label="Business Location:" leftIcon={<MapPin />}/>
+                                </div>
+                            </>
+                        :
+                        ""
+                    }
+                    <Button onClick={() => handleUpdate()}>{ loading ? <Spinner size={16} className="animate-spin" /> : "Save changes" }</Button>
                 </div>
 
-                <div className="py-2 mb-1">
-                    <Input defaultValue={userData?.fullname || ""} label="Full name" leftIcon={<User />} onChange={(e) => setUserData({ ...userData, fullname: e.target.value })} />
+                <div className="md:w-[36%] w-full flex flex-col gap-4">
+                    <div className="flex flex-col gap-2 p-4 border border-gray-500/[0.2] rounded bg-white dark:bg-black">
+                        <div className="w-full pb-2 flex flex-col gap-2 border-b border-gray-500/[0.1]">
+                            <h2 className="font-medium text-[16px]">Social links</h2>
+                        </div>
+                        <div className="flex flex-col gap-2">
+                            <div className="flex items-center gap-2">
+                                <span className="text-emerald-600 flex items-center justify-center w-[46px] h-[40px] rounded-full border border-gray-500/[0.2]">
+                                    <PiWhatsappLogo size={20} />
+                                </span>
+                                <Input placeholder="whatsapp number" defaultValue={userData?.socialLinks?.whatsapp || ""} onChange={(e) => setUserData({ ...userData, socialLinks: { ...userData.socialLinks, whatsapp: e.target.value } })}  />
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <span className="text-fuchsia-600 flex items-center justify-center w-[46px] h-[40px] rounded-full border border-gray-500/[0.2]">
+                                    <InstagramLogo size={20} />
+                                </span>
+                                <Input placeholder="Instagram link" defaultValue={userData?.socialLinks?.instagram || ""} onChange={(e) => setUserData({ ...userData, socialLinks: { ...userData.socialLinks, instagram: e.target.value } })}  />
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <span className="text-white flex items-center justify-center w-[46px] h-[40px] rounded-full border border-gray-500/[0.2]">
+                                    <XLogo size={16} />
+                                </span>
+                                <Input placeholder="X link" defaultValue={userData?.socialLinks?.x || ""} onChange={(e) => setUserData({ ...userData, socialLinks: { ...userData.socialLinks, x: e.target.value } })}  />
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <span className="text-blue-600 flex items-center justify-center w-[46px] h-[40px] rounded-full border border-gray-500/[0.2]">
+                                    <FacebookLogo size={20} />
+                                </span>
+                                <Input placeholder="Facebook link" defaultValue={userData?.socialLinks?.facebook || ""} onChange={(e) => setUserData({ ...userData, socialLinks: { ...userData.socialLinks, facebook: e.target.value } })}  />
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className="py-2 mb-4">
-                    <Input disabled={true} defaultValue={userData?.email || ""} label="Email:" leftIcon={<Envelope />} onChange={(e) => setUserData({ ...userData, email: e.target.value })} />
-                </div>
-                {
-                    data?.user?.role === "Seller" || userData?.role === "Seller" ?
-                        <>
-                            <div className="py-2 mb-1">
-                                <Input disabled={true} defaultValue={userData?.business_name || ""} label="Business name" leftIcon={<UserFocus />} onChange={(e) => setUserData({ ...userData, business_name: e.target.value })} />
-                            </div>
-                            <div className="py-2 mb-4">
-                                <Dropdown value={userData?.business_category || ""} placeholder={userData?.business_category || ""} options={categories} label="Business Category:" onChange={(value) => setUserData({ ...userData, business_category: value })}/>
-                            </div>
-                            <div className="py-2 mb-4">
-                                <Input defaultValue={userData?.business_location || ""} onChange={(e) => setUserData({ ...userData, business_location: e.target.value })} label="Business Location:" leftIcon={<MapPin />}/>
-                            </div>
-                        </>
-                    :
-                    ""
-                }
-                <Button onClick={() => handleUpdate()}>{ loading ? <Spinner size={16} className="animate-spin" /> : "Save changes" }</Button>
             </div>
         </div>
     )

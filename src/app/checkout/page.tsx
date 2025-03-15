@@ -9,7 +9,7 @@ import { storeContext } from "@/context/useStore";
 import { currencyFormatter } from "@/helpers/currencyFormatter";
 import { ICart, IProduct } from "@/interface/store";
 import { checkoutSchema } from "@/schema/checkout";
-import { Globe, MapPin, NotePencil, Phone } from "@phosphor-icons/react";
+import { Globe, MapPin, NotePencil } from "@phosphor-icons/react";
 import { Formik } from "formik";
 import { useSession } from "next-auth/react";
 import { useContext, useEffect } from "react";
@@ -75,6 +75,7 @@ export default function CheckoutPage() {
                             isSubmitting,
                         }) => (
                             <form onSubmit={handleSubmit} className="flex flex-col w-full gap-6">
+                                <p className="text-[18px] font-medium">Shipping Address</p>
                                 <Input name="country" label="Country" value={values.country} onChange={handleChange} type="text" error={touched.country ? errors.country : ""} placeholder="Country" leftIcon={<Globe size={16}/>}/>
                                 <Input name="address" label="Address (Street, City and State)" value={values.address} onChange={handleChange} type="text" error={touched.address ? errors.address : ""} placeholder="Address" leftIcon={<MapPin size={16}/>}/>
                                 <Textarea name="note" label="Order notes" value={values.note} onChange={handleChange} error={touched.note ? errors.note : ""} placeholder="Write short note to include in your order" leftIcon={<NotePencil size={16}/>}/>

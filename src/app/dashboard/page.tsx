@@ -52,10 +52,10 @@ function DashboardHome() {
                     </div>
                     
                     <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 px-4 md:gap-4 gap-2">
-                        <BalanceCard title="Total Balance" amount={0.00} color={"rgb(100, 200, 100)"} />
-                        <BalanceCard title="Cleared" amount={0.00} color={"rgb(100, 125, 200)"} />
-                        <BalanceCard title="Pending" amount={0.00} color={"rgb(200, 100, 113)"} />
-                        <BalanceCard title="Withdrawn" amount={0.00} color={"rgb(167, 100, 200)"} />
+                        <BalanceCard title="Total Balance" amount={0.00}  />
+                        <BalanceCard title="Cleared" amount={0.00}  />
+                        <BalanceCard title="Pending" amount={0.00}  />
+                        <BalanceCard title="Withdrawn" amount={0.00}  />
                     </div>
 
                     <div className="grid xl:grid-cols-2 md:grid-cols-1 sm:grid-cols-2 md:px-4 pb-4 md:gap-4 gap-2">
@@ -69,7 +69,7 @@ function DashboardHome() {
                             <div className="w-full pb-2 flex flex-col gap-2 border-b border-gray-500/[0.1]">
                                 <h2 className="font-medium text-[16px]">Recent Orders</h2>
                             </div>
-                            <DataTable headers={["Date", "Products", "Amount", "Status"]} data={orders} isLoading={isLoading || loading} />
+                            <DataTable headers={["Date", "Products", "Total", "Status"]} data={orders} isLoading={isLoading || loading} />
                         </div>
                     </div>
                     

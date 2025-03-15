@@ -101,7 +101,7 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
         setLoading(true)
         await updateUserData(email, data)
         .then(response => {
-            setUser(response)
+            getUserData(email)
             setPopup({ type: "success", msg: "Updated Successfully" })
             setLoading(false)
         })
