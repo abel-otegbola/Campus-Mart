@@ -26,13 +26,6 @@ export default function Layout({
     const router = useRouter()
 
     useEffect(() => {
-        if(!data?.user) {
-            router.push("/login")
-        }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [data?.user])
-
-    useEffect(() => {
         getUserData(data?.user?.email || "")
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data])
