@@ -50,7 +50,6 @@ export default function Profile() {
     ];
 
     useEffect(() => {
-        console.log(user)
         setUserData(user)
     }, [user])
 
@@ -67,7 +66,7 @@ export default function Profile() {
             <div className="flex md:flex-nowrap flex-wrap gap-4">
                 <div className="md:w-[60%]">
                     {
-                        data?.user?.role === "Seller" ?
+                        data?.user?.role === "Seller" || user?.role === "Seller" ?
                         <div className="relative flex items-center justify-center h-[150px]  border border-gray-500/[0.1] bg-slate-100 dark:bg-dark bg-cover bg-center" style={{ backgroundImage: `url("${userData?.cover}")` }}>
                             <label htmlFor="add_cover" className="absolute w-full h-full opacity-[0] hover:opacity-[1] bg-black/[0.8] flex flex-col justify-center items-center gap-2 flex-1">
                                 <Button size="small" variant="secondary"><label htmlFor="add_cover" className="text-primary">Change cover image</label></Button>
@@ -91,7 +90,7 @@ export default function Profile() {
                         <Input disabled={true} defaultValue={userData?.email || ""} label="Email (Contact support to change your email address):" leftIcon={<Envelope />} onChange={(e) => setUserData({ ...userData, email: e.target.value })} />
                     </div>
                     {
-                        data?.user?.role === "Seller" ?
+                        data?.user?.role === "Seller" || user?.role === "Seller" ?
                             <>
                                 <div className="py-2 mb-1">
                                     <Input disabled={true} defaultValue={userData?.business_name || ""} label="Business name (Contact support to change your business name):" leftIcon={<UserFocus />} onChange={(e) => setUserData({ ...userData, business_name: e.target.value })} />

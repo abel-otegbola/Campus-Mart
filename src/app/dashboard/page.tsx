@@ -39,6 +39,10 @@ function DashboardHome() {
         <>
         
                 <div className="flex flex-col gap-4 w-full rounded md:border border-gray-500/[0.1] min-h-[70vh] pb-4 md:bg-slate-100/[0.2] md:dark:bg-dark/[0.3]">
+                    
+                    {
+                    data?.user?.role === "Seller" || user?.role === "Seller" ?
+                    <>
                     <div className="flex gap-6 flex-wrap justify-between items-center border border-transparent border-b-gray-500/[0.1] md:p-4 py-4">
                         <div className="flex items-center gap-4">
                             <Avatar user={ user || data?.user || { fullname: "User" }} />
@@ -48,10 +52,13 @@ function DashboardHome() {
                             </div>
                         </div>
                         
-                        <Button size="small" variant="secondary" href="/dashboard/inventory/new">Add new product</Button>
+                        <div className="flex items-center gap-2">
+                            <Button size="small" className="dark:bg-primary/[0.7]" href="/dashboard/inventory/new">Add new product</Button>
+                            <Button size="small" className="dark:bg-primary/[0.7]" href={`/store/${user?.business_name?.replaceAll(" ", "-")}`}>View my store</Button>
+                        </div>
                     </div>
                     
-                    <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 px-4 md:gap-4 gap-2">
+                    <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 md:px-4 md:gap-4 gap-2">
                         <BalanceCard title="Total Balance" amount={0.00}  />
                         <BalanceCard title="Cleared" amount={0.00}  />
                         <BalanceCard title="Pending" amount={0.00}  />
@@ -72,7 +79,35 @@ function DashboardHome() {
                             <DataTable headers={["Date", "Products", "Total", "Status"]} data={orders} isLoading={isLoading || loading} />
                         </div>
                     </div>
-                    
+                    </>
+                    :
+                    <>
+                    <div className="flex gap-6 flex-wrap justify-between items-center border border-transparent border-b-gray-500/[0.1] md:p-4 py-4">
+                        <div className="flex items-center gap-4">
+                            <Avatar user={ user || data?.user || { fullname: "User" }} />
+                            <div className="">
+                                <h1 className="text-[20px] font-semibold capitalize">Welcome back, <span className="Capitalize">{data?.user?.fullname?.split(" ")[0] || user?.fullname?.split(" ")[0]}</span></h1>
+                                <p className="leading-[180%] flex items-center text-[12px] opacity-[0.7] gap-2"> <PiWatchLight className="text-red-500 text-[14px]" />View your orders and discounts</p>
+                            </div>
+                        </div>
+                        
+                        <Button size="small" href="/vendor-onboarding">Become a vendor</Button>
+                    </div>
+                    <div className="w-full grid xl:grid-cols-2 md:grid-cols-1 sm:grid-cols-2 md:px-4 pb-4 md:gap-4 gap-2">
+                        <div className="flex flex-col gap-2 p-4 border border-gray-500/[0.2] rounded bg-white dark:bg-black">
+                            <div className="w-full pb-2 flex flex-col gap-2 border-b border-gray-500/[0.1]">
+                                <h2 className="font-medium text-[16px]">Overview</h2>
+                            </div>
+                        </div>
+                        <div className="flex flex-col gap-2 p-4 border border-gray-500/[0.2] rounded bg-white dark:bg-black">
+                            <div className="w-full pb-2 flex flex-col gap-2 border-b border-gray-500/[0.1]">
+                                <h2 className="font-medium text-[16px]">Orders</h2>
+                            </div>
+                            <DataTable headers={["Date", "Products", "Total", "Status"]} data={orders} isLoading={isLoading || loading} />
+                        </div>
+                    </div>
+                    </>
+                }
                 </div>
         </>
     )

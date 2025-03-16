@@ -1,7 +1,6 @@
 'use client'
 import { useEffect, useState } from "react";
 import { PiInfoLight } from "react-icons/pi";
-import { useRouter, useSearchParams } from "next/navigation";
 import { IProduct } from "@/interface/store";
 import Skeleton from "@/components/skeleton/skeleton";
 import ProductCard from "@/components/cards/productCard";
@@ -11,19 +10,19 @@ import { fetchUserDataByStorename } from "@/actions/useProfile";
 import { UserData } from "@/interface/profile";
 import { getAllBusinessProducts } from "@/actions/useProducts";
 import Avatar from "@/components/avatar/avatar";
+import { useParams } from "next/navigation";
 
 function StorePage()  {
     const [ products, setProducts ] = useState([] as IProduct[])
     const [ userData, setUserData ] = useState([] as UserData)
     const [loading, setLoading] = useState(false)
-    const router = useRouter();
-    const searchParams = useSearchParams()
-    const search = searchParams.get("seller") || ""
+    const { slug } = useParams()
+    const search: string = typeof slug !== "string" ? "" : slug
 
     useEffect(() => {
         if(search !== "") {
             setLoading(true)
-            fetchUserDataByStorename(search)
+            fetchUserDataByStorename(search.replaceAll("-", " "))
             .then((response) => {
                 setLoading(false)
                 if(response?.error) {
@@ -44,7 +43,7 @@ function StorePage()  {
     useEffect(() => {
         if(search !== "") {
             setLoading(true)
-            getAllBusinessProducts(search)
+            getAllBusinessProducts(search.replaceAll("-", " "))
             .then((response) => {
                 setLoading(false)
                 if(response?.error) {
@@ -71,14 +70,14 @@ function StorePage()  {
                     <div className="w-full p-4 border border-gray-500/[0.1] rounded-[10px]">
                         <p className="uppercase font-medium py-2 border border-transparent border-b-gray-500/[0.1]">Contact seller</p>
                         <div className="overflow-x-auto w-full mt-4">
-                            <Link href={`tel:07060989331`} className="mb-4 p-2 rounded bg-slate-100 dark:bg-dark flex gap-2 items-center"><User /> {userData?.fullname}</Link>
+                            <Link href={`tel:${userData?.socialLinks?.whatsapp}`} className="mb-4 p-2 rounded bg-slate-100 dark:bg-dark flex gap-2 items-center"><User /> {userData?.business_name}</Link>
                             <Link href={`mailto:${userData?.email}`} className="mb-4 p-2 rounded bg-slate-100 dark:bg-dark flex gap-2 items-center"><Envelope /> {userData?.email}</Link>
                             <Link href={`mailto:${userData?.email}`} className="mb-4 p-2 rounded bg-slate-100 dark:bg-dark flex gap-2 items-center"><MapPin /> {userData?.business_location}</Link>
                             <div className="flex gap-3">
-                                <Link href="https://api.whatsapp.com/" className="p-2 border border-gray-500/[0.4] rounded-full"><WhatsappLogo size={18}/></Link>
-                                <Link href="https://facebook.com/" className="p-2 border border-gray-500/[0.4] rounded-full"><FacebookLogo size={18}/></Link>
-                                <Link href="https://twitter.com/" className="p-2 border border-gray-500/[0.4] rounded-full"><XLogo size={18}/></Link>
-                                <Link href="https://instagram.com/" className="p-2 border border-gray-500/[0.4] rounded-full"><InstagramLogo size={18}/></Link>
+                                <Link href={`https://api.whatsapp.com/${userData?.socialLinks?.whatsapp}`} className="p-2 border border-gray-500/[0.4] rounded-full"><WhatsappLogo size={18}/></Link>
+                                <Link href={userData?.socialLinks?.facebook || "#"} className="p-2 border border-gray-500/[0.4] rounded-full"><FacebookLogo size={18}/></Link>
+                                <Link href={userData?.socialLinks?.x || "#"} className="p-2 border border-gray-500/[0.4] rounded-full"><XLogo size={18}/></Link>
+                                <Link href={userData?.socialLinks?.instagram || "#"} className="p-2 border border-gray-500/[0.4] rounded-full"><InstagramLogo size={18}/></Link>
                             </div>
                         </div>
                     </div>
