@@ -84,7 +84,12 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
     const logOut = () => {
         setUser(null)
         signOut()
-        router.push("/login")
+        .then(() => {
+            router.push("/login")
+        })
+        .catch((e) => {
+            setPopup({ type: "error", msg: "Couldn't sign out, please try again." })
+        })
     }
 
     const getUserData = async (email: string) => {
