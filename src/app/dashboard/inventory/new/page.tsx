@@ -3,18 +3,20 @@ import { useContext, useState } from "react";
 import { IProduct } from "@/interface/store";
 import Button from "@/components/button/button";
 import Input from "@/components/input/input";
-import { Spinner, Trash, X } from "@phosphor-icons/react";
+// import Textarea from "@/components/textarea/textarea";
+import { ImageBroken, Spinner, Trash, X } from "@phosphor-icons/react";
 import ImageToBase64 from "@/components/imageConverter/imageConverter";
 import Image from "next/image";
 import { storeContext } from "@/context/useStore";
 import { AuthContext } from "@/context/useAuth";
+// import { PiCameraPlus } from "react-icons/pi";
 import { TbCameraPlus } from "react-icons/tb";
 import TextEditor from "@/components/editor/editor";
 // import Dropdown from "@/components/dropdown/dropdown";
 
 export default function Userproducts() {
     const [data, setData] = useState<IProduct>({} as IProduct)
-    const [tag, setTag] = useState("")
+    // const [tag, setTag] = useState("")
     const { addProduct, loading } = useContext(storeContext)
     const { user } = useContext(AuthContext)
     // const [variations, setVariations] = useState<string[]>([])
@@ -148,7 +150,7 @@ export default function Userproducts() {
                 </div>
 
                 <div className="border-t border-gray-500/[0.2] py-4">
-                    <Button variant="secondary" onClick={() => console.log(data)}>{ loading ? <Spinner size={16} className="animate-spin" /> : "Save" }</Button>
+                    <Button variant="secondary" onClick={() => addProduct({...data, store: user?.business_name || ""})}>{ loading ? <Spinner size={16} className="animate-spin" /> : "Save" }</Button>
                 </div>
             </div>
         </>
