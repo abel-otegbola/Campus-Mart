@@ -36,17 +36,17 @@ export default function Userproducts() {
         }
     }, [id])
 
-    const addTag = () => {
-        if(data.tags) {
-            if(data?.tags?.indexOf(tag) === -1 && tag !== "") {
-                setData({ ...data, tags: [ ...data.tags, tag ]})
-                setTag("")
-            }
-        }
-        else {
-            setData({ ...data, tags: [ tag ]})
-        }
-    }
+    // const addTag = () => {
+    //     if(data.tags) {
+    //         if(data?.tags?.indexOf(tag) === -1 && tag !== "") {
+    //             setData({ ...data, tags: [ ...data.tags, tag ]})
+    //             setTag("")
+    //         }
+    //     }
+    //     else {
+    //         setData({ ...data, tags: [ tag ]})
+    //     }
+    // }
 
     const changeImage = (index: number, img: string) => {
         const newData = { ...data, images: data?.images.map((element: string, i: number) => {
@@ -74,6 +74,7 @@ export default function Userproducts() {
             <div className="w-full overflow-x-auto min-h-[400px]">
                 <div className="grid md:grid-cols-2 grid-cols-1 gap-8">
                     <div className="flex flex-col gap-4">
+                        <Input id="title" label="Title" value={data?.title} onChange={(e) => setData({ ...data, title: e.target.value })} placeholder="Enter product title" />
                         <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-4 grid-cols-3 gap-2 min-h-[150px] gap-2 w-full overflow-x-auto bg-gray-500/[0.09] rounded p-2">
                         {
                             data?.images?.map((image: string, i: number) => (
@@ -101,14 +102,13 @@ export default function Userproducts() {
                                 <Button size="small" variant="tetiary" className="bg-transparent border-transparent" onClick={() =>  setData({ ...data, images: data?.images ? [...data?.images, "" ] : [""]})}>Add photos</Button>  
                             </div>
                         </div>
-                        <Input id="title" label="Title" value={data?.title} onChange={(e) => setData({ ...data, title: e.target.value })} placeholder="Enter product title" />
                         <Input id="category" label="Category" value={data?.category} onChange={(e) => setData({ ...data, category: e.target.value })} placeholder="Enter product category" />
                         <Input id="price" label="Price" value={data?.price} onChange={(e) => setData({ ...data, price: e.target.value })} placeholder="Enter product price" /> 
                         <div className="flex flex-col gap-1 mb-12">
                             <p>Product descriptions:</p>
                             <TextEditor text={data?.description} setText={(value) => setData({ ...data, description: value })} />
                         </div>
-                        <div className="flex flex-col gap-2 mb-4">
+                        {/* <div className="flex flex-col gap-2 mb-4">
                             <label htmlFor="tags">Tags</label>
                             <div className="flex flex-wrap items-start gap-2 border border-gray-500/[0.2] dark:bg-black p-2 rounded">
                                 <div className="flex flex-wrap gap-2">
@@ -127,7 +127,7 @@ export default function Userproducts() {
                                 </div>
                             </div>
                             
-                        </div>
+                        </div> */}
                     </div>
                     
                     <div className="flex gap-4 flex-col">                        

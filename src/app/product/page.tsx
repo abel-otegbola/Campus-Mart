@@ -82,9 +82,9 @@ export default function Product() {
                                     </div>
                                 </div>
 
-                                <div className="flex gap-2 items-center">
+                                {/* <div className="flex gap-2 items-center">
                                     TAGS: {product?.tags?.map(tag => <span className="px-3 py-1 text-[10px] border border-gray-500/[0.08] rounded-[20px]" key={tag}>{tag}</span>) }
-                                </div>
+                                </div> */}
                                 <p className="py-4">CATEGORY: {product?.category}</p>
 
                                 <Link href={`/store/${product?.store?.replaceAll(" ", "-")}`} className="h-full">STORE: {product?.store}</Link>
@@ -92,7 +92,7 @@ export default function Product() {
                                 <div dangerouslySetInnerHTML={{ __html: product?.description || ""}} className="py-4"></div>
 
                                 {
-                                    user?.email !== product?.store ?
+                                    user?.email === product?.store ?
                                     <Button size="small" variant="secondary" href={`/dashboard/inventory/edit?id=${product?._id}`}>Edit</Button>
                                     :
                                     ""

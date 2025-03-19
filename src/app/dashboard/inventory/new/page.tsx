@@ -3,13 +3,11 @@ import { useContext, useState } from "react";
 import { IProduct } from "@/interface/store";
 import Button from "@/components/button/button";
 import Input from "@/components/input/input";
-import Textarea from "@/components/textarea/textarea";
-import { ImageBroken, Spinner, Trash, X } from "@phosphor-icons/react";
+import { Spinner, Trash, X } from "@phosphor-icons/react";
 import ImageToBase64 from "@/components/imageConverter/imageConverter";
 import Image from "next/image";
 import { storeContext } from "@/context/useStore";
 import { AuthContext } from "@/context/useAuth";
-import { PiCameraPlus } from "react-icons/pi";
 import { TbCameraPlus } from "react-icons/tb";
 import TextEditor from "@/components/editor/editor";
 // import Dropdown from "@/components/dropdown/dropdown";
@@ -21,17 +19,17 @@ export default function Userproducts() {
     const { user } = useContext(AuthContext)
     // const [variations, setVariations] = useState<string[]>([])
 
-    const addTag = () => {
-        if(data.tags) {
-            if(data?.tags?.indexOf(tag) === -1 && tag !== "") {
-                setData({ ...data, tags: [ ...data.tags, tag ]})
-                setTag("")
-            }
-        }
-        else {
-            setData({ ...data, tags: [ tag ]})
-        }
-    }
+    // const addTag = () => {
+    //     if(data.tags) {
+    //         if(data?.tags?.indexOf(tag) === -1 && tag !== "") {
+    //             setData({ ...data, tags: [ ...data.tags, tag ]})
+    //             setTag("")
+    //         }
+    //     }
+    //     else {
+    //         setData({ ...data, tags: [ tag ]})
+    //     }
+    // }
 
     const changeImage = (index: number, img: string) => {
         const newData = { ...data, images: data?.images.map((element: string, i: number) => {
@@ -65,6 +63,7 @@ export default function Userproducts() {
             <div className="w-full overflow-x-auto min-h-[400px]">
                 <div className="grid md:grid-cols-2 grid-cols-1 gap-8">
                     <div className="flex flex-col gap-4">
+                    <Input id="title" label="Title" onChange={(e) => setData({ ...data, title: e.target.value })} placeholder="Enter product title" />
                     <div className="flex flex-col gap-2 py-4">
                         <label htmlFor="images"> Images</label>
                         <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-4 grid-cols-3 gap-2 min-h-[150px] gap-2 w-full overflow-x-auto bg-gray-500/[0.09] rounded p-2">
@@ -83,7 +82,7 @@ export default function Userproducts() {
                                             <Image src={image} alt="preview" width={88} height={88} className="max-h-auto w-full border border-gray-500/[0.2] rounded"/>
                                         </div>
                                     }
-                                    <ImageToBase64 id={i.toString()} img={image} fullname={data?.title + i.toString()} setImg={(img) => changeImage(i, img)} />
+                                    <ImageToBase64 id={i.toString()} img={image} fullname={(data?.title || user?.business_name) + i.toString()} setImg={(img) => changeImage(i, img)} />
                                     
                                 </div>
                             ) )
@@ -94,14 +93,13 @@ export default function Userproducts() {
                             </div>
                         </div>
                         </div>
-                        <Input id="title" label="Title" onChange={(e) => setData({ ...data, title: e.target.value })} placeholder="Enter product title" />
                         <Input id="category" label="Category" onChange={(e) => setData({ ...data, category: e.target.value })} placeholder="Enter product category" />
-                        <Input id="price" label="Price" onChange={(e) => setData({ ...data, price: e.target.value })} placeholder="Enter product price" />
+                        <Input id="price" type="number" label="Price" onChange={(e) => setData({ ...data, price: e.target.value })} placeholder="Enter product price" />
                         <div className="flex flex-col gap-1 mb-12">
                             <p>Product descriptions:</p>
                             <TextEditor text={data?.description} setText={(value) => setData({ ...data, description: value })} />
                         </div>
-                        <div className="flex flex-col gap-2 mb-4">
+                        {/* <div className="flex flex-col gap-2 mb-4">
                             <label htmlFor="tags">Tags</label>
                             <div className="flex flex-wrap items-start gap-2 border border-gray-500/[0.2] dark:bg-black p-2 rounded">
                                 <div className="flex flex-wrap gap-2">
@@ -120,7 +118,7 @@ export default function Userproducts() {
                                 </div>
                             </div>
                             
-                        </div>
+                        </div> */}
                     </div>
                     
                     <div className="flex gap-4 flex-col">
@@ -150,7 +148,7 @@ export default function Userproducts() {
                 </div>
 
                 <div className="border-t border-gray-500/[0.2] py-4">
-                    <Button variant="secondary" onClick={() => addProduct({...data, store: user?.business_name || ""})}>{ loading ? <Spinner size={16} className="animate-spin" /> : "Save" }</Button>
+                    <Button variant="secondary" onClick={() => console.log(data)}>{ loading ? <Spinner size={16} className="animate-spin" /> : "Save" }</Button>
                 </div>
             </div>
         </>
