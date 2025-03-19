@@ -50,7 +50,7 @@ function Topbar() {
 
     return (
         <>
-        <div className={`flex md:py-3 py-5 sticky top-0 left-0 w-full justify-between items-center bg-[#f8f8f8] dark:bg-black z-[3]  ${noheader.includes(pathname.split("/")[1]) ? "hidden": ""} ${accountPages.includes(pathname.split("/")[1]) ? "md:px-10 pl-6 pr-[80px] md:py-2 py-5" : "md:px-[10%] px-6"}`}>
+        <div className={`flex md:py-3 py-5 sticky top-0 left-0 w-full justify-between items-center bg-[#f8f8f8] dark:bg-black z-[3] ${noheader.includes(pathname.split("/")[1]) ? "hidden": ""} ${accountPages.includes(pathname.split("/")[1]) ? "md:px-10 pl-6 pr-[80px] md:py-2 py-5" : "md:px-[10%] px-6"}`}>
             <div className="md:w-[12%] w-[150px]">
                 <Link href="/" className="w-[70px] h-[30px] text-[#FF9100] md:ml-6 ml-3 rounded flex justify-center items-center md:text-[16px] text-[14px] font-bold">
                     CAMPUS <span className="text-[#16AF89]"> MART</span>
@@ -77,7 +77,10 @@ function Topbar() {
 
             <div className="flex md:gap-8 gap-3 items-center justify-end md:flex-1 lg:w-auto w-[70%]">
                 {/* <div className={`flex items-center gap-2 lg:static top-0 left-0 h-full bg-[#f8f8f8] dark:bg-black mx-[2%] z-[5] ${openSearch ? "w-[96%]": "lg:w-[96%] w-[0%] overflow-hidden"}`}> */}
+                    {
+                    accountPages.includes(pathname.split("/")[1]) ? "" :
                     <Search placeholder="Search for a product or vendor" searchType={searchType} onChange={(value) => setSearchType(value)} className="lg:flex-1 lg:rounded-full rounded-[0px]" />
+                    }
                     {/* <button className="p-4 lg:hidden rounded-full text-[16px] bg-primary z-[12]" onClick={() => setOpenSearch(false)}><X /></button> */}
                 {/* </div> */}
                 {/* <button className="p-2 lg:hidden text-[16px]" onClick={() => setOpenSearch(!openSearch)}>{ openSearch ? <X /> :<MagnifyingGlass /> }</button> */}
