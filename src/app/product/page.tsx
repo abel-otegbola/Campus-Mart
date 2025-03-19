@@ -10,6 +10,7 @@ import ProductCard from "@/components/cards/productCard"
 import { currencyFormatter } from "@/helpers/currencyFormatter"
 import Link from "next/link"
 import ProductSlider from "@/components/productSlider/productSlider"
+import { AuthContext } from "@/context/useAuth"
 
 export default function Product() {
     const searchParams = useSearchParams()
@@ -21,6 +22,7 @@ export default function Product() {
     const [product, setProduct] = useState<IProduct>()
     const [loading, setLoading] = useState(false)
     const [active, setActive] = useState("descriptions")
+    const { user } = useContext(AuthContext)
 
     // useEffect(() => {
     //     setColor(cart.filter((item: ICart) => item.id === id).map((item: ICart) => item?.variation.color)[0])
@@ -85,7 +87,16 @@ export default function Product() {
                                 </div>
                                 <p className="py-4">CATEGORY: {product?.category}</p>
 
+                                <Link href={`/store/${product?.store?.replaceAll(" ", "-")}`} className="h-full">STORE: {product?.store}</Link>
+
                                 <div dangerouslySetInnerHTML={{ __html: product?.description || ""}} className="py-4"></div>
+
+                                {
+                                    user?.email !== product?.store ?
+                                    <Button size="small" variant="secondary" href={`/dashboard/inventory/edit?id=${product?._id}`}>Edit</Button>
+                                    :
+                                    ""
+                                }
                                 
 
                                 <div className="mt-4 flex flex-wrap gap-4 justify-between items-center py-4 border border-transparent border-y-gray-500/[0.09]">
@@ -163,7 +174,7 @@ export default function Product() {
                                     </div>     
                                     <div className={`${active === "seller" ? "translate-x-[-200%]" : "translate-x-[100%]"} w-[100%] transform-all duration-700`}>
                                         <h2 className="font-semibold uppercase">Seller&apos;s Information</h2>
-                                        <Link href={`/store?seller=${product?.store}`} className="h-full">{product?.store}</Link>
+                                        <Link href={`/store/${product?.store?.replaceAll(" ", "-")}`} className="h-full">{product?.store}</Link>
                                     </div>     
                                 </div>                           
                             </div>

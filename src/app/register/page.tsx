@@ -23,7 +23,7 @@ type navTab =  {
 
 export default function Registerpage() {
     const { signUp, loading } = useContext(AuthContext)
-    const [active, setActive] = useState<string | undefined>("No")
+    const [active, setActive] = useState<string | undefined>("Yes")
     const [flow, setFlow] = useState(0)
 
     const navTabs: navTab[] = [
@@ -90,7 +90,7 @@ export default function Registerpage() {
                             onSubmit={( values, { setSubmitting }) => {
                                 if(flow === 1) {
                                 signUp(
-                                    {email: values.email, password: values.password, fullname: values.fullname, business_name: values.business_name, business_category: values.business_category, business_location: values.business_location, role: "Seller", img: values.img}
+                                    {email: values.email.trim(), password: values.password, fullname: values.fullname, business_name: values.business_name.trim(), business_category: values.business_category, business_location: values.business_location, role: "Seller", img: values.img}
                                 );
                                 setSubmitting(false);
                                 }
@@ -100,7 +100,7 @@ export default function Registerpage() {
                                         setSubmitting(false);
                                     }
                                     else {
-                                        signUp({email: values.email, password: values.password, fullname: values.fullname, role: "Buyer"})
+                                        signUp({email: values.email.trim(), password: values.password, fullname: values.fullname, role: "Buyer"})
                                         setSubmitting(false);
                                     }
                                 }

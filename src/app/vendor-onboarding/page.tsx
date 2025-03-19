@@ -7,11 +7,12 @@ import { AuthContext } from "@/context/useAuth";
 import { ArrowRight, Bag, Bed, BeerBottle, Bicycle, Book, BookOpen, Briefcase, Bus, Car, Chair, Code, Coffee, File, FilmStrip, Football, GameController, GraduationCap, Guitar, Heart, House, ImageBroken, Laptop, MapPin, Palette, PawPrint, Pencil, ShirtFolded, Spinner, Storefront, Ticket, Trash, User, UserFocus, Watch } from "@phosphor-icons/react";
 import { Formik } from "formik";
 import Image from "next/image";
-import { ReactNode, useContext, useState } from "react";
+import { ReactNode, useContext, useEffect, useState } from "react";
 import { TbPerfume } from "react-icons/tb";
 import { PiDiamond } from "react-icons/pi";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { isUserSaved } from "@/actions/useProfile";
 
 type navTab =  {
     id: number | string,
@@ -62,6 +63,16 @@ export default function VendorOnboardingPage() {
         { id: 28, title: "Travel Accessories", icon: <Bus /> },
         { id: 29, title: "Furniture", icon: <Chair /> },
     ];
+
+    useEffect(() => {
+        isUserSaved(data?.user.email || "")
+        .then(response => {
+            if (!response) {
+                router.push("/register")
+            }
+        })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data?.user.email])
     
 
 
@@ -88,7 +99,7 @@ export default function VendorOnboardingPage() {
                             onSubmit={( values, { setSubmitting }) => {
                                 if(flow === 1) {
                                     updateUser( data?.user.email || "",
-                                        { business_name: values.business_name, business_category: values.business_category, business_location: values.business_location, role: "Seller", img: values.img}
+                                        { business_name: values.business_name.trim(), business_category: values.business_category, business_location: values.business_location, role: "Seller", img: values.img}
                                     );
                                     setSubmitting(false);
                                     router.push("/dashboard")

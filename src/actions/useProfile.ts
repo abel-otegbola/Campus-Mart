@@ -2,6 +2,8 @@
 import { UserData } from "@/interface/profile";
 import { connectDB } from "@/lib/mongodb";
 import User from "@/models/user";
+import bcryptjs from 'bcryptjs'
+
 
 export const fetchUserData = async (email: string) => {
     try {
@@ -34,6 +36,20 @@ export const searchAllStore = async () => {
     catch(e){
         console.log(e);
     }
+}
+
+export const isUserSaved = async (email: string) => {
+    try {
+        await connectDB();
+        const user = await User.findOne({ email });
+        
+        if(!user) return false 
+        else return true
+    }
+    catch(e){
+        console.log(e);
+    }
+    
 }
 
 export const updateUserData = async (email: string, data: UserData) => {
