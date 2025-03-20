@@ -64,7 +64,7 @@ export default function Profile() {
                 <p>Manage and update your profile details</p>
             </div>
             <div className="flex md:flex-nowrap flex-wrap gap-4">
-                <div className="md:w-[60%]">
+                <div className="md:w-[60%] w-full">
                     {
                         data?.user?.role === "Seller" || user?.role === "Seller" ?
                         <div className="relative flex items-center justify-center h-[150px]  border border-gray-500/[0.1] bg-slate-100 dark:bg-dark bg-cover bg-center" style={{ backgroundImage: `url("${userData?.cover}")` }}>
