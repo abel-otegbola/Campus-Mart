@@ -12,7 +12,7 @@ export default function Home() {
     <main className="">
 
       <Slider images={[
-        { id: "0", src: "/bg4.png", text: "Get Your Order Delivered Personally to Your Department" },
+        { id: "0", src: "/bg4.png", text: "Get Your Order Delivered Personally to You Anytime" },
         { id: "1", src: "/bg4.png", text: "Search and Order Quality Products at your Convenience" },
       ]} />
 

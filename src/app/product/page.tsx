@@ -21,7 +21,7 @@ export default function Product() {
     const [size] = useState("S")
     const [product, setProduct] = useState<IProduct>()
     const [loading, setLoading] = useState(false)
-    const [active, setActive] = useState("descriptions")
+    const [active, setActive] = useState("reviews")
     const { user } = useContext(AuthContext)
 
     // useEffect(() => {
@@ -161,18 +161,16 @@ export default function Product() {
                         </div> 
                         <div className="mt-4">
                             <div className="flex gap-6 items-center border border-transparent border-b-gray-500/[0.2] mb-4">
-                                <button className={`py-2 ${active === "descriptions" ? "border border-transparent border-b-primary text-primary": ""}`} onClick={() => setActive("descriptions")}>Product Descriptions</button>
                                 <button className={`py-2 ${active === "reviews" ? "border border-transparent border-b-primary text-primary": ""}`} onClick={() => setActive("reviews")}>Product Reviews</button>
                                 <button className={`py-2 ${active === "seller" ? "border border-transparent border-b-primary text-primary": ""}`} onClick={() => setActive("seller")}>Seller Information</button>
                             </div>
                             <div className="w-full overflow-hidden">
                                 <div className="flex w-[200%]">
-                                    <div dangerouslySetInnerHTML={{ __html: product?.description || ""}} className={`${active === "descriptions" ? "translate-x-0" : "translate-x-[-100%]"} w-[100%] transform-all duration-700`}></div>
-                                    <div className={`${active === "reviews" ? "translate-x-[-100%]" : "translate-x-[100%]"} w-[100%] transform-all duration-700`}>
+                                    <div className={`${active === "reviews" ? "translate-x-0" : "translate-x-[-100%]"} w-[100%] transform-all duration-700`}>
                                         <h2 className="font-semibold uppercase">Product Reviews:</h2>
                                         <div className="h-full">No reviews posted yet</div>
                                     </div>     
-                                    <div className={`${active === "seller" ? "translate-x-[-200%]" : "translate-x-[100%]"} w-[100%] transform-all duration-700`}>
+                                    <div className={`${active === "seller" ? "translate-x-[-100%]" : "translate-x-[100%]"} w-[100%] transform-all duration-700`}>
                                         <h2 className="font-semibold uppercase">Seller&apos;s Information</h2>
                                         <Link href={`/store/${product?.store?.replaceAll(" ", "-")}`} className="h-full">{product?.store}</Link>
                                     </div>     
