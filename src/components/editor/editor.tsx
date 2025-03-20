@@ -3,8 +3,8 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 interface content {
-    text: string,
-    setText: (html: string) => void
+    text: string;
+    setText: (html: string) => void;
 }
 
 const TextEditor = ({ text, setText }: content) => {
@@ -37,9 +37,9 @@ const TextEditor = ({ text, setText }: content) => {
             value={text}
             modules={modules}
             formats={formats}
-            placeholder={"Start typing"}
+            placeholder={"Add descriptions"}
             className="w-full"
-            onChange={(html: string) => setText(html)}
+            onChange={setText}
         />
     )
 }

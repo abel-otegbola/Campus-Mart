@@ -2,13 +2,13 @@ export interface IProduct {
     _id: string;
     title: string;
     price: string;
-    slug: string;
+    slug?: string;
     description: string;
     tags: string[];
     category: string;
-    stocks: number;
+    stocks?: number;
     images: string[];
-    variations: {
+    variations?: {
         colors: {
             name: string, img: string
         }[];
@@ -16,12 +16,12 @@ export interface IProduct {
             name: string, img: string
         }[];
     };
-    offers:{
+    offers?:{
         name: string, code: string
     }[];
-    createdAt: string;
-    updatedAt: string;
-    rating: number;
+    createdAt?: string;
+    updatedAt?: string;
+    rating?: number;
     store: string;
 }
 

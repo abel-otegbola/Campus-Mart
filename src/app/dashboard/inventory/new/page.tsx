@@ -12,7 +12,6 @@ import { AuthContext } from "@/context/useAuth";
 // import { PiCameraPlus } from "react-icons/pi";
 import { TbCameraPlus } from "react-icons/tb";
 import TextEditor from "@/components/editor/editor";
-import Textarea from "@/components/textarea/textarea";
 // import Dropdown from "@/components/dropdown/dropdown";
 
 export default function Userproducts() {
@@ -106,7 +105,7 @@ export default function Userproducts() {
                         <Input id="price" type="number" label="Price" onChange={(e) => setData({ ...data, price: e.target.value })} placeholder="Enter product price" />
                         <div className="flex flex-col gap-1 mb-12">
                             <p>Product descriptions:</p>
-                            <Textarea value={data?.description} placeholder="Enter your product description" onChange={(e) => setData({ ...data, description: e.target.value })} />
+                            <TextEditor text={data?.description} setText={(description) => setData((prevData) => ({ ...prevData, description}))} />
                         </div>
                         {/* <div className="flex flex-col gap-2 mb-4">
                             <label htmlFor="tags">Tags</label>
