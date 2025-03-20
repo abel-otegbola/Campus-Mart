@@ -13,6 +13,7 @@ import { AuthContext } from "@/context/useAuth";
 import { TbCameraPlus } from "react-icons/tb";
 import TextEditor from "@/components/editor/editor";
 // import Dropdown from "@/components/dropdown/dropdown";
+import { v7 } from "uuid"
 
 export default function Userproducts() {
     const [data, setData] = useState<IProduct>({} as IProduct)
@@ -84,7 +85,7 @@ export default function Userproducts() {
                                             <Image src={image} alt="preview" width={88} height={88} className="max-h-auto w-full border border-gray-500/[0.2] rounded"/>
                                         </div>
                                     }
-                                    <ImageToBase64 id={i.toString()} img={image} fullname={(data?.title || user?.business_name) + i.toString()} setImg={(img) => changeImage(i, img)} />
+                                    <ImageToBase64 id={i.toString()} img={image} fullname={(data?.title || v7()) + i.toString()} setImg={(img) => changeImage(i, img)} />
                                     
                                 </div>
                             ) )
