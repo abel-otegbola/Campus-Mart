@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from "react";
 import { IProduct } from "@/interface/store";
 import Button from "@/components/button/button";
 import Input from "@/components/input/input";
-import Textarea from "@/components/textarea/textarea";
 import { ImageBroken, Spinner, Trash, X } from "@phosphor-icons/react";
 import ImageToBase64 from "@/components/imageConverter/imageConverter";
 import Image from "next/image";
@@ -12,6 +11,7 @@ import { useSearchParams } from "next/navigation";
 import { getSingleProduct } from "@/actions/useProducts";
 import { TbCameraPlus } from "react-icons/tb";
 import TextEditor from "@/components/editor/editor";
+import { AuthContext } from "@/context/useAuth";
 
 export default function Userproducts() {
     const [data, setData] = useState<IProduct>({} as IProduct)
@@ -19,6 +19,7 @@ export default function Userproducts() {
     const { updateProduct, loading } = useContext(storeContext)
     const searchParams = useSearchParams()
     const id = searchParams.get("id") || "0"
+    const { user } = useContext(AuthContext)
 
     useEffect(() => {
         if(id !== "0") {
@@ -93,7 +94,7 @@ export default function Userproducts() {
                                             <Image src={image} alt="preview" width={88} height={88} className="max-h-auto w-full border border-gray-500/[0.2] rounded"/>
                                         </div>
                                     }
-                                    <ImageToBase64 id={i.toString()} img={image} fullname={data?.title + i.toString()} setImg={(img) => changeImage(i, img)} />
+                                    <ImageToBase64 id={i.toString()} img={image} fullname={data?.title + "-" + user?.business_name + "-" + i.toString()} setImg={(img) => changeImage(i, img)} />
                                     
                                 </div>
                             ) )
