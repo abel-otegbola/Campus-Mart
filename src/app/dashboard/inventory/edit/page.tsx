@@ -93,7 +93,7 @@ export default function Userproducts() {
                                             <Image src={image} alt="preview" width={88} height={88} className="max-h-auto w-full border border-gray-500/[0.2] rounded"/>
                                         </div>
                                     }
-                                    <ImageToBase64 id={i.toString()} img={image} fullname={(data?.title || v7()) + i.toString()} setImg={(img) => changeImage(i, img)} />
+                                    <ImageToBase64 id={i.toString()} img={image} fullname={(data?.title) + i.toString()} setImg={(img) => changeImage(i, img)} />
                                     
                                 </div>
                             ) )

@@ -13,7 +13,6 @@ import { AuthContext } from "@/context/useAuth";
 import { TbCameraPlus } from "react-icons/tb";
 import TextEditor from "@/components/editor/editor";
 // import Dropdown from "@/components/dropdown/dropdown";
-import { v7 } from "uuid"
 
 export default function Userproducts() {
     const [data, setData] = useState<IProduct>({} as IProduct)
@@ -85,15 +84,21 @@ export default function Userproducts() {
                                             <Image src={image} alt="preview" width={88} height={88} className="max-h-auto w-full border border-gray-500/[0.2] rounded"/>
                                         </div>
                                     }
-                                    <ImageToBase64 id={i.toString()} img={image} fullname={(data?.title || v7()) + i.toString()} setImg={(img) => changeImage(i, img)} />
+                                    <ImageToBase64 id={i.toString()} img={image} fullname={(data?.title) + i.toString()} setImg={(img) => changeImage(i, img)} />
                                     
                                 </div>
                             ) )
                         }
-                            <div className="relative flex flex-col justify-center items-center gap-1 w-[100%] border border-dashed border-gray-300 rounded-lg bg-slate-300 dark:bg-black p-2">
-                                <TbCameraPlus size={16}/>
-                                <Button size="small" variant="tetiary" className="bg-transparent border-transparent" onClick={() =>  setData({ ...data, images: data?.images ? [...data?.images, "" ] : [""]})}>Add photos</Button>  
-                            </div>
+                        {
+                            data?.title ?
+                                <div className="relative flex flex-col justify-center items-center gap-1 w-[100%] border border-dashed border-gray-300 rounded-lg bg-slate-300 dark:bg-black p-2">
+                                    <TbCameraPlus size={16}/>
+                                    <Button size="small" variant="tetiary" className="bg-transparent border-transparent" onClick={() =>  setData({ ...data, images: data?.images ? [...data?.images, "" ] : [""]})}>Add photos</Button>  
+                                </div>
+                            :
+                            ""
+                        }
+                            
                         </div>
                         </div>
                         <Input id="category" label="Category" onChange={(e) => setData({ ...data, category: e.target.value })} placeholder="Enter product category" />
