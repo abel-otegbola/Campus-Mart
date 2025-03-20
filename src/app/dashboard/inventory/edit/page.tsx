@@ -11,8 +11,6 @@ import { storeContext } from "@/context/useStore";
 import { useSearchParams } from "next/navigation";
 import { getSingleProduct } from "@/actions/useProducts";
 import { TbCameraPlus } from "react-icons/tb";
-import TextEditor from "@/components/editor/editor";
-import { v7 } from "uuid"
 
 export default function Userproducts() {
     const [data, setData] = useState<IProduct>({} as IProduct)
@@ -29,10 +27,10 @@ export default function Userproducts() {
                 }
                 else {
                     setData(response)
-                    console.log(response, id)
                 }
             })
             .catch((error: { message: string }) => {
+                console.log(error)
             });
         }
     }, [id])
@@ -61,6 +59,7 @@ export default function Userproducts() {
         const newData = { ...data, images: data?.images.filter(item => item !== img) }
         setData(newData)
     }
+
 
     return (
         
@@ -107,7 +106,7 @@ export default function Userproducts() {
                         <Input id="price" label="Price" value={data?.price} onChange={(e) => setData({ ...data, price: e.target.value })} placeholder="Enter product price" /> 
                         <div className="flex flex-col gap-1 mb-12">
                             <p>Product descriptions:</p>
-                            <TextEditor text={data?.description} setText={(value) => setData({ ...data, description: value })} />
+                            <Textarea value={data?.description} placeholder="Enter your product description" onChange={(e) => setData({ ...data, description: e.target.value })} />
                         </div>
                         {/* <div className="flex flex-col gap-2 mb-4">
                             <label htmlFor="tags">Tags</label>
