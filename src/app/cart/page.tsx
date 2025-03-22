@@ -20,7 +20,7 @@ export default function CartPage() {
             </div>
 
 
-            <div className="flex flex-wrap items-start gap-6 md:px-[8%] px-6 py-4">
+            <div className="flex flex-wrap items-start gap-6 md:px-[9%] px-6 py-4">
                 <div className="lg:w-[60%] flex flex-col gap-2">
                 {   
                     cart.length === 0 ?
@@ -59,7 +59,7 @@ export default function CartPage() {
                 }
                 </div>
                 
-                <div className="sm:sticky top-4 gap-2 md:w-[30%] w-[100%] rounded-[20px] p-6 bg-gray-300/[0.08] dark:bg-dark">
+                <div className="sm:sticky top-[90px] gap-2 md:w-[30%] w-[100%] rounded-[8px] p-6 bg-gray-300/[0.08] dark:bg-dark border border-gray-500/[0.1]">
                     <h2 className="text-[16px] uppercase font-bold">Summary</h2>
                     <div className="flex flex-col gap-2 py-6">
                         <div className="flex justify-between items-center">

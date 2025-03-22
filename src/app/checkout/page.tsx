@@ -32,13 +32,13 @@ export default function CheckoutPage() {
     return (
         <div className="flex flex-col gap-6">
 
-            <div className="flex flex-col items-center md:px-[10%] px-6 py-12 bg-slate-100 dark:bg-dark">
+            <div className="flex flex-col items-center md:px-[8%] px-6 py-12 bg-slate-100 dark:bg-dark">
                 <h2 className="font-bold text-[28px] uppercase">Checkout</h2>
-                <p>Buy ({cart.length} items) now</p>
+                <p>Buy ({cart.length} { cart.length === 1 ? "item" : "items" }) now</p>
             </div>
 
-            <div className="flex flex-wrap items-start gap-6 md:px-[8%] px-6 py-4">
-                <div className="lg:w-[60%] w-full flex flex-col gap-2">
+            <div className="flex flex-wrap items-start gap-6 md:px-[9%] px-6 py-4">
+                <div className="lg:w-[60%] w-full flex flex-col gap-2 md:p-6 md:border border-gray-500/[0.2] rounded-[8px]">
                     <Formik
                         initialValues={{ country: '', address: '', note: '' }}
                         validationSchema={checkoutSchema}
@@ -77,8 +77,18 @@ export default function CheckoutPage() {
                             <form onSubmit={handleSubmit} className="flex flex-col w-full gap-6">
                                 <div className="flex flex-col gap-4">
                                     <p className="text-[18px] font-medium">Delivery Information</p>
-                                    <Input name="fullname" label="Fullname" value={user?.fullname || ""} placeholder="Enter your fullname" />
-                                    <Input name="email" label="Email Address" value={user?.email || ""} placeholder="Enter your Email address" />
+                                    {
+                                        !user ?
+                                        <div className="flex flex-col gap-4 p-4 rounded bg-gray-100/[0.3] dark:bg-dark border border-gray-500/[0.1]">
+                                            <p>Please login to place an order</p>
+                                            <Button href="/login" size="small" variant="secondary">Signin</Button>
+                                        </div>
+                                        :
+                                        <>
+                                            <Input name="fullname" label="Fullname" value={user?.fullname || ""} placeholder="Enter your fullname" />
+                                            <Input name="email" label="Email Address" value={user?.email || ""} placeholder="Enter your Email address" />
+                                        </>
+                                    }
                                 </div>
                                 <div className="flex flex-col gap-4">
                                     <p className="text-[18px] font-medium">Shipping Address</p>
@@ -86,13 +96,13 @@ export default function CheckoutPage() {
                                     <Input name="address" label="Address (Street, City and State)" value={values.address} onChange={handleChange} type="text" error={touched.address ? errors.address : ""} placeholder="Address" leftIcon={<MapPin size={16}/>}/>
                                     <Textarea name="note" label="Order notes" value={values.note} onChange={handleChange} error={touched.note ? errors.note : ""} placeholder="Write short note to include in your order" leftIcon={<NotePencil size={16}/>}/>
                                 </div>
-                                <Button className="w-full" disabled={isSubmitting} >{ isSubmitting || loading ? <LoaderIcon/> : "Place order" }</Button>
+                                <Button className="w-full" disabled={isSubmitting || !user} >{ isSubmitting || loading ? <LoaderIcon/> : "Place order" }</Button>
                             </form>
                         )}
                         </Formik>
                 </div>
                 
-                <div className="sm:sticky top-4 gap-2 md:w-[30%] w-[100%] rounded-[20px] p-6 bg-gray-300/[0.08] dark:bg-dark">
+                <div className="sm:sticky top-[90px] gap-2 md:w-[30%] w-[100%] rounded-[8px] p-6 bg-gray-300/[0.08] dark:bg-dark border border-gray-500/[0.1]">
                     <h2 className="text-[16px] uppercase font-bold">Summary</h2>
                     <div className="flex flex-col gap-2 py-6">
                         <div className="flex justify-between items-center">
