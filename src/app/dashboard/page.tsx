@@ -1,10 +1,7 @@
 'use client'
 
 import { PiWatchLight } from "react-icons/pi";
-// import { FiCalendar, FiShoppingBag } from "react-icons/fi";
 import Avatar from "@/components/avatar/avatar";
-// import { currencyFormatter } from "@/helpers/currencyFormatter";
-// import Button from "@/components/button/button";
 import { useSession } from "next-auth/react";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@/context/useAuth";
@@ -19,8 +16,7 @@ function DashboardHome() {
     const { user } = useContext(AuthContext)
 
     return (
-        <>
-        
+        <div>
                 <div className="flex flex-col gap-4 w-full rounded md:border border-gray-500/[0.1] min-h-[70vh] pb-4 md:bg-slate-100/[0.2] md:dark:bg-dark/[0.3]">
                     
                     {
@@ -48,15 +44,17 @@ function DashboardHome() {
                         <BalanceCard title="Withdrawn" amount={0.00}  />
                     </div>
 
-                    <div className="grid xl:grid-cols-2 md:grid-cols-1 sm:grid-cols-2 md:px-4 pb-4 md:gap-4 gap-2">
-                        <div className="flex flex-col gap-2 p-4 border border-gray-500/[0.2] rounded bg-white dark:bg-black">
-                            <div className="w-full pb-2 flex flex-col gap-2 border-b border-gray-500/[0.1]">
+                    <div className="w-full grid xl:grid-cols-2 md:grid-cols-1 sm:grid-cols-2 md:px-4 pb-4 md:gap-4 gap-2">
+                        <div className="flex flex-col gap-2 border border-gray-500/[0.2] rounded bg-white dark:bg-black">
+                            <div className="w-full pb-2 flex flex-col gap-2 border-b border-gray-500/[0.1] p-4">
                                 <h2 className="font-medium text-[16px]">Overview</h2>
                             </div>
-                            <SubmissionChart submissions={[ ["3", "5", "2", "6", "2", "3"], ["1", "2", "4", "3", "5", "6"] ]} />
+                            <div className="p-4">
+                                <SubmissionChart submissions={[ ["3", "5", "2", "6", "2", "3"], ["1", "2", "4", "3", "5", "6"] ]} />
+                            </div>
                         </div>
-                        <div className="flex flex-col gap-2 p-4 border border-gray-500/[0.2] rounded bg-white dark:bg-black">
-                            <div className="w-full pb-2 flex flex-col gap-2 border-b border-gray-500/[0.1]">
+                        <div className="flex flex-col gap-2 border border-gray-500/[0.2] rounded bg-white dark:bg-black">
+                            <div className="w-full pb-2 flex flex-col gap-2 border-b border-gray-500/[0.1] p-4">
                                 <h2 className="font-medium text-[16px]">Recent Orders</h2>
                             </div>
                             <div className="overflow-x-auto w-full">
@@ -94,7 +92,7 @@ function DashboardHome() {
                     </>
                 }
                 </div>
-        </>
+        </div>
     )
 }
 
