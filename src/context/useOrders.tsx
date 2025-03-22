@@ -23,9 +23,9 @@ export default function OrderContextProvider({ children }: {children: React.Reac
     const [loading, setLoading] = useState(false);
     const router = useRouter()
 
-    const getUserOrders = (fullname: string) => {
+    const getUserOrders = (email: string) => {
         setLoading(true)
-        getAllUserOrders(fullname)
+        getAllUserOrders(email)
         .then((response) => {
             setLoading(false)
             if(response?.error) {

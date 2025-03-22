@@ -40,6 +40,17 @@ export const getAllProducts = async () => {
     }
 }
 
+export const getShuffledProducts = async (size: number) => {
+    try {
+        await connectDB();
+        const findResult = await Products.aggregate([{ $sample: { size } }])
+        return JSON.parse(JSON.stringify(findResult))
+    }
+    catch(e){
+        
+    }
+}
+
 export const getAllBusinessProducts = async (store: string) => {
     try {
         await connectDB();

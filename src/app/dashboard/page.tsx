@@ -9,31 +9,14 @@ import { useSession } from "next-auth/react";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@/context/useAuth";
 import Button from "@/components/button/button";
-import { currencyFormatter } from "@/helpers/currencyFormatter";
 import SubmissionChart from "@/components/charts/overviewChart";
 import BalanceCard from "@/components/cards/balanceCard";
-import DataTable from "@/components/tables/dataTable";
-import { OrderContext } from "@/context/useOrders";
+import BusinessOrdersTable from "@/components/tables/businessOrdersTable";
+import UserOrdersTable from "@/components/tables/userOrdersTable";
 
 function DashboardHome() {
     const { data } = useSession()
     const { user } = useContext(AuthContext)
-    const [ loading, setLoading] = useState(false)
-    const { loading: isLoading, getBusinessOrders, orders } = useContext(OrderContext)
-
-    useEffect(() => {
-        if(user?.role === "seller") {
-            setLoading(true)
-            getBusinessOrders(user?.business_name || "")
-            setLoading(false)
-        }
-        else if (user?.role === "buyer") {
-            setLoading(true)
-            getBusinessOrders(user?.fullname || "")
-            setLoading(false)
-        }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user?.fullname])
 
     return (
         <>
@@ -76,7 +59,9 @@ function DashboardHome() {
                             <div className="w-full pb-2 flex flex-col gap-2 border-b border-gray-500/[0.1]">
                                 <h2 className="font-medium text-[16px]">Recent Orders</h2>
                             </div>
-                            <DataTable headers={["Date", "Products", "Total", "Status"]} data={orders} isLoading={isLoading || loading} />
+                            <div className="overflow-x-auto w-full">
+                                <BusinessOrdersTable />
+                            </div>
                         </div>
                     </div>
                     </>
@@ -103,7 +88,7 @@ function DashboardHome() {
                             <div className="w-full pb-2 flex flex-col gap-2 border-b border-gray-500/[0.1]">
                                 <h2 className="font-medium text-[16px]">Orders</h2>
                             </div>
-                            <DataTable headers={["Date", "Products", "Total", "Status"]} data={orders} isLoading={isLoading || loading} />
+                            <UserOrdersTable />
                         </div>
                     </div>
                     </>

@@ -1,13 +1,35 @@
 'use client'
 
+import { getShuffledProducts } from "@/actions/useProducts";
 import ProductCard from "@/components/cards/productCard";
 import Slider from "@/components/slider/slider";
 import { storeContext } from "@/context/useStore";
-import { useContext } from "react";
+import { shuffleArray } from "@/helpers/shuffleProdcts";
+import { IProduct } from "@/interface/store";
+import { useContext, useEffect, useState } from "react";
 
 export default function Home() {
-  const { products } = useContext(storeContext)
+  const [loading, setLoading] = useState(true)
+  const [products, setProducts] = useState([] as IProduct[])
   
+  useEffect(() => {
+    setLoading(true)
+    getShuffledProducts(10)
+    .then((response) => {
+        setLoading(false)
+        if(response?.error) {
+            setLoading(false)                    
+        }
+        else {
+            setProducts(response)
+            setLoading(false)
+        }
+    })
+    .catch((error: { message: string }) => {
+        setLoading(false)
+    });
+  }, [])
+
   return (
     <main className="">
 
@@ -21,12 +43,11 @@ export default function Home() {
 
         <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4">
           {
-            products.map(product => (
+            shuffleArray(products).map(product => (
               <ProductCard key={product._id} product={product} />
             ))
           }
         </div>
-
       </section>
       
     </main>

@@ -45,7 +45,7 @@ export default function CheckoutPage() {
                         onSubmit={( values, { setSubmitting }) => {
                             addOrder({ 
                                 shipping_address: {country: values.country, address: values.address, zip: ""}, 
-                                customer_email: user?.email || "",  
+                                customer_email: data?.user?.email || "",  
                                 order_status: "pending", 
                                 order_notes: values.note,
                                 shipping_charges: 2000,
@@ -78,15 +78,21 @@ export default function CheckoutPage() {
                                 <div className="flex flex-col gap-4">
                                     <p className="text-[18px] font-medium">Delivery Information</p>
                                     {
-                                        !user ?
+                                        !data?.user ?
                                         <div className="flex flex-col gap-4 p-4 rounded bg-gray-100/[0.3] dark:bg-dark border border-gray-500/[0.1]">
                                             <p>Please login to place an order</p>
                                             <Button href="/login" size="small" variant="secondary">Signin</Button>
                                         </div>
                                         :
+                                        data?.user.role === "Seller" ?
+                                        <div className="flex flex-col gap-4 p-4 rounded bg-gray-100/[0.3] dark:bg-dark border border-gray-500/[0.1]">
+                                            <p>To place an order, please log in to your buyer account</p>
+                                            <Button href="/login" size="small" variant="secondary">Signin as buyer</Button>
+                                        </div>
+                                        :
                                         <>
-                                            <Input name="fullname" label="Fullname" value={user?.fullname || ""} placeholder="Enter your fullname" />
-                                            <Input name="email" label="Email Address" value={user?.email || ""} placeholder="Enter your Email address" />
+                                            <Input name="fullname" label="Fullname" defaultValue={user?.fullname || data?.user.fullname || ""} placeholder="Enter your fullname" />
+                                            <Input name="email" label="Email Address" value={user?.email || data?.user.email || ""} placeholder="Enter your Email address" />
                                         </>
                                     }
                                 </div>
@@ -96,7 +102,7 @@ export default function CheckoutPage() {
                                     <Input name="address" label="Address (Street, City and State)" value={values.address} onChange={handleChange} type="text" error={touched.address ? errors.address : ""} placeholder="Address" leftIcon={<MapPin size={16}/>}/>
                                     <Textarea name="note" label="Order notes" value={values.note} onChange={handleChange} error={touched.note ? errors.note : ""} placeholder="Write short note to include in your order" leftIcon={<NotePencil size={16}/>}/>
                                 </div>
-                                <Button className="w-full" disabled={isSubmitting || !user} >{ isSubmitting || loading ? <LoaderIcon/> : "Place order" }</Button>
+                                <Button className="w-full" disabled={isSubmitting || !data?.user || data?.user?.role === "Seller"} >{ isSubmitting || loading ? <LoaderIcon/> : "Place order" }</Button>
                             </form>
                         )}
                         </Formik>
