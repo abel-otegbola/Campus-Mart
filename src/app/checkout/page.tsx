@@ -32,7 +32,7 @@ export default function CheckoutPage() {
     return (
         <div className="flex flex-col gap-6">
 
-            <div className="flex flex-col items-center md:px-[8%] px-6 py-12 bg-slate-100 dark:bg-dark">
+            <div className="flex flex-col items-center md:px-[10%] px-6 py-12 bg-slate-100 dark:bg-dark">
                 <h2 className="font-bold text-[28px] uppercase">Checkout</h2>
                 <p>Buy ({cart.length} items) now</p>
             </div>
@@ -75,11 +75,17 @@ export default function CheckoutPage() {
                             isSubmitting,
                         }) => (
                             <form onSubmit={handleSubmit} className="flex flex-col w-full gap-6">
-                                <p className="text-[18px] font-medium">Shipping Address</p>
-                                <Input name="country" label="Country" value={values.country} onChange={handleChange} type="text" error={touched.country ? errors.country : ""} placeholder="Country" leftIcon={<Globe size={16}/>}/>
-                                <Input name="address" label="Address (Street, City and State)" value={values.address} onChange={handleChange} type="text" error={touched.address ? errors.address : ""} placeholder="Address" leftIcon={<MapPin size={16}/>}/>
-                                <Textarea name="note" label="Order notes" value={values.note} onChange={handleChange} error={touched.note ? errors.note : ""} placeholder="Write short note to include in your order" leftIcon={<NotePencil size={16}/>}/>
-
+                                <div className="flex flex-col gap-4">
+                                    <p className="text-[18px] font-medium">Delivery Information</p>
+                                    <Input name="fullname" label="Fullname" value={user?.fullname || ""} placeholder="Enter your fullname" />
+                                    <Input name="email" label="Email Address" value={user?.email || ""} placeholder="Enter your Email address" />
+                                </div>
+                                <div className="flex flex-col gap-4">
+                                    <p className="text-[18px] font-medium">Shipping Address</p>
+                                    <Input name="country" label="Country" value={values.country} onChange={handleChange} type="text" error={touched.country ? errors.country : ""} placeholder="Country" leftIcon={<Globe size={16}/>}/>
+                                    <Input name="address" label="Address (Street, City and State)" value={values.address} onChange={handleChange} type="text" error={touched.address ? errors.address : ""} placeholder="Address" leftIcon={<MapPin size={16}/>}/>
+                                    <Textarea name="note" label="Order notes" value={values.note} onChange={handleChange} error={touched.note ? errors.note : ""} placeholder="Write short note to include in your order" leftIcon={<NotePencil size={16}/>}/>
+                                </div>
                                 <Button className="w-full" disabled={isSubmitting} >{ isSubmitting || loading ? <LoaderIcon/> : "Place order" }</Button>
                             </form>
                         )}
@@ -99,11 +105,11 @@ export default function CheckoutPage() {
                         </div>
                         <div className="flex justify-between items-center">
                             <p>Discount</p>
-                            <p>{currencyFormatter(cart.length !== 0 ? 1000 : 0)}</p>
+                            <p>{currencyFormatter(0)}</p>
                         </div>
                         <div className="flex justify-between items-center">
                             <p>Total</p>
-                            <p className="text-lg font-bold"><TotalPrice discount={cart.length !== 0 ? 1000 : 0} /></p>
+                            <p className="text-lg font-bold"><TotalPrice discount={0} /></p>
                         </div>
                     </div>
                     <Button href="/shop" variant="secondary" className="mb-4 w-full">Back to shop</Button>

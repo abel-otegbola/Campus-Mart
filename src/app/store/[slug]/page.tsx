@@ -17,7 +17,7 @@ function StorePage()  {
     const [ userData, setUserData ] = useState([] as UserData)
     const [loading, setLoading] = useState(false)
     const { slug } = useParams()
-    const search: string = typeof slug !== "string" ? "" : slug
+    const search: string = typeof slug !== "string" ? "" : decodeURIComponent(slug)
 
     useEffect(() => {
         if(search !== "") {

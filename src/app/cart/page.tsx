@@ -72,11 +72,11 @@ export default function CartPage() {
                         </div>
                         <div className="flex justify-between items-center">
                             <p>Discount</p>
-                            <p>{currencyFormatter(cart.length !== 0 ? 1000 : 0)}</p>
+                            <p>{currencyFormatter(0)}</p>
                         </div>
                         <div className="flex justify-between items-center">
                             <p>Total</p>
-                            <p className="text-lg font-bold"><TotalPrice discount={cart.length !== 0 ? 1000 : 0} /></p>
+                            <p className="text-lg font-bold"><TotalPrice discount={0} /></p>
                         </div>
                     </div>
                     <Button href="/checkout" disabled={cart.length === 0} className="mb-4 w-full">Proceed to checkout</Button>
