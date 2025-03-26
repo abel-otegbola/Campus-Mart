@@ -1,18 +1,16 @@
 'use client'
 import { useOutsideClick } from "@/helpers/useClickOutside";
-import { Bag, Bed, BeerBottle, Bicycle, Book, BookOpen, Briefcase, Bus, Car, Chair, Code, Coffee, File, FilmStrip, Football, GameController, GraduationCap, Guitar, Heart, House, Laptop, Palette, PawPrint, Pencil, ShirtFolded, Ticket, Watch, X } from "@phosphor-icons/react";
+import { X } from "@phosphor-icons/react";
 import Link from "next/link";
-import { PiDiamond } from "react-icons/pi";
-import { TbPerfume } from "react-icons/tb";
 
 export default function Categories({ open, setOpen }: {open: boolean, setOpen: (aug0: boolean) => void}) {
 
     const categories = [
-      { id: 8, title: "Clothing", icon: <ShirtFolded /> },
-      { id: 14, title: "Gadgets", icon: <Watch /> },
-      { id: 16, title: "Jewellery and Accessories", icon: <PiDiamond /> },
-      { id: 19, title: "Perfumes and Scents", icon: <TbPerfume /> },
-      { id: 22, title: "Rending Services (CAC, SCRUM registration)", icon: <File /> },
+      { id: 8, title: "Clothing"},
+      { id: 14, title: "Gadgets" },
+      { id: 16, title: "Jewellery and Accessories" },
+      { id: 19, title: "Perfumes and Scents" },
+      { id: 22, title: "Rending Services (CAC, SCRUM registration)" },
   ];
 
     const modalRef = useOutsideClick(setOpen, false)
@@ -26,7 +24,6 @@ export default function Categories({ open, setOpen }: {open: boolean, setOpen: (
                   <Link href={"/shop?query=" + option.title} tabIndex={1} key={option.id} 
                     className={`p-4 py-2 flex w-full items-center cursor-pointer gap-2 mb-[2px] hover:text-primary bg-white dark:bg-dark/[0.08]`}
                   >
-                    <span className="">{option.icon}</span>
                     {option.title}
                   </Link>
                 ))

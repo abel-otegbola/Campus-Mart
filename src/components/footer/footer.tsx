@@ -23,14 +23,14 @@ function Footer() {
                 <ul className="flex flex-col gap-[20px] justify-center">
                     <h2 className="font-semibold md:text-[16px] text-[14px]">SUPPORTS</h2>
                     <li className=""><a href="/" className="py-[5px] w-full">Customer Support</a></li>
-                    <li className=""><a href="/about" className="py-[5px] w-full">FAQs</a></li>
-                    <li className=""><a href="/shop" className="py-[5px] w-full">Privacy Policy</a></li>
-                    <li className=""><a href="/contact" className="py-[5px] w-full">T&C</a></li>
+                    <li className=""><a href="/faqs" className="py-[5px] w-full">FAQs</a></li>
+                    <li className=""><a href="/privacy-policy" className="py-[5px] w-full">Privacy Policy</a></li>
+                    <li className=""><a href="/terms&conditions" className="py-[5px] w-full">T&C</a></li>
                 </ul>
                 <ul className="flex flex-col gap-[20px] justify-center">
                     <h2 className="font-semibold md:text-[16px] text-[14px]">OFFERS</h2>
-                    <li className=""><a href="/" className="py-[5px] w-full">New Buyer Code</a></li>
-                    <li className=""><a href="/about" className="py-[5px] w-full">Promo codes</a></li>
+                    <li className=""><a href="/offers" className="py-[5px] w-full">New Buyer Code</a></li>
+                    <li className=""><a href="/promo" className="py-[5px] w-full">Promo codes</a></li>
                 </ul>
                 <div className="flex flex-col gap-4">
                     <Link href="/" className="w-[70px] h-[30px] text-[#FF9100] rounded flex items-center md:text-[16px] text-[14px] font-bold">
@@ -39,9 +39,9 @@ function Footer() {
                     <a href="mailto:support@Support@campus-mart.com" className="block py-1">Support@campus-mart.com</a>
                     <ul className="">
                         <div className="flex flex-wrap gap-4 py-2 mb-4">
-                            <a href="https://facebook.com/" className="p-2 border border-gray-500/[0.4] rounded-full"><FacebookLogo size={18}/></a>
-                            <a href="https://twitter.com/" className="p-2 border border-gray-500/[0.4] rounded-full"><XLogo size={18}/></a>
-                            <a href="https://instagram.com/" className="p-2 border border-gray-500/[0.4] rounded-full"><InstagramLogo size={18}/></a>
+                            <a href="https://facebook.com/campusmart_" className="p-2 border border-gray-500/[0.4] rounded-full"><FacebookLogo size={18}/></a>
+                            <a href="https://x.com/campusmart_" className="p-2 border border-gray-500/[0.4] rounded-full"><XLogo size={18}/></a>
+                            <a href="https://instagram.com/campusmart_" className="p-2 border border-gray-500/[0.4] rounded-full"><InstagramLogo size={18}/></a>
                         </div>
                     </ul>
                 </div>

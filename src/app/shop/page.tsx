@@ -62,7 +62,7 @@ function Shop()  {
             </div>
             <div className={`relative dark:text-white md:px-[8%] mt-8 mb-8 md:flex gap-10`}>
                 <div className={`flex flex-col md:gap-6 gap-2 md:w-[30%] md:sticky fixed md:top-[90px] md:p-0 p-4 bg-white dark:bg-black top-0 left-0 h-full w-[70%] rounded text-[12px] md:z-[2] z-[90] duration-500 ${open ? "translate-x-[0]": "md:translate-x-[0] translate-x-[-130%]"}`}>
-                    <div onClick={() => setActive("Categories")}  className="w-full p-4 border border-gray-500/[0.1] bg-gray-300/[0.08] dark:bg-dark rounded-[10px]">
+                    <div onClick={() => setActive("Categories")}  className="w-full p-4 border border-gray-500/[0.1] dark:bg-dark rounded-[10px]">
                         <button className="uppercase font-medium flex justify-between items-center w-full">Categories { active === "Categories" ? <Minus /> : <Plus />}</button>
                         <div className={`overflow-y-auto w-full duration-500  ${ active === "Categories" ? "h-[350px]" : "h-0"} border-y border-gray-500/[0.1] mt-4`}>
                             <CategoriesCard />
