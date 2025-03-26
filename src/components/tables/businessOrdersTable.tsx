@@ -59,7 +59,7 @@ export default function BusinessOrdersTable() {
                     <td className="p-3"><Skeleton type="text" /></td>
                 </tr> :
                             
-            orders.flatMap(order => {
+            orders?.flatMap(order => {
             return order.order_items
               .filter(item => item.seller === user?.business_name)
               .map(item => ({

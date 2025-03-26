@@ -2,6 +2,7 @@
 
 import { getShuffledProducts } from "@/actions/useProducts";
 import ProductCard from "@/components/cards/productCard";
+import Skeleton from "@/components/skeleton/skeleton";
 import Slider from "@/components/slider/slider";
 import { storeContext } from "@/context/useStore";
 import { shuffleArray } from "@/helpers/shuffleProdcts";
@@ -43,6 +44,14 @@ export default function Home() {
 
         <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4">
           {
+             loading ?
+                [0, 1, 2, 3, 4].map(index => (
+                    <div key={index} className="flex flex-col gap-2">
+                        <Skeleton type="rectangle"/>
+                        <Skeleton type="paragraph"/>
+                    </div>
+                ))                                    
+            :
             shuffleArray(products).map(product => (
               <ProductCard key={product._id} product={product} />
             ))

@@ -1,6 +1,6 @@
 'use client'
 import { useOutsideClick } from "@/helpers/useClickOutside";
-import { X } from "@phosphor-icons/react";
+import { Plus, X } from "@phosphor-icons/react";
 import Link from "next/link";
 
 export default function Categories({ open, setOpen }: {open: boolean, setOpen: (aug0: boolean) => void}) {
@@ -17,15 +17,17 @@ export default function Categories({ open, setOpen }: {open: boolean, setOpen: (
 
     return (
         <div className={`fixed top-[0px] left-0 transition-all duration-700 bg-dark/[0.8] h-screen z-[2000] ${open ? "w-[100%]" : "w-[0%]"}`}>
-            <div ref={modalRef} className={`w-[300px] h-[100%] overflow-y-auto ${open ? "transition-x-[0]" : "transition-x-[-100%]"}  relative p-4 bg-white dark:bg-black dark:text-gray shadow-md duration-700 overflow-y-auto border border-gray-500/[0.2]`}>
-                <button className="p-4 bg-primary absolute top-0 right-0" onClick={() => setOpen(false)}><X /></button>
+            <div ref={modalRef} className={`w-[300px] h-[100%] py-8 overflow-y-auto ${open ? "transition-x-[0]" : "transition-x-[-100%]"}  relative p-4 bg-white dark:bg-black dark:text-gray shadow-md duration-700 overflow-y-auto border border-gray-500/[0.2]`}>
+              <p className="mb-8 py-4 border-b border-gray-500/[0.2]">CATEGORIES</p>
+                <button className={`p-4 bg-primary absolute top-0 right-0 text-white`} onClick={() => setOpen(false)}><X /></button>
               {
-                categories?.map((option) => (
-                  <Link href={"/shop?query=" + option.title} tabIndex={1} key={option.id} 
-                    className={`p-4 py-2 flex w-full items-center cursor-pointer gap-2 mb-[2px] hover:text-primary bg-white dark:bg-dark/[0.08]`}
-                  >
-                    {option.title}
-                  </Link>
+                categories?.map((category) => (
+                  <Link key={category.id} className="flex items-center justify-between hover:text-primary gap-2 h-[52px] border-b border-gray-500/[0.1]" href={`/shop?query=${category.title}`}>
+                    <div className="flex items-center gap-4">
+                        <p className="capitalize">{category.title}</p>
+                    </div>
+                    <Plus className="opacity-[0.5]" />
+                </Link>
                 ))
               }
             </div>

@@ -5,7 +5,7 @@ export default function PrivacyPage() {
                 <h2 className="font-bold text-[28px] uppercase">Privacy Policy</h2>
                 <p>Last updated: 26th March, 2025</p>
             </header>
-            <section className=" mx-auto py-8 max-w-4xl">
+            <section className=" mx-auto py-8 px-4 max-w-4xl">
                 <div className="flex flex-col gap-4 ">
                    <p>Welcome to Campous mart. We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your data when you use our website and services.</p>
                    <p>By accessing or using our platform, you agree to the terms of this Privacy Policy. If you do not agree, please do not use our services.</p>
