@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import User from "@/models/user";
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
+import Facebook from "next-auth/providers/facebook";
 
 const handler = NextAuth({
   secret: process.env.NEXT_AUTH_SECRET,
@@ -36,6 +37,10 @@ const handler = NextAuth({
       clientId: process.env.GOOGLE_ID || "",
       clientSecret: process.env.GOOGLE_SECRET || "",
       authorization: 'https://accounts.google.com/o/oauth2/v2/auth?prompt=consent&access_type=offline&response_type=code',
+    }),
+    Facebook({
+      clientId: process.env.FACEBOOK_ID || "",
+      clientSecret: process.env.FACEBOOK_SECRET || ""
     })
   ],
   session: {

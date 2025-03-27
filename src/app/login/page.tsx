@@ -66,8 +66,8 @@ export default function Loginpage() {
 
                         <div className="grid gap-4 grid-cols-2 w-full">
 
-                        <Button variant="tetiary" onClick={() => sociallogin("/dashboard")} className="w-full bg-white dark:bg-black border-gray-500/[0.2] w-full"><FacebookIcon width={16} />Facebook</Button>
-                        <Button variant="tetiary" onClick={() => sociallogin("/dashboard")} className="w-full bg-white dark:bg-black border-gray-500/[0.2] w-full"><GoogleIcon width={12} />Google</Button>
+                        <Button variant="tetiary" onClick={() => sociallogin("facebook")} className="w-full bg-white dark:bg-black border-gray-500/[0.2] w-full"><FacebookIcon width={16} />Facebook</Button>
+                        <Button variant="tetiary" onClick={() => sociallogin("google")} className="w-full bg-white dark:bg-black border-gray-500/[0.2] w-full"><GoogleIcon width={12} />Google</Button>
                         
                         </div>
                         <div>

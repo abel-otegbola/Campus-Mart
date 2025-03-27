@@ -17,7 +17,7 @@ type values = {
     setUser: (aug0: unknown) => void;
     login: (email: string, password: string, callbackUrl: string) => void; 
     signUp: (data: signupData) => void;
-    sociallogin: (type: string) => void;
+    sociallogin: (provider: string) => void;
     logOut: () => void;
     getUserData: (email: string) => void;
     updateUser: (email: string, data: UserData) => void;
@@ -68,10 +68,10 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
         });
     }
     
-    const sociallogin = async (callbackUrl: string) => {
+    const sociallogin = async (provider: string) => {
         setLoading(true)
         try {
-            await signIn("google", { callbackUrl: "/dashboard" });
+            await signIn(provider, { callbackUrl: "/dashboard" });
             setLoading(false)
         } catch (error) {
             console.error("Sign in failed:", error);
