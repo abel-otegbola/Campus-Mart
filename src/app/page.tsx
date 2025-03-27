@@ -35,8 +35,8 @@ export default function Home() {
     <main className="">
 
       <Slider images={[
-        { id: "0", src: "/bg4.png", text: "Get Your Order Delivered Personally to You Anytime" },
-        { id: "1", src: "/bg4.png", text: "Search and Order Quality Products at your Convenience" },
+        { id: "0", src: "/bg2.webp", text: "Get Your Order Delivered Personally to You Anytime" },
+        { id: "1", src: "/bg1.webp", text: "Search and Order Quality Products at your Convenience" },
       ]} />
 
       <section className="md:px-[8%] px-4 py-[20px]">
@@ -52,13 +52,18 @@ export default function Home() {
                     </div>
                 ))                                    
             :
-            shuffleArray(products).map(product => (
+            shuffleArray(products)?.map(product => (
               <ProductCard key={product._id} product={product} />
             ))
           }
         </div>
       </section>
       
+      <section className="md:px-[8%] px-4 py-[20px]">
+        <div className="">
+          
+        </div>
+      </section>
     </main>
   );
 }
