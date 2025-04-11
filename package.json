@@ -21,7 +21,7 @@
     "formik": "^2.4.6",
     "mongodb": "^6.12.0",
     "mongoose": "^8.9.5",
-    "next": "13.4.19",
+    "next": "^15.2.4",
     "next-auth": "^4.24.11",
     "nextjs-toploader": "^3.7.15",
     "postcss": "8.4.28",

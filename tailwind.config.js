@@ -22,6 +22,15 @@ module.exports = {
         'black': "#151417",
         'dark': "rgb(27, 33, 31)",
         'secondary-dark': "#0D6952"
+      },
+      animation: {
+        'infinite-scroll': 'infinite-scroll 15s linear infinite',
+      },
+      keyframes: {
+        'infinite-scroll': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-100%)' },
+        }
       }
     },
   },
