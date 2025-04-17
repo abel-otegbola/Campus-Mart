@@ -1,5 +1,5 @@
 import { useIsVisible } from "@/helpers/isVisible";
-import { ReactNode, useRef } from "react"
+import { ReactNode, useEffect, useRef, useState } from "react"
 
 interface AnimateProps {
     type?: "slideUp" | "slideDown" | "slideLeft" | "slideRight" | "blurIn" | "zoomIn"
@@ -7,9 +7,17 @@ interface AnimateProps {
     delay?: number,
     children: ReactNode
 }
+
 export default function Animate({ type, duration, delay, children }: AnimateProps) {
     const ref1 = useRef<HTMLDivElement>(null)
     const isVisible = useIsVisible(ref1);
+    const [hasAnimated, setHasAnimated] = useState(false);
+
+    useEffect(() => {
+        if (isVisible && !hasAnimated) {
+            setHasAnimated(true); // Lock the animation state
+        }
+    }, [isVisible, hasAnimated]);
 
     const animationStart = type === "slideUp" ? "opacity-[0] translate-y-[-60%]"
                         : type === "slideDown" ? "opacity-[0] translate-y-[60%]"
@@ -26,7 +34,7 @@ export default function Animate({ type, duration, delay, children }: AnimateProp
                         : "scale-100"
 
     return (
-        <div ref={ref1} className={`${isVisible ? animationEnd : animationStart}`} 
+        <div ref={ref1} className={`${hasAnimated ? animationEnd : animationStart}`} 
         style={{transitionDelay: `${delay || 500}ms`, transitionDuration: `${duration || 500}ms`}} >
             { children }
         </div>

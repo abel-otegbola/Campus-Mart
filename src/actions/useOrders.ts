@@ -87,3 +87,10 @@ export const deleteOrder = async (_id: string) => {
         }
     }
 }
+
+export const sendMessage = async (message: string, to: string) => {
+    fetch(`https://api.ultramsg.com/instance114368/messages/chat?token=${process.env.ULTRMSG_TOKEN}&to=${to}&body=${message}&priority=10`)
+    .then(response => {
+        return response
+    })
+}

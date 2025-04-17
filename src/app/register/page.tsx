@@ -5,12 +5,12 @@ import ImageToBase64 from "@/components/imageConverter/imageConverter";
 import Input from "@/components/input/input";
 import Radio from "@/components/radio/radio";
 import { AuthContext } from "@/context/useAuth";
-import { registerSchema } from "@/schema/auth";
-import { ArrowRight, Bag, Bed, BeerBottle, Bicycle, Book, BookOpen, Briefcase, Bus, Car, Chair, Code, Coffee, Envelope, File, FilmStrip, Football, GameController, GraduationCap, Guitar, Heart, House, ImageBroken, Laptop, LockKey, MapPin, Palette, PawPrint, Pencil, ShirtFolded, Spinner, Storefront, Ticket, Trash, User, UserCircle, UserFocus, Watch } from "@phosphor-icons/react";
+import { registerBuyerSchema, registerVendorSchema } from "@/schema/auth";
+import { ArrowRight, Bag, Bed, BeerBottle, Bicycle, Book, BookOpen, Briefcase, Bus, Car, Chair, Code, Coffee, Envelope, File, FilmStrip, Football, GameController, GraduationCap, Guitar, Heart, House, ImageBroken, Laptop, LockKey, MapPin, Palette, PawPrint, Pencil, Phone, ShirtFolded, Spinner, Storefront, Ticket, Trash, User, UserCircle, UserFocus, Watch } from "@phosphor-icons/react";
 import { Formik } from "formik";
 import Link from "next/link";
 import Image from "next/image";
-import { ReactNode, useContext, useState } from "react";
+import { ReactNode, useContext, useEffect, useState } from "react";
 import { TbPerfume } from "react-icons/tb";
 import { PiDiamond } from "react-icons/pi";
 
@@ -61,6 +61,9 @@ export default function Registerpage() {
         { id: 28, title: "Travel Accessories", icon: <Bus /> },
         { id: 29, title: "Furniture", icon: <Chair /> },
     ];
+    useEffect(() => {
+        console.log(flow)
+    }, [flow])
     
 
 
@@ -68,7 +71,7 @@ export default function Registerpage() {
         <div className="min-h-[400px] flex sm:items-center justify-between">
 
             <div className="flex w-full">
-                <div style={{ backgroundImage: "url('/bg-register.webp')" }} className="h-[100vh] w-[40%] md:block hidden bg-cover bg-center">
+                <div style={{ backgroundImage: "url('/bg-register.webp')" }} className="h-[100vh] sticky top-0 w-[40%] md:block hidden bg-cover bg-center">
                 </div>
                 <div className="sm:w-[550px] mx-auto w-full sm:p-12 p-6">
                     
@@ -85,14 +88,19 @@ export default function Registerpage() {
                         </div>
 
                         <Formik
-                            initialValues={{ fullname: '', email: '', password: '', business_name: '', business_category: '', business_location: '', img: ''}}
-                            validationSchema={registerSchema}
+                            initialValues={{ fullname: '', email: '', password: '', business_name: '', business_category: '', business_location: '', img: '', phone_number: ''}}
+                            validationSchema={flow === 1 ? registerVendorSchema : registerBuyerSchema}
                             onSubmit={( values, { setSubmitting }) => {
+                                console.log(values)
                                 if(flow === 1) {
-                                signUp(
-                                    {email: values.email.trim(), password: values.password, fullname: values.fullname, business_name: values.business_name.trim(), business_category: values.business_category, business_location: values.business_location, role: "Seller", img: values.img}
-                                );
-                                setSubmitting(false);
+                                    setFlow(2)
+                                    setSubmitting(false);
+                                }
+                                else if(flow === 2) {
+                                    signUp(
+                                        {email: values.email.trim(), password: values.password, fullname: values.fullname, business_name: values.business_name.trim(), business_category: values.business_category, business_location: values.business_location, role: "Seller", img: values.img}
+                                    );
+                                    setSubmitting(false);
                                 }
                                 else {
                                     if(active === "Yes") {
@@ -117,7 +125,7 @@ export default function Registerpage() {
                             }) => (
 
                                 <form onSubmit={handleSubmit} className="flex flex-col w-full gap-6 ">
-                                    <div className="relative h-[310px] flex gap-[5%] overflow-hidden">
+                                    <div className="relative h-[360px] flex gap-[5%] overflow-hidden">
                                         <div className={`w-full flex flex-col gap-5 absolute top-0 left-0 duration-500 ${flow === 0 ? "translate-x-[0]" : "translate-x-[-120%]"}`}>
                                             <Input name="fullname" label="Full Name" value={values.fullname} onChange={handleChange} type="text" error={touched.fullname ? errors.fullname : ""} placeholder="Full name" leftIcon={<UserCircle size={16}/>}/>
                                             <Input name="email" label="Email Address" value={values.email} onChange={handleChange} type="email" error={touched.email ? errors.email : ""} placeholder="Email Address" leftIcon={<Envelope size={16}/>}/>
@@ -135,11 +143,12 @@ export default function Registerpage() {
                                         </div>
                                         <div className={`w-full flex flex-col gap-5 absolute top-0 left-0 duration-500 ${flow === 1 ? "translate-x-[0]" : flow === 0 ? "translate-x-[120%]" : "translate-x-[-120%]"}`}>
                                             <Input name="business_name" label="Business Name" value={values.business_name} onChange={handleChange} type={"text"} error={touched.business_name ? errors.business_name : ""} placeholder="Enter your business name" leftIcon={<UserFocus size={16}/>}/>
-                                            <div className="grid grid-cols-2 gap-2">
-                                                <Dropdown name="business_category"  options={categories} label="Business Category" value={values.business_category} onChange={handleChange} error={touched.business_category ? errors.business_category : ""} placeholder="Choose your business category" />
-                                                <Input name="business_location" label="Business Location (Institution)" value={values.business_location} onChange={handleChange} type="text" error={touched.business_location ? errors.business_location : ""} placeholder="Enter business location" leftIcon={<MapPin size={16}/>}/>
-                                            </div>
-                                            <p className="-mb-4">Upload Profile Picture</p>
+                                            <Dropdown name="business_category"  options={categories} label="Business Category" value={values.business_category} onChange={(value) => setFieldValue("business_category", value)} error={touched.business_category ? errors.business_category : ""} placeholder="Choose your business category" />
+                                            <Input name="business_location" label="Business Location (Institution)" value={values.business_location} onChange={handleChange} type="text" error={touched.business_location ? errors.business_location : ""} placeholder="Enter business location" leftIcon={<MapPin size={16}/>}/>
+                                            <Input name="phone_number" label="Phone number" value={values.phone_number} onChange={handleChange} type="text" error={touched.phone_number ? errors.phone_number : ""} placeholder="Enter phone number" leftIcon={<Phone size={16}/>}/>
+                                        </div>
+                                        <div className={`w-full flex flex-col gap-1 absolute top-0 left-0 duration-500 ${flow === 2 ? "translate-x-[0]" : flow === 0 ? "translate-x-[120%]" : "translate-x-[-120%]"}`}>
+                                            <p className="mb-4">Upload Profile Picture</p>
                                             <div className="relative flex gap-6 items-center h-[100px] w-[100%] border border-dashed border-gray-300 rounded-lg">
                                                 { 
                                                    values.img === "" ? 
@@ -170,7 +179,7 @@ export default function Registerpage() {
                                             <span></span>
                                         }
                                         <Button type="submit" className="rounded-[80px]">
-                                            { isSubmitting || loading ? <Spinner size={16} className="animate-spin" /> : active === "No" ? "Submit" : flow === 1 ? "Finish" : "Next"}
+                                            { isSubmitting || loading ? <Spinner size={16} className="animate-spin" /> : active === "No" ? "Submit" : flow === 2 ? "Finish" : "Next"}
                                             <ArrowRight />
                                         </Button>
                                     </div>
