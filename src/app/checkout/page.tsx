@@ -14,15 +14,17 @@ import { checkoutSchema } from "@/schema/checkout";
 import { Globe, MapPin, NotePencil } from "@phosphor-icons/react";
 import { Formik } from "formik";
 import { useSession } from "next-auth/react";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LoaderIcon } from "react-hot-toast";
 import emailjs from "@emailjs/browser";
+import { searchAllStore } from "@/actions/useProfile";
 
 export default function CheckoutPage() {
     const { cart, products } = useContext(storeContext)
     const { loading, addOrder } = useContext(OrderContext)
     const { data } = useSession()
     const { getUserData, user } = useContext(AuthContext)
+    const [sellers, setSellers] = useState<{ name: string, email: string }[]>([])
 
     const orderProducts = products.filter((item: IProduct) => cart.map((item: ICart) => item.id).indexOf(item._id) !== -1 )
     const quantity = 
@@ -35,6 +37,21 @@ export default function CheckoutPage() {
     useEffect(() => {
         emailjs.init(process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY || "");
     }, []);
+
+    useEffect(() => {
+        searchAllStore()
+        .then((response) => {
+            if(response?.error) {                 
+            }
+            else {
+                setSellers(response.map((seller: { business_name: string, email: string }) => {
+                    return { name: seller.business_name, email: seller.email }
+                }))
+            }
+        })
+        .catch((error: { message: string }) => {
+        });
+    }, [])
     
     return (
         <div className="flex flex-col gap-6">
@@ -71,6 +88,9 @@ export default function CheckoutPage() {
                                     .reduce((a: number,v: { price: number }) => a = a + v.price, 0) - 1000
                                 })
                                 sendEmail({ phoneNumber: user?.phone_number || "", address: values.address, fullname: user?.fullname || "",  cart, email: data?.user.email || user?.email || "" }, user?.email || "", products, 'buyer')
+                                sellers.filter(item => orderProducts.map(product => product.store).indexOf(item?.name) !== -1 ).map(seller => (
+                                    sendEmail({ phoneNumber: user?.phone_number || "", address: values.address, fullname: user?.fullname || "",  cart, email: data?.user.email || user?.email || "" }, seller.email, products, 'seller')
+                                ))
                             setSubmitting(false);
                         }}
                         >
