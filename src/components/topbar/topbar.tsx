@@ -84,11 +84,11 @@ function Topbar() {
                     {/* <button className="p-4 lg:hidden rounded-full text-[16px] bg-primary z-[12]" onClick={() => setOpenSearch(false)}><X /></button> */}
                 {/* </div> */}
                 {/* <button className="p-2 lg:hidden text-[16px]" onClick={() => setOpenSearch(!openSearch)}>{ openSearch ? <X /> :<MagnifyingGlass /> }</button> */}
-                <Link href={data?.user ? "/dashboard": "/login"} className="md:flex hidden gap-1 items-center font-medium">
+                <Link href={data?.user ? "/dashboard": "/login"} className="md:flex hidden gap-1 items-center font-medium text-[12px]">
                     <User weight="light" size={20}/>
                     <span>Account</span>
                 </Link>
-                <Link href="/cart" className="md:flex hidden relative gap-1 items-center font-medium">
+                <Link href="/cart" className="md:flex hidden relative gap-1 items-center font-medium text-[12px]">
                     <ShoppingCart weight="light" size={20}/>
                     <span>Cart</span>
                     <span className="absolute text-[8px] -top-3 -right-3 px-2 py-1 rounded-full bg-green text-white">{cart.length}</span>

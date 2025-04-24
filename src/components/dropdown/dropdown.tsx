@@ -57,7 +57,7 @@ export default function Dropdown({ className, disabled, label, name, options, va
                     id={name}
                     onClick={() => setFocus(!focus)}
                     onChange={(e) => {setSearch(e.target.value); setUseSearch(true)}}
-                    onBlur={(e) => {onChange(e.target.value); setUseSearch(false)}}
+                    onBlur={(e) =>  setUseSearch(false)}
                 />
 
                 { error && !focus ? <p className="absolute right-2 px-2 text-[12px] bg-white dark:bg-dark backdrop-blur-sm">{error}</p> : "" }

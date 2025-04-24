@@ -77,7 +77,7 @@ export default function OrderContextProvider({ children }: {children: React.Reac
 
     const updateOrder = (data: IOrder) => {
         setLoading(true)
-        updateSingleOrder({...data, })
+        updateSingleOrder({...data})
         .then(response => {
             setLoading(false)
             if(response?.error) {

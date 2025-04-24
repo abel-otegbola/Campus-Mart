@@ -4,6 +4,7 @@ import { Heart } from "@phosphor-icons/react";
 import Link from "next/link";
 import { useContext } from "react";
 import Animate from "../animation/animate";
+import { currencyFormatter } from "@/helpers/currencyFormatter";
 
 export default function ProductCard({ product, i }: { product: IProduct, i?: number }) {
     const { wishlist, addToWishlist, removeFromWishlist } = useContext(storeContext)
@@ -31,18 +32,18 @@ export default function ProductCard({ product, i }: { product: IProduct, i?: num
                     </div>
                 </div>
                 <a href={`/product?id=${product._id}`} className="block pb-4 leading-[130%] font-semibold">{product?.title}</a>
-                {/* <div className="flex flex-col gap-3 text-[16px] opacity-[0.7] px-3">
+                <div className="flex flex-col gap-3 text-[16px] opacity-[0.7]">
                     {currencyFormatter(+product?.price)} 
 
-                    <div className="z-[2]">
+                    {/* <div className="z-[2]">
                     {
                         cart.map(item => item.id).indexOf(product._id) === -1 ? 
                         <Button variant="secondary" className="text-[12px] rounded-full w-full" onClick={() => addToCart({id: product._id, quantity: 1, variation: { color: "black", size: "LG" }})} >Add to Cart</Button> 
                         : 
                         <Button variant="secondary"  className="text-[12px] rounded-full w-full"  onClick={() => removeFromCart(product._id)} >Remove</Button>
                     }
-                    </div>
-                </div> */}
+                    </div> */}
+                </div>
         </div>
     )
 }

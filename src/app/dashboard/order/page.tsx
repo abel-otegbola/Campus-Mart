@@ -12,6 +12,10 @@ import { currencyFormatter } from "@/helpers/currencyFormatter"
 import { getSingleOrder } from "@/actions/useOrders"
 import { OrderContext } from "@/context/useOrders"
 import { IOrder } from "@/interface/orders"
+import { useSession } from "next-auth/react"
+import Input from "@/components/input/input"
+import Dropdown from "@/components/dropdown/dropdown"
+import { AuthContext } from "@/context/useAuth"
 
 export default function OrderSummary() {
     const searchParams = useSearchParams()
@@ -19,12 +23,18 @@ export default function OrderSummary() {
     const { updateOrder } = useContext(OrderContext)
     const [loading, setLoading] = useState(false)
     const [order, setOrder] = useState({} as IOrder)
+    const { user } = useContext(AuthContext)
+    const [status, setStatus] = useState(order?.order_status)
 
     const id = searchParams.get("id")
 
     const cancelOrder = () => {
         updateOrder({ ...order, order_status: "cancelled" })
         setLoading(true)
+    }
+
+    const handleStatus = (value: string) => {
+        updateOrder({ ...order, order_status: value })
     }
     
     useEffect(() => {
@@ -38,6 +48,7 @@ export default function OrderSummary() {
                 }
                 else {
                     setOrder(response)
+                    setStatus(response?.order_status)
                     setLoading(false)
                 }
             })
@@ -58,9 +69,9 @@ export default function OrderSummary() {
                     <div className="py-4 mb-4 border border-gray-200 dark:border-slate-100/[0.09]">
                         <div className="grid grid-cols-4 text-center text-md text-[12px] leading-[120%]">
                             {
-                                ["pending", "processing", "Delivered", "Completed"].map((status: string, i: number) => (
-                                    <div key={i} className={`relative flex flex-col gap-2 items-center ${i < 2 ? "text-emerald-600" : "text-gray-500/[0.4]"}`}>
-                                        <span className={`absolute h-[3px] ${i < 2 ? "bg-emerald-600" : "bg-gray-500/[0.2]"} top-[11px] left-0 ${i === 0 ? "w-[50%] left-[50%]" : i === 3 ? "w-[50%]" : "w-[100%] "}`}></span>
+                                ["pending", "processing", "delivered", "completed"].map((status: string, i: number) => (
+                                    <div key={i} className={`relative flex flex-col gap-2 items-center ${status ===  order?.order_status ? "text-emerald-600" : "text-gray-500/[0.4]"}`}>
+                                        <span className={`absolute h-[3px] ${status ===  order?.order_status ? "bg-emerald-600" : "bg-gray-500/[0.2]"} top-[11px] left-0 ${i === 0 ? "w-[50%] left-[50%]" : i === 3 ? "w-[50%]" : "w-[100%] "}`}></span>
                                         <PiCheckCircle className="relative text-[25px] rounded-full bg-white dark:bg-black z-[2]" /> 
                                         <span>{status}</span>
                                     </div>
@@ -75,7 +86,17 @@ export default function OrderSummary() {
                         </h2>
                         <h2 className="flex items-center justify-between gap-1 py-2 pb-4">
                             <span className="font-semibold">Status:</span> 
-                            <p className="text-orange-600">{loading ? "" : order?.order_status}</p>
+                            {
+                                user?.role === "Seller" ?
+                                <Dropdown placeholder="Update order status" value={status} onChange={handleStatus} options={[
+                                    { id: 0, title: "pending" },
+                                    { id: 1, title: "processing" },
+                                    { id: 2, title: "delivered" },
+                                    { id: 3, title: "completed" },
+                                ]}/>
+                                :
+                                <p className="text-orange-600">{loading ? "" : order?.order_status}</p>
+                            }
                         </h2>
                         <div className="pb-4 flex items-center justify-between gap-2">
                             <h3 className="font-semibold">Delivery: </h3>
@@ -87,7 +108,14 @@ export default function OrderSummary() {
                         </div>
                     </div>
             
-                    <Button className="w-full border-red-400/[0.5] text-red-500 hover:bg-red-500 hover:text-white" variant="tetiary" disabled={order.order_status === "cancelled"} onClick={() => cancelOrder()}><TbTrash /><span>Cancel Order</span></Button>
+                    <Button 
+                        className="w-full border-red-400/[0.5] text-red-500 hover:bg-red-500 hover:text-white" 
+                        variant="tetiary" 
+                        disabled={order.order_status === "cancelled" || order.order_status === "delivered" || order.order_status === "completed"} 
+                        onClick={() => cancelOrder()}>
+                            <TbTrash />
+                            <span>Cancel Order</span>
+                    </Button>
 
                 </div>
 
@@ -107,7 +135,10 @@ export default function OrderSummary() {
                                     products.filter((item: IProduct) => order?.order_items?.map(item => item.product_id).indexOf(item._id) !== -1 )
                                     .map((product: IProduct) => (
                                         <tr key={product._id} className="border border-gray-500/[0.2] border-x-transparent">
-                                            <td  className="py-2 gap-2"><Image src={product?.images[0]} width={30} height={40} alt={product.title} className="w-[30px] bg-gray-600 rounded" /> {product?.title}.</td>
+                                            <td  className="py-2 gap-2">
+                                                {/* <Image src={product?.images[0]} width={30} height={40} alt={product.title} className="w-[30px] bg-gray-600 rounded" />  */}
+                                                {product?.title}
+                                            </td>
                                             <td  className="py-2"><PiCurrencyNgn className="inline" /> {product?.price}.00</td>
                                             <td className="py-2">{order?.order_items?.filter(item => item.product_id === product?._id).map(item => item.quantity)}</td>
                                         </tr>

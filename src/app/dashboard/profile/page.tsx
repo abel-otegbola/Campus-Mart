@@ -84,10 +84,10 @@ export default function Profile() {
                     </div>
 
                     <div className="py-2 mb-1">
-                        <Input defaultValue={userData?.fullname || ""} label="Full name" leftIcon={<User />} onChange={(e) => setUserData({ ...userData, fullname: e.target.value })} />
+                        <Input defaultValue={userData?.fullname || data?.user.fullname || ""} label="Full name" leftIcon={<User />} onChange={(e) => setUserData({ ...userData, fullname: e.target.value })} />
                     </div>
                     <div className="py-2 mb-4">
-                        <Input disabled={true} defaultValue={userData?.email || ""} label="Email (Contact support to change your email address):" leftIcon={<Envelope />} onChange={(e) => setUserData({ ...userData, email: e.target.value })} />
+                        <Input disabled={true} defaultValue={userData?.email || data?.user.email || ""} label="Email (Contact support to change your email address):" leftIcon={<Envelope />} onChange={(e) => setUserData({ ...userData, email: e.target.value })} />
                     </div>
                     {
                         data?.user?.role === "Seller" || user?.role === "Seller" ?

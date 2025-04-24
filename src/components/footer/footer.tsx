@@ -39,9 +39,9 @@ function Footer() {
                     <a href="mailto:support@Support@campus-mart.com" className="block py-1">Support@campus-mart.com</a>
                     <ul className="">
                         <div className="flex flex-wrap gap-4 py-2 mb-4">
-                            <a href="https://facebook.com/campusmart_" className="p-2 border border-gray-500/[0.4] rounded-full"><FacebookLogo size={18}/></a>
-                            <a href="https://x.com/campusmart_" className="p-2 border border-gray-500/[0.4] rounded-full"><XLogo size={18}/></a>
-                            <a href="https://instagram.com/campusmart_" className="p-2 border border-gray-500/[0.4] rounded-full"><InstagramLogo size={18}/></a>
+                            <a href="https://www.facebook.com/people/Campux-Mart/61571552696858/?mibextid=ZbWKwL" className="p-2 border border-gray-500/[0.4] rounded-full"><FacebookLogo size={18}/></a>
+                            <a href="https://x.com/campuxmart" className="p-2 border border-gray-500/[0.4] rounded-full"><XLogo size={18}/></a>
+                            <a href="https://instagram.com/campuxmart" className="p-2 border border-gray-500/[0.4] rounded-full"><InstagramLogo size={18}/></a>
                         </div>
                     </ul>
                 </div>

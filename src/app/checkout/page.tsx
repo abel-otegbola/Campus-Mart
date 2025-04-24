@@ -1,6 +1,7 @@
 'use client'
 import Button from "@/components/button/button";
 import Input from "@/components/input/input";
+import FlutterwavePayment from "@/components/payments/flutterwave";
 import Textarea from "@/components/textarea/textarea";
 import TotalPrice from "@/components/totalPrice/totalPrice";
 import { AuthContext } from "@/context/useAuth";
@@ -41,7 +42,7 @@ export default function CheckoutPage() {
             <div className="flex flex-wrap items-start gap-6 md:px-[9%] px-6 py-4">
                 <div className="lg:w-[60%] w-full flex flex-col gap-2 md:p-6 md:border border-gray-500/[0.2] rounded-[8px]">
                     <Formik
-                        initialValues={{ country: '', address: '', note: '' }}
+                        initialValues={{ phone_number: '', country: '', address: '', note: '' }}
                         validationSchema={checkoutSchema}
                         onSubmit={( values, { setSubmitting }) => {
                             addOrder({ 
@@ -104,7 +105,15 @@ export default function CheckoutPage() {
                                     <Input name="address" label="Address (Street, City and State)" value={values.address} onChange={handleChange} type="text" error={touched.address ? errors.address : ""} placeholder="Address" leftIcon={<MapPin size={16}/>}/>
                                     <Textarea name="note" label="Order notes" value={values.note} onChange={handleChange} error={touched.note ? errors.note : ""} placeholder="Write short note to include in your order" leftIcon={<NotePencil size={16}/>}/>
                                 </div>
-                                <Button className="w-full" disabled={isSubmitting || !data?.user || data?.user?.role === "Seller"} >{ isSubmitting || loading ? <LoaderIcon/> : "Place order" }</Button>
+                                
+                                <div className="flex flex-col gap-4">
+                                    <p className="text-[18px] font-medium">Payment Options</p>
+                                    <FlutterwavePayment amount={products?.filter((item: IProduct) => cart.map((item: ICart) => item.id).indexOf(item._id) !== -1 )
+                                        .map((product: IProduct) => {return {price: +product?.price * cart.filter((item: ICart) => item.id === product?._id)[0]?.quantity}})
+                                        .reduce((a: number,v: { price: number }) => a = a + v.price, 0) - 1000
+                                    } customer={{ email: data?.user?.email || "", phone_number: values.phone_number, name: data?.user.fullname || "" }} />
+                                </div>
+                                <Button className="w-full" disabled={isSubmitting || !data?.user || data?.user?.role === "Seller"} >{ isSubmitting || loading ? <LoaderIcon/> : "Complete Checkout" }</Button>
                             </form>
                         )}
                         </Formik>
