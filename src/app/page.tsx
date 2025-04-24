@@ -49,7 +49,7 @@ export default function Home() {
   return (
     <main className="">
 
-      <Slider {...settings} className="w-full rounded-lg w-full h-full">
+      <Slider {...settings} className="w-full h-full overflow-hidden">
       {
         [
           { id: "0", src: "/bg2.webp", text: "Get Your Order Delivered Personally to You Anytime" },

@@ -16,6 +16,7 @@ import { Formik } from "formik";
 import { useSession } from "next-auth/react";
 import { useContext, useEffect } from "react";
 import { LoaderIcon } from "react-hot-toast";
+import emailjs from "@emailjs/browser";
 
 export default function CheckoutPage() {
     const { cart, products } = useContext(storeContext)
@@ -30,6 +31,10 @@ export default function CheckoutPage() {
         getUserData(data?.user?.email || "")
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data])
+    
+    useEffect(() => {
+        emailjs.init(process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY || "");
+    }, []);
     
     return (
         <div className="flex flex-col gap-6">
