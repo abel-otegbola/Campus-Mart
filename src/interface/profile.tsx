@@ -12,6 +12,7 @@ export interface UserData {
     business_category?: string,
     business_location?: string,
     img?: string;
+    phone_number?: string;
     socialLinks?: { whatsapp?: string, instagram?: string, x?: string, facebook?: string }
 }
 

@@ -5,13 +5,14 @@ import Animate from "@/components/animation/animate";
 import Button from "@/components/button/button";
 import ProductCard from "@/components/cards/productCard";
 import Skeleton from "@/components/skeleton/skeleton";
-import InfiniteScroll from "@/components/slider/infiniteScroll";
-import Slider from "@/components/slider/slider";
-import { storeContext } from "@/context/useStore";
+import InfiniteScroll from "@/components/slider/infiniteScroll"
 import { shuffleArray } from "@/helpers/shuffleProdcts";
 import { IProduct } from "@/interface/store";
 import Image from "next/image";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 export default function Home() {
   const [loading, setLoading] = useState(true)
@@ -35,13 +36,50 @@ export default function Home() {
     });
   }, [])
 
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+};
+
   return (
     <main className="">
 
-      <Slider images={[
-        { id: "0", src: "/bg2.webp", text: "Get Your Order Delivered Personally to You Anytime" },
-        { id: "1", src: "/bg1.webp", text: "Search and Order Quality Products at your Convenience" },
-      ]} />
+      <Slider {...settings} className="w-full rounded-lg w-full h-full">
+      {
+        [
+          { id: "0", src: "/bg2.webp", text: "Get Your Order Delivered Personally to You Anytime" },
+          { id: "1", src: "/bg1.webp", text: "Search and Order Quality Products at your Convenience" },
+        ].map((img, index) => (
+              <div
+                  key={img.id}
+                  className={`relative flex flex-col gap-4 justify-center md:px-[8%] px-4 pb-[3%] top-0 md:h-[340px] h-[240px]`}
+                  
+              >
+              <Image alt={img.src} key={index} fill={true} className={`absolute top-0 left-0 w-full h-full bg-cover bg-center object-cover`} 
+                  src={img.src}
+              />
+                <div className="h-full flex flex-col gap-4 justify-center">
+                  <div className="md:text-[28px] md:text-[20px] text-[18px] font-medium md:w-[60%] text-white w-[75%]">
+                      <Animate type="slideLeft">
+                          {img?.text}
+                      </Animate>
+                  </div>
+                  <Animate type='slideUp'>
+                      <Button href="/shop" className="rounded-full">
+                          ORDER NOW
+                      </Button>
+                  </Animate>
+                </div>
+              </div>
+
+          ))     
+      }
+      </Slider>
 
       <section className="md:px-[8%] px-4 py-[20px]">
         <Animate type="slideUp">
@@ -70,9 +108,6 @@ export default function Home() {
           <h2 className="font-medium md:text-[24px] text-[18px]">Find Your Masterpiece</h2>
         </Animate>
         <div className="flex justify-between items-center flex-wrap gap-4">
-          <Animate type="slideUp">
-            <p className="md:w-[60%] w-full">A vibrant marketplace where vendors display quality products → buyers discover endless shopping possibilities</p>
-          </Animate>
           <Button href={"/login"} variant="secondary" className="border-black dark:border-gray-500/[0.3] text-black dark:text-white rounded-[40px] md:text-[12px] text-[10px]">
             JOIN NOW
           </Button>
@@ -82,7 +117,7 @@ export default function Home() {
 
       <section>
         <Animate type="zoomIn">
-          <div className="flex flex-col justify-between relative w-full h-[600px] bg-cover bg-center text-white" style={{ backgroundImage: 'url("/bg3.png")' }}>
+          <div className="flex flex-col justify-between relative w-full h-[600px] bg-cover bg-center text-white" style={{ backgroundImage: 'url("/bg3.webp")' }}>
             <InfiniteScroll texts={[ 
               { title: "folders", text: "Folders - Organize your dcuments with style" } ,
               { title: "journals", text: "Journals - Write your thoughts, ideas and dreams" } ,
@@ -106,9 +141,9 @@ export default function Home() {
           <Animate type="slideUp">
             <h2 className="font-medium md:text-[24px] text-[18px]">Buy Gadgets</h2>
           </Animate>
-          <Animate type="slideUp">
-            <p className="md:w-[50%] w-full">A vibrant marketplace where vendors display quality products buyers discover endless shopping possibilities</p>
-          </Animate>
+          {/* <Animate type="slideUp">
+            <p className="md:w-[50%] w-full"></p>
+          </Animate> */}
         </div>
         <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 py-6">
           {

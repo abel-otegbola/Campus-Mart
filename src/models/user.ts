@@ -11,7 +11,8 @@ export interface UserDocument extends UserData {
     business_name?: string;
     business_category?: string;
     business_location?: string;
-    img?: string
+    img?: string;
+    phone_number?: string,
 }
 
 const UserSchema = new Schema<UserDocument>({
@@ -49,6 +50,10 @@ const UserSchema = new Schema<UserDocument>({
       required: [false, ""]
     },
     img: {
+      type: String,
+      required: [false, ""]
+    },
+    phone_number: {
       type: String,
       required: [false, ""]
     },

@@ -58,7 +58,7 @@ function Topbar() {
             </div>
 
             <nav className="md:flex grid md:grid-cols-4 grid-cols-5 md:static py-4 bg-[#f8f8f8] dark:bg-black/[0.9] backdrop-blur-sm fixed bottom-0 left-0 md:w-fit w-full md:border-none border border-gray-500/[0.1] items-center gap-0 z-[4]">
-                <button className="flex items-center justify-center md:flex-row flex-col md:gap-1 gap-2 h-[32px] p-[8px_16px] hover:text-primary font-bold rounded-lg duration-500" onClick={() => setOpen(!open)}>
+                <button className="flex items-center justify-center md:flex-row flex-col md:gap-1 gap-2 h-[32px] p-[8px_16px] hover:text-primary font-medium rounded-lg duration-500" onClick={() => setOpen(!open)}>
                     <span className={`md:hidden md:text-md md:text-[20px] ${open ? "text-[24px]": "text-[20px]"}`}><TbListSearch /></span>
                     <span className="md:inline md:text-[12px] text-[9px] ">{open ? 
                     <>
@@ -84,11 +84,11 @@ function Topbar() {
                     {/* <button className="p-4 lg:hidden rounded-full text-[16px] bg-primary z-[12]" onClick={() => setOpenSearch(false)}><X /></button> */}
                 {/* </div> */}
                 {/* <button className="p-2 lg:hidden text-[16px]" onClick={() => setOpenSearch(!openSearch)}>{ openSearch ? <X /> :<MagnifyingGlass /> }</button> */}
-                <Link href={data?.user ? "/dashboard": "/login"} className="md:flex hidden gap-1 items-center font-semibold">
+                <Link href={data?.user ? "/dashboard": "/login"} className="md:flex hidden gap-1 items-center font-medium">
                     <User weight="light" size={20}/>
                     <span>Account</span>
                 </Link>
-                <Link href="/cart" className="md:flex hidden relative gap-1 items-center font-semibold">
+                <Link href="/cart" className="md:flex hidden relative gap-1 items-center font-medium">
                     <ShoppingCart weight="light" size={20}/>
                     <span>Cart</span>
                     <span className="absolute text-[8px] -top-3 -right-3 px-2 py-1 rounded-full bg-green text-white">{cart.length}</span>

@@ -1,5 +1,4 @@
 'use client'
-import { sendMessage } from "@/actions/useOrders";
 import Button from "@/components/button/button";
 import Input from "@/components/input/input";
 import Textarea from "@/components/textarea/textarea";
@@ -8,6 +7,7 @@ import { AuthContext } from "@/context/useAuth";
 import { OrderContext } from "@/context/useOrders";
 import { storeContext } from "@/context/useStore";
 import { currencyFormatter } from "@/helpers/currencyFormatter";
+import { sendEmail } from "@/helpers/sendEmail";
 import { ICart, IProduct } from "@/interface/store";
 import { checkoutSchema } from "@/schema/checkout";
 import { Globe, MapPin, NotePencil } from "@phosphor-icons/react";
@@ -64,6 +64,7 @@ export default function CheckoutPage() {
                                     .map((product: IProduct) => {return {price: +product?.price * cart.filter((item: ICart) => item.id === product?._id)[0]?.quantity}})
                                     .reduce((a: number,v: { price: number }) => a = a + v.price, 0) - 1000
                                 })
+                                sendEmail({ phoneNumber: user?.phone_number || "", address: values.address, fullname: user?.fullname || "",  cart, email: data?.user.email || user?.email || "" }, user?.email || "", products, 'buyer')
                             setSubmitting(false);
                         }}
                         >
