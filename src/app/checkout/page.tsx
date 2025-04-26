@@ -66,43 +66,42 @@ export default function CheckoutPage() {
                         initialValues={{ phone_number: '', country: '', address: '', note: '' }}
                         validationSchema={checkoutSchema}
                         onSubmit={( values, { setSubmitting }) => {
-                            // addOrder({ 
-                            //     shipping_address: {country: values.country, address: values.address, zip: ""}, 
-                            //     customer_email: data?.user?.email || "",  
-                            //     order_status: "pending", 
-                            //     order_notes: values.note,
-                            //     shipping_charges: 2000,
-                            //     order_items: orderProducts.map(item => ({
-                            //         seller: item.store,
-                            //         product_id: item._id,
-                            //         product_title: item.title,
-                            //         quantity: cart.filter((item: ICart) => item.id === item?.id).map((item: ICart) => item.quantity)[0],
-                            //         price: +item.price,
-                            //         total_price: +item.price * cart.filter((item: ICart) => item.id === item?.id).map((item: ICart) => item.quantity)[0],
-                            //         shipping_status: "pending",
-                            //         shipping_tracking_number: "",
-                            //     })),
-                            //     amount: products?.filter((item: IProduct) => cart.map((item: ICart) => item.id).indexOf(item._id) !== -1 )
-                            //         .map((product: IProduct) => {return {price: +product?.price * cart.filter((item: ICart) => item.id === product?._id)[0]?.quantity}})
-                            //         .reduce((a: number,v: { price: number }) => a = a + v.price, 0) - 1000
-                            //     })
-                            //     sendEmail({ phoneNumber: values.phone_number || "", address: values.address, fullname: data?.user?.fullname  || "",  cart, email: data?.user.email || user?.email || "" }, user?.email || "", products, 'buyer')
-                            //     const sellerInfo = orderProducts.map(product => (
-                            //         { seller: sellers.find(seller => seller.name === product.store), cart: cart.filter(item => item.id !== product._id)}
-                            //     ))
+                            addOrder({ 
+                                shipping_address: {country: values.country, address: values.address, zip: ""}, 
+                                customer_email: data?.user?.email || "",  
+                                order_status: "pending", 
+                                order_notes: values.note,
+                                shipping_charges: 2000,
+                                order_items: orderProducts.map(item => ({
+                                    seller: item.store,
+                                    product_id: item._id,
+                                    product_title: item.title,
+                                    quantity: cart.filter((item: ICart) => item.id === item?.id).map((item: ICart) => item.quantity)[0],
+                                    price: +item.price,
+                                    total_price: +item.price * cart.filter((item: ICart) => item.id === item?.id).map((item: ICart) => item.quantity)[0],
+                                    shipping_status: "pending",
+                                    shipping_tracking_number: "",
+                                })),
+                                amount: products?.filter((item: IProduct) => cart.map((item: ICart) => item.id).indexOf(item._id) !== -1 )
+                                    .map((product: IProduct) => {return {price: +product?.price * cart.filter((item: ICart) => item.id === product?._id)[0]?.quantity}})
+                                    .reduce((a: number,v: { price: number }) => a = a + v.price, 0) - 1000
+                                })
+                                sendEmail({ phoneNumber: values.phone_number || "", address: values.address, fullname: data?.user?.fullname  || "",  cart, email: data?.user.email || user?.email || "" }, user?.email || "", products, 'buyer')
+                                const sellerInfo = orderProducts.map(product => (
+                                    { seller: sellers.find(seller => seller.name === product.store), cart: cart.filter(item => item.id === product._id)}
+                                ))
 
-                            //     for(var i=0; i<sellerInfo.length; i++) {
-                            //         sendEmail(
-                            //             {
-                            //                 phoneNumber: values.phone_number || "", 
-                            //                 address: values.address, 
-                            //                 fullname: data?.user?.fullname || "", 
-                            //                 cart: sellerInfo[i]?.cart, 
-                            //                 email: data?.user?.email || "" 
-                            //             }, 
-                            //             sellerInfo[i].seller?.email || "", products, 'seller')
-                            //     }
-                            console.log(user)
+                                for(var i=0; i<sellerInfo.length; i++) {
+                                    sendEmail(
+                                        {
+                                            phoneNumber: values.phone_number || "", 
+                                            address: values.address, 
+                                            fullname: data?.user?.fullname || "", 
+                                            cart: sellerInfo[i]?.cart, 
+                                            email: data?.user?.email || "" 
+                                        }, 
+                                        sellerInfo[i].seller?.email || "", products, 'seller')
+                                }
                             setSubmitting(false);
                         }}
                         >
