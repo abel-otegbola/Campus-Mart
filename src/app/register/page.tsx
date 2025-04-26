@@ -13,6 +13,7 @@ import Image from "next/image";
 import { ReactNode, useContext, useEffect, useState } from "react";
 import { TbPerfume } from "react-icons/tb";
 import { PiDiamond } from "react-icons/pi";
+import { useSearchParams } from "next/navigation";
 
 type navTab =  {
     id: number | string,
@@ -25,6 +26,9 @@ export default function Registerpage() {
     const { signUp, loading } = useContext(AuthContext)
     const [active, setActive] = useState<string | undefined>("Yes")
     const [flow, setFlow] = useState(0)
+    const searchParams = useSearchParams()
+    const fullname = searchParams.get("fullname")
+    const email = searchParams.get("email")
 
     const navTabs: navTab[] = [
         { id: 1, label: "Yes", to: "#", icon: <User/> },
@@ -62,8 +66,10 @@ export default function Registerpage() {
         { id: 29, title: "Furniture", icon: <Chair /> },
     ];
     useEffect(() => {
-        console.log(flow)
-    }, [flow])
+        if(email) {
+            setActive("No")
+        }
+    }, [email])
     
 
 
@@ -88,7 +94,7 @@ export default function Registerpage() {
                         </div>
 
                         <Formik
-                            initialValues={{ fullname: '', email: '', password: '', business_name: '', business_category: '', business_location: '', img: '', phone_number: ''}}
+                            initialValues={{ fullname: fullname || '', email: email || '', password: '', business_name: '', business_category: '', business_location: '', img: '', phone_number: ''}}
                             validationSchema={flow === 1 ? registerVendorSchema : registerBuyerSchema}
                             onSubmit={( values, { setSubmitting }) => {
                                 console.log(values)
@@ -127,8 +133,8 @@ export default function Registerpage() {
                                 <form onSubmit={handleSubmit} className="flex flex-col w-full gap-6 ">
                                     <div className="relative h-[360px] flex gap-[5%] overflow-hidden">
                                         <div className={`w-full flex flex-col gap-5 absolute top-0 left-0 duration-500 ${flow === 0 ? "translate-x-[0]" : "translate-x-[-120%]"}`}>
-                                            <Input name="fullname" label="Full Name" value={values.fullname} onChange={handleChange} type="text" error={touched.fullname ? errors.fullname : ""} placeholder="Full name" leftIcon={<UserCircle size={16}/>}/>
-                                            <Input name="email" label="Email Address" value={values.email} onChange={handleChange} type="email" error={touched.email ? errors.email : ""} placeholder="Email Address" leftIcon={<Envelope size={16}/>}/>
+                                            <Input name="fullname" label="Full Name" disabled={fullname ? true : false} value={fullname ? fullname : values.fullname} onChange={handleChange} type="text" error={touched.fullname ? errors.fullname : ""} placeholder="Full name" leftIcon={<UserCircle size={16}/>}/>
+                                            <Input name="email" label="Email Address" disabled={email ? true : false} value={email ? email : values.email} onChange={handleChange} type="email" error={touched.email ? errors.email : ""} placeholder="Email Address" leftIcon={<Envelope size={16}/>}/>
                                             <Input name="password" label="Password" value={values.password} onChange={handleChange} type={"password"} error={touched.password ? errors.password : ""} placeholder="Password" leftIcon={<LockKey size={16}/>}/>
                                             <div>
                                                 <p>Are you a Business Owner?</p>

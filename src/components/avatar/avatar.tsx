@@ -1,5 +1,4 @@
 import { UserData } from "@/interface/profile"
-import Image from "next/image"
 
 export default function Avatar({ user }: { user: UserData }) {
 

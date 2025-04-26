@@ -32,7 +32,7 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
     const router = useRouter()
 
     const formatError = (msg: string) => {
-        return msg.replace("Firebase: Error (auth/", "").replace("-", " ").replace(")", "")
+        return msg.replace("-", " ").replace(")", "")
     }
 
     const login = async (email: string, password: string, callbackUrl: string) => {
@@ -71,7 +71,10 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
     const sociallogin = async (provider: string) => {
         setLoading(true)
         try {
-            await signIn(provider, { callbackUrl: "/dashboard" });
+            let response = await signIn(provider, { callbackUrl: "/dashboard" });
+
+            console.log(response)
+            
             setLoading(false)
         } catch (error) {
             console.error("Sign in failed:", error);

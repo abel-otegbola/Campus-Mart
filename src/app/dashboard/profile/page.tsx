@@ -11,11 +11,14 @@ import { TbPerfume } from "react-icons/tb";
 import ImageToBase64 from "@/components/imageConverter/imageConverter";
 import Image from "next/image";
 import { PiDiamond, PiWhatsappLogo } from "react-icons/pi";
+import { isUserSaved } from "@/actions/useProfile";
+import { useRouter } from "next/navigation";
 
 export default function Profile() {
     const { data } = useSession()
     const { getUserData, user, updateUser, loading } = useContext(AuthContext)
     const [userData, setUserData] = useState(user)
+    const router = useRouter()
     
     const categories = [
         { id: 1, title: "Accommodation", icon: <House /> },
@@ -53,8 +56,13 @@ export default function Profile() {
         setUserData(user)
     }, [user])
 
-    const handleUpdate = () => {
-        updateUser(data?.user?.email || "", userData)
+    const handleUpdate = async () => {
+        if(await isUserSaved(data?.user?.email || "")) {
+            updateUser(data?.user?.email || "", userData)
+        }
+        else {
+            router.push(`/register?fullname=${data?.user?.fullname || ""}&email=${data?.user?.email || ""}`)
+        }
     }
 
     return (

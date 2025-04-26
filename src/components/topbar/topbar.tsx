@@ -25,6 +25,7 @@ function Topbar() {
     const [open, setOpen] = useState(false)
     const [openSearch, setOpenSearch] = useState(false)
     const [searchType, setSearchType] = useState("products")
+    const [cartLength, setCartLength] = useState(0)
 
     useEffect(() => {
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -47,6 +48,12 @@ function Topbar() {
     ]
     
     const accountPages = ["dashboard", "admin", "agent"]
+
+    useEffect(() => {
+        if(typeof window !== 'undefined') {
+            setCartLength(cart?.length)
+        }
+    }, [cart])
 
     return (
         <>
@@ -91,7 +98,7 @@ function Topbar() {
                 <Link href="/cart" className="md:flex hidden relative gap-1 items-center font-medium text-[12px]">
                     <ShoppingCart weight="light" size={20}/>
                     <span>Cart</span>
-                    <span className="absolute text-[8px] -top-3 -right-3 px-2 py-1 rounded-full bg-green text-white">{cart.length}</span>
+                    <span className="absolute text-[8px] -top-3 -right-3 px-2 py-1 rounded-full bg-green text-white">{cartLength}</span>
                 </Link>
                 <ThemeSelector />
             </div>

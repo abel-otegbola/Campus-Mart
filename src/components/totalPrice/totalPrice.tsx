@@ -8,7 +8,7 @@ export default function TotalPrice ({ discount, order }: { discount?: number, or
     const { cart, products } = useContext(storeContext)
 
     return (
-        <p>
+        <span>
         {
             currencyFormatter(
                 products.filter((item: IProduct) => (order ? order.order_items.map(item => item.product_id) : cart.map(item => item.id)).indexOf(item._id) !== -1 )
@@ -16,6 +16,6 @@ export default function TotalPrice ({ discount, order }: { discount?: number, or
                 .reduce((a: number,v: { price: number }) => a = a + v.price, 0) - (discount || 0)
             )
         }
-        </p>
+        </span>
     )
 }

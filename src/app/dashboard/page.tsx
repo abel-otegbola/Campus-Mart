@@ -24,7 +24,7 @@ function DashboardHome() {
                     <>
                     <div className="flex gap-6 flex-wrap justify-between items-center border border-transparent border-b-gray-500/[0.1] md:p-4 py-4">
                         <div className="flex items-center gap-4">
-                            <Avatar user={ user || data?.user || { fullname: "User" }} />
+                            <Avatar user={ data?.user || { fullname: "User" }} />
                             <div className="">
                                 <h1 className="text-[20px] font-semibold capitalize">Welcome back, <span className="Capitalize">{data?.user?.fullname?.split(" ")[0] || user?.fullname?.split(" ")[0]}</span></h1>
                                 <p className="leading-[180%] flex items-center text-[12px] opacity-[0.7] gap-2"> <PiWatchLight className="text-red-500 text-[14px]" />View your orders, products and discounts</p>
@@ -67,7 +67,7 @@ function DashboardHome() {
                     <>
                     <div className="flex gap-6 flex-wrap justify-between items-center border border-transparent border-b-gray-500/[0.1] md:p-4 py-4">
                         <div className="flex items-center gap-4">
-                            <Avatar user={ user || data?.user || { fullname: "User" }} />
+                            <Avatar user={ data?.user || { fullname: "User" }} />
                             <div className="">
                                 <h1 className="text-[20px] font-semibold capitalize">Welcome back, <span className="Capitalize">{data?.user?.fullname?.split(" ")[0] || user?.fullname?.split(" ")[0]}</span></h1>
                                 <p className="leading-[180%] flex items-center text-[12px] opacity-[0.7] gap-2"> <PiWatchLight className="text-red-500 text-[14px]" />View your orders and discounts</p>

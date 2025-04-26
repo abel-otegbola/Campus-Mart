@@ -39,7 +39,7 @@ export default function DataTable({ headers, data, isLoading }: { headers: strin
                         }
                     </tr> :
                     data?.map((order: IOrder, i: number) => (
-                        <tr key={order?._id} className={`border border-gray-500/[0.2] border-x-transparent py-4 text-[12px] ${i%2 === 0 ? "bg-slate-100 dark:bg-gray-200/[0.05]" : ""}`}>
+                        <tr key={i} className={`border border-gray-500/[0.2] border-x-transparent py-4 text-[12px] ${i%2 === 0 ? "bg-slate-100 dark:bg-gray-200/[0.05]" : ""}`}>
 
                             {
                                 headers.map((header, i) => (
@@ -47,10 +47,10 @@ export default function DataTable({ headers, data, isLoading }: { headers: strin
                                     <td key={i} className="p-2 max-w-[100px] truncate"><Link href={`/dashboard/order?id=${order?._id}`}>{order?._id}</Link></td>
                                     :
                                     header === "Date" ?
-                                    <td>{new Date(order?.updatedAt || "").toLocaleDateString("GB")}</td>
+                                    <td key={i}>{new Date(order?.updatedAt || "").toLocaleDateString("GB")}</td>
                                     :
                                     header === "Products" ?
-                                    <td className="p-2 text-[10px]">
+                                    <td key={i} className="p-2 text-[10px]">
                                         <Link href={`/dashboard/order?id=${order?._id}`}>
                                         <ol className="">
                                         {
@@ -65,12 +65,12 @@ export default function DataTable({ headers, data, isLoading }: { headers: strin
                                     </td>
                                     :
                                     header === "Total" ?
-                                    <td className="p-2">
+                                    <td key={i} className="p-2">
                                         {currencyFormatter(order?.amount)}
                                     </td>
                                     :
                                     header === "Status" ?
-                                    <td className={`${order.order_status === "completed" ? "text-emerald-600" : order?.order_status === "cancelled" ? "text-red-500" : "text-orange-400"} p-2 text-[11px]`}>
+                                    <td key={i} className={`${order.order_status === "completed" ? "text-emerald-600" : order?.order_status === "cancelled" ? "text-red-500" : "text-orange-400"} p-2 text-[11px]`}>
                                         <Link href={`/dashboard/order?id=${order?._id}`}>{order?.order_status}</Link>
                                     </td>
                                     : ""

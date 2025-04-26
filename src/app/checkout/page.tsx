@@ -27,7 +27,6 @@ export default function CheckoutPage() {
     const [sellers, setSellers] = useState<{ name: string, email: string }[]>([])
 
     const orderProducts = products.filter((item: IProduct) => cart.map((item: ICart) => item.id).indexOf(item._id) !== -1 )
-    const quantity = 
     
     useEffect(() => {
         getUserData(data?.user?.email || "")
@@ -67,30 +66,43 @@ export default function CheckoutPage() {
                         initialValues={{ phone_number: '', country: '', address: '', note: '' }}
                         validationSchema={checkoutSchema}
                         onSubmit={( values, { setSubmitting }) => {
-                            addOrder({ 
-                                shipping_address: {country: values.country, address: values.address, zip: ""}, 
-                                customer_email: data?.user?.email || "",  
-                                order_status: "pending", 
-                                order_notes: values.note,
-                                shipping_charges: 2000,
-                                order_items: orderProducts.map(item => ({
-                                    seller: item.store,
-                                    product_id: item._id,
-                                    product_title: item.title,
-                                    quantity: cart.filter((item: ICart) => item.id === item?.id).map((item: ICart) => item.quantity)[0],
-                                    price: +item.price,
-                                    total_price: +item.price * cart.filter((item: ICart) => item.id === item?.id).map((item: ICart) => item.quantity)[0],
-                                    shipping_status: "pending",
-                                    shipping_tracking_number: "",
-                                })),
-                                amount: products?.filter((item: IProduct) => cart.map((item: ICart) => item.id).indexOf(item._id) !== -1 )
-                                    .map((product: IProduct) => {return {price: +product?.price * cart.filter((item: ICart) => item.id === product?._id)[0]?.quantity}})
-                                    .reduce((a: number,v: { price: number }) => a = a + v.price, 0) - 1000
-                                })
-                                sendEmail({ phoneNumber: user?.phone_number || "", address: values.address, fullname: user?.fullname || "",  cart, email: data?.user.email || user?.email || "" }, user?.email || "", products, 'buyer')
-                                sellers.filter(item => orderProducts.map(product => product.store).indexOf(item?.name) !== -1 ).map(seller => (
-                                    sendEmail({ phoneNumber: user?.phone_number || "", address: values.address, fullname: user?.fullname || "",  cart, email: data?.user.email || user?.email || "" }, seller.email, products, 'seller')
-                                ))
+                            // addOrder({ 
+                            //     shipping_address: {country: values.country, address: values.address, zip: ""}, 
+                            //     customer_email: data?.user?.email || "",  
+                            //     order_status: "pending", 
+                            //     order_notes: values.note,
+                            //     shipping_charges: 2000,
+                            //     order_items: orderProducts.map(item => ({
+                            //         seller: item.store,
+                            //         product_id: item._id,
+                            //         product_title: item.title,
+                            //         quantity: cart.filter((item: ICart) => item.id === item?.id).map((item: ICart) => item.quantity)[0],
+                            //         price: +item.price,
+                            //         total_price: +item.price * cart.filter((item: ICart) => item.id === item?.id).map((item: ICart) => item.quantity)[0],
+                            //         shipping_status: "pending",
+                            //         shipping_tracking_number: "",
+                            //     })),
+                            //     amount: products?.filter((item: IProduct) => cart.map((item: ICart) => item.id).indexOf(item._id) !== -1 )
+                            //         .map((product: IProduct) => {return {price: +product?.price * cart.filter((item: ICart) => item.id === product?._id)[0]?.quantity}})
+                            //         .reduce((a: number,v: { price: number }) => a = a + v.price, 0) - 1000
+                            //     })
+                            //     sendEmail({ phoneNumber: values.phone_number || "", address: values.address, fullname: data?.user?.fullname  || "",  cart, email: data?.user.email || user?.email || "" }, user?.email || "", products, 'buyer')
+                            //     const sellerInfo = orderProducts.map(product => (
+                            //         { seller: sellers.find(seller => seller.name === product.store), cart: cart.filter(item => item.id !== product._id)}
+                            //     ))
+
+                            //     for(var i=0; i<sellerInfo.length; i++) {
+                            //         sendEmail(
+                            //             {
+                            //                 phoneNumber: values.phone_number || "", 
+                            //                 address: values.address, 
+                            //                 fullname: data?.user?.fullname || "", 
+                            //                 cart: sellerInfo[i]?.cart, 
+                            //                 email: data?.user?.email || "" 
+                            //             }, 
+                            //             sellerInfo[i].seller?.email || "", products, 'seller')
+                            //     }
+                            console.log(user)
                             setSubmitting(false);
                         }}
                         >
@@ -119,8 +131,8 @@ export default function CheckoutPage() {
                                         </div>
                                         :
                                         <>
-                                            <Input name="fullname" label="Fullname" defaultValue={user?.fullname || data?.user.fullname || ""} placeholder="Enter your fullname" />
-                                            <Input name="email" label="Email Address" value={user?.email || data?.user.email || ""} placeholder="Enter your Email address" />
+                                            <Input name="fullname" label="Fullname" disabled={true} onChange={handleChange} value={data?.user.fullname || user?.fullname || ""} placeholder="Enter your fullname" />
+                                            <Input name="email" label="Email Address" disabled={true} onChange={handleChange} value={user?.email || data?.user.email || ""} placeholder="Enter your Email address" />
                                         </>
                                     }
                                 </div>
