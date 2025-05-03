@@ -1,7 +1,6 @@
 import { currencyFormatter } from "@/helpers/currencyFormatter";
 import Skeleton from "../skeleton/skeleton";
 import Link from "next/link";
-import Button from "../button/button";
 import { IOrder } from "@/interface/orders";
 import { storeContext } from "@/context/useStore";
 import { useContext } from "react";
@@ -50,7 +49,7 @@ export default function DataTable({ headers, data, isLoading }: { headers: strin
                                     <td key={i} className="p-2">{new Date(order?.updatedAt || "").toLocaleDateString("GB")}</td>
                                     :
                                     header === "Products" ?
-                                    <td key={i} className="p-2 text-[10px]">
+                                    <td key={i} className="p-2 text-[10px] min-w-[120px]">
                                         <Link href={`/dashboard/order?id=${order?._id}`}>
                                         <ol className="">
                                             <li className="flex items-center gap-2 my-1">
@@ -60,6 +59,9 @@ export default function DataTable({ headers, data, isLoading }: { headers: strin
                                         </ol>
                                         </Link>
                                     </td>
+                                    :
+                                    header === "Customer Email" ?
+                                    <td key={i} className="p-2">{order?.customer_email}</td>
                                     :
                                     header === "Total" ?
                                     <td key={i} className="p-2">

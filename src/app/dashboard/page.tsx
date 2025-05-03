@@ -10,10 +10,24 @@ import SubmissionChart from "@/components/charts/overviewChart";
 import BalanceCard from "@/components/cards/balanceCard";
 import BusinessOrdersTable from "@/components/tables/businessOrdersTable";
 import UserOrdersTable from "@/components/tables/userOrdersTable";
+import { getAllBusinessOrders } from "@/actions/useOrders";
 
 function DashboardHome() {
     const { data } = useSession()
     const { user } = useContext(AuthContext)
+    const [productsLength, setProductsLength] = useState(0)
+    const [ordersLength, setOrdersLength] = useState(0)
+
+    useEffect(() => {
+        getAllBusinessOrders(user?.business_name || "")
+        .then((response) => {
+            setProductsLength(response.length)
+        })
+        getAllBusinessOrders(user?.business_name || "")
+        .then((response) => {
+            setOrdersLength(response.length)
+        })
+    }, [user?.business_name])
 
     return (
         <div>
@@ -44,22 +58,48 @@ function DashboardHome() {
                         <BalanceCard title="Withdrawn" amount={0.00}  />
                     </div>
 
-                    <div className="w-full grid xl:grid-cols-2 md:grid-cols-1 sm:grid-cols-2 md:px-4 pb-4 md:gap-4 gap-2">
+                    <div className="w-full grid xl:grid-cols-2 md:grid-cols-1 sm:grid-cols-2 md:px-4 md:gap-4 gap-2">
                         <div className="flex flex-col gap-2 border border-gray-500/[0.2] rounded bg-white dark:bg-black">
                             <div className="w-full pb-2 flex flex-col gap-2 border-b border-gray-500/[0.1] p-4">
                                 <h2 className="font-medium text-[16px]">Overview</h2>
                             </div>
                             <div className="p-4">
-                                <SubmissionChart submissions={[ ["3", "5", "2", "6", "2", "3"], ["1", "2", "4", "3", "5", "6"] ]} />
+                                <SubmissionChart submissions={[ ["0", "0", "0", "0", "0", ordersLength.toString()], ["1", "2", "4", "3", "5", "6"] ]} />
                             </div>
                         </div>
                         <div className="flex flex-col gap-2 border border-gray-500/[0.2] rounded bg-white dark:bg-black">
                             <div className="w-full pb-2 flex flex-col gap-2 border-b border-gray-500/[0.1] p-4">
-                                <h2 className="font-medium text-[16px]">Recent Orders</h2>
+                                <h2 className="font-medium text-[16px]">My Store</h2>
                             </div>
-                            <div className="overflow-x-auto w-full">
-                                <BusinessOrdersTable />
+                            <div className="p-4 flex flex-col gap-6">
+                                <div className="flex items-center gap-4">
+                                    <div className={`h-[88px] w-[88px] rounded-full z-[2] border border-gray-500/[0.1] bg-slate-100 dark:bg-dark bg-cover bg-center`} style={{ backgroundImage: `url("${user?.img}")` }}></div>
+                                    <div className="flex flex-col gap-2">
+                                        <h2 className="font-bold text-[20px] mt-4">{user?.business_name}</h2>
+                                        <p>{user?.business_category}</p>
+                                        <Button size="small" className="dark:bg-primary/[0.7]" href={`/store/${user?.business_name?.replaceAll(" ", "-")}`}>View my store</Button>
+                                    </div>
+                                </div>
+                                <div className="grid grid-cols-2 gap-4 border-y border-gray-500/[0.2] py-4">
+                                    <div className="flex items-center justify-center gap-2 border-r border-gray-500/[0.2]">
+                                        <h1 className="text-[18px] font-medium">{productsLength}</h1>
+                                        <p>Product{productsLength === 1 ? "" : "s"}</p>
+                                    </div>
+                                    <div className="flex items-center justify-center gap-2">
+                                        <h1 className="text-[18px] font-medium">{ordersLength}</h1>
+                                        <p>Order{ordersLength === 1 ? "" : "s"}</p>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col gap-2 border border-gray-500/[0.2] md:mx-4 rounded bg-white dark:bg-black min-h-[300px]">
+                        <div className="w-full pb-2 flex flex-col gap-2 border-b border-gray-500/[0.1] p-4">
+                            <h2 className="font-medium text-[16px]">Recent Orders</h2>
+                        </div>
+                        <div className="overflow-x-auto w-full">
+                            <BusinessOrdersTable />
                         </div>
                     </div>
                     </>
