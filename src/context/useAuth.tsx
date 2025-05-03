@@ -8,6 +8,8 @@ import { SessionProvider, signIn, signOut } from "next-auth/react";
 import { register } from "@/actions/register";
 import { signupData } from "@/interface/auth";
 import { fetchUserData, updateUserData } from "@/actions/useProfile";
+import { sendEmail } from "@/helpers/sendEmail";
+import { sendOTP } from "@/helpers/sendOTP";
 
 type values = {
     user: UserData;
@@ -41,7 +43,19 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
         if(res?.ok) {
             setPopup({ type: "success", msg: "Login Successful" })
             setLoading(false)
-            router.push(callbackUrl ? callbackUrl : "/dashboard")
+            await fetchUserData(email)
+            .then(response => {
+                if(response.verified) {
+                    router.push(callbackUrl ? callbackUrl : "/dashboard")
+                }
+                else {
+                    sendOTP(Math.random() * 1000, email)
+                    router.push("/verify-account")
+                }
+            })
+            .catch(error => {
+                setPopup({ type: "error", msg: formatError(error as string) })
+            })
         }
         if(res?.error) {
             setPopup({ type: "error", msg: formatError(res.error as string) })
@@ -59,7 +73,7 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
             }
             else {
                 setPopup({ type: "success", msg: "Signup Successful, Please login to continue" })
-                router.push("/login")
+                router.push("/verify")
             }
         })
         .catch((error: { message: string }) => {

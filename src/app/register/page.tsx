@@ -104,7 +104,17 @@ export default function Registerpage() {
                                 }
                                 else if(flow === 2) {
                                     signUp(
-                                        {email: values.email.trim(), password: values.password, fullname: values.fullname, business_name: values.business_name.trim(), business_category: values.business_category, business_location: values.business_location, role: "Seller", img: values.img}
+                                        {
+                                            email: values.email.trim(), 
+                                            password: values.password, 
+                                            fullname: values.fullname, 
+                                            business_name: values.business_name.trim(), 
+                                            business_category: values.business_category, 
+                                            business_location: values.business_location, 
+                                            role: "Seller", 
+                                            img: values.img,
+                                            verified: false
+                                        }
                                     );
                                     setSubmitting(false);
                                 }
@@ -114,7 +124,13 @@ export default function Registerpage() {
                                         setSubmitting(false);
                                     }
                                     else {
-                                        signUp({email: values.email.trim(), password: values.password, fullname: values.fullname, role: "Buyer"})
+                                        signUp({
+                                            email: values.email.trim(), 
+                                            password: values.password, 
+                                            fullname: values.fullname, 
+                                            role: "Buyer",
+                                            verified: false
+                                        })
                                         setSubmitting(false);
                                     }
                                 }

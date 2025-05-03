@@ -1,14 +1,12 @@
 import { getAllUserOrders } from "@/actions/useOrders"
-import { AuthContext } from "@/context/useAuth"
 import { IOrder } from "@/interface/orders"
 import { useSession } from "next-auth/react"
-import { useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import DataTable from "./dataTable"
 
 export default function UserOrdersTable() {
     const [loading, setLoading] = useState(false)
     const { data } = useSession()
-    const { user } = useContext(AuthContext)
     const [ orders, setOrders ] = useState<IOrder[]>([])
 
     useEffect(() => {

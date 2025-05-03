@@ -4,6 +4,7 @@ import { ButtonHTMLAttributes, useState } from "react";
 interface ToggleProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string;
     disabled?: boolean;
+    checkedValue?: boolean;
     label?: string;
     name?: string;
     error?: string | undefined;
@@ -11,9 +12,9 @@ interface ToggleProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     onValueChange: (aug0: boolean) => void;
 }
 
-export default function Toggle({ className, disabled, label, onValueChange, name, size, ...props }: ToggleProps) {
+export default function Toggle({ className, disabled, label, onValueChange, checkedValue, name, size, ...props }: ToggleProps) {
     const [focus, setFocus] = useState(false)
-    const [checked, setChecked] = useState(false)
+    const [checked, setChecked] = useState(checkedValue)
 
     return (
         <div className="flex items-center w-fit gap-1">

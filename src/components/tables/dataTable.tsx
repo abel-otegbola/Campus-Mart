@@ -47,19 +47,16 @@ export default function DataTable({ headers, data, isLoading }: { headers: strin
                                     <td key={i} className="p-2 max-w-[100px] truncate"><Link href={`/dashboard/order?id=${order?._id}`}>{order?._id}</Link></td>
                                     :
                                     header === "Date" ?
-                                    <td key={i}>{new Date(order?.updatedAt || "").toLocaleDateString("GB")}</td>
+                                    <td key={i} className="p-2">{new Date(order?.updatedAt || "").toLocaleDateString("GB")}</td>
                                     :
                                     header === "Products" ?
                                     <td key={i} className="p-2 text-[10px]">
                                         <Link href={`/dashboard/order?id=${order?._id}`}>
                                         <ol className="">
-                                        {
-                                            order?.order_items.map(item => products.filter(product => product._id === item?.product_id)[0]).map(order => (
-                                                <li key={order?._id} className="flex items-center gap-2 my-1">
-                                                    {order?.title}
-                                                </li>
-                                            ))
-                                        }
+                                            <li className="flex items-center gap-2 my-1">
+                                                <Image src={products.find(item => item._id === order.order_items.product_id)?.images[0] || "/preview.png"} alt="product" width={40} height={40} className="w-[40px] h-[40px] bg-cover bg-center bg-slate-200 rounded" />
+                                                {order?.order_items.product_title}
+                                            </li>
                                         </ol>
                                         </Link>
                                     </td>

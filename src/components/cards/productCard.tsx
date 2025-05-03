@@ -14,7 +14,7 @@ export default function ProductCard({ product, i }: { product: IProduct, i?: num
                 <Animate type="slideLeft" delay={(i || 1) * 100}>
                     <Link 
                         href={`/product?id=${product._id}`} 
-                        className={`block rounded sm:h-[250px] h-[250px] bg-gray-500/[0.1] bg-cover bg-center`}
+                        className={`block rounded sm:h-[200px] h-[200px] bg-gray-500/[0.1] bg-cover bg-center`}
                         style={{backgroundImage: `url("${product?.images[0]}")`}} 
                     >
                     </Link>

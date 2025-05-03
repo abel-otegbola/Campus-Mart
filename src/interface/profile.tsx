@@ -11,6 +11,9 @@ export interface UserData {
     business_name?: string,
     business_category?: string,
     business_location?: string,
+    verified?: boolean,
+    otp?: string,
+    otpEpiry?: string,
     img?: string;
     phone_number?: string;
     socialLinks?: { whatsapp?: string, instagram?: string, x?: string, facebook?: string }

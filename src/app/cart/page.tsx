@@ -6,6 +6,7 @@ import { currencyFormatter } from "@/helpers/currencyFormatter";
 import { ICart, IProduct } from "@/interface/store";
 import { Minus, Plus, Trash } from "@phosphor-icons/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useContext } from "react";
 
 export default function CartPage() {
@@ -33,7 +34,12 @@ export default function CartPage() {
                     products.filter((item: IProduct) => cart.map((item: ICart) => item.id).indexOf(item._id) !== -1 ).map((product: IProduct) => (
                         <div key={product?._id} className="relative bg-white dark:bg-black flex items-center gap-2 p-2 rounded border border-gray-500/[0.1] dark:border-slate-100/[0.05]">
                             <a href={`/product?id=${product?._id}`}>
-                                <Image src={product?.images[0]} alt={product?.title} width={200} height={300} className="rounded bg-gray-100/[0.8] h-full" />
+                                <Link 
+                                    href={`/product?id=${product._id}`} 
+                                    className={`block rounded sm:h-[120px] h-[120px] w-[120px] bg-gray-500/[0.1] bg-cover bg-center`}
+                                    style={{backgroundImage: `url("${product?.images[0]}")`}} 
+                                >
+                                </Link>
                             </a>
                             <div className="p-4 w-full flex flex-col justify-between">
                                 <a href={`/product?id=${product?._id}`} className="mr-8 uppercase text-[12px] leading-[140%] font-bold">{product?.title}</a>

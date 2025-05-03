@@ -18,9 +18,9 @@ export interface IOrder {
     },
     order_status: string,
     amount: number,
+    seller: string,
     order_items:
       {
-        seller: string,
         product_id: string,
         product_title: string,
         quantity: number,
@@ -28,7 +28,7 @@ export interface IOrder {
         total_price: number,
         shipping_status: string,
         shipping_tracking_number: string,
-      }[],
+      },
     order_notes: string,
     shipping_charges: number,
 }

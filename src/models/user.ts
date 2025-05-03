@@ -61,6 +61,18 @@ const UserSchema = new Schema<UserDocument>({
       type: String,
       required: [false, ""]
     },
+    verified: {
+      type: Boolean,
+      required: [false, ""]
+    },
+    otp: {
+      type: String,
+      required: [false, ""]
+    },
+    otpEpiry: {
+      type: String,
+      required: [false, ""]
+    },
     socialLinks: {
       type: { whatsapp: String, instagram: String, x: String, facebook: String },
       required: [false, ""]

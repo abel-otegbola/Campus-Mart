@@ -56,12 +56,13 @@ const handler = NextAuth({
       return token
     },
     session: async ({ session, token }) => {
-        const { email, fullname, name, role, image } = token.uid as { email: string, fullname: string, name: string, role: string, image: string }
+        const { email, fullname, name, role, image, verified } = token.uid as { email: string, fullname: string, name: string, role: string, image: string, verified: boolean }
         const userSession = { ...session, user: {
           fullname: fullname || name,
           email: email,
           role: role || "buyer",
-          img: image
+          img: image,
+          verified: verified
         }}
 
       return userSession;

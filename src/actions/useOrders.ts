@@ -55,7 +55,7 @@ export const getAllBusinessOrders = async (store: string) => {
     try {
         await connectDB();
         const findResult = await Orders.find({
-            'order_items.seller': store,
+            'seller': store,
         })
         return JSON.parse(JSON.stringify(findResult))
     }

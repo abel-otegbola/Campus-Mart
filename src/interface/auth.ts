@@ -8,4 +8,5 @@ export interface signupData {
     business_location?: string, 
     img?: string ,
     phone_number?: string,
+    verified?: boolean
 }

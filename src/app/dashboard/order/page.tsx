@@ -16,6 +16,7 @@ import { useSession } from "next-auth/react"
 import Input from "@/components/input/input"
 import Dropdown from "@/components/dropdown/dropdown"
 import { AuthContext } from "@/context/useAuth"
+import Link from "next/link"
 
 export default function OrderSummary() {
     const searchParams = useSearchParams()
@@ -79,13 +80,46 @@ export default function OrderSummary() {
                             }
                         </div>
                     </div>
+                    <div className="relative bg-white dark:bg-black flex items-center gap-2 p-2 rounded border border-gray-500/[0.1] dark:border-slate-100/[0.05]">
+                        <a href={`/product?id=${order?._id}`}>
+                            <Link 
+                                href={`/product?id=${order._id}`} 
+                                className={`block rounded sm:h-[120px] h-[120px] w-[120px] bg-gray-500/[0.1] bg-cover bg-center`}
+                                style={{backgroundImage: `url("${products.find(item => item._id === order?.order_items?.product_id)?.images[0] || "/preview.png"}")`}} 
+                            >
+                            </Link>
+                        </a>
+                        <div className="p-4 w-full flex flex-col gap-2 justify-between">
+                            <a href={`/product?id=${order?._id}`} className="mr-8 uppercase text-[12px] leading-[140%] font-bold">{order?.order_items?.product_title}</a>
+                            
+                            <div className="flex items-center w-full">
+                                <p className="flex items-center text-[18px] font-bold">{currencyFormatter(order?.order_items?.price)}</p>
+                            </div>
 
-                    <div className="px-4 my-4">
-                        <h2 className="flex items-center gap-1 pt-4 flex justify-between">
-                            <span className="font-semibold">ID:</span> {id}
+                            <p>Quantity: {order?.order_items?.quantity}</p>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col gap-2 py-4 border-b border-gray-500/[0.1]">
+                        <h1 className="font-medium text-[16px] mb-4">Personal Information</h1>
+                        <h2 className="flex items-center gap-1 flex justify-between">
+                            <span className="font-medium">Fullname:</span> {user?.fullname}
                         </h2>
-                        <h2 className="flex items-center justify-between gap-1 py-2 pb-4">
-                            <span className="font-semibold">Status:</span> 
+                        <h2 className="flex items-center gap-1 flex justify-between">
+                            <span className="font-medium">Email:</span> {order?.customer_email}
+                        </h2>
+                        <h2 className="flex items-center gap-1 flex justify-between">
+                            <span className="font-medium">Total Price:</span> {currencyFormatter(order?.amount)}
+                        </h2>
+                    </div>
+
+                    <div className="flex flex-col gap-2 py-4 border-b border-gray-500/[0.1]">
+                        <h1 className="font-medium text-[16px] mb-4">Shipping Information</h1>
+                        <h2 className="flex items-center gap-1 flex justify-between">
+                            <span className="font-medium">ID:</span> {id}
+                        </h2>
+                        <h2 className="flex items-center justify-between gap-1">
+                            <span className="font-medium">Status:</span> 
                             {
                                 user?.role === "Seller" ?
                                 <Dropdown placeholder="Update order status" value={status} onChange={handleStatus} options={[
@@ -98,29 +132,41 @@ export default function OrderSummary() {
                                 <p className="text-orange-600">{loading ? "" : order?.order_status}</p>
                             }
                         </h2>
-                        <div className="pb-4 flex items-center justify-between gap-2">
-                            <h3 className="font-semibold">Delivery: </h3>
+                        <div className="flex items-center justify-between gap-2">
+                            <h3 className="font-medium">Delivery: </h3>
                             <p>9:00am || 23<sup>rd</sup> March, 2024 </p>
                         </div>
-                        <div className="pb-4 flex items-center justify-between gap-2 mb-4">
-                            <h3 className="font-semibold">Shipping Address: </h3>
+                        <div className="flex items-center justify-between gap-2">
+                            <h3 className="font-medium">Shipping Address: </h3>
                             <p>{order?.shipping_address?.address}</p>
                         </div>
+                        <div className="flex items-center justify-between gap-2">
+                            <h3 className="font-medium">Country: </h3>
+                            <p>{order?.shipping_address?.country}</p>
+                        </div>
+                        <div className="flex items-center justify-between gap-2">
+                            <h3 className="font-medium">Shipping Fee: </h3>
+                            <p>{currencyFormatter(order?.shipping_charges)}</p>
+                        </div>
+                    </div>
+                    <div className="flex flex-col gap-2 py-4 border-b border-gray-500/[0.1]">
+                        <h1 className="font-medium text-[16px] mb-4">Actions</h1>
+                        <Button 
+                            size="small"
+                            className="border-red-400/[0.5] text-red-500 hover:bg-red-500 hover:text-white" 
+                            variant="tetiary" 
+                            disabled={order.order_status === "cancelled" || order?.order_status === "delivered" || order?.order_status === "completed"} 
+                            onClick={() => cancelOrder()}>
+                                <TbTrash />
+                                <span>Cancel Order</span>
+                        </Button>
                     </div>
             
-                    <Button 
-                        className="w-full border-red-400/[0.5] text-red-500 hover:bg-red-500 hover:text-white" 
-                        variant="tetiary" 
-                        disabled={order.order_status === "cancelled" || order.order_status === "delivered" || order.order_status === "completed"} 
-                        onClick={() => cancelOrder()}>
-                            <TbTrash />
-                            <span>Cancel Order</span>
-                    </Button>
 
                 </div>
 
                 <div className="md:w-[40%] w-full p-4 bg-gray-300/[0.08] dark:bg-dark border border-gray-500/[0.2]">
-                    <h2 className="text-primary font-semibold uppercase flex items-center gap-1"><TbListDetails className="text-[18px]" /> Order details</h2>
+                    <h2 className="font-medium uppercase flex items-center gap-1 mb-4">Order details</h2>
                     <div className="w-full py-2 overflow-x-auto text-[12px]">
                         <table className="table-auto text-left border-collapse w-full min-w-[400px]">
                             <thead>
@@ -131,20 +177,14 @@ export default function OrderSummary() {
                                 </tr>
                             </thead>
                             <tbody className="">
-                                {
-                                    products.filter((item: IProduct) => order?.order_items?.map(item => item.product_id).indexOf(item._id) !== -1 )
-                                    .map((product: IProduct) => (
-                                        <tr key={product._id} className="border border-gray-500/[0.2] border-x-transparent">
-                                            <td  className="py-2 gap-2">
-                                                {/* <Image src={product?.images[0]} width={30} height={40} alt={product.title} className="w-[30px] bg-gray-600 rounded" />  */}
-                                                {product?.title}
-                                            </td>
-                                            <td  className="py-2"><PiCurrencyNgn className="inline" /> {product?.price}.00</td>
-                                            <td className="py-2">{order?.order_items?.filter(item => item.product_id === product?._id).map(item => item.quantity)}</td>
-                                        </tr>
-                                    ))
-                                }
-                                
+                                <tr className="border border-gray-500/[0.2] border-x-transparent">
+                                    <td  className="py-2 gap-2">
+                                        {/* <Image src={product?.images[0]} width={30} height={40} alt={product.title} className="w-[30px] bg-gray-600 rounded" />  */}
+                                        {order?.order_items?.product_title}
+                                    </td>
+                                    <td  className="py-2"><PiCurrencyNgn className="inline" /> {order.order_items?.price}.00</td>
+                                    <td className="py-2">{order?.order_items?.quantity}</td>
+                                </tr>                                
                             </tbody>
                         </table>
                     </div>

@@ -14,17 +14,20 @@ const OrdersSchema = new Schema<IOrder>({
       type: Number,
       required: [true, "price is required"]
     },
+    seller: {
+      type: String,
+      required: [true, "seller is required"]
+    },
     order_items: { 
-      type: [{
-      seller: String,
-      product_id: String,
-      product_title: String,
-      quantity: Number,
-      price: Number,
-      total_price: Number,
-      shipping_status: String,
-      shipping_tracking_number: String,
-    }],
+      type: {
+        product_id: String,
+        product_title: String,
+        quantity: Number,
+        price: Number,
+        total_price: Number,
+        shipping_status: String,
+        shipping_tracking_number: String,
+      },
       required: false
     },
     order_status: {
@@ -33,7 +36,7 @@ const OrdersSchema = new Schema<IOrder>({
     },
     shipping_charges: {
       type: Number,
-      required: [true, "Category is required"]
+      required: [true, "Shipping charges is required"]
     },
   },
   {
