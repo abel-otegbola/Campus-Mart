@@ -86,7 +86,7 @@ export default function CheckoutPage() {
                                         amount: +item.price * cart.filter((item: ICart) => item.id === item?.id).map((item: ICart) => item.quantity)[0]                                       
                                     })
                                 ))
-                                sendEmail({ phoneNumber: values.phone_number || "", address: values.address, fullname: data?.user?.fullname  || "",  cart, email: data?.user.email || user?.email || "" }, user?.email || "", products, 'buyer')
+                                sendEmail({ phoneNumber: values.phone_number || "", address: values.address, fullname: data?.user?.fullname  || "",  cart, email: data?.user.email || user?.email || "" }, user?.email || "", products)
                                 const sellerInfo = orderProducts.map(product => (
                                     { seller: sellers.find(seller => seller.name === product.store), cart: cart.filter(item => item.id === product._id)}
                                 ))
@@ -100,7 +100,7 @@ export default function CheckoutPage() {
                                             cart: sellerInfo[i]?.cart, 
                                             email: data?.user?.email || "" 
                                         }, 
-                                        sellerInfo[i].seller?.email || "", products, 'seller')
+                                        sellerInfo[i].seller?.email || "", products)
                                 }
                             setSubmitting(false);
                         }}

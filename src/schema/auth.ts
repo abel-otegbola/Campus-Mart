@@ -20,3 +20,7 @@ export const registerVendorSchema = Yup.object({
     business_category: Yup.string().required("Business category is required"),
     business_location: Yup.string().required("Business location is required")
 })
+
+export const verifyOTPSchema = Yup.object({
+    otp: Yup.string().required('otp is required'),
+})

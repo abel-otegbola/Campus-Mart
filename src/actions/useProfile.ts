@@ -62,3 +62,18 @@ export const updateUserData = async (email: string, data: UserData) => {
         console.log(e);
     }
 }
+
+export const verifyUserAccount = async (email: string, otp: string) => {
+    try {
+        await connectDB();
+        const user = await User.findOne({ email });
+        if(JSON.parse(JSON.stringify(user)).otp === otp) {
+            const findResult = await User.updateOne({ email }, { verified: true })
+            return true
+        }
+        else return false
+    }
+    catch(e){
+        console.log(e);
+    }
+}

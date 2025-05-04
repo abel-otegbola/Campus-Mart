@@ -7,8 +7,8 @@ import { UserData } from "@/interface/profile";
 import { SessionProvider, signIn, signOut } from "next-auth/react";
 import { register } from "@/actions/register";
 import { signupData } from "@/interface/auth";
-import { fetchUserData, updateUserData } from "@/actions/useProfile";
-import { sendEmail } from "@/helpers/sendEmail";
+import { fetchUserData, updateUserData, verifyUserAccount } from "@/actions/useProfile";
+import axios from "axios"
 import { sendOTP } from "@/helpers/sendOTP";
 
 type values = {
@@ -23,6 +23,7 @@ type values = {
     logOut: () => void;
     getUserData: (email: string) => void;
     updateUser: (email: string, data: UserData) => void;
+    verifyOTP: (email: string, otp: string) => void;
 }
 
 export const AuthContext = createContext({} as values);
@@ -49,8 +50,16 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
                     router.push(callbackUrl ? callbackUrl : "/dashboard")
                 }
                 else {
-                    sendOTP(Math.random() * 1000, email)
-                    router.push("/verify-account")
+                    const otp = Math.floor(Math.random() * 1000000);
+                    const time = Date.now() + 10 * 60 * 1000;
+                    updateUserData(email, { otp: otp.toString(), otpEpiry: time.toString() })
+                    .then(() => {
+                        sendOTP(otp, new Date(time).toLocaleString(), email)
+                        router.push("/verify-account")
+                    })
+                    .catch((e) => {
+                        console.log(e)
+                    })
                 }
             })
             .catch(error => {
@@ -73,7 +82,7 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
             }
             else {
                 setPopup({ type: "success", msg: "Signup Successful, Please login to continue" })
-                router.push("/verify")
+                router.push("/verify-account")
             }
         })
         .catch((error: { message: string }) => {
@@ -133,6 +142,27 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
         })
     }
 
+    const verifyOTP = async (email:string, otp: string) => {
+        setLoading(true)
+        await verifyUserAccount(email, otp)
+        .then(response => {
+            if(response) {
+                getUserData(email)
+                setPopup({ type: "success", msg: "Verified Successfully" })
+                setLoading(false)
+                router.push("/dashboard")
+            }
+            else {
+                setPopup({ type: "error", msg: "OTP incorrect" })
+                setLoading(false)
+            }
+        })
+        .catch(error => {
+            setPopup({ type: "error", msg: formatError(error as string) })
+            setLoading(false)
+        })
+    }
+
     useEffect(() => {
         if (popup?.type === "success") {
             toast.success(popup.msg)
@@ -143,7 +173,7 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
       }, [popup]);
 
     return (
-        <AuthContext.Provider value={{ user, popup, loading, setPopup, setUser, login, signUp, sociallogin, logOut, getUserData, updateUser }}>
+        <AuthContext.Provider value={{ user, popup, loading, setPopup, setUser, login, signUp, sociallogin, logOut, getUserData, updateUser, verifyOTP }}>
             <Toaster containerClassName="p-8" />
             <SessionProvider>
                 {children}

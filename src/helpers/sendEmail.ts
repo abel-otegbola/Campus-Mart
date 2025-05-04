@@ -10,11 +10,13 @@ interface dataProps {
     address: string,
 }
 
-export const sendEmail = (data: dataProps, recipient: string, products: IProduct[], type: string) => {
+export const sendEmail = (data: dataProps, recipient: string, products: IProduct[]) => {
 
+    emailjs.init(process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY || "");
+    
     emailjs.send(
         process.env.NEXT_PUBLIC_EMAIL_SERVICE_ID || "",     // Email.js Service ID
-        type === "seller" ? (process.env.NEXT_PUBLIC_EMAIL_TEMPLATE_ID || "") : (process.env.NEXT_PUBLIC_EMAIL_TEMPLATE_ID_BUYER || ""),    // Email.js Template ID
+        process.env.NEXT_PUBLIC_EMAIL_TEMPLATE_ID || "",    // Email.js Template ID
     {
         fullname: data.fullname,
         useremail: recipient,
