@@ -69,7 +69,7 @@ const UserSchema = new Schema<UserDocument>({
       type: String,
       required: [false, ""]
     },
-    otpEpiry: {
+    otpExpiry: {
       type: String,
       required: [false, ""]
     },

@@ -18,7 +18,7 @@ export default function AccountVerifypage() {
     const resendOTP = () => {
         const otp = Math.floor(Math.random() * 1000000);
         const time = Date.now() + 10 * 60 * 1000;
-        updateUserData(data?.user.email || "", { otp: otp.toString(), otpEpiry: time.toString() })
+        updateUserData(data?.user.email || "", { otp: otp.toString(), otpExpiry: time.toString() })
         .then(() => {
             sendOTP(otp, new Date(time).toLocaleString(), data?.user.email || "")
         })

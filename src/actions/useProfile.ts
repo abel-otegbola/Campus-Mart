@@ -67,7 +67,8 @@ export const verifyUserAccount = async (email: string, otp: string) => {
     try {
         await connectDB();
         const user = await User.findOne({ email });
-        if(JSON.parse(JSON.stringify(user)).otp === otp) {
+        const userData = JSON.parse(JSON.stringify(user))
+        if(userData.otp === otp ) {
             const findResult = await User.updateOne({ email }, { verified: true })
             return true
         }

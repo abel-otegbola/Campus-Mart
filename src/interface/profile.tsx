@@ -13,7 +13,7 @@ export interface UserData {
     business_location?: string,
     verified?: boolean,
     otp?: string,
-    otpEpiry?: string,
+    otpExpiry?: string,
     img?: string;
     phone_number?: string;
     socialLinks?: { whatsapp?: string, instagram?: string, x?: string, facebook?: string }

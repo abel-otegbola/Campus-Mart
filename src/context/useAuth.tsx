@@ -52,7 +52,7 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
                 else {
                     const otp = Math.floor(Math.random() * 1000000);
                     const time = Date.now() + 10 * 60 * 1000;
-                    updateUserData(email, { otp: otp.toString(), otpEpiry: time.toString() })
+                    updateUserData(email, { otp: otp.toString(), otpExpiry: time.toString() })
                     .then(() => {
                         sendOTP(otp, new Date(time).toLocaleString(), email)
                         router.push("/verify-account")
