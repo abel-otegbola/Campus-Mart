@@ -1,6 +1,5 @@
 import React from 'react';
 import { FlutterWaveButton, closePaymentModal } from 'flutterwave-react-v3';
-import Button from '../button/button';
 
 interface FlutterwaveProps {
     amount: number;

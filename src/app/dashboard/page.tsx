@@ -11,6 +11,7 @@ import BalanceCard from "@/components/cards/balanceCard";
 import BusinessOrdersTable from "@/components/tables/businessOrdersTable";
 import UserOrdersTable from "@/components/tables/userOrdersTable";
 import { getAllBusinessOrders } from "@/actions/useOrders";
+import Link from "next/link";
 
 function DashboardHome() {
     const { data } = useSession()
@@ -81,14 +82,14 @@ function DashboardHome() {
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-2 gap-4 border-y border-gray-500/[0.2] py-4">
-                                    <div className="flex items-center justify-center gap-2 border-r border-gray-500/[0.2]">
+                                    <Link href="/dashboard/inventory" className="flex items-center justify-center gap-2 border-r border-gray-500/[0.2]">
                                         <h1 className="text-[18px] font-medium">{productsLength}</h1>
                                         <p>Product{productsLength === 1 ? "" : "s"}</p>
-                                    </div>
-                                    <div className="flex items-center justify-center gap-2">
+                                    </Link>
+                                    <Link href="/dashboard/orders" className="flex items-center justify-center gap-2">
                                         <h1 className="text-[18px] font-medium">{ordersLength}</h1>
                                         <p>Order{ordersLength === 1 ? "" : "s"}</p>
-                                    </div>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
