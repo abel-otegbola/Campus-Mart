@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useContext } from "react";
 import Animate from "../animation/animate";
 import { currencyFormatter } from "@/helpers/currencyFormatter";
+import Image from "next/image";
 
 export default function ProductCard({ product, i }: { product: IProduct, i?: number }) {
     const { wishlist, addToWishlist, removeFromWishlist } = useContext(storeContext)
@@ -14,7 +15,7 @@ export default function ProductCard({ product, i }: { product: IProduct, i?: num
                 <Animate type="slideLeft" delay={(i || 1) * 100}>
                     <Link 
                         href={`/product?id=${product._id}`} 
-                        className={`block rounded sm:h-[200px] h-[200px] bg-gray-500/[0.1] bg-cover bg-center`}
+                        className={`block rounded sm:h-[200px] h-[200px] bg-gray-500/[0.1] overflow-hidden bg-cover bg-center`}
                         style={{backgroundImage: `url("${product?.images[0] || "/preview.png"}")`}} 
                     >
                     </Link>

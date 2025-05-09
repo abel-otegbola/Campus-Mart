@@ -9,18 +9,21 @@ import { LockKey, Spinner } from "@phosphor-icons/react";
 import { Formik } from "formik";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useContext } from "react";
 
 export default function AccountVerifypage() {
     const { loading, verifyOTP } = useContext(AuthContext)
+    const searchParams = useSearchParams()
+    const email = searchParams.get("email") || ""
     const { data } = useSession()
 
     const resendOTP = () => {
         const otp = Math.floor(Math.random() * 1000000);
         const time = Date.now() + 10 * 60 * 1000;
-        updateUserData(data?.user.email || "", { otp: otp.toString(), otpExpiry: time.toString() })
+        updateUserData(email || "", { otp: otp.toString(), otpExpiry: time.toString() })
         .then(() => {
-            sendOTP(otp, new Date(time).toLocaleString(), data?.user.email || "")
+            sendOTP(otp, new Date(time).toLocaleString(), email || "")
         })
         .catch((e) => {
             console.log(e)
@@ -45,7 +48,7 @@ export default function AccountVerifypage() {
                             initialValues={{ otp: ''}}
                             validationSchema={verifyOTPSchema}
                             onSubmit={( values, { setSubmitting }) => {
-                                verifyOTP(data?.user.email || "", values.otp)// confirm otp
+                                verifyOTP(email || "", values.otp, data?.user ? "login" : "register")// confirm otp
                                 setSubmitting(false);
                             }}
                             >

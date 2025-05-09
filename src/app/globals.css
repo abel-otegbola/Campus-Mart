@@ -7,21 +7,24 @@ body {
 }
 
 ::-webkit-scrollbar {
-	width: 4px;
-  }
+  width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f105;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #5858ed00;
+}
   
-  /* Track */
-  ::-webkit-scrollbar-track {
-	background: #f1f1f105;
-  }
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #f9a13c98;
+}
   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-	background: #5858ed00;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-	background: #f9a13c98;
-  }
-  
+select>option {
+  min-height: 40px;
+}

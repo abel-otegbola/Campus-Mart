@@ -4,11 +4,10 @@ import { createContext, ReactNode, useEffect, useState } from 'react';
 import { Toaster, toast } from "react-hot-toast";
 import { useRouter } from "nextjs-toploader/app";
 import { UserData } from "@/interface/profile";
-import { SessionProvider, signIn, signOut } from "next-auth/react";
+import { SessionProvider, signIn, signOut, useSession } from "next-auth/react";
 import { register } from "@/actions/register";
 import { signupData } from "@/interface/auth";
 import { fetchUserData, updateUserData, verifyUserAccount } from "@/actions/useProfile";
-import axios from "axios"
 import { sendOTP } from "@/helpers/sendOTP";
 
 type values = {
@@ -23,7 +22,7 @@ type values = {
     logOut: () => void;
     getUserData: (email: string) => void;
     updateUser: (email: string, data: UserData) => void;
-    verifyOTP: (email: string, otp: string) => void;
+    verifyOTP: (email: string, otp: string, type: string) => void;
 }
 
 export const AuthContext = createContext({} as values);
@@ -47,7 +46,12 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
             await fetchUserData(email)
             .then(response => {
                 if(response.verified) {
-                    router.push(callbackUrl ? callbackUrl : "/dashboard")
+                    if(response.role === "Seller" && (!response.business_name || response.business_name === "")) {
+                        router.push("/vendor-onboarding")
+                    }
+                    else {
+                        router.push(callbackUrl ? callbackUrl : "/dashboard")
+                    }
                 }
                 else {
                     const otp = Math.floor(Math.random() * 1000000);
@@ -55,7 +59,7 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
                     updateUserData(email, { otp: otp.toString(), otpExpiry: time.toString() })
                     .then(() => {
                         sendOTP(otp, new Date(time).toLocaleString(), email)
-                        router.push("/verify-account")
+                        router.push(`/verify-account?email=${email}`)
                     })
                     .catch((e) => {
                         console.log(e)
@@ -74,15 +78,18 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
 
     const signUp = (data: signupData) => {
         setLoading(true)
-        register(data)
+        const otp = Math.floor(Math.random() * 1000000);
+        const time = Date.now() + 10 * 60 * 1000;
+        register({ ...data, otp: otp.toString(), otpExpiry: time.toString() })
         .then((response) => {
             setLoading(false)
             if(response?.error) {
                 setPopup({ type: "error", msg: response?.error })
             }
             else {
-                setPopup({ type: "success", msg: "Signup Successful, Please login to continue" })
-                router.push("/verify-account")
+                setPopup({ type: "success", msg: "Signup Successful, Please verify your email to continue" })
+                sendOTP(otp, new Date(time).toLocaleString(), data.email)
+                router.push(`/verify-account?email=${data?.email}`)
             }
         })
         .catch((error: { message: string }) => {
@@ -142,15 +149,27 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
         })
     }
 
-    const verifyOTP = async (email:string, otp: string) => {
+    const verifyOTP = async (email:string, otp: string, type: string) => {
         setLoading(true)
         await verifyUserAccount(email, otp)
-        .then(response => {
+        .then(async response => {
             if(response) {
                 getUserData(email)
-                setPopup({ type: "success", msg: "Verified Successfully" })
+                setPopup({ type: "success", msg: "Verified Successfully!" })
                 setLoading(false)
-                router.push("/dashboard")
+                
+                await fetchUserData(email)
+                .then(response => {
+                    if(response.role === "Buyer") {
+                        router.push("/dashboard")
+                    }
+                    else if(!response.business_name || response.business_name === "") {
+                        router.push(`/vendor-onboarding?email=${email}`)
+                    }
+                    else if(type === "register") {
+                        router.push("/login")
+                    }
+                })
             }
             else {
                 setPopup({ type: "error", msg: "OTP incorrect" })

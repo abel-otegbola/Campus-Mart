@@ -11,7 +11,7 @@ import { ReactNode, useContext, useEffect, useState } from "react";
 import { TbPerfume } from "react-icons/tb";
 import { PiDiamond } from "react-icons/pi";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { isUserSaved } from "@/actions/useProfile";
 
 type navTab =  {
@@ -25,6 +25,8 @@ export default function VendorOnboardingPage() {
     const { updateUser, loading } = useContext(AuthContext)
     const [active, setActive] = useState<string | undefined>("No")
     const [flow, setFlow] = useState(0)
+    const searchParams = useSearchParams()
+    const email = searchParams.get("email") || ""
     const { data } = useSession()
     const router = useRouter()
 
@@ -64,8 +66,15 @@ export default function VendorOnboardingPage() {
         { id: 29, title: "Furniture", icon: <Chair /> },
     ];
 
+    const locations = [
+        { id: 1, title: "OAU" },
+        { id: 2, title: "UI" },
+        { id: 3, title: "UNILAG" },
+        { id: 434, title: "OAUCDL" },
+    ]
+
     useEffect(() => {
-        isUserSaved(data?.user.email || "")
+        isUserSaved(data?.user.email || email)
         .then(response => {
             if (!response) {
                 router.push("/register")
@@ -125,8 +134,8 @@ export default function VendorOnboardingPage() {
                                         <div className={`w-full flex flex-col gap-5 absolute top-0 left-0 duration-500 ${flow === 0 ? "translate-x-[0]" : "translate-x-[-120%]"}`}>
                                             <Input name="business_name" label="Business Name" value={values.business_name} onChange={handleChange} type={"text"} error={touched.business_name ? errors.business_name : ""} placeholder="Enter your business name" leftIcon={<UserFocus size={16}/>}/>
                                             
-                                            <Dropdown name="business_category"  options={categories} label="Business Category" value={values.business_category} onChange={handleChange} error={touched.business_category ? errors.business_category : ""} placeholder="Choose your business category" />
-                                            <Input name="business_location" label="Business Location (Institution)" value={values.business_location} onChange={handleChange} type="text" error={touched.business_location ? errors.business_location : ""} placeholder="Enter business location" leftIcon={<MapPin size={16}/>}/>
+                                            <Dropdown name="business_category"  options={categories} label="Business Category" value={values.business_category} onChange={(value) => setFieldValue("business_category", value)} error={touched.business_category ? errors.business_category : ""} placeholder="Choose your business category" />
+                                            <Dropdown name="business_location"  options={locations} label="Business location" value={values.business_location} onChange={(value) => setFieldValue("business_location", value)} error={touched.business_location ? errors.business_location : ""} placeholder="Choose your business location" />
                                             
                                         </div>
                                         <div className={`w-full flex flex-col gap-5 absolute top-0 left-0 duration-500 ${flow === 1 ? "translate-x-[0]" : flow === 0 ? "translate-x-[120%]" : "translate-x-[-120%]"}`}>
