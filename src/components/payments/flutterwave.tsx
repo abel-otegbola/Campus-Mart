@@ -1,5 +1,6 @@
 import React from 'react';
 import { FlutterWaveButton, closePaymentModal } from 'flutterwave-react-v3';
+import { useSession } from 'next-auth/react';
 
 interface FlutterwaveProps {
     amount: number;
@@ -7,10 +8,12 @@ interface FlutterwaveProps {
         email: string,
         phone_number: string,
         name: string,
-    }
+    },
+    setIsPaid: (aug0: boolean) => void;
 }
 
-export default function FlutterwavePayment({ amount, customer }: FlutterwaveProps) {
+export default function FlutterwavePayment({ amount, customer, setIsPaid }: FlutterwaveProps) {
+    const { data } = useSession()
    const config = {
     public_key: process.env.NEXT_PUBLIC_FLUTTERWAVE_API || "",
     tx_ref: Date.now().toString(),
@@ -27,15 +30,18 @@ export default function FlutterwavePayment({ amount, customer }: FlutterwaveProp
 
   const fwConfig = {
     ...config,
-    text: 'Pay',
+    text: 'Proceed to payment',
     callback: (response: any) => {
-        console.log(response)
+      if(response.status === "successful") {
+        setIsPaid(true)
+      }
       closePaymentModal() // this will close the modal programmatically
     },
-    onClose: () => {},
+    onClose: () => {
+    },
   };
 
   return (
-      <FlutterWaveButton {...fwConfig} className='w-full bg-primary rounded py-2'/>
+      <FlutterWaveButton disabled={!data?.user || data?.user?.role === "Seller"} {...fwConfig} className='w-full bg-primary rounded py-3 text-white'/>
   );
 }

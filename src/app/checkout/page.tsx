@@ -18,6 +18,7 @@ import { useContext, useEffect, useState } from "react";
 import { LoaderIcon } from "react-hot-toast";
 import emailjs from "@emailjs/browser";
 import { searchAllStore } from "@/actions/useProfile";
+import { makeOrder, makeOrderProps } from "@/helpers/makeOrder";
 
 export default function CheckoutPage() {
     const { cart, products } = useContext(storeContext)
@@ -25,6 +26,7 @@ export default function CheckoutPage() {
     const { data } = useSession()
     const { getUserData, user } = useContext(AuthContext)
     const [sellers, setSellers] = useState<{ name: string, email: string }[]>([])
+    const [isPaid, setisPaid] = useState(false)
 
     const orderProducts = products.filter((item: IProduct) => cart.map((item: ICart) => item.id).indexOf(item._id) !== -1 )
     
@@ -51,7 +53,22 @@ export default function CheckoutPage() {
         .catch((error: { message: string }) => {
         });
     }, [])
+
+    const handleOrderPlacement = ({
+        orderProducts, 
+        addOrder,
+        values,
+        user,
+        cart,
+        products,
+        sellers,
+    }: makeOrderProps
+    ) => {
+        makeOrder({ orderProducts, addOrder, values, user, cart, products, sellers }
+        )
+    }
     
+
     return (
         <div className="flex flex-col gap-6">
 
@@ -66,42 +83,7 @@ export default function CheckoutPage() {
                         initialValues={{ phone_number: '', country: '', address: '', note: '' }}
                         validationSchema={checkoutSchema}
                             onSubmit={( values, { setSubmitting }) => {
-                                orderProducts.map(item => ( 
-                                    addOrder({ 
-                                        shipping_address: {country: values.country, address: values.address, zip: ""}, 
-                                        customer_email: data?.user?.email || "",  
-                                        order_status: "pending", 
-                                        order_notes: values.note,
-                                        shipping_charges: 2000,
-                                        seller: item.store,
-                                        order_items: {
-                                            product_id: item._id,
-                                            product_title: item.title,
-                                            quantity: cart.filter((item: ICart) => item.id === item?.id).map((item: ICart) => item.quantity)[0],
-                                            price: +item.price,
-                                            total_price: +item.price * cart.filter((item: ICart) => item.id === item?.id).map((item: ICart) => item.quantity)[0],
-                                            shipping_status: "pending",
-                                            shipping_tracking_number: "",
-                                        },
-                                        amount: +item.price * cart.filter((item: ICart) => item.id === item?.id).map((item: ICart) => item.quantity)[0]                                       
-                                    })
-                                ))
-                                sendEmail({ phoneNumber: values.phone_number || "", address: values.address, fullname: data?.user?.fullname  || "",  cart, email: data?.user.email || user?.email || "" }, user?.email || "", products)
-                                const sellerInfo = orderProducts.map(product => (
-                                    { seller: sellers.find(seller => seller.name === product.store), cart: cart.filter(item => item.id === product._id)}
-                                ))
-
-                                for(var i=0; i<sellerInfo.length; i++) {
-                                    sendEmail(
-                                        {
-                                            phoneNumber: values.phone_number || "", 
-                                            address: values.address, 
-                                            fullname: data?.user?.fullname || "", 
-                                            cart: sellerInfo[i]?.cart, 
-                                            email: data?.user?.email || "" 
-                                        }, 
-                                        sellerInfo[i].seller?.email || "", products)
-                                }
+                            handleOrderPlacement({orderProducts, addOrder, values, user: { email: data?.user.email || user?.email || "", fullname: data?.user.fullname || "" }, cart, products, sellers})
                             setSubmitting(false);
                         }}
                         >
@@ -141,15 +123,16 @@ export default function CheckoutPage() {
                                     <Input name="address" label="Address (Street, City and State)" value={values.address} onChange={handleChange} type="text" error={touched.address ? errors.address : ""} placeholder="Address" leftIcon={<MapPin size={16}/>}/>
                                     <Textarea name="note" label="Order notes" value={values.note} onChange={handleChange} error={touched.note ? errors.note : ""} placeholder="Write short note to include in your order" leftIcon={<NotePencil size={16}/>}/>
                                 </div>
-                                
-                                <div className="flex flex-col gap-4">
-                                    <p className="text-[18px] font-medium">Payment Options</p>
-                                    <FlutterwavePayment amount={products?.filter((item: IProduct) => cart.map((item: ICart) => item.id).indexOf(item._id) !== -1 )
-                                        .map((product: IProduct) => {return {price: +product?.price * cart.filter((item: ICart) => item.id === product?._id)[0]?.quantity}})
-                                        .reduce((a: number,v: { price: number }) => a = a + v.price, 0) - 1000
-                                    } customer={{ email: data?.user?.email || "", phone_number: values.phone_number, name: data?.user.fullname || "" }} />
-                                </div>
-                                <Button className="w-full" disabled={isSubmitting || !data?.user || data?.user?.role === "Seller"} >{ isSubmitting || loading ? <LoaderIcon/> : "Complete Checkout" }</Button>
+                                    {
+                                        isPaid ?
+                                        <Button className="w-full" disabled={isSubmitting || !data?.user || data?.user?.role === "Seller"} >{ isSubmitting || loading ? <LoaderIcon/> : "Complete Checkout" }</Button>
+                                        :
+                                        <FlutterwavePayment amount={products?.filter((item: IProduct) => cart.map((item: ICart) => item.id).indexOf(item._id) !== -1 )
+                                            .map((product: IProduct) => {return {price: +product?.price * cart.filter((item: ICart) => item.id === product?._id)[0]?.quantity}})
+                                            .reduce((a: number,v: { price: number }) => a = a + v.price, 0) - 1000
+                                        } customer={{ email: data?.user?.email || "", phone_number: values.phone_number, name: data?.user.fullname || "" }} setIsPaid={setisPaid} />
+                                            
+                                    }
                             </form>
                         )}
                         </Formik>
