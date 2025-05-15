@@ -15,9 +15,15 @@ export default function ProductCard({ product, i }: { product: IProduct, i?: num
                 <Animate type="slideLeft" delay={(i || 1) * 100}>
                     <Link 
                         href={`/product?id=${product._id}`} 
-                        className={`block rounded sm:h-[200px] h-[200px] bg-gray-500/[0.1] overflow-hidden bg-cover bg-center`}
-                        style={{backgroundImage: `url("${product?.images[0] || "/preview.png"}")`}} 
+                        className={`block rounded sm:h-[250px] h-[200px] bg-gray-500/[0.1] overflow-hidden bg-cover bg-center`}
                     >
+                        <Image
+                            fill
+                            alt={product?.title}
+                            src={product?.images[0] || "/preview.png"}
+                            sizes="(max-width: 768px) 250px, (max-width: 1200px) 200px, 200px"
+                            className="object-cover bg-cover"
+                        />
                     </Link>
                 </Animate>
                 

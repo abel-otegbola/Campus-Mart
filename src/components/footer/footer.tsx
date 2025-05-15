@@ -36,7 +36,6 @@ function Footer() {
                     <Link href="/" className="w-[70px] h-[30px] text-[#FF9100] rounded flex items-center md:text-[16px] text-[14px] font-bold">
                         CAMPUX <span className="text-[#16AF89]"> MART</span>
                     </Link>
-                    <a href="mailto:support@Support@campuxmart.com" className="block py-1">Support@campuxmart.com</a>
                     <ul className="">
                         <div className="flex flex-wrap gap-4 py-2 mb-4">
                             <a href="https://www.facebook.com/people/Campux-Mart/61571552696858/?mibextid=ZbWKwL" className="p-2 border border-gray-500/[0.4] rounded-full"><FacebookLogo size={18}/></a>
