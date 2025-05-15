@@ -6,7 +6,7 @@ export default function TandCPage() {
             <p className="text-gray-600 text-center mb-8">Last Updated: [Insert Date]</p>
 
             <div className="mb-8">
-                <p className="text-gray-700 mb-4">Welcome to Campus mart. These Terms and Conditions govern your use of our platform that connects student entrepreneurs with buyers.</p>
+                <p className="text-gray-700 mb-4">Welcome to Campux mart. These Terms and Conditions govern your use of our platform that connects student entrepreneurs with buyers.</p>
                 <p className="text-gray-700">By accessing or using our website, you agree to be bound by these Terms. If you disagree, please do not use our services.</p>
             </div>
 

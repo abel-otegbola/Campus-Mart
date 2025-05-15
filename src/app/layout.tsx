@@ -11,7 +11,7 @@ import OrderContextProvider from "@/context/useOrders";
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: "Campus Mart",
+  title: "Campux Mart",
   description: "Marketplace for student vendors",
 };
 

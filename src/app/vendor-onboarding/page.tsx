@@ -96,7 +96,7 @@ export default function VendorOnboardingPage() {
                             <div className="font-bold md:text-[18px] text-[14px] text-center">
                                 <p>Setup your</p>
                                 <p>
-                                    <span className="ml-2 font-bold text-primary">CAMPUS</span>
+                                    <span className="ml-2 font-bold text-primary">CAMPUX</span>
                                     <span className="font-bold text-secondary mr-2">MART</span>
                                     vendor account
                                 </p>

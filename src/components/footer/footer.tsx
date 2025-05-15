@@ -34,9 +34,9 @@ function Footer() {
                 </ul>
                 <div className="flex flex-col gap-4">
                     <Link href="/" className="w-[70px] h-[30px] text-[#FF9100] rounded flex items-center md:text-[16px] text-[14px] font-bold">
-                        CAMPUS <span className="text-[#16AF89]"> MART</span>
+                        CAMPUX <span className="text-[#16AF89]"> MART</span>
                     </Link>
-                    <a href="mailto:support@Support@campus-mart.com" className="block py-1">Support@campus-mart.com</a>
+                    <a href="mailto:support@Support@campuxmart.com" className="block py-1">Support@campuxmart.com</a>
                     <ul className="">
                         <div className="flex flex-wrap gap-4 py-2 mb-4">
                             <a href="https://www.facebook.com/people/Campux-Mart/61571552696858/?mibextid=ZbWKwL" className="p-2 border border-gray-500/[0.4] rounded-full"><FacebookLogo size={18}/></a>
@@ -47,7 +47,7 @@ function Footer() {
                 </div>
             </div>
             <div className="border-t border-gray-500/[0.2] text-center">
-                <p className="px-[3%] py-10 flex items-center gap-2 justify-center">Campus-Mart &copy; Copyright  {new Date().getFullYear()}</p>
+                <p className="px-[3%] py-10 flex items-center gap-2 justify-center">Campuxmart &copy; Copyright  {new Date().getFullYear()}</p>
             </div>
         </footer>
     )

@@ -78,7 +78,7 @@ export default function AccountVerifypage() {
                         </div>
 
                         <h1 className="font-bold text-[20px] text-center">
-                            <span className="ml-2 font-bold text-primary">CAMPUS</span>
+                            <span className="ml-2 font-bold text-primary">CAMPUX</span>
                             <span className="font-bold text-secondary">MART</span>
                         </h1>
                     </div>

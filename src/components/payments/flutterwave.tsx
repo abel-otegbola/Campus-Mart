@@ -22,9 +22,9 @@ export default function FlutterwavePayment({ amount, customer, setIsPaid }: Flut
     payment_options: 'card,mobilemoney,ussd',
     customer,
     customizations: {
-      title: 'Campus mart',
+      title: 'Campux mart',
       description: 'Payment for items in cart',
-      logo: 'https://campus-mart.vercel.app/favicon.ico',
+      logo: 'https://campuxmart.com/favicon.ico',
     },
   };
 

@@ -23,7 +23,7 @@ export default function Loginpage() {
                         <div>
                             <h1 className="font-bold md:text-[20px] text-[16px] text-center">
                                 You are welcome to 
-                                <span className="ml-2 font-bold text-primary">CAMPUS</span>
+                                <span className="ml-2 font-bold text-primary">CAMPUX</span>
                                 <span className="font-bold text-secondary">MART</span>
                             </h1>
                             <p className="mt-2 mb-3 text-center">Log in to your account or <Link href={"/register"} className="text-primary">Sign Up</Link> if you are yet to have one</p>
@@ -76,7 +76,7 @@ export default function Loginpage() {
                         </div>
 
                         <h1 className="font-bold text-[20px] text-center">
-                            <span className="ml-2 font-bold text-primary">CAMPUS</span>
+                            <span className="ml-2 font-bold text-primary"></span>
                             <span className="font-bold text-secondary">MART</span>
                         </h1>
                     </div>

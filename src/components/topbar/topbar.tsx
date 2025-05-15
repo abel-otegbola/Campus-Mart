@@ -2,13 +2,13 @@
 import { ReactElement, useContext, useEffect, useState } from "react"
 import Tab from "../tab/tab"
 import Link from "next/link"
-import { MagnifyingGlass, ShoppingCart, User, X } from "@phosphor-icons/react"
+import { ShoppingCart, User, X } from "@phosphor-icons/react"
 import { usePathname } from "next/navigation"
 import Search from "../search/search"
 import { storeContext } from "@/context/useStore"
 import { useSession } from "next-auth/react"
 import Categories from "../categories/categories"
-import { TbHeart, TbHome, TbListSearch, TbSettings, TbUser } from "react-icons/tb"
+import { TbHeart, TbHome, TbListSearch, TbUser } from "react-icons/tb"
 import ThemeSelector from "../themeSelector/themeSelector"
 
 type navTab =  {
@@ -60,7 +60,7 @@ function Topbar() {
         <div className={`flex py-1 sticky top-0 left-0 w-full justify-between items-center bg-[#f8f8f8] dark:bg-black z-[3] ${noheader.includes(pathname.split("/")[1]) ? "hidden": ""} ${accountPages.includes(pathname.split("/")[1]) ? "md:px-10 pl-6 pr-[80px] md:py-2 py-5" : "md:px-[8%] px-6"}`}>
             <div className="md:w-[12%] w-[150px]">
                 <Link href="/" className="w-[70px] h-[30px] text-[#FF9100] md:ml-6 ml-3 rounded flex justify-center items-center md:text-[16px] text-[14px] font-bold">
-                    CAMPUS <span className="text-[#16AF89]"> MART</span>
+                    CAMPUX <span className="text-[#16AF89]"> MART</span>
                 </Link>
             </div>
 

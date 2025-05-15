@@ -50,7 +50,7 @@ export default function Registerpage() {
                             <div className="font-bold md:text-[24px] text-[16px] text-center">
                                 <p>Create Your </p>
                                 <p>
-                                    <span className="ml-2 font-bold text-primary">CAMPUS</span>
+                                    <span className="ml-2 font-bold text-primary">CAMPUX</span>
                                     <span className="font-bold text-secondary mr-2">MART</span>
                                     Account
                                 </p>
