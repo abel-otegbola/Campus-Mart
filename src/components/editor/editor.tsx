@@ -1,11 +1,13 @@
 'use client'
-import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 
 interface content {
     text: string;
     setText: (html: string) => void;
 }
+
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
 const TextEditor = ({ text, setText }: content) => {
     const modules = {

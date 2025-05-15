@@ -3,15 +3,15 @@ import { useContext, useEffect, useState } from "react";
 import { IProduct } from "@/interface/store";
 import Button from "@/components/button/button";
 import Input from "@/components/input/input";
-import { ImageBroken, Spinner, Trash, X } from "@phosphor-icons/react";
+import { Spinner, Trash, X } from "@phosphor-icons/react";
 import ImageToBase64 from "@/components/imageConverter/imageConverter";
 import Image from "next/image";
 import { storeContext } from "@/context/useStore";
 import { useSearchParams } from "next/navigation";
 import { getSingleProduct } from "@/actions/useProducts";
 import { TbCameraPlus } from "react-icons/tb";
-import TextEditor from "@/components/editor/editor";
 import { AuthContext } from "@/context/useAuth";
+import Textarea from "@/components/textarea/textarea";
 
 export default function Userproducts() {
     const [data, setData] = useState<IProduct>({} as IProduct)
@@ -108,7 +108,7 @@ export default function Userproducts() {
                         <Input id="price" label="Price" value={data?.price} onChange={(e) => setData({ ...data, price: e.target.value })} placeholder="Enter product price" /> 
                         <div className="flex flex-col gap-1 mb-12">
                             <p>Product descriptions:</p>
-                            <TextEditor text={data?.description} setText={(description) => setData((prevData) => ({ ...prevData, description}))} />
+                            <Textarea value={data?.description} onChange={(e) => setData((prevData) => ({ ...prevData, description: e.target.value}))} />
                         </div>
                         {/* <div className="flex flex-col gap-2 mb-4">
                             <label htmlFor="tags">Tags</label>

@@ -3,23 +3,18 @@ import { useContext, useState } from "react";
 import { IProduct } from "@/interface/store";
 import Button from "@/components/button/button";
 import Input from "@/components/input/input";
-// import Textarea from "@/components/textarea/textarea";
-import { ImageBroken, Spinner, Trash, X } from "@phosphor-icons/react";
+import { Spinner, Trash, X } from "@phosphor-icons/react";
 import ImageToBase64 from "@/components/imageConverter/imageConverter";
 import Image from "next/image";
 import { storeContext } from "@/context/useStore";
 import { AuthContext } from "@/context/useAuth";
-// import { PiCameraPlus } from "react-icons/pi";
 import { TbCameraPlus } from "react-icons/tb";
-import TextEditor from "@/components/editor/editor";
-// import Dropdown from "@/components/dropdown/dropdown";
+import Textarea from "@/components/textarea/textarea";
 
 export default function Userproducts() {
     const [data, setData] = useState<IProduct>({} as IProduct)
-    // const [tag, setTag] = useState("")
     const { addProduct, loading } = useContext(storeContext)
     const { user } = useContext(AuthContext)
-    // const [variations, setVariations] = useState<string[]>([])
 
     // const addTag = () => {
     //     if(data.tags) {
@@ -105,7 +100,7 @@ export default function Userproducts() {
                         <Input id="price" type="number" label="Price" onChange={(e) => setData({ ...data, price: e.target.value })} placeholder="Enter product price" />
                         <div className="flex flex-col gap-1 mb-12">
                             <p>Product descriptions:</p>
-                            <TextEditor text={data?.description} setText={(description) => setData((prevData) => ({ ...prevData, description}))} />
+                            <Textarea value={data?.description} onChange={(e) => setData((prevData) => ({ ...prevData, description: e.target.value}))} />
                         </div>
                         {/* <div className="flex flex-col gap-2 mb-4">
                             <label htmlFor="tags">Tags</label>
