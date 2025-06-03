@@ -89,7 +89,7 @@ export default function Home() {
         <div className="grid xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
           {
              loading ?
-                [0, 1, 2, 3, 4].map(index => (
+                [0, 1, 2, 3, 4, 5].map(index => (
                     <div key={index} className="flex flex-col gap-2">
                         <Skeleton type="rectangle"/>
                         <Skeleton type="paragraph"/>
@@ -127,8 +127,8 @@ export default function Home() {
             <div className="flex gap-4 md:px-[8%] md:pb-8 p-4 z-[2]">
               <Image src="/journal.png" alt="product" width={150} height={160} className="md:w-[150px] w-[100px] md:h-[160px] h-[110px] bg-cover bg-center bg-slate-200 rounded-[16px]" />
               <div className="flex flex-col md:gap-4 gap-1 max-w-[300px] md:w-full w-[60%] py-2">
-                <h2 className="md:text-[24px] text-[16px] leading-[100%]">Creative Stationery</h2>
-                <p className="md:text-[12px] text-[10px]">Brighten up your notes and documents. Durable, comfortable and stylish</p>
+                <h2 className="md:text-[24px] text-[16px] leading-[100%]">Purchase Stationeries</h2>
+                <p className="md:text-[12px] text-[10px]">Evey resources you need to brighten up your academics</p>
                 <Button href="/shop" variant="secondary" className="border-white text-white rounded-[40px] md:text-[12px] text-[10px]">SHOP NOW</Button>
               </div>
             </div>

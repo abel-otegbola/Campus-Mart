@@ -11,6 +11,8 @@ import { currencyFormatter } from "@/helpers/currencyFormatter"
 import Link from "next/link"
 import ProductSlider from "@/components/productSlider/productSlider"
 import { AuthContext } from "@/context/useAuth"
+import Slider from "react-slick"
+import Image from "next/image"
 
 export default function Product() {
     const searchParams = useSearchParams()
@@ -56,6 +58,15 @@ export default function Product() {
     //     setCart(newList)
     // }
 
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
+    };
 
     return (
         <div className="md:px-[8%] px-6 md:py-[50px] py-[20px]">
@@ -64,9 +75,20 @@ export default function Product() {
                     <div key={id}>
                         <div className="relative flex flex-wrap my-2 rounded">
                             <div className="relative h-full md:w-[40%] w-full">
-                                <ProductSlider images={product?.images?.map((img: string, i: number) => (
-                                    { id: i, src: img, text: "" }
-                                ))  || [ { id: 0, src: "/bg1.png", text: "" } ]} />
+                                <Slider {...settings} className="w-full h-full overflow-hidden">
+                                      {
+                                        product?.images?.map((img, index) => (
+                                              <div
+                                                  key={index}
+                                                  className={`relative flex flex-col gap-4 justify-center md:px-[8%] px-4 pb-[3%] top-0 md:h-[340px] h-[240px]`}
+                                              >
+                                                <Image alt={img} key={index} fill={true} className={`absolute top-0 left-0 w-full h-full bg-cover bg-center object-cover`} 
+                                                    src={img}
+                                                />
+                                                </div>
+                                          ))     
+                                      }
+                                </Slider>
                             </div>
                             <div className="md:px-[3%] md:py-0 py-6 md:w-[60%] w-full">
                                 <h2 className="py-2 md:text-[28px] text-[18px] font-medium">{product?.title}</h2>

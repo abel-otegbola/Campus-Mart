@@ -19,6 +19,7 @@ import { LoaderIcon } from "react-hot-toast";
 import emailjs from "@emailjs/browser";
 import { searchAllStore } from "@/actions/useProfile";
 import { makeOrder, makeOrderProps } from "@/helpers/makeOrder";
+import SwervepayPayment from "@/components/payments/swervepay";
 
 export default function CheckoutPage() {
     const { cart, products } = useContext(storeContext)
@@ -127,10 +128,16 @@ export default function CheckoutPage() {
                                         isPaid ?
                                         <Button className="w-full" disabled={isSubmitting || !data?.user || data?.user?.role === "Seller"} >{ isSubmitting || loading ? <LoaderIcon/> : "Complete Checkout" }</Button>
                                         :
+                                        <>
                                         <FlutterwavePayment amount={products?.filter((item: IProduct) => cart.map((item: ICart) => item.id).indexOf(item._id) !== -1 )
                                             .map((product: IProduct) => {return {price: +product?.price * cart.filter((item: ICart) => item.id === product?._id)[0]?.quantity}})
                                             .reduce((a: number,v: { price: number }) => a = a + v.price, 0) - 1000
                                         } customer={{ email: data?.user?.email || "", phone_number: values.phone_number, name: data?.user.fullname || "" }} setIsPaid={setisPaid} />
+                                        {/* <SwervepayPayment amount={products?.filter((item: IProduct) => cart.map((item: ICart) => item.id).indexOf(item._id) !== -1 )
+                                            .map((product: IProduct) => {return {price: +product?.price * cart.filter((item: ICart) => item.id === product?._id)[0]?.quantity}})
+                                            .reduce((a: number,v: { price: number }) => a = a + v.price, 0) - 1000
+                                        } customer={{ email: data?.user?.email || "", phone_number: values.phone_number, name: data?.user.fullname || "" }} setIsPaid={setisPaid} /> */}
+                                        </>
                                             
                                     }
                             </form>

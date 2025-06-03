@@ -22,7 +22,7 @@ export default function ProductCard({ product, i }: { product: IProduct, i?: num
                             alt={product?.title}
                             src={product?.images[0] || "/preview.png"}
                             sizes="(max-width: 768px) 250px, (max-width: 1200px) 200px, 200px"
-                            className="object-cover bg-cover"
+                            className="object-cover bg-cover rounded"
                         />
                     </Link>
                 </Animate>
