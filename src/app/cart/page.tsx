@@ -33,14 +33,12 @@ export default function CartPage() {
                     :
                     products.filter((item: IProduct) => cart.map((item: ICart) => item.id).indexOf(item._id) !== -1 ).map((product: IProduct) => (
                         <div key={product?._id} className="relative bg-white dark:bg-black flex items-center gap-2 p-2 rounded border border-gray-500/[0.1] dark:border-slate-100/[0.05]">
-                            <a href={`/product?id=${product?._id}`}>
-                                <Link 
-                                    href={`/product?id=${product._id}`} 
-                                    className={`block rounded sm:h-[120px] h-[120px] w-[120px] bg-gray-500/[0.1] bg-cover bg-center`}
-                                    style={{backgroundImage: `url("${product?.images[0]}")`}} 
-                                >
-                                </Link>
-                            </a>
+                            <Link 
+                                href={`/product?id=${product._id}`} 
+                                className={`block rounded sm:h-[120px] h-[120px] w-[120px] bg-gray-500/[0.1] bg-cover bg-center`}
+                                style={{backgroundImage: `url("${product?.images[0]}")`}} 
+                            >
+                            </Link>
                             <div className="p-4 w-full flex flex-col justify-between">
                                 <a href={`/product?id=${product?._id}`} className="mr-8 uppercase text-[12px] leading-[140%] font-bold">{product?.title}</a>
                                 <div className="flex opacity-[0.6] text-[10px] items-center gap-4 leading-[120%] py-2">

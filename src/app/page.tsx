@@ -115,7 +115,7 @@ export default function Home() {
         
       </section>
 
-      <section>
+      {/* <section>
         <Animate type="zoomIn">
           <div className="flex flex-col justify-between relative w-full h-[600px] bg-cover bg-center text-white" style={{ backgroundImage: 'url("/bg3.webp")' }}>
             <InfiniteScroll texts={[ 
@@ -134,7 +134,7 @@ export default function Home() {
             </div>
           </div>
         </Animate>
-      </section>
+      </section> */}
 
       <section className="flex flex-col md:px-[8%] px-4 py-[60px] w-full">
         <div className="flex flex-col gap-4">

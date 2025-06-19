@@ -41,15 +41,15 @@ export default function Layout({
         { id: 0, label: "Dashboard", icon: <TbDashboard />, link: "/dashboard" },
         { id: 1, label: "My Store", icon: <TbHome2 />, link: "#", subLinks: [ 
             { id: 3, label: "Storefront", icon: <TbHomeUp />, link: "/dashboard/store" },
-            { id: 3, label: "New Product", icon: <TbPackage />, link: "/dashboard/inventory/new" },
-            { id: 2, label: "Products", icon: <TbPackages />, link: "/dashboard/inventory" },
-            { id: 4, label: "Orders", icon: <TbListDetails />, link: "/dashboard/orders" },
-            { id: 4, label: "Store settings", icon: <TbListDetails />, link: "/dashboard/store-settings" },
+            { id: 4, label: "New Product", icon: <TbPackage />, link: "/dashboard/inventory/new" },
+            { id: 5, label: "Products", icon: <TbPackages />, link: "/dashboard/inventory" },
+            { id: 6, label: "Orders", icon: <TbListDetails />, link: "/dashboard/orders" },
+            { id: 7, label: "Store settings", icon: <TbListDetails />, link: "/dashboard/store-settings" },
          ] 
         },
-        { id: 1, label: "Account Settings", icon: <TbUser />, link: "/dashboard/profile" },
-        { id: 6, label: "Notifications", icon: <TbBell />, link: "/dashboard/notifications" },
-        { id: 7, label: "Settings", icon: <TbSettings />, link: "/settings" },
+        { id: 8, label: "Account Settings", icon: <TbUser />, link: "/dashboard/profile" },
+        { id: 9, label: "Notifications", icon: <TbBell />, link: "/dashboard/notifications" },
+        { id: 10, label: "Settings", icon: <TbSettings />, link: "/settings" },
     ]
 
     const modalRef = useOutsideClick(setOpen, false)

@@ -26,12 +26,11 @@ export default function Dropdown({ className, disabled, label, name, options, va
         <div className={`relative flex flex-col gap-1 ${className}`}>
             <div className="flex justify-between gap-4">
                 { label ? <label htmlFor={name} className={`text-[12px] ${focus ? "text-primary" : ""}`}>{label}</label> : "" }
-                { error && !focus ? <p className="px-2 text-[12px] italic text-[#C22026] backdrop-blur-sm">{error}</p> : "" }
             </div>
 
             <div className={`flex items-center relative rounded-lg bg-transparent w-full py-1 pl-1 border duration-500 z-[1] 
-                ${error && !focus ? "border-[#C22026] text-red-500" : "border-black/[0.2]"}
-                ${focus ? "border-black shadow-input-active" : " "}
+                ${error && !focus ?  "border-red-500 text-red-500 " : "border-gray/[0.3] dark:border-gray-500/[0.4]"}
+                ${focus ? "border-primary dark:border-primary shadow-input-active" : ""}
                 ${ className }
             `}>
                 <span className="text-[16px]">
@@ -50,10 +49,12 @@ export default function Dropdown({ className, disabled, label, name, options, va
                 >
                   {
                     options?.map(option => (
-                      <option className="flex gap-2 items-center" key={option.id} value={option.title}>{option.icon}{option.title}</option>
+                      <option className="flex gap-2 items-center dark:bg-dark" key={option.id} value={option.title}>{option.icon}{option.title}</option>
                     ))
                   }
                 </select>
+
+                { error && !focus ? <p className="absolute right-2 px-2 text-[12px] bg-white dark:bg-black text-red-500 backdrop-blur-sm">{error}</p> : "" }
             </div>
         </div>
     )

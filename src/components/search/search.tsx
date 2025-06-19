@@ -1,7 +1,6 @@
 'use client'
 import { BoxArrowUp, MagnifyingGlass, User } from "@phosphor-icons/react";
 import { ReactNode, useState } from "react";
-import Dropdown from "../dropdown/dropdown";
 
 interface dropdownProps {
     className?: string;

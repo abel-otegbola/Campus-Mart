@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import Button from '../button/button';
-import { swervepay } from '@/actions/usePayment';
+import { SwervpayClient } from '@swervpaydev/sdk';
 
 interface SwervePayProps {
     amount: number;
@@ -15,20 +15,41 @@ interface SwervePayProps {
 
 export default function SwervepayPayment({ amount, customer, setIsPaid }: SwervePayProps) {
   const { data } = useSession()
+  const [swervepay, setSwervepay] = useState<SwervpayClient | null>(null);
+
 
   useEffect(() => {
-    console.log(process.env.NEXT_PUBLIC_SWERVE_SECRET_KEY)
-  }, [])
+    // Initialize SwervePay with your keys
+    const config = {
+      publicKey: process.env.NEXT_PUBLIC_SWERVE_PUBLIC_KEY,
+        secretKey: process.env.NEXT_PUBLIC_SWERVE_SECRET_KEY || "",
+        businessId: process.env.NEXT_PUBLIC_SWERVE_PUBLIC_KEY || ""
+    }
 
-  const userData = {
-    amount,
-    bank_code: '0',
-    account_number: 'Account',
-    narration: 'narrated',
-    reference: '2345',
-  }
+    const newSwervepay = new SwervpayClient(config)
+    setSwervepay(newSwervepay);
+  }, []);
     
+  const handlePayment = async () => {
+    if (!swervepay) return;
+    
+    try {
+      const paymentData = {
+        amount,
+        category: '0',
+        customer_id: '0735218800',
+        biller_id: 'narrated',
+        reference: '2345',
+        item_id: "0",
+      };
+
+      const response = await swervepay.bill.create(paymentData);
+    } catch (error) {
+      console.error('Payment error:', error);
+    }
+  };
+
   return (
-      <Button onClick={() => swervepay(userData)}>Proceed to payment</Button>
+      <Button onClick={() => handlePayment()}>Proceed to payment</Button>
   );
 }

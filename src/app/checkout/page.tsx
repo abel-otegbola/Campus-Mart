@@ -1,14 +1,12 @@
 'use client'
 import Button from "@/components/button/button";
 import Input from "@/components/input/input";
-import FlutterwavePayment from "@/components/payments/flutterwave";
 import Textarea from "@/components/textarea/textarea";
 import TotalPrice from "@/components/totalPrice/totalPrice";
 import { AuthContext } from "@/context/useAuth";
 import { OrderContext } from "@/context/useOrders";
 import { storeContext } from "@/context/useStore";
 import { currencyFormatter } from "@/helpers/currencyFormatter";
-import { sendEmail } from "@/helpers/sendEmail";
 import { ICart, IProduct } from "@/interface/store";
 import { checkoutSchema } from "@/schema/checkout";
 import { Globe, MapPin, NotePencil } from "@phosphor-icons/react";
@@ -18,8 +16,8 @@ import { useContext, useEffect, useState } from "react";
 import { LoaderIcon } from "react-hot-toast";
 import emailjs from "@emailjs/browser";
 import { searchAllStore } from "@/actions/useProfile";
-import { makeOrder, makeOrderProps } from "@/helpers/makeOrder";
-import SwervepayPayment from "@/components/payments/swervepay";
+import { payWithMonnify } from "@/helpers/payWithMonnify";
+import { totalPrice } from "@/helpers/totlaPrice";
 
 export default function CheckoutPage() {
     const { cart, products } = useContext(storeContext)
@@ -27,7 +25,6 @@ export default function CheckoutPage() {
     const { data } = useSession()
     const { getUserData, user } = useContext(AuthContext)
     const [sellers, setSellers] = useState<{ name: string, email: string }[]>([])
-    const [isPaid, setisPaid] = useState(false)
 
     const orderProducts = products.filter((item: IProduct) => cart.map((item: ICart) => item.id).indexOf(item._id) !== -1 )
     
@@ -53,22 +50,7 @@ export default function CheckoutPage() {
         })
         .catch((error: { message: string }) => {
         });
-    }, [])
-
-    const handleOrderPlacement = ({
-        orderProducts, 
-        addOrder,
-        values,
-        user,
-        cart,
-        products,
-        sellers,
-    }: makeOrderProps
-    ) => {
-        makeOrder({ orderProducts, addOrder, values, user, cart, products, sellers }
-        )
-    }
-    
+    }, [])    
 
     return (
         <div className="flex flex-col gap-6">
@@ -83,8 +65,20 @@ export default function CheckoutPage() {
                     <Formik
                         initialValues={{ phone_number: '', country: '', address: '', note: '' }}
                         validationSchema={checkoutSchema}
-                            onSubmit={( values, { setSubmitting }) => {
-                            handleOrderPlacement({orderProducts, addOrder, values, user: { email: data?.user.email || user?.email || "", fullname: data?.user.fullname || "" }, cart, products, sellers})
+                        onSubmit={( values, { setSubmitting }) => {
+                            payWithMonnify({ 
+                                fullname: data?.user.fullname || "", 
+                                email: data?.user.email || user?.email || "", 
+                                amount: totalPrice(cart, products)  }, 
+                                { 
+                                    orderProducts, 
+                                    addOrder, 
+                                    values, 
+                                    user: { email: data?.user.email || user?.email || "", fullname: data?.user.fullname || "" }, 
+                                    cart, 
+                                    products, 
+                                    sellers 
+                                })
                             setSubmitting(false);
                         }}
                         >
@@ -124,27 +118,12 @@ export default function CheckoutPage() {
                                     <Input name="address" label="Address (Street, City and State)" value={values.address} onChange={handleChange} type="text" error={touched.address ? errors.address : ""} placeholder="Address" leftIcon={<MapPin size={16}/>}/>
                                     <Textarea name="note" label="Order notes" value={values.note} onChange={handleChange} error={touched.note ? errors.note : ""} placeholder="Write short note to include in your order" leftIcon={<NotePencil size={16}/>}/>
                                 </div>
-                                    {
-                                        isPaid ?
-                                        <Button className="w-full" disabled={isSubmitting || !data?.user || data?.user?.role === "Seller"} >{ isSubmitting || loading ? <LoaderIcon/> : "Complete Checkout" }</Button>
-                                        :
-                                        <>
-                                        <FlutterwavePayment amount={products?.filter((item: IProduct) => cart.map((item: ICart) => item.id).indexOf(item._id) !== -1 )
-                                            .map((product: IProduct) => {return {price: +product?.price * cart.filter((item: ICart) => item.id === product?._id)[0]?.quantity}})
-                                            .reduce((a: number,v: { price: number }) => a = a + v.price, 0) - 1000
-                                        } customer={{ email: data?.user?.email || "", phone_number: values.phone_number, name: data?.user.fullname || "" }} setIsPaid={setisPaid} />
-                                        {/* <SwervepayPayment amount={products?.filter((item: IProduct) => cart.map((item: ICart) => item.id).indexOf(item._id) !== -1 )
-                                            .map((product: IProduct) => {return {price: +product?.price * cart.filter((item: ICart) => item.id === product?._id)[0]?.quantity}})
-                                            .reduce((a: number,v: { price: number }) => a = a + v.price, 0) - 1000
-                                        } customer={{ email: data?.user?.email || "", phone_number: values.phone_number, name: data?.user.fullname || "" }} setIsPaid={setisPaid} /> */}
-                                        </>
-                                            
-                                    }
+                                <Button className="w-full" disabled={isSubmitting || !data?.user || data?.user?.role === "Seller"} >{ isSubmitting || loading ? <LoaderIcon/> : "Make payment" }</Button>
                             </form>
                         )}
                         </Formik>
                 </div>
-                
+                 
                 <div className="sm:sticky top-[90px] gap-2 md:w-[30%] w-[100%] rounded-[8px] p-6 bg-gray-300/[0.08] dark:bg-dark border border-gray-500/[0.1]">
                     <h2 className="text-[16px] uppercase font-bold">Summary</h2>
                     <div className="flex flex-col gap-2 py-6">

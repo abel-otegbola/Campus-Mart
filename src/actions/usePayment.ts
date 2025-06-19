@@ -14,15 +14,21 @@ export const swervepay = async (data: payoutprops) => {
         secretKey: process.env.NEXT_PUBLIC_SWERVE_SECRET_KEY || "",
         businessId: process.env.NEXT_PUBLIC_SWERVE_PUBLIC_KEY || ""
     }
-    const swervpay = new SwervpayClient(config)
 
-    const payout = await swervpay.payout.create({
-        amount: data.amount,
-        currency: "NGN",
-        bank_code: data.bank_code,
-        account_number: data.account_number,
-        narration: data.narration,
-        reference: data.reference,
-    });
+    const swervepay = new SwervpayClient(config)
+    try {
+        const payment = await swervepay.payment.create({
+            amount: data.amount,
+            currency: data.currency,
+            email: data.email,
+            reference: data.reference || uuidv4(), // unique ID for each transaction
+            callback_url: "https://yourdomain.com/payment-success ", // URL to handle success
+        });
+
+        res.json({ checkoutUrl: payment.checkout_url });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Payment initialization failed' });
+    }
 }
 

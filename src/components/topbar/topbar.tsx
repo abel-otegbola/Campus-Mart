@@ -24,7 +24,7 @@ function Topbar() {
     const { data } = useSession()
     const [open, setOpen] = useState(false)
     const [openSearch, setOpenSearch] = useState(false)
-    const [searchType, setSearchType] = useState("products")
+    const [searchType, setSearchType] = useState("Products")
     const [cartLength, setCartLength] = useState(0)
 
     useEffect(() => {
