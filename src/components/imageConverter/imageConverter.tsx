@@ -33,6 +33,7 @@ const ImageToBase64 = ({ id, img, fullname, setImg }: { id: string, img: string,
     };
 
     compressImage();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [image]);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {

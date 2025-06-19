@@ -16,7 +16,6 @@ import { useContext, useEffect, useState } from "react";
 import { LoaderIcon } from "react-hot-toast";
 import emailjs from "@emailjs/browser";
 import { searchAllStore } from "@/actions/useProfile";
-import { payWithMonnify } from "@/helpers/payWithMonnify";
 import { totalPrice } from "@/helpers/totlaPrice";
 
 export default function CheckoutPage() {
@@ -65,7 +64,8 @@ export default function CheckoutPage() {
                     <Formik
                         initialValues={{ phone_number: '', country: '', address: '', note: '' }}
                         validationSchema={checkoutSchema}
-                        onSubmit={( values, { setSubmitting }) => {
+                        onSubmit={async ( values, { setSubmitting }) => {
+                            const { payWithMonnify } = await import('@/helpers/payWithMonnify');
                             payWithMonnify({ 
                                 fullname: data?.user.fullname || "", 
                                 email: data?.user.email || user?.email || "", 
