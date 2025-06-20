@@ -87,7 +87,7 @@ export default function Home() {
 
       <section className="md:px-[8%] px-4 py-[20px]">
         <Animate type="slideUp">
-          <h1 className="md:text-[32px] text-[20px] font-medium py-6">Available Items</h1>
+          <h1 className="md:text-[48px] text-[28px] font-black py-6 uppercase">Available Items</h1>
         </Animate>
 
         <div className="grid xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
@@ -106,23 +106,11 @@ export default function Home() {
           }
         </div>
       </section>
-      
-      <section className="md:px-[8%] px-4 py-5 flex flex-col gap-4 mb-6">
-        <Animate type="slideUp">
-          <h2 className="font-medium md:text-[24px] text-[18px]">Find Your Masterpiece</h2>
-        </Animate>
-        <div className="flex justify-between items-center flex-wrap gap-4">
-          <Button href={"/login"} variant="secondary" className="border-black dark:border-gray-500/[0.3] text-black dark:text-white rounded-[40px] md:text-[12px] text-[10px]">
-            JOIN NOW
-          </Button>
-        </div>
-        
-      </section>
 
       <section className="flex flex-col md:px-[8%] py-[60px] w-full">
         <div className="flex flex-col gap-4">
          <div
-          className={`relative flex flex-col gap-4 justify-center md:px-[8%] px-4 pb-[3%] top-0 md:h-[340px] h-[240px] bg-cover bg-center`} 
+          className={`relative flex flex-col gap-4 justify-center border-b border-gray-500/[0.2] md:px-[8%] px-4 pb-[3%] top-0 md:h-[380px] h-[240px] bg-cover bg-center`} 
           style={{ backgroundImage: 'url("/bg-gadgets.webp")' }}
           >
                 <div className="h-full flex flex-col gap-6 justify-center">
@@ -150,6 +138,43 @@ export default function Home() {
                 ))                                    
             :
             shuffleArray(products?.filter(item => item.category.toLowerCase().includes("gadget")))?.map((product, i) => (
+              <ProductCard key={product._id} product={product} i={i}/>
+            ))
+          }
+        </div>
+      </section>
+
+       <section className="flex flex-col md:px-[8%] py-[60px] w-full">
+        <div className="flex flex-col gap-4">
+         <div
+          className={`relative flex flex-col gap-4 justify-center border-b border-gray-500/[0.2] md:px-[8%] px-4 pb-[3%] top-0 md:h-[400px] h-[240px] bg-cover bg-center`} 
+          style={{ backgroundImage: 'url("/bg-stationery.webp")' }}
+          >
+                <div className="h-full flex flex-col gap-6 justify-center">
+                  <div className="lg:text-[48px] md:text-[32px] uppercase md:leading-[64px] leading-[24px] text-[18px] font-black md:w-[60%] text-black w-[75%] -mb-4 mt-12">
+                      <Animate type="slideLeft">
+                          Your one-stop shop for stationery
+                      </Animate>
+                  </div> 
+                  <Animate type='slideUp'>
+                      <Button href="/shop" className="rounded-full">
+                          Shop now
+                      </Button>
+                  </Animate>
+                </div>
+              </div>
+        </div>
+        <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 py-6">
+          {
+             loading ?
+                [0, 1, 2, 3, 4].map(index => (
+                    <div key={index} className="flex flex-col gap-2">
+                        <Skeleton type="rectangle"/>
+                        <Skeleton type="paragraph"/>
+                    </div>
+                ))                                    
+            :
+            shuffleArray(products?.filter(item => item.category.toLowerCase().includes("stationery")))?.map((product, i) => (
               <ProductCard key={product._id} product={product} i={i}/>
             ))
           }
