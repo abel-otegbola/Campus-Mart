@@ -46,7 +46,7 @@ function Footer() {
                             <a href="https://instagram.com/campuxmart" className="p-2 border border-gray-500/[0.4] rounded-full"><InstagramLogo size={18}/></a>
                         </div>
                     </ul>
-                    <p>Secured by Swervepay, SSL Secured</p>
+                    <p>Secured by Monnify</p>
                 </div>
             </div>
             <div className="border-t border-gray-500/[0.2] text-center">

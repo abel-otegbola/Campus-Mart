@@ -51,7 +51,7 @@ export default function Home() {
       <Slider {...settings} className="w-full h-full overflow-hidden">
       {
         [
-          { id: "0", src: "/bg2.webp", text: "Quality Products for you", subtext: "Shop what you need, when you need it. From textbooks to trending gear, buy and sell with ease" },
+          { id: "0", src: "/bg2.webp", text: "Quality Products for you", subtext: "Discover Trusted Quality. Your Go-to source for reliable student-to-student shopping." },
           { id: "1", src: "/bg1.webp", text: "Students Shopping Made Easy", subtext: "Shop what you need, when you need it. From textbooks to trending gear, buy and sell with ease" },
         ].map((img, index) => (
               <div
@@ -127,10 +127,10 @@ export default function Home() {
                 </div>
               </div>
         </div>
-        <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 py-6">
+        <div className="grid xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 py-6">
           {
              loading ?
-                [0, 1, 2, 3, 4].map(index => (
+                [0, 1, 2, 3, 4, 5].map(index => (
                     <div key={index} className="flex flex-col gap-2">
                         <Skeleton type="rectangle"/>
                         <Skeleton type="paragraph"/>
@@ -151,7 +151,7 @@ export default function Home() {
           style={{ backgroundImage: 'url("/bg-stationery.webp")' }}
           >
                 <div className="h-full flex flex-col gap-6 justify-center">
-                  <div className="lg:text-[48px] md:text-[32px] uppercase md:leading-[64px] leading-[24px] text-[18px] font-black md:w-[60%] text-black w-[75%] -mb-4 mt-12">
+                  <div className="lg:text-[48px] md:text-[32px] uppercase md:leading-[64px] leading-[24px] text-[18px] font-black md:w-[60%] dark:text-white text-black w-[75%] -mb-4 mt-12">
                       <Animate type="slideLeft">
                           Your one-stop shop for stationery
                       </Animate>
@@ -164,10 +164,10 @@ export default function Home() {
                 </div>
               </div>
         </div>
-        <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 py-6">
+        <div className="grid xl:grid-cols-6 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 py-6">
           {
              loading ?
-                [0, 1, 2, 3, 4].map(index => (
+                [0, 1, 2, 3, 4, 5].map(index => (
                     <div key={index} className="flex flex-col gap-2">
                         <Skeleton type="rectangle"/>
                         <Skeleton type="paragraph"/>
