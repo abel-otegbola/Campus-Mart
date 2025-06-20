@@ -22,18 +22,18 @@ export default function Button({ variant, className, href, size, disabled, onCli
        <>
             { 
             href ? 
-                <Link role="button" href={href} className={`rounded flex items-center justify-center md:gap-3 gap-2 w-fit ${variants[variant || "primary"]} 
+                <Link role="button" href={href} className={`rounded flex items-center justify-center md:gap-3 gap-2 w-fit md:text-md text-[12px] ${variants[variant || "primary"]} 
                     ${disabled ? "opacity-[0.25]" : ""} 
-                    ${size === "small" ? "text-[10px] py-[4px] px-[12px]" : size === "large" ? "py-[16px] px-[32px]" : "py-[12px] px-[24px]"} 
+                    ${size === "small" ? "text-[10px] py-[4px] md:px-[12px] px-[8px]" : size === "large" ? "md:py-[16px] py-[10px] md:px-[32px] px-[28px]" : "md:py-[12px] py-2 md:px-[24px] px-[18px]"} 
                     ${className} 
                      `}> 
                     { children }
                 </Link>
 
-                : <button className={`rounded duration-500 flex items-center justify-center md:gap-3 gap-2 w-fit
+                : <button className={`rounded duration-500 flex items-center justify-center md:gap-3 gap-2 w-fit md:text-md text-[12px]
                     ${variants[variant || "primary"]} 
                     ${disabled ? "opacity-[0.25]" : ""} 
-                    ${size === "small" ? "text-[10px] py-[4px] px-[12px]" : size === "large" ? "py-[16px] px-[32px]" : "py-[12px] px-[24px]"} 
+                    ${size === "small" ? "text-[10px] py-[4px] md:px-[12px] px-[8px]" : size === "large" ? "md:py-[16px] py-[10px] md:px-[32px] px-[28px]" : "md:py-[12px] py-2 md:px-[24px] px-[18px]"} 
                     ${className} 
                 `}
                 {...props}

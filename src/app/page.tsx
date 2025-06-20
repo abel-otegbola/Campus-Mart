@@ -5,7 +5,6 @@ import Animate from "@/components/animation/animate";
 import Button from "@/components/button/button";
 import ProductCard from "@/components/cards/productCard";
 import Skeleton from "@/components/skeleton/skeleton";
-import InfiniteScroll from "@/components/slider/infiniteScroll"
 import { shuffleArray } from "@/helpers/shuffleProdcts";
 import { IProduct } from "@/interface/store";
 import Image from "next/image";
@@ -52,8 +51,8 @@ export default function Home() {
       <Slider {...settings} className="w-full h-full overflow-hidden">
       {
         [
-          { id: "0", src: "/bg2.webp", text: "Get Your Order Delivered Personally to You Anytime" },
-          { id: "1", src: "/bg1.webp", text: "Search and Order Quality Products at your Convenience" },
+          { id: "0", src: "/bg2.webp", text: "Quality Products for you", subtext: "Shop what you need, when you need it. From textbooks to trending gear, buy and sell with ease" },
+          { id: "1", src: "/bg1.webp", text: "Students Shopping Made Easy", subtext: "Shop what you need, when you need it. From textbooks to trending gear, buy and sell with ease" },
         ].map((img, index) => (
               <div
                   key={img.id}
@@ -63,10 +62,15 @@ export default function Home() {
               <Image alt={img.src} key={index} fill={true} className={`absolute top-0 left-0 w-full h-full bg-cover bg-center object-cover`} 
                   src={img.src}
               />
-                <div className="h-full flex flex-col gap-4 justify-center">
-                  <div className="md:text-[28px] md:text-[20px] text-[18px] font-medium md:w-[60%] text-white w-[75%]">
+                <div className="h-full flex flex-col gap-6 justify-center">
+                  <div className="lg:text-[32px] md:text-[20px] text-[18px] font-black md:w-[60%] text-white w-[75%] -mb-4">
                       <Animate type="slideLeft">
                           {img?.text}
+                      </Animate>
+                  </div> 
+                  <div className="md:w-[50%] text-white w-[75%]">
+                      <Animate type="slideLeft">
+                          {img?.subtext}
                       </Animate>
                   </div>
                   <Animate type='slideUp'>
@@ -115,35 +119,25 @@ export default function Home() {
         
       </section>
 
-      {/* <section>
-        <Animate type="zoomIn">
-          <div className="flex flex-col justify-between relative w-full h-[600px] bg-cover bg-center text-white" style={{ backgroundImage: 'url("/bg3.webp")' }}>
-            <InfiniteScroll texts={[ 
-              { title: "folders", text: "Folders - Organize your dcuments with style" } ,
-              { title: "journals", text: "Journals - Write your thoughts, ideas and dreams" } ,
-              { title: "backpacks", text: "Backpacks - Stylish, durable and comfortable" } ,
-            ]}
-            />
-            <div className="flex gap-4 md:px-[8%] md:pb-8 p-4 z-[2]">
-              <Image src="/journal.png" alt="product" width={150} height={160} className="md:w-[150px] w-[100px] md:h-[160px] h-[110px] bg-cover bg-center bg-slate-200 rounded-[16px]" />
-              <div className="flex flex-col md:gap-4 gap-1 max-w-[300px] md:w-full w-[60%] py-2">
-                <h2 className="md:text-[24px] text-[16px] leading-[100%]">Purchase Stationeries</h2>
-                <p className="md:text-[12px] text-[10px]">Evey resources you need to brighten up your academics</p>
-                <Button href="/shop" variant="secondary" className="border-white text-white rounded-[40px] md:text-[12px] text-[10px]">SHOP NOW</Button>
-              </div>
-            </div>
-          </div>
-        </Animate>
-      </section> */}
-
-      <section className="flex flex-col md:px-[8%] px-4 py-[60px] w-full">
+      <section className="flex flex-col md:px-[8%] py-[60px] w-full">
         <div className="flex flex-col gap-4">
-          <Animate type="slideUp">
-            <h2 className="font-medium md:text-[24px] text-[18px]">Buy Gadgets</h2>
-          </Animate>
-          {/* <Animate type="slideUp">
-            <p className="md:w-[50%] w-full"></p>
-          </Animate> */}
+         <div
+          className={`relative flex flex-col gap-4 justify-center md:px-[8%] px-4 pb-[3%] top-0 md:h-[340px] h-[240px] bg-cover bg-center`} 
+          style={{ backgroundImage: 'url("/bg-gadgets.webp")' }}
+          >
+                <div className="h-full flex flex-col gap-6 justify-center">
+                  <div className="lg:text-[48px] md:text-[32px] uppercase text-[18px] font-black md:w-[60%] text-white w-[75%] -mb-4 mt-12">
+                      <Animate type="slideLeft">
+                          Quality gadgets
+                      </Animate>
+                  </div> 
+                  <Animate type='slideUp'>
+                      <Button href="/shop" className="rounded-full">
+                          Shop now
+                      </Button>
+                  </Animate>
+                </div>
+              </div>
         </div>
         <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 py-6">
           {

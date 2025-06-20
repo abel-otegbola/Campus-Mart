@@ -11,7 +11,7 @@ export default function ProductCard({ product, i }: { product: IProduct, i?: num
     const { wishlist, addToWishlist, removeFromWishlist } = useContext(storeContext)
 
     return (
-        <div className={`flex flex-col relative break-inside-avoid md:mb-4 mb-2 pb-4 overflow-hidden `} data-aos="fade-up">
+        <div className={`flex flex-col relative break-inside-avoid md:mb-4 mb-2 pb-4 p-2 overflow-hidden border border-gray-500/[0.1] `} data-aos="fade-up">
                 <Animate type="slideLeft" delay={(i || 1) * 100}>
                     <Link 
                         href={`/product?id=${product._id}`} 
