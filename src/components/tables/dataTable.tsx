@@ -17,7 +17,7 @@ export default function DataTable({ headers, data, isLoading }: { headers: strin
     const { products } = useContext(storeContext)
 
     return (
-        <table className="table-auto text-left md:text-[12px] text-[10px] w-full">
+        <table className="table-auto text-left md:text-[12px] text-[10px] w-full min-w-[600px]">
             <thead>
                 <tr className="font-medium text-[10px] uppercase border border-transparent border-b-gray-400/[0.2]">
                     {

@@ -80,7 +80,7 @@ export default function Product() {
                                         product?.images?.map((img, index) => (
                                               <div
                                                   key={index}
-                                                  className={`relative flex flex-col gap-4 justify-center md:px-[8%] px-4 pb-[3%] top-0 md:h-[340px] h-[240px]`}
+                                                  className={`relative flex flex-col gap-4 justify-center md:px-[8%] px-4 pb-[3%] top-0 md:h-[440px] h-[240px]`}
                                               >
                                                 <Image alt={img} key={index} fill={true} className={`absolute top-0 left-0 w-full h-full bg-cover bg-center object-cover`} 
                                                     src={img}
@@ -122,7 +122,9 @@ export default function Product() {
                                 
 
                                 <div className="mt-4 flex flex-wrap gap-4 justify-between items-center py-4 border border-transparent border-y-gray-500/[0.09]">
-                                    {/* <div className="">
+                                    {
+                                    product?.variations?.colors ? 
+                                    <div className="">
                                         <p>Colors</p>
                                         <div className="flex items-center gap-4 mt-4">
                                             {
@@ -137,8 +139,13 @@ export default function Product() {
                                                 ))
                                             }
                                         </div>
-                                    </div> */}
-                                    {/* <div className="">
+                                    </div>
+                                    :
+                                    ""
+                                    }
+                                    {
+                                    product?.variations?.colors ? 
+                                    <div className="">
                                         <p>Size</p>
                                         <div className="grid grid-cols-5 items-center gap-4 mt-4">
                                             {
@@ -152,7 +159,10 @@ export default function Product() {
                                                 ))
                                             }
                                         </div>
-                                    </div> */}
+                                    </div>
+                                    :
+                                    ""
+                                    }
                                 </div>
 
                                 
@@ -163,7 +173,7 @@ export default function Product() {
                                     <div className="text-[14px] sm:px-0 py-4 bg-white dark:bg-black w-full">
                                     {
                                         cart.map((item: ICart) => item.id).indexOf(id || "") === -1 ? 
-                                        <Button className="w-full" onClick={() => addToCart({id: id ||  "0", quantity: 1, variation: { color: "black", size: "LG" }}) }>Add to Cart</Button> 
+                                        <Button className="min-w-[280px] rounded-full" onClick={() => addToCart({id: id ||  "0", quantity: 1, variation: { color: "black", size: "LG" }}) }>Add to Cart</Button> 
                                         : 
                                         <div className="flex flex-wrap gap-6">
                                             <div className="flex items-center gap-1 animate-zoom-in border border-gray-500/[0.1] rounded-lg">
@@ -171,7 +181,7 @@ export default function Product() {
                                                 <input className="p-[4px] py-0 text-center rounded bg-transparent w-[40px] text-[10px] py-2 text-center border border-gray-500/[0.2]" type="number" value={cart.filter((item: ICart) => item.id === id).map((item: ICart) => item.quantity).toString()} onChange={(e) => changeQuantity(id, +e.target.value)} />
                                                 <button className="h-[40px] p-[12px]" onClick={() => changeQuantity(id || "", "ADD")}><FaPlus /></button>
                                             </div> 
-                                            <Button size="small" variant="secondary" className="flex-1 w-full" onClick={() => removeFromCart(id || "")}>Remove from Cart</Button>
+                                            <Button size="small" variant="secondary" className="min-w-[280px] rounded-full" onClick={() => removeFromCart(id || "")}>Remove from Cart</Button>
                                         </div>
                                         
                                     }
