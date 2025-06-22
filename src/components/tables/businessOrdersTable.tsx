@@ -31,9 +31,9 @@ export default function BusinessOrdersTable() {
     }, [data?.user])
 
     return (
-    <div className="w-auto">
+    <div className="w-full overflow-auto">
         <div>
-            <DataTable isLoading={loading} data={orders} headers={["Id", "Date", "Products", "Customer Email", "Total", "Status"]} />
+            <DataTable isLoading={loading} data={orders} headers={["Id", "Date", "Products", "Total", "Status"]} />
         </div>
     </div>
     )

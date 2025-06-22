@@ -32,13 +32,13 @@ function DashboardHome() {
 
     return (
         <div>
-                <div className="flex flex-col gap-4 w-full rounded md:border border-gray-500/[0.1] min-h-[70vh] pb-4 md:bg-slate-100/[0.2] md:dark:bg-dark/[0.3]">
+                <div className="flex flex-col gap-4 w-full rounded min-h-[70vh] pb-4">
                     
                     {
                     data?.user?.role === "Seller" || user?.role === "Seller" ?
                     <>
-                    <div className="flex gap-6 flex-wrap justify-between items-center border border-transparent border-b-gray-500/[0.1] md:p-4 py-4">
-                        <div className="flex items-center gap-4">
+                    <div className="flex gap-6 flex-wrap justify-between items-center md:border border-gray-500/[0.1] md:px-4 py-4 bg-white dark:bg-black">
+                        <div className="md:w-auto w-full flex items-center gap-4">
                             <Avatar user={ data?.user || { fullname: "User" }} />
                             <div className="">
                                 <h1 className="text-[20px] font-semibold capitalize">Welcome back, <span className="Capitalize">{data?.user?.fullname?.split(" ")[0] || user?.fullname?.split(" ")[0]}</span></h1>
@@ -52,14 +52,14 @@ function DashboardHome() {
                         </div>
                     </div>
                     
-                    <div className="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 md:px-4 md:gap-4 gap-2">
+                    <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 md:gap-4 gap-2">
                         <BalanceCard title="Total Balance" amount={0.00}  />
                         <BalanceCard title="Cleared" amount={0.00}  />
                         <BalanceCard title="Pending" amount={0.00}  />
                         <BalanceCard title="Withdrawn" amount={0.00}  />
                     </div>
 
-                    <div className="w-full grid xl:grid-cols-2 md:grid-cols-1 sm:grid-cols-2 md:px-4 md:gap-4 gap-2">
+                    <div className="w-full grid xl:grid-cols-2 md:grid-cols-1 sm:grid-cols-2 md:gap-4 gap-2">
                         <div className="flex flex-col gap-2 border border-gray-500/[0.2] rounded bg-white dark:bg-black">
                             <div className="w-full pb-2 flex flex-col gap-2 border-b border-gray-500/[0.1] p-4">
                                 <h2 className="font-medium text-[16px]">Overview</h2>
@@ -95,18 +95,19 @@ function DashboardHome() {
                         </div>
                     </div>
 
-                    <div className="flex flex-col gap-2 border border-gray-500/[0.2] md:mx-4 rounded bg-white dark:bg-black min-h-[300px]">
+                    <div className="w-full flex flex-col gap-2 p-4 border border-gray-500/[0.1] rounded bg-white dark:bg-black">
                         <div className="w-full pb-2 flex flex-col gap-2 border-b border-gray-500/[0.1] p-4">
                             <h2 className="font-medium text-[16px]">Recent Orders</h2>
                         </div>
-                        <div className="overflow-x-auto w-full">
+                        <div className="sm:w-auto w-[85vw] overflow-hidden">
                             <BusinessOrdersTable />
                         </div>
+                        
                     </div>
                     </>
                     :
                     <>
-                    <div className="flex gap-6 flex-wrap justify-between items-center border border-transparent border-b-gray-500/[0.1] md:p-4 py-4">
+                    <div className="flex gap-6 flex-wrap justify-between items-center border border-gray-500/[0.1] md:p-4 py-4 bg-white dark:bg-black">
                         <div className="flex items-center gap-4">
                             <Avatar user={ data?.user || { fullname: "User" }} />
                             <div className="">
@@ -117,13 +118,13 @@ function DashboardHome() {
                         
                         <Button size="small" href="/vendor-onboarding">Become a vendor</Button>
                     </div>
-                    <div className="w-full grid xl:grid-cols-2 md:grid-cols-1 sm:grid-cols-2 md:px-4 pb-4 md:gap-4 gap-2">
-                        <div className="flex flex-col gap-2 p-4 border border-gray-500/[0.2] rounded bg-white dark:bg-black">
+                    <div className="w-full grid xl:grid-cols-2 md:grid-cols-1 sm:grid-cols-2 pb-4 md:gap-4 gap-2">
+                        <div className="flex flex-col gap-2 p-4 border border-gray-500/[0.1] rounded bg-white dark:bg-black">
                             <div className="w-full pb-2 flex flex-col gap-2 border-b border-gray-500/[0.1]">
                                 <h2 className="font-medium text-[16px]">Overview</h2>
                             </div>
                         </div>
-                        <div className="flex flex-col gap-2 p-4 border border-gray-500/[0.2] rounded bg-white dark:bg-black">
+                        <div className=" w-full flex flex-col gap-2 p-4 border border-gray-500/[0.1] rounded bg-white dark:bg-black overflow-hidden">
                             <div className="w-full pb-2 flex flex-col gap-2 border-b border-gray-500/[0.1]">
                                 <h2 className="font-medium text-[16px]">Orders</h2>
                             </div>

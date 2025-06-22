@@ -29,7 +29,7 @@ export default function UserOrdersTable() {
     }, [data?.user])
 
     return (
-        <div className="w-[90vw] overflow-hidden">
+        <div className="w-full overflow-auto">
             <DataTable isLoading={loading} data={orders} headers={["Id", "Date", "Products", "Total", "Status"]} />
         </div>
     )

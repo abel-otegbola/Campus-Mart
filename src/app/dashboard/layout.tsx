@@ -105,7 +105,7 @@ export default function Layout({
                     </div>
                 </div>
 
-                <div className="md:ml-[260px] md:p-8 md:py-8 p-4 mb-12 flex-1 bg-slate">
+                <div className="md:ml-[260px] p-4 mb-12 flex-1 md:bg-slate-100/[0.2] md:dark:bg-gray-500/[0.07]">
                 {
                     children
                 }

@@ -86,7 +86,7 @@ export default function Home() {
       }
       </Slider>
 
-      <section className="md:px-[8%] px-4 py-[60px] overflow-hidden bg-[#FBFBFB] dark:bg-gray-500/[0.1]">
+      <section className="md:px-[8%] px-4 md:py-[60px] py-[20px] overflow-hidden bg-[#FBFBFB] dark:bg-gray-500/[0.1]">
         <Slider className="" autoplay={true} autoplaySpeed={4000} infinite={true} dots={false} speed={400} slidesToShow={6} slidesToScroll={1} responsive={[{ breakpoint: 1000, settings: { slidesToShow: 5, slidesToScroll: 1 } }, { breakpoint: 600, settings: { slidesToShow: 4, slidesToScroll: 1 } }]}>
           {
             ["phone", "fashion", "laptop", "stationery", "food", "accessories", "perfumes", ].map(cat => (

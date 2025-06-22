@@ -17,6 +17,20 @@ export const payWithMonnify = (data: { fullname: string, email: string, amount: 
         metadata: {
             name: data.fullname,
         },
+        incomeSplitConfig: [
+            {
+              subAccountCode: "MFY_SUB_342113621921",
+              feePercentage: 50,
+              splitAmount: 1900,
+              feeBearer: true,
+            },
+            {
+              subAccountCode: "MFY_SUB_342113621922",
+              feePercentage: 50,
+              splitAmount: 2100,
+              feeBearer: true,
+            },
+        ],
         onLoadStart: () => {
             console.log("loading has started")
         },

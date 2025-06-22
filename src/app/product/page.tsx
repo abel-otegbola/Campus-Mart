@@ -73,14 +73,14 @@ export default function Product() {
             {
                 loading ? <Skeleton type="rectangle" /> :
                     <div key={id}>
-                        <div className="relative flex flex-wrap my-2 rounded">
-                            <div className="relative h-full md:w-[40%] w-full">
+                        <div className="relative flex flex-wrap my-2 rounded mb-12">
+                            <div className="relative h-[440px] md:w-[40%] w-full">
                                 <Slider {...settings} className="w-full h-full overflow-hidden">
                                       {
                                         product?.images?.map((img, index) => (
                                               <div
                                                   key={index}
-                                                  className={`relative flex flex-col gap-4 justify-center md:px-[8%] px-4 pb-[3%] top-0 md:h-[440px] h-[240px]`}
+                                                  className={`relative flex flex-col gap-4 justify-center md:px-[8%] px-4 pb-[3%] top-0 h-[440px]`}
                                               >
                                                 <Image alt={img} key={index} fill={true} className={`absolute top-0 left-0 w-full h-full bg-cover bg-center object-cover`} 
                                                     src={img}

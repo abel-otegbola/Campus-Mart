@@ -14,6 +14,12 @@ declare module 'monnify-js' {
       reference: string;
       methodName?: string;
       metadata?: Record<string, unknown>;
+      incomeSplitConfig: {
+              subAccountCode: string,
+              feePercentage: number,
+              splitAmount: number,
+              feeBearer: boolean,
+      }[]
       onLoadStart?: () => void;
       onLoadFailed?: () => void;
       onComplete?: (response: { status: string; transactionReference: string }) => void;
