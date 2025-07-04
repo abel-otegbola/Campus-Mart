@@ -35,9 +35,7 @@ export const payWithMonnify = (data: { fullname: string, email: string, amount: 
             console.log("loading has started")
         },
         onComplete: function (response: unknown) {
-            //Implement what happens when the transaction is completed.
             makeOrder({ ...orderData })
-            console.log(response)
         },
     })
 }

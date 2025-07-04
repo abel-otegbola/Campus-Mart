@@ -23,7 +23,7 @@ export default function CheckoutPage() {
     const { loading, addOrder } = useContext(OrderContext)
     const { data } = useSession()
     const { getUserData, user } = useContext(AuthContext)
-    const [sellers, setSellers] = useState<{ name: string, email: string }[]>([])
+    const [sellers, setSellers] = useState<{ name: string, email: string, balance: number }[]>([])
 
     const orderProducts = products.filter((item: IProduct) => cart.map((item: ICart) => item.id).indexOf(item._id) !== -1 )
     
@@ -42,8 +42,8 @@ export default function CheckoutPage() {
             if(response?.error) {                 
             }
             else {
-                setSellers(response.map((seller: { business_name: string, email: string }) => {
-                    return { name: seller.business_name, email: seller.email }
+                setSellers(response.map((seller: { business_name: string, email: string, balance: number }) => {
+                    return { name: seller.business_name, email: seller.email, balance: seller.balance }
                 }))
             }
         })
@@ -118,7 +118,12 @@ export default function CheckoutPage() {
                                     <Input name="address" label="Address (Street, City and State)" value={values.address} onChange={handleChange} type="text" error={touched.address ? errors.address : ""} placeholder="Address" leftIcon={<MapPin size={16}/>}/>
                                     <Textarea name="note" label="Order notes" value={values.note} onChange={handleChange} error={touched.note ? errors.note : ""} placeholder="Write short note to include in your order" leftIcon={<NotePencil size={16}/>}/>
                                 </div>
-                                <Button className="w-full" disabled={isSubmitting || !data?.user || data?.user?.role === "Seller"} >{ isSubmitting || loading ? <LoaderIcon/> : "Make payment" }</Button>
+                                {
+                                !data?.user ?
+                                    <Button className="w-full">Login to place order</Button>
+                                :
+                                    <Button className="w-full" disabled={isSubmitting || !data?.user || data?.user?.role === "Seller"} >{ isSubmitting || loading ? <LoaderIcon/> : "Make payment" }</Button>
+                                }
                             </form>
                         )}
                         </Formik>

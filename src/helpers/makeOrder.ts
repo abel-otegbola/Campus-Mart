@@ -1,5 +1,7 @@
 import { ICart, IProduct } from "@/interface/store"
 import { sendEmail } from "./sendEmail"
+import { updateUserData } from "@/actions/useProfile"
+import { totalPrice } from "./totlaPrice"
 
 export interface makeOrderProps {
     orderProducts: IProduct[], 
@@ -8,7 +10,7 @@ export interface makeOrderProps {
     user: { email: string, fullname: string },
     cart: ICart[],
     products: IProduct[],
-    sellers: { name: string, email: string }[]
+    sellers: { name: string, email: string, balance: number }[]
 }
 
 export const makeOrder = ({
@@ -56,6 +58,13 @@ export const makeOrder = ({
                 cart: sellerInfo[i]?.cart, 
                 email: user?.email || "" 
             }, 
-            sellerInfo[i].seller?.email || "", products)
+            sellerInfo[i].seller?.email || "", products
+        )
+        
+        const currentBalance = sellerInfo[i].seller?.balance || 0
+        const moneyPaid = totalPrice(sellerInfo[i]?.cart, products) - (0.015 * totalPrice(sellerInfo[i]?.cart, products) + (totalPrice(sellerInfo[i]?.cart, products) > 20000 ? 100 : 50))
+        updateUserData( sellerInfo[i].seller?.email || "",
+            { balance: +currentBalance + moneyPaid }
+        );
     }
 }

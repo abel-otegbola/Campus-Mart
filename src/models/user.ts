@@ -69,6 +69,14 @@ const UserSchema = new Schema<UserDocument>({
       type: String,
       required: [false, ""]
     },
+    balance: {
+      type: Number,
+      required: [false, ""]
+    },
+    cleared: {
+      type: Number,
+      required: [false, ""]
+    },
     otpExpiry: {
       type: String,
       required: [false, ""]

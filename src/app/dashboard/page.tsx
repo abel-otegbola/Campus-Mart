@@ -12,6 +12,7 @@ import BusinessOrdersTable from "@/components/tables/businessOrdersTable";
 import UserOrdersTable from "@/components/tables/userOrdersTable";
 import { getAllBusinessOrders } from "@/actions/useOrders";
 import Link from "next/link";
+import { currencyFormatter } from "@/helpers/currencyFormatter";
 
 function DashboardHome() {
     const { data } = useSession()
@@ -119,9 +120,24 @@ function DashboardHome() {
                         <Button size="small" href="/vendor-onboarding">Become a vendor</Button>
                     </div>
                     <div className="w-full grid xl:grid-cols-2 md:grid-cols-1 sm:grid-cols-2 pb-4 md:gap-4 gap-2">
-                        <div className="flex flex-col gap-2 p-4 border border-gray-500/[0.1] rounded bg-white dark:bg-black">
-                            <div className="w-full pb-2 flex flex-col gap-2 border-b border-gray-500/[0.1]">
-                                <h2 className="font-medium text-[16px]">Overview</h2>
+                        <div className="grid md:grid-cols-2 gap-4">
+                            <div className="flex flex-col gap-2 p-4 border border-gray-500/[0.1] rounded bg-white dark:bg-black">
+                                <div className="w-full pb-2 flex flex-col gap-2 border-b border-gray-500/[0.1]">
+                                    <h2 className="font-medium text-[16px]">Balance</h2>
+                                </div>
+                                <div className="flex items-center justify-between mt-12">
+                                    <p className="text-lg font-bold">{currencyFormatter(user?.balance || 0)}</p>
+                                    <p className="text-[10px]">Jun 2025</p>
+                                </div>
+                            </div>
+                            <div className="flex flex-col gap-2 p-4 border border-gray-500/[0.1] rounded bg-white dark:bg-black">
+                                <div className="w-full pb-2 flex flex-col gap-2 border-b border-gray-500/[0.1]">
+                                    <h2 className="font-medium text-[16px]">Offers</h2>
+                                </div>
+                                <div className="flex items-center justify-between mt-12">
+                                    <p className="font-bold">NEW-STU(20%)</p>
+                                    <p className="text-[10px]">Expire 26 Jul 2025</p>
+                                </div>
                             </div>
                         </div>
                         <div className=" w-full flex flex-col gap-2 p-4 border border-gray-500/[0.1] rounded bg-white dark:bg-black overflow-hidden">

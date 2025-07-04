@@ -16,7 +16,9 @@ export interface UserData {
     otpExpiry?: string,
     img?: string;
     phone_number?: string;
-    socialLinks?: { whatsapp?: string, instagram?: string, x?: string, facebook?: string }
+    socialLinks?: { whatsapp?: string, instagram?: string, x?: string, facebook?: string },
+    balance?: number,
+    cleared?: number,
 }
 
 export interface ISignupData { email: string, password: string }
