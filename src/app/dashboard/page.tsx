@@ -13,6 +13,7 @@ import UserOrdersTable from "@/components/tables/userOrdersTable";
 import { getAllBusinessOrders } from "@/actions/useOrders";
 import Link from "next/link";
 import { currencyFormatter } from "@/helpers/currencyFormatter";
+import { getAllBusinessProducts } from "@/actions/useProducts";
 
 function DashboardHome() {
     const { data } = useSession()
@@ -21,7 +22,7 @@ function DashboardHome() {
     const [ordersLength, setOrdersLength] = useState(0)
 
     useEffect(() => {
-        getAllBusinessOrders(user?.business_name || "")
+        getAllBusinessProducts(user?.business_name || "")
         .then((response) => {
             setProductsLength(response.length)
         })
@@ -54,9 +55,9 @@ function DashboardHome() {
                     </div>
                     
                     <div className="w-full grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 md:gap-4 gap-2">
-                        <BalanceCard title="Total Balance" amount={0.00}  />
-                        <BalanceCard title="Cleared" amount={0.00}  />
-                        <BalanceCard title="Pending" amount={0.00}  />
+                        <BalanceCard title="Total Balance" amount={user?.balance || 0}  />
+                        <BalanceCard title="Cleared" amount={user?.cleared || 0}  />
+                        <BalanceCard title="Pending" amount={(user?.balance || 0) - (user?.cleared || 0)}  />
                         <BalanceCard title="Withdrawn" amount={0.00}  />
                     </div>
 
@@ -120,7 +121,7 @@ function DashboardHome() {
                         <Button size="small" href="/vendor-onboarding">Become a vendor</Button>
                     </div>
                     <div className="w-full grid xl:grid-cols-2 md:grid-cols-1 sm:grid-cols-2 pb-4 md:gap-4 gap-2">
-                        <div className="grid md:grid-cols-2 gap-4">
+                        <div className="grid md:grid-cols-2 gap-4 h-fit">
                             <div className="flex flex-col gap-2 p-4 border border-gray-500/[0.1] rounded bg-white dark:bg-black">
                                 <div className="w-full pb-2 flex flex-col gap-2 border-b border-gray-500/[0.1]">
                                     <h2 className="font-medium text-[16px]">Balance</h2>

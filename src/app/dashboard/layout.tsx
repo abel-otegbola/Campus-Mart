@@ -76,12 +76,12 @@ export default function Layout({
                                     {
                                         link.subLinks ?
                                         <div className={`relative flex flex-col gap-2 ml-6 overflow-hidden duration-500 text-[12px] ${openedLink === link.label ? "h-[100%]" : "h-[0%]"}`}>
-                                        <span className="absolute -top-4 left-0 w-[1px] h-full bg-gray-500/[0.4]"></span>
+                                        <span className="absolute -top-4 left-0 w-[1px] h-full bg-gray-500/[0.2]"></span>
                                         {
                                         link.subLinks.map(subLink => {
                                                 return (
                                                 <Link key={subLink.id} onClick={() => setOpen(false)} href={ subLink.link} className={`flex items-center justify-between gap-2 md:rounded duration-500 ${pathname === subLink.link ? "bg-primary/[0.1] text-primary" : " hover:bg-primary/[0.1] hover:text-primary"}`}>
-                                                    <span className="w-[16px] h-[1px] bg-gray-500/[0.4]"></span>
+                                                    <span className="w-[16px] h-[1px] bg-gray-500/[0.2]"></span>
                                                     <span className="w-[20px] text-lg opacity-[0.6]">{subLink.icon}</span>
                                                     <span className="flex-1 py-2 break-normal">{subLink.label}</span>
                                                 </Link>

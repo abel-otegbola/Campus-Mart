@@ -32,18 +32,18 @@ export default function CartPage() {
                     </div>
                     :
                     products.filter((item: IProduct) => cart.map((item: ICart) => item.id).indexOf(item._id) !== -1 ).map((product: IProduct) => (
-                        <div key={product?._id} className="relative bg-white dark:bg-black flex items-center gap-2 p-2 rounded border border-gray-500/[0.1] dark:border-slate-100/[0.05]">
+                        <div key={product?._id} className="relative bg-white dark:bg-black flex items-center gap-2 px-2 md:py-2 rounded border border-gray-500/[0.1] dark:border-slate-100/[0.05]">
                             <Link 
                                 href={`/product?id=${product._id}`} 
-                                className={`block rounded sm:h-[120px] h-[120px] w-[120px] bg-gray-500/[0.1] bg-cover bg-center`}
+                                className={`block rounded sm:h-[120px] h-[80px] w-[120px] bg-gray-500/[0.1] bg-cover bg-center`}
                                 style={{backgroundImage: `url("${product?.images[0]}")`}} 
                             >
                             </Link>
                             <div className="p-4 w-full flex flex-col justify-between">
                                 <a href={`/product?id=${product?._id}`} className="mr-8 uppercase text-[12px] leading-[140%] font-bold">{product?.title}</a>
                                 <div className="flex opacity-[0.6] text-[10px] items-center gap-4 leading-[120%] py-2">
-                                    <p>SIZE: {cart.filter((item: ICart) => item.id === product?._id).map((item: ICart) => item?.variation.size)}</p>
-                                    <p>COLOR: {cart.filter((item: ICart) => item.id === product?._id).map((item: ICart) => item?.variation.color)}</p>
+                                    {/* <p>SIZE: {cart.filter((item: ICart) => item.id === product?._id).map((item: ICart) => item?.variation.size)}</p>
+                                    <p>COLOR: {cart.filter((item: ICart) => item.id === product?._id).map((item: ICart) => item?.variation.color)}</p> */}
                                 </div>
                                 
                                 <div className="flex items-center mt-2 w-full">
@@ -52,7 +52,7 @@ export default function CartPage() {
                                 
                             </div>
                             
-                            <div className="flex flex-col justify-center gap-2 rounded h-full items-center animate-zoom-in text-[8px]">
+                            <div className="flex flex-col justify-center md:gap-2 rounded h-full items-center animate-zoom-in text-[8px]">
                                 <button className="p-[8px] rounded"  onClick={() => changeQuantity(product._id, "ADD")}><Plus /></button>
                                 <input className="p-[4px] py-0 text-center rounded bg-transparent w-[40px] text-[10px] py-2 text-center border border-gray-500/[0.2]" type="number" value={cart.filter((item: ICart) => item.id === product?._id).map((item: ICart) => item.quantity).toString()} onChange={(e) => changeQuantity(product._id, +e.target.value)} />
                                 <button className="p-[8px] rounded" onClick={() => changeQuantity(product._id, "MINUS")}><Minus /></button>

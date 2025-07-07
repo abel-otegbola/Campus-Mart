@@ -10,7 +10,7 @@ export default function BalanceCard({ title, amount }: { title: string, amount: 
             <h2 className="text-[12px] justify-between gap-4 flex items-center">{title} 
                 <button onClick={() => setShow(!show)}>{ show ? <Eye size={16}/> : <EyeSlash size={16}/> }</button>
             </h2>
-            <p className="font-bold text-[18px]">{ show ? "₦" + currencyFormatter(amount) : "****" }</p>
+            <p className="font-bold text-[18px]">{ show ? currencyFormatter(amount) : "****" }</p>
         </div>
     )
 }

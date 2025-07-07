@@ -64,8 +64,8 @@ function StorePage()  {
     return (
         <main>
             
-            <div className={`relative dark:text-white md:px-[9%] mb-8 md:flex gap-10`}>
-                <div className="md:w-[30%] sticky top-[106px] left-0 h-full w-full bg-white dark:bg-black md:block hidden rounded text-[12px]">
+            <div className={`relative dark:text-white md:px-[8%] mb-8 md:flex gap-10`}>
+                {/* <div className="md:w-[30%] sticky top-[106px] left-0 h-full w-full bg-white dark:bg-black md:block hidden rounded text-[12px]">
                     
                     <div className="w-full p-4 border border-gray-500/[0.1] rounded-[10px]">
                         <p className="uppercase font-medium py-2 border border-transparent border-b-gray-500/[0.1]">Contact seller</p>
@@ -81,14 +81,18 @@ function StorePage()  {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
-                <div className="md:w-[70%] w-full py-4">
+                <div className="w-full py-4">
                     <div className="flex flex-col items-center md:px-[8%] px-6 min-h-[200px] rounded bg-slate-100 dark:bg-dark bg-center bg-cover" style={{ backgroundImage: `url("${userData?.cover}")` }}>
                         
                     </div>
                     <div className="px-6 mb-8 -mt-12">
-                        <div  className={`h-[88px] w-[88px] rounded-full z-[2] border border-gray-500/[0.1] bg-slate-100 dark:bg-dark bg-cover bg-center`} style={{ backgroundImage: `url("${userData?.img}")` }}></div>
+                        <div className="p-[2px] bg-gradient-to-r from-blue-600 to-fuchsia-600 rounded-full w-fit">
+                            <div className={`h-[88px] w-[88px] rounded-full z-[2] border border-gray-500/[0.1] bg-slate-100 dark:bg-dark bg-cover bg-center`} style={{ backgroundImage: `url("${userData?.img}")` }}>
+                            
+                            </div>
+                        </div>
                         <h2 className="font-bold text-[20px] mt-4">{search}</h2>
                         <p>{userData?.business_category}</p>
                     </div>
@@ -96,13 +100,18 @@ function StorePage()  {
                     <section className=" md:px-0 px-4">
 
                             { loading ? 
-                            <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-2 md:gap-8 gap-4">
-                                <Skeleton type="rectangle" />
-                                <Skeleton type="rectangle" />
-                                <Skeleton type="rectangle" />
+                            <div className="grid xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
+                                {
+                                [0, 1, 2, 3, 4, 5].map(index => (
+                                    <div key={index} className="flex flex-col gap-2">
+                                        <Skeleton type="rectangle"/>
+                                        <Skeleton type="paragraph"/>
+                                    </div>
+                                ))
+                                }
                             </div> :
                             products?.length !== 0 ?
-                            <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-2 md:gap-8 gap-4">
+                            <div className="grid xl:grid-cols-6 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
                                 {
                                     products?.map((product: IProduct) => (
                                         <div key={product._id}>

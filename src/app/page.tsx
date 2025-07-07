@@ -60,7 +60,7 @@ export default function Home() {
                   className={`relative flex flex-col gap-4 justify-center md:px-[8%] px-4 pb-[3%] top-0 md:h-[340px] h-[240px]`}
                   
               >
-              <Image alt={img.src} key={index} fill={true} className={`absolute top-0 left-0 w-full h-full bg-cover bg-center object-cover`} 
+              <Image alt={img.src} key={index} fill={true} className={`absolute top-0 left-0 w-[2000px] h-[1050px] bg-cover bg-center object-cover`} 
                   src={img.src}
               />
                 <div className="h-full flex flex-col gap-6 justify-center">

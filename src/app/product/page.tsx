@@ -94,14 +94,6 @@ export default function Product() {
                                 <h2 className="py-2 md:text-[28px] text-[18px] font-medium">{product?.title}</h2>
                                 <div className="flex justify-between items-center gap-6">
                                     <p className="flex items-center text-[24px] font-bold py-4">{currencyFormatter(+(product?.price || 0))}</p>
-                                    <div>
-                                        {
-                                            wishlist.indexOf(id || "") === -1 ? 
-                                            <button className="flex items-center gap-2 animate-zoom-in text-tetiary h-[40px] px-4" onClick={() => addToWishlist(id || "") }><FaHeart size={20}/></button> 
-                                            : 
-                                            <button className="flex items-center gap-2 animate-zoom-in h-[40px] px-4 text-red-500" onClick={() => removeFromWishlist(id || "")}><FaHeart size={20}/></button> 
-                                        }
-                                    </div>
                                 </div>
 
                                 {/* <div className="flex gap-2 items-center">
@@ -173,17 +165,31 @@ export default function Product() {
                                     <div className="text-[14px] sm:px-0 py-4 bg-white dark:bg-black w-full">
                                     {
                                         cart.map((item: ICart) => item.id).indexOf(id || "") === -1 ? 
-                                        <Button className="min-w-[280px] rounded-full" onClick={() => addToCart({id: id ||  "0", quantity: 1, variation: { color: "black", size: "LG" }}) }>Add to Cart</Button> 
+                                            <div className="flex mt-6 gap-4">
+                                                <Button className="w-full rounded-full" onClick={() => addToCart({id: id ||  "0", quantity: 1, variation: { color: "black", size: "LG" }}) }>Add to Cart</Button> 
+                                                
+                                                    {
+                                                        wishlist.indexOf(id || "") === -1 ? 
+                                                        <Button variant="tetiary" className="min-w-[120px] rounded-full flex items-center gap-2 animate-zoom-in text-tetiary h-[40px] px-4" onClick={() => addToWishlist(id || "") }><FaHeart size={14}/></Button> 
+                                                        : 
+                                                        <Button variant="tetiary" className="min-w-[120px] rounded-full flex items-center gap-2 animate-zoom-in h-[40px] px-4 text-red-500" onClick={() => removeFromWishlist(id || "")}><FaHeart size={14}/></Button> 
+                                                    }
+                                            </div>
                                         : 
-                                        <div className="flex flex-wrap gap-6">
-                                            <div className="flex items-center gap-1 animate-zoom-in border border-gray-500/[0.1] rounded-lg">
-                                                <button className="h-[40px] p-[12px]" onClick={() => changeQuantity(id || "", "MINUS")}><FaMinus /></button>
-                                                <input className="p-[4px] py-0 text-center rounded bg-transparent w-[40px] text-[10px] py-2 text-center border border-gray-500/[0.2]" type="number" value={cart.filter((item: ICart) => item.id === id).map((item: ICart) => item.quantity).toString()} onChange={(e) => changeQuantity(id, +e.target.value)} />
-                                                <button className="h-[40px] p-[12px]" onClick={() => changeQuantity(id || "", "ADD")}><FaPlus /></button>
-                                            </div> 
-                                            <Button size="small" variant="secondary" className="min-w-[280px] rounded-full" onClick={() => removeFromCart(id || "")}>Remove from Cart</Button>
-                                        </div>
-                                        
+                                        <>
+                                            <div className="flex flex-wrap gap-6 items-center">
+                                                    <p>QTY: </p>
+                                                <div className="flex items-center gap-1 animate-zoom-in border border-gray-500/[0.1] rounded-full">
+                                                    <button className="h-[40px] p-[12px]" onClick={() => changeQuantity(id || "", "MINUS")}><FaMinus /></button>
+                                                    <input className="p-[4px] py-0 text-center rounded bg-transparent w-[40px] text-[10px] py-2 text-center border border-gray-500/[0.2]" type="number" value={cart.filter((item: ICart) => item.id === id).map((item: ICart) => item.quantity).toString()} onChange={(e) => changeQuantity(id, +e.target.value)} />
+                                                    <button className="h-[40px] p-[12px]" onClick={() => changeQuantity(id || "", "ADD")}><FaPlus /></button>
+                                                </div> 
+                                            </div>
+                                            <div className="grid grid-cols-2 mt-6 gap-4">
+                                                <Button variant="secondary" className="w-full rounded-full" onClick={() => removeFromCart(id || "")}>Remove</Button>
+                                                <Button variant="primary" className="w-full rounded-full" href="/cart">View Cart</Button>
+                                            </div>
+                                        </>
                                     }
                                     </div>
 

@@ -2,6 +2,7 @@
 import { IOrder } from "@/interface/orders";
 import { connectDB } from "@/lib/mongodb";
 import Orders from "@/models/orders";
+import Products from "@/models/products";
 
 export const createOrder = async (values: IOrder) => {
     try {
