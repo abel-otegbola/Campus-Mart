@@ -24,11 +24,11 @@ function DashboardHome() {
     useEffect(() => {
         getAllBusinessProducts(user?.business_name || "")
         .then((response) => {
-            setProductsLength(response.length)
+            setProductsLength(response?.length)
         })
         getAllBusinessOrders(user?.business_name || "")
         .then((response) => {
-            setOrdersLength(response.length)
+            setOrdersLength(response?.length)
         })
     }, [user?.business_name])
 

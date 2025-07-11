@@ -14,12 +14,14 @@ export default function UserOrders() {
                 <p>Manage your orders</p>
             </div>
             <div className="w-full overflow-x-auto min-h-[400px] rounded-lg border border-gray-500/[0.1] bg-gray-100/[0.08]">
-            {
-                data?.user?.role === "Seller" ?
-                    <BusinessOrdersTable />
-                :
-                    <UserOrdersTable />
-                }
+                <div className="sm:w-auto w-[90vw] overflow-hidden">
+                    {
+                    data?.user?.role === "Seller" ?
+                        <BusinessOrdersTable />
+                    :
+                        <UserOrdersTable />
+                    }
+                </div>
             </div>
         </>
     )

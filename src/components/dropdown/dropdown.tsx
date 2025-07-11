@@ -49,7 +49,7 @@ export default function Dropdown({ className, disabled, label, name, options, va
                 >
                   {
                     options?.map(option => (
-                      <option className="flex gap-2 items-center dark:bg-dark" key={option.id} value={option.title}>{option.icon}{option.title}</option>
+                      <option className="flex gap-2 items-center dark:bg-dark" key={option.id} value={option.title}>{option.title}</option>
                     ))
                   }
                 </select>

@@ -77,7 +77,7 @@ export default function Profile() {
                         data?.user?.role === "Seller" || user?.role === "Seller" ?
                         <div className="relative flex items-center justify-center h-[150px]  border border-gray-500/[0.1] bg-slate-100 dark:bg-dark bg-cover bg-center" style={{ backgroundImage: `url("${userData?.cover}")` }}>
                             <label htmlFor="add_cover" className="absolute w-full h-full opacity-[0] hover:opacity-[1] bg-black/[0.8] flex flex-col justify-center items-center gap-2 flex-1">
-                                <Button size="small" variant="secondary"><label htmlFor="add_cover" className="text-primary">Change cover image</label></Button>
+                                <Button size="small" variant="secondary"><span className="text-primary">Change cover image</span></Button>
                             </label>
                             <ImageToBase64 id="add_cover" fullname={data?.user?.email + "-cover"} img={userData?.cover || ""} setImg={(img) => setUserData({...data, cover: img })} />
                         </div>
@@ -85,7 +85,7 @@ export default function Profile() {
                     }
                     <div className={`relative flex gap-6 items-center h-[88px] w-[88px] rounded-full ${data?.user?.role === "Seller" ? "-mt-12 ml-4" : ""} z-[2] border border-gray-500/[0.1] bg-slate-100 dark:bg-dark bg-cover bg-center`} style={{ backgroundImage: `url("${userData?.img}")` }}>
                         <label htmlFor="add_img" className="absolute w-full h-full rounded-full bg-black/[0.7] opacity-[0] hover:opacity-[1] flex flex-col justify-center items-center gap-2 flex-1">
-                            <Button size="small" variant="secondary" className="text-[10px]"><label htmlFor="add_img" className="text-primary">Change</label></Button>
+                            <Button size="small" variant="secondary" className="text-[10px]"><span>Change</span></Button>
                         </label>
                         <ImageToBase64 id="add_img" fullname={data?.user?.email || "/user"} img={userData?.img || ""} setImg={(img) => setUserData({...data, img })} />
                         
