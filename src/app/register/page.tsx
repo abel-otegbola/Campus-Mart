@@ -62,7 +62,7 @@ export default function Registerpage() {
                             validationSchema={registerBuyerSchema}
                             onSubmit={( values, { setSubmitting }) => {
                                 signUp({
-                                    email: values.email.trim(), 
+                                    email: values.email.trim().toLowerCase(), 
                                     password: values.password, 
                                     fullname: values.fullname, 
                                     role: active === "Yes" ? "Seller" : "Buyer",

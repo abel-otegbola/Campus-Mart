@@ -6,11 +6,11 @@ import Link from "next/link";
 export default function Categories({ open, setOpen }: {open: boolean, setOpen: (aug0: boolean) => void}) {
 
     const categories = [
-      { id: 8, title: "Clothing"},
-      { id: 14, title: "Gadgets" },
-      { id: 16, title: "Jewellery and Accessories" },
-      { id: 19, title: "Perfumes and Scents" },
-      { id: 22, title: "Rending Services (CAC, SCRUM registration)" },
+      { id: 8, title: "fashion"},
+      { id: 14, title: "gadgets" },
+      { id: 16, title: "jewellery and accessories" },
+      { id: 19, title: "perfumes and scents" },
+      { id: 22, title: "rending services (CAC, SCRUM registration)" },
   ];
 
     const modalRef = useOutsideClick(setOpen, false)

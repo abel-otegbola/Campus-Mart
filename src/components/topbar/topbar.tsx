@@ -104,7 +104,6 @@ function Topbar() {
                 accountPages.includes(pathname.split("/")[1]) ? "" :
                 <Search placeholder="Search for a product or vendor" searchType={searchType} onChange={(value) => setSearchType(value)} className="lg:flex-1 lg:rounded-full rounded-[0px]" />
                 }
-                <button className="p-4 lg:hidden rounded-full text-[16px] bg-primary z-[12]" onClick={() => setOpenSearch(false)}><X /></button>
             </div> 
         </div>
         {

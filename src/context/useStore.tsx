@@ -154,7 +154,6 @@ export default function StoreContextProvider({ children }: {children: React.Reac
 
     return (
         <storeContext.Provider value={data} >
-            <Toaster containerClassName="p-8" />
             {children}
         </storeContext.Provider>
     )

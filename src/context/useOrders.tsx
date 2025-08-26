@@ -126,7 +126,6 @@ export default function OrderContextProvider({ children }: {children: React.Reac
 
     return (
         <OrderContext.Provider value={data} >
-            <Toaster containerClassName="p-8" />
             {children}
         </OrderContext.Provider>
     )

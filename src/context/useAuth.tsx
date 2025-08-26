@@ -39,7 +39,7 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
 
     const login = async (email: string, password: string, callbackUrl: string) => {
         setLoading(true)
-        const res = await signIn("credentials", { email, password, redirect: false });
+        const res = await signIn("credentials", { email: email.toLowerCase(), password, redirect: false });
         if(res?.ok) {
             setPopup({ type: "success", msg: "Login Successful" })
             setLoading(false)
