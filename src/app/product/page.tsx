@@ -9,9 +9,9 @@ import Skeleton from "@/components/skeleton/skeleton"
 import ProductCard from "@/components/cards/productCard"
 import { currencyFormatter } from "@/helpers/currencyFormatter"
 import Link from "next/link"
-import ProductSlider from "@/components/productSlider/productSlider"
 import { AuthContext } from "@/context/useAuth"
-import Slider from "react-slick"
+import { Slide } from "react-slideshow-image"
+import 'react-slideshow-image/dist/styles.css';
 import Image from "next/image"
 
 export default function Product() {
@@ -74,9 +74,9 @@ export default function Product() {
                 loading ? <Skeleton type="rectangle" /> :
                     <div key={id}>
                         <div className="relative flex flex-wrap my-2 rounded mb-12">
-                            <div className="relative h-[440px] md:w-[40%] w-full">
-                                <Slider {...settings} className="w-full h-full overflow-hidden">
-                                      {
+                            <div className="relative h-[440px] md:w-[40%] w-full">                                
+                                <Slide arrows={false} indicators={true} cssClass="" easing="linear" transitionDuration={500} duration={3000}>
+                                    {
                                         product?.images?.map((img, index) => (
                                               <div
                                                   key={index}
@@ -88,7 +88,7 @@ export default function Product() {
                                                 </div>
                                           ))     
                                       }
-                                </Slider>
+                                </Slide>
                             </div>
                             <div className="md:px-[3%] md:py-0 py-6 md:w-[60%] w-full">
                                 <h2 className="py-2 md:text-[28px] text-[18px] font-medium">{product?.title}</h2>

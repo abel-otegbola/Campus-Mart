@@ -9,6 +9,7 @@ import { useContext, useEffect, useState } from "react";
 export default function SearchPage() {
     const searchParams = useSearchParams()
     const query = searchParams.get("search")?.toUpperCase() || ""
+    const school = searchParams.get("school")?.toUpperCase() || ""
     const [loading, setLoading] = useState(true)
     const [products, setProducts] = useState([] as IProduct[])
     const [search, setSearch] = useState([] as IProduct[])
@@ -34,7 +35,15 @@ export default function SearchPage() {
     }, [query])
 
     useEffect(() => {
-        setSearch(products?.filter(item => item && (item?.title.toUpperCase().indexOf(query.toUpperCase()) !== -1 || item?.description.toUpperCase().indexOf(query.toUpperCase()) !== -1 || item?.category.toUpperCase().indexOf(query.toUpperCase()) !== -1)))
+        setSearch(
+            products?.filter(item => 
+                item &&
+                (item?.title.toUpperCase().indexOf(query.toUpperCase()) !== -1 || 
+                item?.description.toUpperCase().indexOf(query.toUpperCase()) !== -1 || 
+                item?.category.toUpperCase().indexOf(query.toUpperCase()) !== -1 ||
+                item?.store.toUpperCase().indexOf(query.toUpperCase()) !== -1)
+            )
+        )
     }, [products, query])
 
     return (
