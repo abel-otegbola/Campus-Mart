@@ -28,7 +28,7 @@ export default function ProductCard({ product, i }: { product: IProduct, i?: num
                 </Animate>
                 
                 <div className="flex justify-between items-center gap-6 ">
-                    <Link href={`/store/${product?.store?.replaceAll(" ", "-")}`} className="text-[10px] opacity-[0.5] uppercase font-bold py-0 my-2">{product?.store}</Link>
+                    <Link href={`/store/${product?.store}`} className="text-[10px] opacity-[0.5] uppercase font-bold py-0 my-2">{product?.store}</Link>
                     <div className=" cursor-pointer z-[2]">
                         {
                             wishlist.indexOf(product._id) === -1 ? 

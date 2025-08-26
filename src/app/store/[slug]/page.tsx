@@ -9,7 +9,6 @@ import { Envelope, FacebookLogo, InstagramLogo, MapPin, User, WhatsappLogo, XLog
 import { fetchUserDataByStorename } from "@/actions/useProfile";
 import { UserData } from "@/interface/profile";
 import { getAllBusinessProducts } from "@/actions/useProducts";
-import Avatar from "@/components/avatar/avatar";
 import { useParams } from "next/navigation";
 
 function StorePage()  {
@@ -22,7 +21,7 @@ function StorePage()  {
     useEffect(() => {
         if(search !== "") {
             setLoading(true)
-            fetchUserDataByStorename(search.replaceAll("-", " "))
+            fetchUserDataByStorename(search.replaceAll("_", " "))
             .then((response) => {
                 setLoading(false)
                 if(response?.error) {
@@ -43,7 +42,7 @@ function StorePage()  {
     useEffect(() => {
         if(search !== "") {
             setLoading(true)
-            getAllBusinessProducts(search.replaceAll("-", " "))
+            getAllBusinessProducts(search.replaceAll("_", " "))
             .then((response) => {
                 setLoading(false)
                 if(response?.error) {
@@ -93,7 +92,7 @@ function StorePage()  {
                             
                             </div>
                         </div>
-                        <h2 className="font-bold text-[20px] mt-4">{search}</h2>
+                        <h2 className="font-bold text-[20px] mt-4">{search.replaceAll("_", " ")}</h2>
                         <p>{userData?.business_category}</p>
                     </div>
 

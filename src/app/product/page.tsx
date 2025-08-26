@@ -91,7 +91,7 @@ export default function Product() {
                                 </div> */}
                                 <p className="py-4">CATEGORY: {product?.category}</p>
 
-                                <Link href={`/store/${product?.store?.replaceAll(" ", "-")}`} className="h-full">STORE: {product?.store}</Link>
+                                <Link href={`/store/${product?.store}`} className="h-full">STORE: {product?.store}</Link>
 
                                 <div dangerouslySetInnerHTML={{ __html: product?.description || ""}} className="py-4"></div>
 
@@ -200,7 +200,7 @@ export default function Product() {
                                     </div>     
                                     <div className={`${active === "seller" ? "translate-x-[-100%]" : "translate-x-[100%]"} w-[100%] transform-all duration-700`}>
                                         <h2 className="font-semibold uppercase">Seller&apos;s Information</h2>
-                                        <Link href={`/store/${product?.store?.replaceAll(" ", "-")}`} className="h-full">{product?.store}</Link>
+                                        <Link href={`/store/${product?.store}`} className="h-full">{product?.store}</Link>
                                     </div>     
                                 </div>                           
                             </div>

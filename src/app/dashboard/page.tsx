@@ -50,7 +50,12 @@ function DashboardHome() {
                         
                         <div className="flex items-center gap-2">
                             <Button size="small" className="dark:bg-primary/[0.7]" href="/dashboard/inventory/new">Add new product</Button>
-                            <Button size="small" className="dark:bg-primary/[0.7]" href={`/store/${user?.business_name?.replaceAll(" ", "-")}`}>View my store</Button>
+                            {
+                                user?.business_name ?
+                                <Button size="small" className="dark:bg-primary/[0.7]" href={`/store/${user?.business_name.replaceAll(" ", "_")}`}>View my store</Button>
+                                :
+                                ""
+                            }
                         </div>
                     </div>
                     
@@ -67,7 +72,7 @@ function DashboardHome() {
                                 <h2 className="font-medium text-[16px]">Overview</h2>
                             </div>
                             <div className="p-4">
-                                <SubmissionChart submissions={[ ["0", "0", "0", "0", "0", ordersLength.toString()], ["1", "2", "4", "3", "5", "6"] ]} />
+                                <SubmissionChart submissions={[ ["0", "0", "0", "0", "0", ordersLength?.toString()], ["1", "2", "4", "3", "5", "6"] ]} />
                             </div>
                         </div>
                         <div className="flex flex-col gap-2 border border-gray-500/[0.2] rounded bg-white dark:bg-black">
@@ -80,7 +85,12 @@ function DashboardHome() {
                                     <div className="flex flex-col gap-2">
                                         <h2 className="font-bold text-[20px] mt-4">{user?.business_name}</h2>
                                         <p>{user?.business_category}</p>
-                                        <Button size="small" className="dark:bg-primary/[0.7]" href={`/store/${user?.business_name?.replaceAll(" ", "-")}`}>View my store</Button>
+                                        {
+                                            user?.business_name ?
+                                            <Button size="small" className="dark:bg-primary/[0.7]" href={`/store/${user?.business_name?.replaceAll(" ", "-")}`}>View my store</Button>
+                                            :
+                                            ""
+                                        }
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-2 gap-4 border-y border-gray-500/[0.2] py-4">
