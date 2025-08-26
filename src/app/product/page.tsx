@@ -58,29 +58,19 @@ export default function Product() {
     //     setCart(newList)
     // }
 
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 3000,
-    };
-
     return (
         <div className="md:px-[8%] px-6 md:py-[50px] py-[20px]">
             {
                 loading ? <Skeleton type="rectangle" /> :
                     <div key={id}>
                         <div className="relative flex flex-wrap my-2 rounded mb-12">
-                            <div className="relative h-[440px] md:w-[40%] w-full">                                
-                                <Slide arrows={false} indicators={true} cssClass="" easing="linear" transitionDuration={500} duration={3000}>
+                            <div className="relative h-[480px] md:w-[40%] w-full">                                
+                                <Slide arrows={false} canSwipe autoplay indicators={true} cssClass="" easing="linear" transitionDuration={500} duration={2000} infinite>
                                     {
                                         product?.images?.map((img, index) => (
                                               <div
                                                   key={index}
-                                                  className={`relative flex flex-col gap-4 justify-center md:px-[8%] px-4 pb-[3%] top-0 h-[440px]`}
+                                                  className={`each-slide-effect relative flex flex-col gap-4 justify-center md:px-[8%] px-4 pb-[3%] top-0 h-[440px]`}
                                               >
                                                 <Image alt={img} key={index} fill={true} className={`absolute top-0 left-0 w-full h-full bg-cover bg-center object-cover`} 
                                                     src={img}
