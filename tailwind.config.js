@@ -19,8 +19,8 @@ module.exports = {
         'green': "#2DCC52",
         'darkblue': "#3C279C",
         'grayblue': "#45348C",
-        'black': "#151417",
-        'dark': "rgb(27, 33, 31)",
+        'black': "#252426ff",
+        'dark': "rgba(41, 41, 41, 1)",
         'secondary-dark': "#0D6952"
       },
       animation: {

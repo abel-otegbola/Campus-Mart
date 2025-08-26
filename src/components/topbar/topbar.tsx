@@ -2,13 +2,13 @@
 import { ReactElement, useContext, useEffect, useState } from "react"
 import Tab from "../tab/tab"
 import Link from "next/link"
-import { ShoppingCart, User, X } from "@phosphor-icons/react"
+import { MagnifyingGlass, ShoppingCart, User, X } from "@phosphor-icons/react"
 import { usePathname } from "next/navigation"
 import Search from "../search/search"
 import { storeContext } from "@/context/useStore"
 import { useSession } from "next-auth/react"
 import Categories from "../categories/categories"
-import { TbHeart, TbHome, TbListSearch, TbUser } from "react-icons/tb"
+import { TbHeart, TbHome, TbListSearch } from "react-icons/tb"
 import ThemeSelector from "../themeSelector/themeSelector"
 
 type navTab =  {
@@ -39,12 +39,11 @@ function Topbar() {
 
     const navTabs: navTab[] = [
         { id: 1, label: "New Arrivals", to: "/shop", icon: <></> },
-        { id: 2, label: "Deals", to: "/deals", icon: <></> },
-        { id: 3, label: "Delivery", to: "/delivery", icon: <></> },
+        { id: 2, label: "Deals", to: "/shop", icon: <></> },
         { id: 4, label: "Wishlist", to: "/wishlist", icon: <TbHeart /> },
         { id: 5, label: "Home", to: "/shop", icon: <TbHome /> },
         { id: 6, label: "Cart", to: "/cart", icon: <ShoppingCart /> },
-        { id: 7, label: "Account", to: data?.user ? "/dashboard" : "/login", icon: <TbUser /> },
+        { id: 7, label: "Account", to: data?.user ? "/dashboard" : "/login", icon: <User /> },
     ]
     
     const accountPages = ["dashboard", "admin", "agent"]
@@ -57,7 +56,7 @@ function Topbar() {
 
     return (
         <>
-        <div className={`flex py-1 sticky top-0 left-0 w-full justify-between items-center bg-[#f8f8f8] dark:bg-black z-[10] ${noheader.includes(pathname.split("/")[1]) ? "hidden": ""} ${accountPages.includes(pathname.split("/")[1]) ? "md:px-10 pl-6 pr-[80px] md:py-2 py-5" : "md:px-[8%] px-6"}`}>
+        <div className={`relative flex md:py-1 py-3 sticky top-0 left-0 w-full justify-between items-center bg-[#f8f8f8] dark:bg-black z-[10] ${noheader.includes(pathname.split("/")[1]) ? "hidden": ""} ${accountPages.includes(pathname.split("/")[1]) ? "md:px-10 pl-6 pr-[80px] md:py-2 py-5" : "md:px-[8%] px-6"}`}>
             <div className="md:w-[12%] w-[150px]">
                 <Link href="/" className="w-[70px] h-[30px] text-[#FF9100] md:ml-6 ml-3 rounded flex justify-center items-center md:text-[16px] text-[14px] font-bold">
                     CAMPUX <span className="text-[#16AF89]"> MART</span>
@@ -83,14 +82,10 @@ function Topbar() {
             </nav>
 
             <div className="flex md:gap-8 gap-3 items-center justify-end md:flex-1 lg:w-auto w-[70%]">
-                {/* <div className={`flex items-center gap-2 lg:static top-0 left-0 h-full bg-[#f8f8f8] dark:bg-black mx-[2%] z-[5] ${openSearch ? "w-[96%]": "lg:w-[96%] w-[0%] overflow-hidden"}`}> */}
-                    {
-                    accountPages.includes(pathname.split("/")[1]) ? "" :
+                <div className="lg:block hidden">
                     <Search placeholder="Search for a product or vendor" searchType={searchType} onChange={(value) => setSearchType(value)} className="lg:flex-1 lg:rounded-full rounded-[0px]" />
-                    }
-                    {/* <button className="p-4 lg:hidden rounded-full text-[16px] bg-primary z-[12]" onClick={() => setOpenSearch(false)}><X /></button> */}
-                {/* </div> */}
-                {/* <button className="p-2 lg:hidden text-[16px]" onClick={() => setOpenSearch(!openSearch)}>{ openSearch ? <X /> :<MagnifyingGlass /> }</button> */}
+                </div>
+                <button className="p-2 text-[16px] lg:hidden" onClick={() => setOpenSearch(!openSearch)}>{ openSearch ? <X /> :<MagnifyingGlass /> }</button>
                 <Link href={data?.user ? "/dashboard": "/login"} className="md:flex hidden gap-1 items-center font-medium text-[12px]">
                     <User weight="light" size={20}/>
                     <span>Account</span>
@@ -104,6 +99,13 @@ function Topbar() {
             </div>
             
             
+            <div className={`lg:hidden flex items-center gap-2 absolute top-[100%] border border-gray-500/[0.2] shadow-lg left-0 w-full md:px-[7%] px-6 bg-[#f8f8f8] dark:bg-black z-[5] ${openSearch ? "h-[100px]": "h-[0px] overflow-hidden"}`}>
+                {
+                accountPages.includes(pathname.split("/")[1]) ? "" :
+                <Search placeholder="Search for a product or vendor" searchType={searchType} onChange={(value) => setSearchType(value)} className="lg:flex-1 lg:rounded-full rounded-[0px]" />
+                }
+                <button className="p-4 lg:hidden rounded-full text-[16px] bg-primary z-[12]" onClick={() => setOpenSearch(false)}><X /></button>
+            </div> 
         </div>
         {
                 open ? 

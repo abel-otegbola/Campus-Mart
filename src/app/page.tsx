@@ -20,7 +20,7 @@ export default function Home() {
   
   useEffect(() => {
     setLoading(true)
-    getShuffledProducts(10)
+    getShuffledProducts(12)
     .then((response) => {
         setLoading(false)
         if(response?.error) {
