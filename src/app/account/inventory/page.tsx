@@ -38,7 +38,7 @@ export default function Userproducts() {
             <div className="w-full pb-6 flex flex-col gap-2">
                 <h2 className="font-bold text-[28px] uppercase">products</h2>
                 <p className="mb-2">Manage your products</p>
-                <Button size="small" variant="secondary" href="/dashboard/inventory/new">New product</Button>
+                <Button size="small" variant="secondary" href="/account/inventory/new">New product</Button>
             </div>
             <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 w-full overflow-x-auto min-h-[400px] gap-4">
                 {

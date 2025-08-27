@@ -43,14 +43,14 @@ export default function DataTable({ headers, data, isLoading }: { headers: strin
                             {
                                 headers.map((header, i) => (
                                     header === "Id" ?
-                                    <td key={i} className="p-2 max-w-[100px] truncate"><Link href={`/dashboard/order?id=${order?._id}`}>{order?._id}</Link></td>
+                                    <td key={i} className="p-2 max-w-[100px] truncate"><Link href={`/account/order?id=${order?._id}`}>{order?._id}</Link></td>
                                     :
                                     header === "Date" ?
                                     <td key={i} className="p-2">{new Date(order?.updatedAt || "").toLocaleDateString("GB")}</td>
                                     :
                                     header === "Products" ?
                                     <td key={i} className="p-2 text-[10px] min-w-[120px]">
-                                        <Link href={`/dashboard/order?id=${order?._id}`}>
+                                        <Link href={`/account/order?id=${order?._id}`}>
                                         <ol className="">
                                             <li className="flex items-center gap-2 my-1">
                                                 <Image src={products.find(item => item._id === order.order_items.product_id)?.images[0] || "/preview.png"} alt="product" width={40} height={40} className="w-[40px] h-[40px] bg-cover bg-center bg-slate-200 rounded" />
@@ -70,7 +70,7 @@ export default function DataTable({ headers, data, isLoading }: { headers: strin
                                     :
                                     header === "Status" ?
                                     <td key={i} className={`${order.order_status === "completed" ? "text-emerald-600" : order?.order_status === "cancelled" ? "text-red-500" : "text-orange-400"} p-2 text-[11px]`}>
-                                        <Link href={`/dashboard/order?id=${order?._id}`}>{order?.order_status}</Link>
+                                        <Link href={`/account/order?id=${order?._id}`}>{order?.order_status}</Link>
                                     </td>
                                     : ""
                                 ))

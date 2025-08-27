@@ -97,7 +97,7 @@ export default function Product() {
 
                                 {
                                     user?.email === product?.store ?
-                                    <Button size="small" variant="secondary" href={`/dashboard/inventory/edit?id=${product?._id}`}>Edit</Button>
+                                    <Button size="small" variant="secondary" href={`/account/inventory/edit?id=${product?._id}`}>Edit</Button>
                                     :
                                     ""
                                 }

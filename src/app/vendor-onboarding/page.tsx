@@ -111,7 +111,7 @@ export default function VendorOnboardingPage() {
                                         { business_name: values.business_name.trim(), business_category: values.business_category, business_location: values.business_location, role: "Seller", img: values.img}
                                     );
                                     setSubmitting(false);
-                                    router.push("/dashboard")
+                                    router.push("/account")
                                 }
                                 else {
                                     setFlow(1)

@@ -43,7 +43,7 @@ function Topbar() {
         { id: 4, label: "Wishlist", to: "/wishlist", icon: <TbHeart /> },
         { id: 5, label: "Home", to: "/shop", icon: <TbHome /> },
         { id: 6, label: "Cart", to: "/cart", icon: <ShoppingCart /> },
-        { id: 7, label: "Account", to: data?.user ? "/dashboard" : "/login", icon: <User /> },
+        { id: 7, label: "Account", to: data?.user ? "/account" : "/login", icon: <User /> },
     ]
     
     const accountPages = ["dashboard", "admin", "agent"]
@@ -86,7 +86,7 @@ function Topbar() {
                     <Search placeholder="Search for a product or vendor" searchType={searchType} onChange={(value) => setSearchType(value)} className="lg:flex-1 lg:rounded-full rounded-[0px]" />
                 </div>
                 <button className="p-2 text-[16px] lg:hidden" onClick={() => setOpenSearch(!openSearch)}>{ openSearch ? <X /> :<MagnifyingGlass /> }</button>
-                <Link href={data?.user ? "/dashboard": "/login"} className="md:flex hidden gap-1 items-center font-medium text-[12px]">
+                <Link href={data?.user ? "/account": "/login"} className="md:flex hidden gap-1 items-center font-medium text-[12px]">
                     <User weight="light" size={20}/>
                     <span>Account</span>
                 </Link>

@@ -60,7 +60,7 @@ export default function StoreContextProvider({ children }: {children: React.Reac
                 }
                 else {
                     setPopup({ type: "success", msg: "Product added Successfully" })
-                    router.push("/dashboard/inventory")
+                    router.push("/account/inventory")
                 }
             })
         }
@@ -154,6 +154,7 @@ export default function StoreContextProvider({ children }: {children: React.Reac
 
     return (
         <storeContext.Provider value={data} >
+            <Toaster />
             {children}
         </storeContext.Provider>
     )

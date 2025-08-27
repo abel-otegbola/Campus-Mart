@@ -31,24 +31,24 @@ export default function Layout({
     }, [data])
 
     const generalLinks: Link[] = [
-        { id: 0, label: "Dashboard", icon: <TbDashboard />, link: "/dashboard" },
-        { id: 1, label: "Orders", icon: <TbListDetails />, link: "/dashboard/orders" },
-        { id: 2, label: "Profile", icon: <TbUser />, link: "/dashboard/profile" },
+        { id: 0, label: "Dashboard", icon: <TbDashboard />, link: "/account" },
+        { id: 1, label: "Orders", icon: <TbListDetails />, link: "/account/orders" },
+        { id: 2, label: "Profile", icon: <TbUser />, link: "/account/profile" },
         { id: 3, label: "Settings", icon: <TbSettings />, link: "/settings" },
     ]
 
     const storeLinks: Link[] = [
-        { id: 0, label: "Dashboard", icon: <TbDashboard />, link: "/dashboard" },
+        { id: 0, label: "Dashboard", icon: <TbDashboard />, link: "/account" },
         { id: 1, label: "My Store", icon: <TbHome2 />, link: "#", subLinks: [ 
-            { id: 3, label: "Storefront", icon: <TbHomeUp />, link: "/dashboard/store" },
-            { id: 4, label: "New Product", icon: <TbPackage />, link: "/dashboard/inventory/new" },
-            { id: 5, label: "Products", icon: <TbPackages />, link: "/dashboard/inventory" },
-            { id: 6, label: "Orders", icon: <TbListDetails />, link: "/dashboard/orders" },
-            { id: 7, label: "Store settings", icon: <TbListDetails />, link: "/dashboard/store-settings" },
+            { id: 3, label: "Storefront", icon: <TbHomeUp />, link: "/account/store" },
+            { id: 4, label: "New Product", icon: <TbPackage />, link: "/account/inventory/new" },
+            { id: 5, label: "Products", icon: <TbPackages />, link: "/account/inventory" },
+            { id: 6, label: "Orders", icon: <TbListDetails />, link: "/account/orders" },
+            { id: 7, label: "Store settings", icon: <TbListDetails />, link: "/account/store-settings" },
          ] 
         },
-        { id: 8, label: "Account Settings", icon: <TbUser />, link: "/dashboard/profile" },
-        { id: 9, label: "Notifications", icon: <TbBell />, link: "/dashboard/notifications" },
+        { id: 8, label: "Account Settings", icon: <TbUser />, link: "/account/profile" },
+        { id: 9, label: "Notifications", icon: <TbBell />, link: "/account/notifications" },
         { id: 10, label: "Settings", icon: <TbSettings />, link: "/settings" },
     ]
 
@@ -63,7 +63,7 @@ export default function Layout({
             <div ref={modalRef} className="flex w-full min-h-[85vh] border-t border-gray-500/[0.1]">
                 <button className="md:hidden fixed top-[16px] md:right-9 right-4 md:p-2 md:z-[0] z-[15]" onClick={() => setOpen(!open)}><Avatar user={ user || data?.user || { fullname: "user" }} /></button>
                 <div className={`fixed md:top-[80px] top-0 left-0 h-screen sm:w-[260px] md:bg-transparent bg-black/[0.8] w-full z-[12] ${open ? "translate-x-[0]": "md:translate-x-[0] translate-x-[130%]"}`}>
-                    <div className={`flex flex-col justify-between md:w-full w-[240px] md:h-[86vh] h-[100vh] md:sticky fixed md:top-0 top-0 py-4 md:px-8 right-0 bg-white dark:bg-black border border-transparent border-x-gray-500/[0.1] overflow-hidden transition-all duration-700 ${open ? "translate-x-[0]": "md:translate-x-[0] translate-x-[130%]"}`}>  
+                    <div className={`flex flex-col md:w-full w-[240px] md:h-[86vh] h-[100vh] md:sticky fixed md:top-0 top-0 py-4 md:px-8 right-0 bg-white dark:bg-black border border-transparent border-x-gray-500/[0.1] overflow-hidden transition-all duration-700 ${open ? "translate-x-[0]": "md:translate-x-[0] translate-x-[130%]"}`}>  
                         <div className="flex flex-col gap-1">
                             {
                             (data?.user?.role === "Seller" || user?.role === "Seller"  ? storeLinks : generalLinks).map(link => {
@@ -75,20 +75,20 @@ export default function Layout({
                                     </Link>
                                     {
                                         link.subLinks ?
-                                        <div className={`relative flex flex-col gap-2 ml-6 overflow-hidden duration-500 text-[12px] ${openedLink === link.label ? "h-[100%]" : "h-[0%]"}`}>
-                                        <span className="absolute -top-4 left-0 w-[1px] h-full bg-gray-500/[0.2]"></span>
-                                        {
-                                        link.subLinks.map(subLink => {
-                                                return (
-                                                <Link key={subLink.id} onClick={() => setOpen(false)} href={ subLink.link} className={`flex items-center justify-between gap-2 md:rounded duration-500 ${pathname === subLink.link ? "bg-primary/[0.1] text-primary" : " hover:bg-primary/[0.1] hover:text-primary"}`}>
-                                                    <span className="w-[16px] h-[1px] bg-gray-500/[0.2]"></span>
-                                                    <span className="w-[20px] text-lg opacity-[0.6]">{subLink.icon}</span>
-                                                    <span className="flex-1 py-2 break-normal">{subLink.label}</span>
-                                                </Link>
-                                                )
-                                        })
-                                        }
-                                    </div>
+                                        <div className={`relative flex flex-col gap-2 ml-6 h-fit overflow-hidden duration-500 text-[11px] ${openedLink === link.label ? "h-[100%]" : "h-[0%]"}`}>
+                                            <span className="absolute -top-4 left-0 w-[1px] h-full bg-gray-500/[0.2]"></span>
+                                            {
+                                            link.subLinks.map(subLink => {
+                                                    return (
+                                                    <Link key={subLink.id} onClick={() => setOpen(false)} href={ subLink.link} className={`flex items-center justify-between gap-2 md:rounded duration-500 ${pathname === subLink.link ? "bg-primary/[0.1] text-primary" : " hover:bg-primary/[0.1] hover:text-primary"}`}>
+                                                        <span className="w-[16px] h-[1px] bg-gray-500/[0.2]"></span>
+                                                        <span className="w-[20px] text-lg opacity-[0.6]">{subLink.icon}</span>
+                                                        <span className="flex-1 py-2 break-normal">{subLink.label}</span>
+                                                    </Link>
+                                                    )
+                                            })
+                                            }
+                                        </div>
                                         :
                                         ""
                                     }

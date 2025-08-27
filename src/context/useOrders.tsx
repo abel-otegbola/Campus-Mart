@@ -70,7 +70,7 @@ export default function OrderContextProvider({ children }: {children: React.Reac
             }
             else {
                 setPopup({ type: "success", msg: "Order added Successfully" })
-                router.push("/dashboard/orders")
+                router.push("/account/orders")
             }
         })
     }
@@ -85,7 +85,7 @@ export default function OrderContextProvider({ children }: {children: React.Reac
             }
             else {
                 setPopup({ type: "success", msg: "Order updated Successfully" })
-                router.push("/dashboard/orders")
+                router.push("/account/orders")
             }
         })
     }
@@ -126,6 +126,7 @@ export default function OrderContextProvider({ children }: {children: React.Reac
 
     return (
         <OrderContext.Provider value={data} >
+            <Toaster />
             {children}
         </OrderContext.Provider>
     )

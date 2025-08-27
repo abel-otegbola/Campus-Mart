@@ -33,7 +33,7 @@ export default function Loginpage() {
                             initialValues={{ email: '', password: ''}}
                             validationSchema={loginSchema}
                             onSubmit={( values, { setSubmitting }) => {
-                                login(values.email, values.password, '/dashboard');
+                                login(values.email, values.password, '/account');
                                 setSubmitting(false);
                             }}
                             >

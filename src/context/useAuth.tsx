@@ -50,7 +50,7 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
                         router.push("/vendor-onboarding")
                     }
                     else {
-                        router.push(callbackUrl ? callbackUrl : "/dashboard")
+                        router.push(callbackUrl ? callbackUrl : "/account")
                     }
                 }
                 else {
@@ -101,7 +101,7 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
     const sociallogin = async (provider: string) => {
         setLoading(true)
         try {
-            let response = await signIn(provider, { callbackUrl: "/dashboard" });
+            let response = await signIn(provider, { callbackUrl: "/account" });
 
             console.log(response)
             
@@ -161,7 +161,7 @@ const AuthProvider = ({ children }: { children: ReactNode}) => {
                 await fetchUserData(email)
                 .then(response => {
                     if(response.role === "Buyer") {
-                        router.push("/dashboard")
+                        router.push("/account")
                     }
                     else if(!response.business_name || response.business_name === "") {
                         router.push(`/vendor-onboarding?email=${email}`)

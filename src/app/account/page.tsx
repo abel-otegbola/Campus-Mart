@@ -49,7 +49,7 @@ function DashboardHome() {
                         </div>
                         
                         <div className="flex items-center gap-2">
-                            <Button size="small" className="dark:bg-primary/[0.7]" href="/dashboard/inventory/new">Add new product</Button>
+                            <Button size="small" className="dark:bg-primary/[0.7]" href="/account/inventory/new">Add new product</Button>
                             {
                                 user?.business_name ?
                                 <Button size="small" className="dark:bg-primary/[0.7]" href={`/store/${user?.business_name.replaceAll(" ", "_")}`}>View my store</Button>
@@ -94,11 +94,11 @@ function DashboardHome() {
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-2 gap-4 border-y border-gray-500/[0.2] py-4">
-                                    <Link href="/dashboard/inventory" className="flex items-center justify-center gap-2 border-r border-gray-500/[0.2]">
+                                    <Link href="/account/inventory" className="flex items-center justify-center gap-2 border-r border-gray-500/[0.2]">
                                         <h1 className="text-[18px] font-medium">{productsLength}</h1>
                                         <p>Product{productsLength === 1 ? "" : "s"}</p>
                                     </Link>
-                                    <Link href="/dashboard/orders" className="flex items-center justify-center gap-2">
+                                    <Link href="/account/orders" className="flex items-center justify-center gap-2">
                                         <h1 className="text-[18px] font-medium">{ordersLength}</h1>
                                         <p>Order{ordersLength === 1 ? "" : "s"}</p>
                                     </Link>
