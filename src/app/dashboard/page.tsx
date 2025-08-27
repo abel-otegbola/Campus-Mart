@@ -87,7 +87,7 @@ function DashboardHome() {
                                         <p>{user?.business_category}</p>
                                         {
                                             user?.business_name ?
-                                            <Button size="small" className="dark:bg-primary/[0.7]" href={`/store/${user?.business_name?.replaceAll(" ", "-")}`}>View my store</Button>
+                                            <Button size="small" className="dark:bg-primary/[0.7]" href={`/store/${user?.business_name?.replaceAll(" ", "_")}`}>View my store</Button>
                                             :
                                             ""
                                         }
