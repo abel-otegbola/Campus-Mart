@@ -61,8 +61,8 @@ export default function Layout({
     return (
         <>
             <div ref={modalRef} className="flex w-full min-h-[85vh] border-t border-gray-500/[0.1]">
-                <button className="md:hidden fixed top-[16px] md:right-9 right-4 md:p-2 md:z-[0] z-[15]" onClick={() => setOpen(!open)}><Avatar user={ user || data?.user || { fullname: "user" }} /></button>
-                <div className={`fixed md:top-[80px] top-0 left-0 h-screen sm:w-[260px] md:bg-transparent bg-black/[0.8] w-full z-[12] ${open ? "translate-x-[0]": "md:translate-x-[0] translate-x-[130%]"}`}>
+                <button className="md:hidden fixed top-[10px] md:right-9 right-4 md:p-2 md:z-[0] z-[15]" onClick={() => setOpen(!open)}><Avatar user={ user || data?.user || { fullname: "user" }} /></button>
+                <div className={`fixed md:top-[80px] top-0 left-0 h-screen md:w-[260px] md:bg-transparent bg-black/[0.8] w-full z-[12] ${open ? "translate-x-[0]": "md:translate-x-[0] translate-x-[130%]"}`}>
                     <div className={`flex flex-col md:w-full w-[240px] md:h-[86vh] h-[100vh] md:sticky fixed md:top-0 top-0 py-4 md:px-8 right-0 bg-white dark:bg-black border border-transparent border-x-gray-500/[0.1] overflow-hidden transition-all duration-700 ${open ? "translate-x-[0]": "md:translate-x-[0] translate-x-[130%]"}`}>  
                         <div className="flex flex-col gap-1">
                             {

@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 function Footer() {
     const pathname  = usePathname()
 
-    const noheader = ["dashboard", "admin", "agent", "login", "register"]
+    const noheader = ["account", "admin", "agent", "login", "register"]
 
     return (
         <footer className={`bg-black text-white dark:bg-dark md:mt-[100px] mt-8 md:m-4 md:rounded-[20px] ${noheader.includes(pathname.split("/")[1]) ? "hidden": ""}`}>
