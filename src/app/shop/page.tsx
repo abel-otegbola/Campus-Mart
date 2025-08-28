@@ -60,7 +60,7 @@ function Shop()  {
                 <h2 className="font-bold text-[28px] uppercase">Shop</h2>
                 <p>Find products and services</p>
             </div>
-            <div className={`relative dark:text-white md:px-[8%] mt-8 mb-8 md:flex gap-10`}>
+            <div className={`relative dark:text-white md:px-[8%] md:mt-8 mb-8 md:flex gap-10`}>
                 <div className={`flex flex-col md:gap-6 gap-2 md:w-[30%] md:sticky fixed md:top-[90px] md:p-0 p-4 bg-white dark:bg-black top-0 left-0 h-full w-[70%] rounded text-[12px] md:z-[2] z-[90] duration-500 ${open ? "translate-x-[0]": "md:translate-x-[0] translate-x-[-130%]"}`}>
                     <div onClick={() => setActive("Categories")}  className="w-full p-4 border border-gray-500/[0.1] dark:bg-dark rounded-[10px]">
                         <button className="uppercase font-medium flex justify-between items-center w-full">Categories { active === "Categories" ? <Minus /> : <Plus />}</button>
@@ -96,8 +96,8 @@ function Shop()  {
                     </div>
                 </div>
 
-                <div className="fixed bottom-[72px] left-0 w-full md:hidden flex items-center justify-center h-[50px] z-[100] overflow-hidden">
-                    <button  onClick={() => setOpen(!open)} className="flex items-center rounded-full p-2 px-4 gap-2 bg-white dark:bg-dark shadow-lg border border-gray-500/[0.1]">
+                <div className="sticky top-[52px] left-0 w-full md:hidden flex items-center justify-center h-[50px] z-[100] overflow-hidden">
+                    <button  onClick={() => setOpen(!open)} className="flex items-center w-full p-2 px-4 gap-2 bg-white dark:bg-dark shadow-lg border border-gray-500/[0.1]">
                         <TbFilter size={16} />
                         <span>Filter</span>
                     </button>
@@ -106,31 +106,36 @@ function Shop()  {
                 <div className="md:w-[70%] w-full">
 
                     <section className=" md:px-0 px-4">
-
-                            <div className="w-full grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 gap-4">
-                                {   
-                                    loading ?
-                                        [0, 1, 2, 3, 4].map(index => (
-                                            <div key={index} className="flex flex-col gap-2">
-                                                <Skeleton type="rectangle"/>
-                                                <Skeleton type="paragraph"/>
-                                            </div>
-                                        ))                                    
-                                    :
-                                    search?.length < 1 ?
-                                    <div className="w-full h-[40vh] flex flex-col items-center justify-center gap-4 p-[3%]">
-                                        <PiInfoLight className="text-primary text-[30px] p-1 rounded-full mr-4 border border-gray-500/[0.2]" onClick={() => setSearchParams("")} /> 
-                                        <p className="">No Product found</p>
-                                        <a className="px-6 py-[2px] border border-primary text-primary rounded" onClick={() => setSearchParams("")}>Refresh</a>
+                        {   
+                            loading ?
+                                <div className="w-full grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 gap-4">
+                                {
+                                [0, 1, 2, 3, 4].map(index => (
+                                    <div key={index} className="flex flex-col gap-2">
+                                        <Skeleton type="rectangle"/>
+                                        <Skeleton type="paragraph"/>
                                     </div>
-                                    :
-                                    search?.map((product: IProduct) => {
-                                        return (
-                                            <ProductCard key={product._id} product={product} />
-                                        )
-                                    })
+                                ))  
                                 }
+                                </div>                                  
+                            :
+                            search?.length < 1 ?
+                            <div className="w-full h-[40vh] flex flex-col items-center justify-center gap-4 p-[3%]">
+                                <PiInfoLight className="text-primary text-[30px] p-1 rounded-full mr-4 border border-gray-500/[0.2]" onClick={() => setSearchParams("")} /> 
+                                <p className="">No Product found</p>
+                                <a className="px-6 py-[2px] border border-primary text-primary rounded" onClick={() => setSearchParams("")}>Refresh</a>
                             </div>
+                            :
+                            <div className="w-full grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-3 grid-cols-2 gap-4">
+                            {
+                            search?.map((product: IProduct) => {
+                                return (
+                                    <ProductCard key={product._id} product={product} />
+                                )
+                            })
+                            }
+                            </div>
+                        }
                     </section>
                 </div>
             </div>

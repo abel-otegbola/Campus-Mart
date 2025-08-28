@@ -27,7 +27,7 @@ export default function CartPage() {
                     cart.length === 0 ?
                     <div className="min-h-[200px] flex flex-col gap-4 justify-center items-center">
                         <p className="font-bold text-[20px]">Your cart is empty</p>
-                        <p className="">Find awesome gadgets in the shop</p>
+                        <p className="">Find awesome products in the shop</p>
                         <Button href="/" className="bg-primary border-none">SHOP PRODUCTS</Button>
                     </div>
                     :

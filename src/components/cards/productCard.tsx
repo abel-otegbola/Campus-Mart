@@ -38,7 +38,7 @@ export default function ProductCard({ product, i }: { product: IProduct, i?: num
                         }
                     </div>
                 </div>
-                <a href={`/product?id=${product._id}`} className="block pb-4 leading-[130%] font-semibold">{product?.title}</a>
+                <a href={`/product?id=${product._id}`} className="block pb-4 leading-[130%] font-semibold capitalize">{product?.title}</a>
                 <div className="flex justify-between gap-3 text-[16px] opacity-[0.7]">
                     {currencyFormatter(+product?.price)} 
 

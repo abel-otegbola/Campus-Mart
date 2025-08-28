@@ -17,6 +17,7 @@ import { LoaderIcon } from "react-hot-toast";
 import emailjs from "@emailjs/browser";
 import { searchAllStore } from "@/actions/useProfile";
 import { totalPrice } from "@/helpers/totlaPrice";
+import { makeOrder } from "@/helpers/makeOrder";
 
 export default function CheckoutPage() {
     const { cart, products } = useContext(storeContext)
@@ -65,20 +66,29 @@ export default function CheckoutPage() {
                         initialValues={{ phone_number: '', country: '', address: '', note: '' }}
                         validationSchema={checkoutSchema}
                         onSubmit={async ( values, { setSubmitting }) => {
-                            const { payWithMonnify } = await import('@/helpers/payWithMonnify');
-                            payWithMonnify({ 
-                                fullname: data?.user.fullname || "", 
-                                email: data?.user.email || user?.email || "", 
-                                amount: totalPrice(cart, products)  }, 
-                                { 
-                                    orderProducts, 
-                                    addOrder, 
-                                    values, 
-                                    user: { email: data?.user.email || user?.email || "", fullname: data?.user.fullname || "" }, 
-                                    cart, 
-                                    products, 
-                                    sellers 
-                                })
+                            // const { payWithMonnify } = await import('@/helpers/payWithMonnify');
+                            // payWithMonnify({ 
+                            //     fullname: data?.user.fullname || "", 
+                            //     email: data?.user.email || user?.email || "", 
+                            //     amount: totalPrice(cart, products)  }, 
+                            //     { 
+                            //         orderProducts, 
+                            //         addOrder, 
+                            //         values, 
+                            //         user: { email: data?.user.email || user?.email || "", fullname: data?.user.fullname || "" }, 
+                            //         cart, 
+                            //         products, 
+                            //         sellers 
+                            //     })
+                            makeOrder({
+                                orderProducts, 
+                                addOrder, 
+                                values, 
+                                user: { email: data?.user.email || user?.email || "", fullname: data?.user.fullname || "" }, 
+                                cart, 
+                                products, 
+                                sellers 
+                            })
                             setSubmitting(false);
                         }}
                         >
@@ -122,7 +132,8 @@ export default function CheckoutPage() {
                                 !data?.user ?
                                     <Button className="w-full">Login to place order</Button>
                                 :
-                                    <Button className="w-full" disabled={isSubmitting || !data?.user || data?.user?.role === "Seller"} >{ isSubmitting || loading ? <LoaderIcon/> : "Make payment" }</Button>
+                                    // <Button className="w-full" disabled={isSubmitting || !data?.user || data?.user?.role === "Seller"} >{ isSubmitting || loading ? <LoaderIcon/> : "Make payment" }</Button>
+                                    <Button className="w-full" disabled={isSubmitting || !data?.user || data?.user?.role === "Seller"} >{ isSubmitting || loading ? <LoaderIcon/> : "Place order" }</Button>
                                 }
                             </form>
                         )}

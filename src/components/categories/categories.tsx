@@ -22,7 +22,7 @@ export default function Categories({ open, setOpen }: {open: boolean, setOpen: (
                 <button className={`p-4 bg-primary absolute top-0 right-0 text-white`} onClick={() => setOpen(false)}><X /></button>
               {
                 categories?.map((category) => (
-                  <Link key={category.id} className="flex items-center justify-between hover:text-primary gap-2 py-4 text-[12px] border-b border-gray-500/[0.1]" href={`/shop?query=${category.title}`}>
+                  <Link key={category.id} onClick={() => setOpen(false)} className="flex items-center justify-between hover:text-primary gap-2 py-4 text-[12px] border-b border-gray-500/[0.1]" href={`/shop?query=${category.title}`}>
                     <div className="flex items-center gap-4">
                         <p className="capitalize">{category.title}</p>
                     </div>
